@@ -1,5 +1,5 @@
-# Welcome to GitHub Desktop!
+# A股 20 核心行业一年走势
 
-This is your README. READMEs are where you can communicate what your project is and how to use it.
+公开静态图表：20 个 A 股核心行业的近一年走势与距阶段高点回撤。
 
-Write your name on line 6, save it, and then head back to GitHub Desktop.
+数据截至 2026-07-28 收盘；页面由 GitHub Pages 托管。
