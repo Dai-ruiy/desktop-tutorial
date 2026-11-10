@@ -1530,7 +1530,7 @@ html&gt;body{padding:0;background:var(--page)!important}
   <section id="map-import" class="map-box map-stack">
     <div>
       <h2>载入本地报告</h2>
-      <p>选择「A 股数据站 · 11 月 10 日完整版」HTML，即可在这个标签页查看总表和六张图卡。</p>
+      <p>选择「A 股数据站 · 11 月 10 日完整版」HTML，即可查看按午盘价重算的持仓排名、六张个股图卡和 ETF 明细。</p>
     </div>
     <label class="map-file">打开本地完整版<input id="map-file" type="file" accept=".html,text/html" aria-label="打开本地完整版 HTML"></label>
     <p class="map-meta">文件由当前浏览器读取。持仓、成本和仓位只显示在这台设备上。</p>
@@ -1609,10 +1609,11 @@ html&gt;body{padding:0;background:var(--page)!important}
   }
 
   const yuan = (number) => number.toFixed(2);
+  const percentage = (number) => number.toFixed(2) + '%';
   const span = (low, high) => low === high ? yuan(low) : yuan(low) + '–' + yuan(high);
   const valuation = (s) => s.eps > 0
-    ? (s.price / s.eps).toFixed(1) + ' 倍 PE'
-    : (s.price / s.bps).toFixed(1) + ' 倍 PB · 亏损';
+    ? (s.price / s.eps).toFixed(1) + ' 倍滚动 PE'
+    : (s.price / s.bps).toFixed(2) + ' 倍 PB · 滚动亏损';
   const rangeColors = { 支撑: '#197d8a', 压力: '#9e6027', 前低: '#647681' };
 
   function chart(stock) {
@@ -1707,19 +1708,23 @@ html&gt;body{padding:0;background:var(--page)!important}
     return section;
   }
 
+  function sourceLink([label, url]) {
+    if (typeof url !== 'string' || !url.startsWith('https://')) return '';
+    const link = html('a', '', label);
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    return link;
+  }
+
   function reviewPanel(s) {
     const section = html('section', 'map-stack');
     section.append(html('h3', '', '下一次复核'));
     section.append(html('p', '', s.facts), html('p', '', s.check), html('p', 'map-meta', s.invalidate));
     const links = html('div', 'map-actions');
-    for (const [label, url] of [['2026 三季报', s.report], ['2025 财务披露', s.annual], ...(s.extra ? [s.extra] : [])]) {
-      if (typeof url !== 'string' || !url.startsWith('https://')) continue;
-      const link = html('a', '', label);
-      link.href = url;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      links.append(link);
-    }
+    const sources = [['2026 三季报', s.report], ['2025 财务披露', s.annual],
+      ...(s.extra ? [s.extra] : []), ...(s.sources ?? [])];
+    links.append(...sources.map(sourceLink));
     section.append(links);
     return section;
   }
@@ -1733,7 +1738,8 @@ html&gt;body{padding:0;background:var(--page)!important}
     const change = (s.price / s.prev - 1) * 100;
     stats.append(html('strong','map-number',yuan(s.price) + ' 元'), html('span','',valuation(s)),
       html('span','map-meta','较昨收 ' + (change >= 0 ? '+' : '') + change.toFixed(2) + '% · ' + s.time));
-    const holding = s.shares + ' 股' + (s.weight === null ? ' · 11/10 用户确认' : ' · 11/03 截图权重 ' + s.weight.toFixed(2) + '%') +
+    const weightLabel = payload.etfs ? '午盘估算仓位 ' : '11/03 截图权重 ';
+    const holding = s.shares + ' 股' + (s.weight === null ? ' · 11/10 用户确认' : ' · ' + weightLabel + percentage(s.weight)) +
       (s.cost === null ? ' · 成本待确认' : ' · 成本 ' + yuan(s.cost) + ' 元');
     header.append(title, stats, html('p','map-meta',holding), html('p','',s.summary));
 
@@ -1767,18 +1773,28 @@ html&gt;body{padding:0;background:var(--page)!important}
       if (scroll) byId('map-stock-detail').scrollIntoView({block:'start'});
       else report.querySelector('[data-stock-index="' + index + '"]').focus({preventScroll:true});
     }
-    overview.append(table(['排名','股票','午盘价（元）','估值','权重或股数','组合判断'],
+    const weightHeading = payload.etfs ? '午盘估算仓位' : '权重或股数';
+    overview.append(table(['排名','股票','午盘价（元）','估值',weightHeading,'组合判断'],
       payload.stocks.map((s,i) => [String(s.rank),button(s.name,()=>choose(i,true)),yuan(s.price),valuation(s),
-        s.weight === null ? s.shares + ' 股' : s.weight.toFixed(2) + '%',s.tag])));
+        s.weight === null ? s.shares + ' 股' : percentage(s.weight),s.tag])));
     overview.append(html('p','map-meta',payload.snapshotNote));
 
     const tickerButtons = html('nav','map-actions');
     tickerButtons.setAttribute('aria-label','切换持仓图卡');
     for (const [i,s] of payload.stocks.entries()) tickerButtons.append(button(s.name,()=>choose(i,false),selected===i,{'data-stock-index':String(i)}));
     stockDetail(detail);
-    const etfs = stack('ETF 与 AI 敞口');
-    etfs.append(html('p','',payload.etfNote));
-    report.replaceChildren(overview,tickerButtons,detail,etfs);
+    const etfs = stack(payload.etfs ? 'ETF 持仓' : 'ETF 与 AI 敞口');
+    etfs.id = 'map-etfs';
+    etfs.append(html('p','map-meta',payload.etfNote));
+    if (payload.etfs) {
+      etfs.append(table(['基金','代码','份额','午盘价（元）','午盘估算仓位','组合敞口与复核'],
+        payload.etfs.map(fund => {
+          const comment = html('div','map-stack');
+          comment.append(html('p','',fund.analysis), sourceLink(fund.source));
+          return [fund.name,fund.symbol.slice(0,6),String(fund.shares),fund.price.toFixed(3),percentage(fund.weight),comment];
+        })));
+    }
+    report.replaceChildren(overview,etfs,tickerButtons,detail);
     report.className='map-stack';
     importPanel.hidden=true;
   }
@@ -1792,6 +1808,11 @@ html&gt;body{padding:0;background:var(--page)!important}
           !Array.isArray(s.bands) || !Array.isArray(bars) || bars.length !== 121 ||
           bars.at(-1)[4] !== s.price) throw Error();
     }
+    if (parsed.etfs !== undefined &&
+        (!Array.isArray(parsed.etfs) || parsed.etfs.length !== 2 || parsed.etfs.some(fund =>
+          !/^\d{6}\.(SH|SZ)$/.test(fund.symbol) || !Number.isFinite(fund.price) ||
+          !Number.isFinite(fund.weight) || !Array.isArray(fund.source)) ||
+          parsed.stocks.some(s => !Number.isFinite(s.weight)))) throw Error();
     payload=parsed;
     selected=0;
     days=60;
