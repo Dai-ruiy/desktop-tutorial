@@ -1,19 +1,77 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>A股20行业一年走势</title>
+<title>A 股数据站 · 行业走势与价格地图</title>
 <style>
 :root{color-scheme:light;background:#eef3f4}
 html,body{margin:0;min-height:100%;background:#eef3f4}
 body{box-sizing:border-box;padding:0}
 iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;background:#eef3f4}
+
+
+.site-tabs{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:9px;padding:9px max(12px,calc((100% - 1096px)/2));background:#f8fafb;border-bottom:1px solid #d7e3e4;font:500 14px/1.4 -apple-system,BlinkMacSystemFont,"PingFang SC",system-ui,sans-serif;white-space:nowrap;overflow:auto}
+.site-tabs a,.map-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#365459;background:transparent;border:1px solid transparent;border-radius:7px;padding:8px 12px;text-decoration:none;font:inherit;cursor:pointer}
+.site-tabs a[aria-selected=true],.map-button[aria-pressed=true]{background:#e3f2ef;border-color:#c1e0d9;color:#075f56}
+.map-button:hover,.site-tabs a:hover{background:#eef4f4}
+.site-tabs a:focus-visible,.map-button:focus-visible,.map-file:focus-within{outline:2px solid #087c71;outline-offset:2px}
+#chart-frame[hidden],#holdings-map[hidden],[hidden]{display:none!important}
+#holdings-map{max-width:1096px;margin:auto;padding:clamp(18px,4vw,42px) clamp(12px,4vw,25px) 48px;color:#142e33;font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC",system-ui,sans-serif}
+#holdings-map *{box-sizing:border-box}
+#holdings-map h1,#holdings-map h2,#holdings-map h3,#holdings-map p{margin:0}
+#holdings-map h1{font-size:clamp(25px,4vw,39px);line-height:1.2;letter-spacing:-.04em;margin:8px 0 12px}
+#holdings-map h2{font-size:22px;line-height:1.3}
+#holdings-map h3{font-size:17px;line-height:1.4;margin:0 0 8px}
+#holdings-map a:not(.map-button){color:#07685e;text-underline-offset:3px}
+#holdings-map .map-kicker{font-size:12px;font-weight:700;letter-spacing:.08em;color:#467279}
+.map-meta{color:#526970;font-size:13px}
+.map-box{background:#fff;border:1px solid #dce7e7;border-radius:12px;padding:clamp(12px,3vw,23px);margin-top:16px}
+.map-box p+p{margin-top:8px!important}
+.map-stack{display:grid;gap:14px}
+.map-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.map-file{display:inline-flex;width:fit-content;position:relative;cursor:pointer;border-radius:7px;padding:8px 13px;background:#0a6b60;color:#fff}
+.map-file input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
+.map-overflow{overflow:auto}
+.map-table{width:100%;border-collapse:collapse;font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.map-table :is(th,td){padding:9px 10px;border-bottom:1px solid #e7eeee;text-align:left}
+.map-table th{font-size:12px;color:#4b6870;background:#f6f9fa}
+.map-table tbody tr:last-child td{border-bottom:0}
+.map-table td:last-child{white-space:normal}
+.map-table td:nth-child(2) button{font-weight:650}
+.map-detail{scroll-margin-top:65px}
+.map-detail-head{border-bottom:1px solid #e4eeee;padding-bottom:13px}
+.map-line{display:flex;gap:10px 20px;flex-wrap:wrap;align-items:baseline}
+.map-number{font-size:25px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.map-tag{background:#e5f3f0;color:#0e645a;border-radius:100px;padding:3px 9px;font-size:12px;font-weight:700}
+.map-legend{font-size:12px;color:#4b6870}
+.map-chart{margin-top:9px;overflow:auto}
+.map-chart svg{display:block;width:100%;min-width:500px}
+.map-chart svg text{font-family:inherit}
+.map-scenarios{display:grid;gap:9px}
+.map-scenarios small{font-size:13px;color:#365459}
+.map-rail{height:12px;position:relative;background:#edf3f3;border-radius:6px;margin-top:4px}
+.map-rail span{height:100%;display:block;position:absolute;background:#74a3a1;border-radius:6px}
+.map-rail[data-base=true] span{background:#188476}
+.map-rail i{position:absolute;top:-3px;height:18px;border-left:2px solid #12303b}
+.map-scenario-label{display:flex;gap:6px 16px;align-items:baseline;flex-wrap:wrap}
+.map-scenario-label b{min-width:43px}
+.map-scenario-label strong{font-variant-numeric:tabular-nums}
+.map-details{display:grid;gap:14px;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr)}
+.map-details>section{border:1px solid #e4eeee;border-radius:9px;padding:14px;min-width:0}
+.map-error{color:#9b3732}
+@media(max-width:720px){.map-details{grid-template-columns:1fr}.map-table :is(th,td){padding:7px 8px}}
+
 </style>
 </head>
 <body>
+
+<nav class="site-tabs" aria-label="A 股数据导航" role="tablist">
+  <a id="industry-tab" role="tab" href="#industry" aria-controls="chart-frame" aria-selected="true">行业走势</a>
+  <a id="holdings-tab" role="tab" href="#holdings-2026-11-10" aria-controls="holdings-map" aria-selected="false">11/10 · A 股价格地图</a>
+</nav>
 <iframe id="chart-frame" sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer" title="A股20行业一年走势" srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -1461,6 +1519,310 @@ html&gt;body{padding:0;background:var(--page)!important}
   });
   window.addEventListener('resize', syncHeight);
 })();
+</script>
+
+<main id="holdings-map" role="tabpanel" aria-labelledby="holdings-tab" hidden>
+  <header>
+    <p class="map-kicker">A 股观察 / 2026-11-10 午盘快照</p>
+    <h1>持仓排序与价格地图</h1>
+    <p class="map-meta">综合排名、K 线位置、估值情景与复核条件</p>
+  </header>
+  <section id="map-import" class="map-box map-stack">
+    <div>
+      <h2>载入本地报告</h2>
+      <p>选择「A 股数据站 · 11 月 10 日完整版」HTML，即可在这个标签页查看总表和六张图卡。</p>
+    </div>
+    <label class="map-file">打开本地完整版<input id="map-file" type="file" accept=".html,text/html" aria-label="打开本地完整版 HTML"></label>
+    <p class="map-meta">文件由当前浏览器读取。持仓、成本和仓位只显示在这台设备上。</p>
+    <p id="map-import-status" class="map-error" aria-live="polite" hidden></p>
+  </section>
+  <div id="map-report"></div>
+</main>
+<script>
+(() => {
+  const byId = (id) => document.getElementById(id);
+  const holdingsHash = '#holdings-2026-11-10';
+  const embedded = byId('holdings-map-data');
+  const report = byId('map-report');
+  const importPanel = byId('map-import');
+  const fileInput = byId('map-file');
+  const status = byId('map-import-status');
+  const svgNS = 'http://www.w3.org/2000/svg';
+  let selected = 0;
+  let days = 60;
+  let payload;
+
+  function html(tag, className, content) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (content !== undefined) element.textContent = content;
+    return element;
+  }
+
+  function svg(tag, attrs, content) {
+    const element = document.createElementNS(svgNS, tag);
+    for (const [key, value] of Object.entries(attrs)) element.setAttribute(key, String(value));
+    if (content !== undefined) element.textContent = content;
+    return element;
+  }
+
+  function tabState() {
+    const showHoldings = location.hash === holdingsHash || (!location.hash && embedded);
+    byId('chart-frame').hidden = Boolean(showHoldings);
+    byId('holdings-map').hidden = !showHoldings;
+    byId('industry-tab').setAttribute('aria-selected', String(!showHoldings));
+    byId('holdings-tab').setAttribute('aria-selected', String(Boolean(showHoldings)));
+    if (!showHoldings) window.dispatchEvent(new Event('resize'));
+  }
+
+  function button(label, onClick, active, attrs = {}) {
+    const element = html('button', 'map-button', label);
+    element.type = 'button';
+    if (active !== undefined) element.setAttribute('aria-pressed', String(active));
+    for (const [key, value] of Object.entries(attrs)) element.setAttribute(key, value);
+    element.addEventListener('click', onClick);
+    return element;
+  }
+
+  function table(headers, rows) {
+    const wrapper = html('div', 'map-overflow');
+    const element = html('table', 'map-table');
+    const head = element.createTHead().insertRow();
+    for (const header of headers) {
+      const th = html('th', '', header);
+      th.scope = 'col';
+      head.append(th);
+    }
+    const body = element.createTBody();
+    for (const row of rows) {
+      const tr = body.insertRow();
+      for (const value of row) tr.insertCell().append(value);
+    }
+    wrapper.append(element);
+    return wrapper;
+  }
+
+  function stack(title, className = 'map-box map-stack') {
+    const section = html('section', className);
+    if (title) section.append(html('h2', '', title));
+    return section;
+  }
+
+  const yuan = (number) => number.toFixed(2);
+  const span = (low, high) => low === high ? yuan(low) : yuan(low) + '–' + yuan(high);
+  const valuation = (s) => s.eps > 0
+    ? (s.price / s.eps).toFixed(1) + ' 倍 PE'
+    : (s.price / s.bps).toFixed(1) + ' 倍 PB · 亏损';
+  const rangeColors = { 支撑: '#197d8a', 压力: '#9e6027', 前低: '#647681' };
+
+  function chart(stock) {
+    const bars = payload.history[stock.symbol].slice(-days - 1);
+    const plot = svg('svg', { viewBox: '0 0 760 300', role: 'img',
+      'aria-label': stock.name + '前复权日 K 线，价格单位为元' });
+    const left = 52, right = 637, top = 18, bottom = 249;
+    const low = Math.min(...bars.map(b => b[3]), ...stock.bands.map(b => b[1]));
+    const high = Math.max(...bars.map(b => b[2]), ...stock.bands.map(b => b[2]));
+    const pad = (high - low) * 0.075 || 1;
+    const step = (right - left) / bars.length;
+    const x = (i) => left + step * (i + 0.5);
+    const y = (p) => bottom - (p - low + pad) / (high - low + 2 * pad) * (bottom - top);
+    const line = (x1, y1, x2, y2, stroke, extra = {}) => svg('line', {x1, y1, x2, y2, stroke, ...extra});
+    const label = (x, y, text, fill = '#48676b', extra = {}) => svg('text', {x, y, fill, 'font-size': 11, ...extra}, text);
+    plot.append(label(6, 13, '价格（元）'));
+    for (let i = 0; i <= 5; i++) {
+      const price = low + (high - low) * i / 5;
+      const at = y(price);
+      plot.append(line(left, at, right, at, '#dce9ea'), label(left - 8, at + 4, yuan(price), '#48676b', {'text-anchor': 'end'}));
+    }
+    const labels = stock.bands.map(([kind, lo, hi]) => ({kind, lo, hi, at: y((lo + hi) / 2)})).sort((a,b) => a.at - b.at);
+    for (const [i, item] of labels.entries()) {
+      item.label = Math.max(item.at, i ? labels[i - 1].label + 15 : top + 5);
+    }
+    for (let i = labels.length - 1; i >= 0; i--) {
+      labels[i].label = Math.min(labels[i].label, i < labels.length - 1 ? labels[i + 1].label - 15 : bottom - 4);
+    }
+    for (const {kind, lo, hi, at, label: labelY} of labels) {
+      const tint = rangeColors[kind];
+      plot.append(svg('rect', {x: left, y: y(hi), width: right - left, height: Math.max(1, y(lo) - y(hi)), fill: tint, opacity: '.13'}));
+      plot.append(line(left, y(hi), right, y(hi), tint, {'stroke-dasharray': '4 3', opacity: '.65'}));
+      plot.append(line(right, at, right + 9, labelY, tint, {opacity: '.7'}), label(right + 12, labelY + 4, span(lo, hi), tint));
+    }
+    for (const [i, bar] of bars.entries()) {
+      const [date, open, high, low, close] = bar;
+      const color = close >= open ? '#bb414a' : '#197b64';
+      const group = svg('g', {opacity: i === bars.length - 1 ? '.76' : '1'});
+      group.append(svg('title', {}, date + ' 开 ' + yuan(open) + ' 高 ' + yuan(high) + ' 低 ' + yuan(low) +
+        (i === bars.length - 1 ? ' 午盘 ' : ' 收 ') + yuan(close)));
+      group.append(line(x(i), y(high), x(i), y(low), color));
+      group.append(svg('rect', {x: x(i) - step * .30, y: y(Math.max(open, close)),
+        width: step * .60, height: Math.max(1.1, Math.abs(y(open) - y(close))), fill: color}));
+      plot.append(group);
+    }
+    plot.append(line(left, y(stock.price), right, y(stock.price), '#135e9c', {'stroke-dasharray': '5 3', 'stroke-width': 1.3}));
+    plot.append(svg('circle', {cx: x(bars.length - 1), cy: y(stock.price), r: 4, fill: '#135e9c', stroke: '#fff', 'stroke-width': 1}));
+    plot.append(line(left,bottom,right,bottom,'#a9bec0'));
+    for (const fraction of [0, 1/3, 2/3, 1]) {
+      const i = Math.floor((bars.length - 1) * fraction);
+      plot.append(label(x(i), bottom + 18, bars[i][0].slice(5), '#48676b', {'text-anchor': 'middle'}));
+    }
+    plot.append(label((left + right) / 2, 289, '交易日期（月–日）', '#48676b', {'text-anchor': 'middle'}));
+    const container = html('div', 'map-chart');
+    container.append(plot);
+    return container;
+  }
+
+  function valuationPanel(s) {
+    const section = html('section', 'map-stack');
+    section.append(html('h3', '', s.scenarios ? '2027 年情景估值' : '盈利修复门槛'));
+    section.append(html('p', 'map-meta', s.assumptions));
+    if (!s.scenarios) {
+      section.append(table(['假设估值', '所需年归母净利润（亿元）'], [25, 30, 35].map(pe =>
+        [pe + ' 倍 PE', (s.price * s.shareCapital / 1e8 / pe).toFixed(2)])));
+      section.append(html('p', 'map-meta', '午盘市值 ÷ 示例市盈率。滚动亏损股先看盈利和现金流能否修复。'));
+      return section;
+    }
+    const upper = Math.max(s.price, ...s.scenarios.map(([eps,, high]) => eps * high)) * 1.06;
+    const bars = html('div', 'map-scenarios');
+    const names = ['保守', '基准', '乐观'];
+    for (const [i, [eps, lo, hi]] of s.scenarios.entries()) {
+      const start = eps * lo;
+      const end = eps * hi;
+      const group = html('div');
+      const label = html('div', 'map-scenario-label');
+      label.append(html('b', '', names[i]), html('strong', '', span(start, end) + ' 元'),
+        html('small', '', 'EPS ' + yuan(eps) + ' 元 × ' + lo + '–' + hi + ' 倍'));
+      const rail = html('div', 'map-rail');
+      rail.dataset.base = String(i === 1);
+      const segment = html('span');
+      segment.style.left = (start / upper * 100) + '%';
+      segment.style.width = ((end - start) / upper * 100) + '%';
+      const current = html('i');
+      current.title = '午盘价 ' + yuan(s.price) + ' 元';
+      current.style.left = (s.price / upper * 100) + '%';
+      rail.append(segment, current);
+      group.append(label, rail);
+      bars.append(group);
+    }
+    section.append(bars, html('p', 'map-meta', '竖线为午盘价 ' + yuan(s.price) + ' 元。每股盈利和市盈率为分析假设。'));
+    return section;
+  }
+
+  function reviewPanel(s) {
+    const section = html('section', 'map-stack');
+    section.append(html('h3', '', '下一次复核'));
+    section.append(html('p', '', s.facts), html('p', '', s.check), html('p', 'map-meta', s.invalidate));
+    const links = html('div', 'map-actions');
+    for (const [label, url] of [['2026 三季报', s.report], ['2025 财务披露', s.annual], ...(s.extra ? [s.extra] : [])]) {
+      if (typeof url !== 'string' || !url.startsWith('https://')) continue;
+      const link = html('a', '', label);
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      links.append(link);
+    }
+    section.append(links);
+    return section;
+  }
+
+  function stockDetail(detail) {
+    const s = payload.stocks[selected];
+    const header = html('header','map-detail-head map-stack');
+    const title = html('div','map-line');
+    title.append(html('h2', '', s.name + ' ' + s.symbol.slice(0,6)), html('span','map-tag',s.tag));
+    const stats = html('div','map-line');
+    const change = (s.price / s.prev - 1) * 100;
+    stats.append(html('strong','map-number',yuan(s.price) + ' 元'), html('span','',valuation(s)),
+      html('span','map-meta','较昨收 ' + (change >= 0 ? '+' : '') + change.toFixed(2) + '% · ' + s.time));
+    const holding = s.shares + ' 股' + (s.weight === null ? ' · 11/10 用户确认' : ' · 11/03 截图权重 ' + s.weight.toFixed(2) + '%') +
+      (s.cost === null ? ' · 成本待确认' : ' · 成本 ' + yuan(s.cost) + ' 元');
+    header.append(title, stats, html('p','map-meta',holding), html('p','',s.summary));
+
+    const chartArea = html('section','map-stack');
+    const chartHead = html('div','map-line');
+    const range = html('div','map-actions');
+    for (const n of [30, 60, 120]) range.append(button(n + ' 日', () => {
+      days = n;
+      stockDetail(detail);
+      detail.querySelector('[data-days="' + n + '"]').focus({preventScroll:true});
+    }, days === n, {'data-days': String(n)}));
+    chartHead.append(html('h3','',s.name + '日 K 线与技术区间'),range);
+    chartArea.append(chartHead, html('p','map-legend','红涨、绿跌 · 青色支撑 · 橙色压力 · 灰色前低 · 蓝线午盘价'),chart(s));
+    const from = payload.history[s.symbol].slice(-days-1)[0][0];
+    chartArea.append(html('p','map-meta','长桥前复权日线 · ' + from + ' 至 2026-11-10 · 末根为午盘快照'));
+    chartArea.append(table(['位置','价格（元）','历史依据'],s.bands.map(([kind,lo,hi,evidence]) => [kind,span(lo,hi),evidence])));
+
+    const panels = html('div','map-details');
+    panels.append(valuationPanel(s),reviewPanel(s));
+    detail.replaceChildren(header,chartArea,panels);
+  }
+
+  function render() {
+    const overview = stack('综合排名');
+    overview.append(html('p','',payload.overview));
+    const detail = stack(null, 'map-box map-stack map-detail');
+    detail.id = 'map-stock-detail';
+    function choose(index, scroll) {
+      selected = index;
+      render();
+      if (scroll) byId('map-stock-detail').scrollIntoView({block:'start'});
+      else report.querySelector('[data-stock-index="' + index + '"]').focus({preventScroll:true});
+    }
+    overview.append(table(['排名','股票','午盘价（元）','估值','权重或股数','组合判断'],
+      payload.stocks.map((s,i) => [String(s.rank),button(s.name,()=>choose(i,true)),yuan(s.price),valuation(s),
+        s.weight === null ? s.shares + ' 股' : s.weight.toFixed(2) + '%',s.tag])));
+    overview.append(html('p','map-meta',payload.snapshotNote));
+
+    const tickerButtons = html('nav','map-actions');
+    tickerButtons.setAttribute('aria-label','切换持仓图卡');
+    for (const [i,s] of payload.stocks.entries()) tickerButtons.append(button(s.name,()=>choose(i,false),selected===i,{'data-stock-index':String(i)}));
+    stockDetail(detail);
+    const etfs = stack('ETF 与 AI 敞口');
+    etfs.append(html('p','',payload.etfNote));
+    report.replaceChildren(overview,tickerButtons,detail,etfs);
+    report.className='map-stack';
+    importPanel.hidden=true;
+  }
+
+  function load(text) {
+    const parsed = JSON.parse(text);
+    if (!Array.isArray(parsed.stocks) || parsed.stocks.length !== 6 || !parsed.history) throw Error();
+    for (const s of parsed.stocks) {
+      const bars = parsed.history[s.symbol];
+      if (!/^\d{6}\.(SH|SZ)$/.test(s.symbol) || !Number.isFinite(s.price) ||
+          !Array.isArray(s.bands) || !Array.isArray(bars) || bars.length !== 121 ||
+          bars.at(-1)[4] !== s.price) throw Error();
+    }
+    payload=parsed;
+    selected=0;
+    days=60;
+    render();
+  }
+
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+    try {
+      if (file.size > 3000000) throw Error();
+      const source = await file.text();
+      const startTag = '<script id="holdings-map-data" type="application/json">';
+      const start = source.indexOf(startTag);
+      if (start < 0) throw Error();
+      const startOfData = start + startTag.length;
+      const end = source.indexOf('<' + '/script>',startOfData);
+      if (end < 0) throw Error();
+      load(source.slice(startOfData,end));
+      status.hidden=true;
+    } catch {
+      status.hidden=false;
+      status.textContent='这个文件没有可读取的持仓报告，请选择 11 月 10 日完整版 HTML。';
+      fileInput.value='';
+    }
+  });
+  window.addEventListener('hashchange', tabState);
+  tabState();
+  if (embedded) load(embedded.textContent);
+})();
+
 </script>
 </body>
 </html>
