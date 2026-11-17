@@ -89,3 +89,46 @@ iframe { background:#f4f6f2!important; }
 #map-report>nav.map-actions[aria-label="切换持仓图卡"]{gap:8px!important;padding:0 2px}#map-report>nav.map-actions[aria-label="切换持仓图卡"] .map-button{background:#fff;border:1px solid #e3ebe4!important;padding:9px 14px;font-weight:600}
 @media(max-width:750px){.stock-workspace .sd-hero{padding:22px;align-items:flex-start}.sd-quote strong{font-size:28px}.sd-metrics{grid-template-columns:1fr 1fr;padding:8px 4px}.sd-metrics>div{padding:11px 15px}.sd-metrics>div:nth-child(2){border-right:0}.sd-metrics>div:nth-child(-n+2){border-bottom:1px solid #edf1ed}.sd-panel{padding:18px}.sd-scenario-grid{grid-template-columns:1fr}.sd-scenario{padding:15px}.sd-case-price{margin:9px 0 4px}.sd-case-rail{margin:12px 0}.sd-level-grid{grid-template-columns:1fr 1fr}.sd-research-grid{grid-template-columns:1fr}.sd-level-context{flex-direction:column;gap:3px}.sd-chart-heading{flex-wrap:wrap}.sd-ohlc{gap:10px}.sd-chart{height:300px}}
 @media(max-width:420px){.stock-workspace .sd-hero{flex-direction:column;gap:16px}.sd-quote{text-align:left}.sd-quote>div{justify-content:flex-start}.sd-level{padding:12px}.sd-level-top{display:block}.sd-level-top small{display:block;margin:4px 0 0 13px}.sd-level-bottom{line-height:1.6}}
+/* Shared page grid and reading hierarchy. */
+.workspace-nav-inner{box-sizing:border-box;width:100%}
+#holdings-map{width:100%}
+#holdings-map>header{padding-top:0!important;padding-bottom:18px!important}
+#holdings-map>header .map-kicker{display:inline-flex;align-items:center;gap:7px;letter-spacing:.09em!important}
+#holdings-map>header .map-kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:#65a97e;box-shadow:0 0 0 4px #e7f1e9}
+#holdings-map>header h1{margin:12px 0 9px!important;line-height:1.15!important}
+#holdings-map>header .map-meta{font-size:13px;letter-spacing:.01em}
+#map-report{gap:18px!important}
+#map-report>.map-box{padding:26px!important;margin:0!important}
+#map-report>.map-box>h2{display:flex;align-items:center;gap:10px;margin-bottom:2px!important;font-size:19px!important}
+#map-report>.map-box>h2::before{content:"";width:4px;height:19px;flex:none;border-radius:4px;background:#65a77e}
+#map-report>section:first-child>p:not(.map-meta):not(.map-freshness){padding:13px 15px;border-radius:10px;background:#f4f8f2;color:#354f3e;font-size:14px;line-height:1.8}
+#map-report>section:first-child .map-shortcuts{margin:0!important;gap:8px!important}
+#holdings-map .workspace-shortcut{background:#fff;border-color:#dfeae1;font-weight:550;transition:background .15s,border-color .15s,transform .15s}
+#holdings-map .workspace-shortcut:hover{background:#eef7ef!important;border-color:#bddfc7;transform:translateY(-1px)}
+#holdings-map .workspace-shortcut:focus-visible{outline:2px solid #2d8860;outline-offset:3px}
+#map-report>section:first-child>.map-meta{max-width:100ch;line-height:1.75}
+.map-freshness{border:1px solid #f1e4c8!important;border-left:3px solid #d6a34d!important;color:#75572a!important}
+#map-stocks .map-sort{margin:0!important;gap:10px}
+#map-stocks>.map-meta,#map-etfs>.map-meta,#map-history>.map-meta{line-height:1.75}
+#map-report .map-overflow{border:1px solid #edf1ed;border-radius:10px;overflow:auto}
+#map-report .map-table th{padding:12px 14px!important;white-space:nowrap}
+#map-report .map-table td{padding:14px!important;line-height:1.65;vertical-align:middle}
+#map-report .map-table td:last-child{min-width:240px}
+#map-stocks .map-table td:first-child .map-button{padding:4px 0!important;color:#276d4c!important;font-weight:700}
+#map-stocks .map-table td:first-child .map-button:hover{background:transparent;color:#184c34!important;text-decoration:underline;text-underline-offset:3px}
+#map-report>nav.map-actions[aria-label="切换持仓图卡"]{gap:8px!important;padding:0!important}
+#map-report>nav.map-actions[aria-label="切换持仓图卡"] .map-button{min-height:42px;transition:background .15s,border-color .15s}
+.sd-panel,.map-box{scroll-margin-top:90px}
+@media(max-width:700px){
+  #holdings-map>header{padding-bottom:14px!important}
+  #map-report{gap:14px!important}
+  #map-report>.map-box{padding:18px!important}
+  #map-report>.map-box>h2{font-size:18px!important}
+  #map-report>section:first-child>p:not(.map-meta):not(.map-freshness){padding:12px;font-size:13px}
+  #map-report .map-overflow{border:0;border-radius:0}
+  #map-report .map-table td{padding:7px 6px!important}
+  #map-report .map-table td:last-child{min-width:0}
+  #map-report>nav.map-actions[aria-label="切换持仓图卡"]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px!important}
+  #map-report>nav.map-actions[aria-label="切换持仓图卡"] .map-button{padding:9px 5px!important;white-space:nowrap}
+}
+#map-report>#map-stock-detail:has(.stock-workspace-mount){padding:0!important}
