@@ -25548,8 +25548,8 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 					/* @__PURE__ */ (0, K.jsxs)("p", {
 						className: "sd-thesis-meta",
 						children: [
-							"复核时点：",
-							n.snapshotDate,
+							"研究复核：",
+							n.researchDate || n.snapshotDate,
 							" · 综合经营质量、盈利与现金流、成长、估值和风险；历史估值及同行比较证据有限。以下复核条件变化时重新判断。"
 						]
 					})
