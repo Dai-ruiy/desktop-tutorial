@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; style-src 'unsafe-inline'; script-src 'sha256-xf60cLiCs3x1Sj2DBB4/OiT7k22zdSdXNWSgEkxuPbY='">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-xf60cLiCs3x1Sj2DBB4/OiT7k22zdSdXNWSgEkxuPbY='">
 <title>A 股持仓地图</title>
 <style>
 :root{color-scheme:light;background:#eef3f4}
@@ -93,6 +93,8 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
   #map-etfs .map-table td:first-child,
   #map-etfs .map-table td:last-child{grid-column:1/-1}
 }</style>
+<link rel="stylesheet" href="../assets-ui/ui.css">
+<script type="module" src="../assets-ui/ui.js"></script>
 </head>
 <body>
 <nav class="site-tabs" aria-label="A 股数据导航">

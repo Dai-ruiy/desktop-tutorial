@@ -1,0 +1,67 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #192b32;
+  --color-muted: #edf2ef;
+  --color-muted-foreground: #667875;
+  --color-secondary: #edf5f1;
+  --color-secondary-foreground: #326453;
+  --color-ring: #379a79;
+  --color-input: #dce7e2;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #192b32;
+  --color-accent: #edf5f1;
+  --color-accent-foreground: #192b32;
+  --radius-md: 8px;
+}
+:root { color-scheme:light; background:#f4f6f2 !important; }
+html,body { background:#f4f6f2 !important; color:#1e302f; font-family: -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; }
+.workspace-nav { position:sticky; top:0; z-index:20; border-bottom:1px solid #e1e9e2; background:rgba(250,252,249,.96); backdrop-filter:blur(12px); }
+.workspace-nav-inner { max-width:1180px; margin:auto; padding:12px 24px; display:flex; align-items:center; gap:36px; }
+.workspace-brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:#173c32; min-width:190px; }
+.workspace-brand b { display:block; font-size:15px; line-height:1.25; letter-spacing:.04em; }
+.workspace-brand small { display:block; margin-top:3px; color:#84988c; font-size:9px; letter-spacing:.11em; }
+.workspace-logo { display:grid; place-items:center; width:38px; height:38px; border-radius:11px; color:#fff; background:#1f5c48; }
+.workspace-tabs { margin-right:auto; }
+.workspace-tab-list { height:auto!important; padding:4px!important; background:#edf2ee!important; }
+.workspace-tab { min-height:36px!important; padding:0 14px!important; border-radius:7px!important; color:#61736b!important; cursor:pointer; }
+.workspace-tab[data-active] { color:#215f4b!important; background:#fff!important; box-shadow:0 1px 3px #183e281c!important; }
+.workspace-tab:focus-visible {outline:2px solid #23805e;outline-offset:2px}
+.workspace-private { display:flex; gap:5px; align-items:center; font-size:11px; color:#4f7867; }
+.industry-status { padding:10px max(24px,calc((100% - 1132px)/2))!important; background:#fff9ed!important; border-bottom:1px solid #f4ead2; color:#86622e!important; }
+iframe { background:#f4f6f2!important; }
+#holdings-map { max-width:1180px!important; padding:42px 24px 70px!important; color:#243a38!important; font-size:14px!important; line-height:1.7!important; }
+#holdings-map header:first-child { padding:3px 0 14px; }
+#holdings-map h1 { font-size:clamp(29px,4vw,42px)!important; letter-spacing:-.035em!important; color:#193d33; }
+#holdings-map h2 { font-size:20px!important; letter-spacing:-.02em; color:#1c3933; }
+#holdings-map h3 {color:#234139;}
+#holdings-map .map-kicker { color:#578b72!important; letter-spacing:.11em!important; }
+.map-stack { gap:14px!important; }
+.map-box { background:#fff!important; border:1px solid #e1e9e3!important; border-radius:16px!important; padding:clamp(18px,3vw,26px)!important; margin-top:4px!important; box-shadow:0 4px 18px #173d2b08; }
+.map-box h2 { margin-bottom:4px!important; }
+.map-meta { color:#71817b!important; }
+.map-shortcuts { gap:8px!important; margin:5px 0!important; }
+#holdings-map .workspace-shortcut { display:inline-flex; gap:12px; align-items:center; padding:7px 11px; border:1px solid #e0eae3; border-radius:8px; background:#f8fbf8; color:#326b55; font-size:13px; text-decoration:none; }
+.workspace-shortcut:hover { background:#eaf5ed!important; }
+.map-freshness { border-left:3px solid #d6a34d!important; background:#fff8e9!important; border-radius:8px!important; padding:10px 13px!important; }
+.map-hold-judgment { background:#f0f8f2!important; border-color:#55a77b!important; border-radius:8px!important; }
+.map-sort { margin:8px 0 3px; }
+.map-sort select { min-height:38px; border-radius:8px!important; border-color:#dce7df!important; }
+.map-table { font-size:13px!important; }
+.map-table :is(th,td) { padding:13px 11px!important; border-color:#edf1ed!important; }
+.map-table th { background:#f7f9f7!important; color:#7b8b82!important; font-weight:600; }
+.map-table tbody tr:hover { background:#f9fbf8; }
+.map-button { border-radius:8px!important; color:#547268!important; transition:background .16s,color .16s; }
+.map-button[aria-pressed=true] { background:#e9f5ed!important; border-color:#c8e8d2!important; color:#1e6a48!important; }
+.map-tag { background:#e9f5ed!important; color:#39745a!important; }
+.map-details>section { border-color:#e6eee7!important; border-radius:12px!important; padding:18px!important; }
+.map-rail { background:#edf2ed!important; }.map-rail span{background:#a7cabc!important}.map-rail[data-base=true] span{background:#4f9c76!important}
+#map-import input { min-height:40px; border:1px solid #d3e1d7; border-radius:8px; padding:0 12px; max-width:100%; }
+#map-import button { background:#245f49; color:#fff!important; margin-left:8px; }
+@media(max-width:700px) { .workspace-nav-inner{padding:10px 14px;gap:10px;flex-wrap:wrap}.workspace-brand{min-width:0;margin-right:auto}.workspace-brand small{display:none}.workspace-logo{width:32px;height:32px}.workspace-tabs{order:3;width:100%;margin:0}.workspace-tab-list{width:100%;box-sizing:border-box}.workspace-tab{flex:1}.workspace-private{font-size:10px} #holdings-map{padding:28px 14px 50px!important}.map-box{padding:17px!important}.map-table :is(th,td){padding:8px!important}.map-detail{scroll-margin-top:120px!important}#map-stocks,#map-etfs,#map-history{scroll-margin-top:120px!important} }
+.workspace-native-select { position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important; }
+.workspace-select-trigger { min-width:190px; min-height:38px!important; padding:8px 11px!important; background:#fff!important; border:1px solid #dce7df!important; border-radius:8px!important; color:#28473b!important; cursor:pointer; }
+.workspace-select-menu { background:#fff!important; padding:5px!important; border:1px solid #dce7df; border-radius:10px!important; box-shadow:0 12px 30px #1d3b291f!important; color:#28473b; }
+.workspace-select-menu [role=option] { min-height:32px; padding:7px 28px 7px 10px!important; cursor:pointer; box-sizing:border-box; }
+.workspace-select-menu [role=option][data-highlighted] { background:#edf5f0; }
