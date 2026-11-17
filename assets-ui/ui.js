@@ -25059,10 +25059,10 @@ var E_ = class extends Ig {
 // src/stock-detail.tsx
 var P_ = (e) => e.toFixed(2), F_ = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
 function I_({ stock: e, bars: t, days: n }) {
-	let r = D.useRef(null), [i, a] = D.useState(null);
+	let r = D.useRef(null), i = D.useRef(null), [a, o] = D.useState(null);
 	D.useEffect(() => {
 		if (!r.current) return;
-		let i = r.current, o = m_(i, {
+		let a = r.current, s = m_(a, {
 			height: 300,
 			autoSize: !0,
 			layout: {
@@ -25103,7 +25103,9 @@ function I_({ stock: e, bars: t, days: n }) {
 				horzTouchDrag: !0,
 				vertTouchDrag: !1
 			}
-		}), s = o.addSeries(N_, {
+		});
+		i.current = s;
+		let c = s.addSeries(N_, {
 			upColor: "#d55b54",
 			downColor: "#15936e",
 			borderUpColor: "#d55b54",
@@ -25112,56 +25114,56 @@ function I_({ stock: e, bars: t, days: n }) {
 			wickDownColor: "#15936e",
 			priceLineVisible: !0,
 			lastValueVisible: !0
-		}), c = t.slice(-n);
-		s.setData(c.map(([e, t, n, r, i]) => ({
+		}), l = t.slice(-n);
+		c.setData(l.map(([e, t, n, r, i]) => ({
 			time: e,
 			open: t,
 			high: n,
 			low: r,
 			close: i
-		}))), e.technical && (s.createPriceLine({
+		}))), e.technical && (c.createPriceLine({
 			price: e.technical.low,
 			color: "#219b79",
 			lineWidth: 1,
 			lineStyle: df.Dashed,
 			axisLabelVisible: !0,
 			title: "20日低"
-		}), s.createPriceLine({
+		}), c.createPriceLine({
 			price: e.technical.high,
 			color: "#c2934b",
 			lineWidth: 1,
 			lineStyle: df.Dashed,
 			axisLabelVisible: !0,
 			title: "5日高"
-		})), o.timeScale().fitContent();
-		let l = new Map(c.map((e) => [e[0], e]));
-		o.subscribeCrosshairMove((e) => {
+		})), s.timeScale().fitContent();
+		let u = new Map(l.map((e) => [e[0], e]));
+		s.subscribeCrosshairMove((e) => {
 			let t = typeof e.time == "string" ? e.time : "";
-			a(l.get(t) ?? null);
+			o(u.get(t) ?? null);
 		});
-		let u = -1, d = 0, f = new ResizeObserver((e) => {
+		let d = -1, f = 0, p = new ResizeObserver((e) => {
 			let t = Math.round(e[0].contentRect.width);
-			t === u || t <= 0 || (u = t, cancelAnimationFrame(d), d = requestAnimationFrame(() => o.timeScale().fitContent()));
+			t === d || t <= 0 || (d = t, cancelAnimationFrame(f), f = requestAnimationFrame(() => {}));
 		});
-		return f.observe(i), () => {
-			f.disconnect(), cancelAnimationFrame(d), o.remove();
+		return p.observe(a), () => {
+			p.disconnect(), cancelAnimationFrame(f), i.current = null, s.remove();
 		};
 	}, [
 		e,
 		t,
 		n
 	]);
-	let o = i ?? t.at(-1);
+	let s = a ?? t.at(-1);
 	return /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
 		/* @__PURE__ */ (0, K.jsxs)("div", {
 			className: "sd-ohlc",
 			"aria-live": "off",
 			children: [
-				/* @__PURE__ */ (0, K.jsx)("span", { children: o[0] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(o[1]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(o[2]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(o[3]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(o[4]) })] })
+				/* @__PURE__ */ (0, K.jsx)("span", { children: s[0] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[1]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[2]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[3]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[4]) })] })
 			]
 		}),
 		/* @__PURE__ */ (0, K.jsx)("div", {
@@ -25172,26 +25174,35 @@ function I_({ stock: e, bars: t, days: n }) {
 		}),
 		/* @__PURE__ */ (0, K.jsxs)("div", {
 			className: "sd-chart-footer",
-			children: [/* @__PURE__ */ (0, K.jsxs)("span", { children: [
-				/* @__PURE__ */ (0, K.jsx)("i", { className: "sd-legend-support" }),
-				"近20日低 ",
-				/* @__PURE__ */ (0, K.jsx)("i", { className: "sd-legend-pressure" }),
-				"近5日高 ",
-				/* @__PURE__ */ (0, K.jsx)("span", {
-					className: "sd-subtle",
-					children: "· 红涨绿跌 · 拖动或缩放查看"
+			children: [
+				/* @__PURE__ */ (0, K.jsx)("button", {
+					type: "button",
+					className: "sd-reset",
+					onClick: () => i.current?.timeScale().fitContent(),
+					children: "恢复图表范围"
+				}),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: [
+					/* @__PURE__ */ (0, K.jsx)("i", { className: "sd-legend-support" }),
+					"近20日低 ",
+					/* @__PURE__ */ (0, K.jsx)("i", { className: "sd-legend-pressure" }),
+					"近5日高 ",
+					/* @__PURE__ */ (0, K.jsx)("span", {
+						className: "sd-subtle",
+						children: "· 红涨绿跌 · 拖动或缩放查看"
+					})
+				] }),
+				/* @__PURE__ */ (0, K.jsx)("a", {
+					href: "https://www.tradingview.com/",
+					target: "_blank",
+					rel: "noopener noreferrer",
+					children: "TradingView Lightweight Charts™ · © 2025 TradingView, Inc. ↗"
 				})
-			] }), /* @__PURE__ */ (0, K.jsx)("a", {
-				href: "https://www.tradingview.com/",
-				target: "_blank",
-				rel: "noopener noreferrer",
-				children: "TradingView Lightweight Charts™ · © 2025 TradingView, Inc. ↗"
-			})]
+			]
 		})
 	] });
 }
-function L_({ stock: e }) {
-	let t = e.bookCases?.map((t) => ({
+function L_({ stock: e, snapshotDate: t }) {
+	let n = e.bookCases?.map((t) => ({
 		name: t.name,
 		low: e.bps * t.lo,
 		high: e.bps * t.hi,
@@ -25207,7 +25218,7 @@ function L_({ stock: e }) {
 		high: e * n,
 		formula: `EPS ${P_(e)} 元 × PE ${t}–${n} 倍`,
 		basis: ""
-	})) ?? [], n = Math.max(e.price, ...t.map((e) => e.high)) * 1.08;
+	})) ?? [], r = Math.max(e.price, ...n.map((e) => e.high)) * 1.08;
 	return /* @__PURE__ */ (0, K.jsxs)("section", {
 		className: "sd-panel sd-valuation",
 		"aria-labelledby": "sd-valuation-title",
@@ -25233,31 +25244,31 @@ function L_({ stock: e }) {
 				className: "sd-case-note",
 				children: [
 					e.caseBasis,
-					" 当前 PB 约 ",
+					" 快照 PB 约 ",
 					P_(e.price / e.bps),
-					" 倍，按 2026 年 9 月末每股净资产计算。"
+					" 倍；每股净资产为 2026 年 9 月末数据。"
 				]
 			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
 				className: "sd-scenario-grid",
-				children: t.map((t, r) => /* @__PURE__ */ (0, K.jsxs)("article", {
-					className: `sd-scenario sd-scenario-${r}`,
+				children: n.map((n, i) => /* @__PURE__ */ (0, K.jsxs)("article", {
+					className: `sd-scenario sd-scenario-${i}`,
 					children: [
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-title",
 							children: [/* @__PURE__ */ (0, K.jsxs)("span", {
 								className: "sd-case-index",
-								children: ["0", r + 1]
-							}), /* @__PURE__ */ (0, K.jsx)("b", { children: t.name })]
+								children: ["0", i + 1]
+							}), /* @__PURE__ */ (0, K.jsx)("b", { children: n.name })]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-price",
 							children: [
-								P_(t.low),
+								P_(n.low),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("span", { children: "—" }),
 								" ",
-								P_(t.high),
+								P_(n.high),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: "元" })
 							]
@@ -25265,26 +25276,28 @@ function L_({ stock: e }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-relative",
 							children: [
-								"相对收盘价 ",
-								F_((t.low / e.price - 1) * 100),
+								"相对 ",
+								t,
+								" 收盘价 ",
+								F_((n.low / e.price - 1) * 100),
 								" ~ ",
-								F_((t.high / e.price - 1) * 100)
+								F_((n.high / e.price - 1) * 100)
 							]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-rail",
 							children: [/* @__PURE__ */ (0, K.jsx)("span", { style: {
-								left: `${t.low / n * 100}%`,
-								width: `${(t.high - t.low) / n * 100}%`
+								left: `${n.low / r * 100}%`,
+								width: `${(n.high - n.low) / r * 100}%`
 							} }), /* @__PURE__ */ (0, K.jsx)("i", {
-								style: { left: `${e.price / n * 100}%` },
+								style: { left: `${e.price / r * 100}%` },
 								title: `收盘价 ${P_(e.price)} 元`
 							})]
 						}),
-						/* @__PURE__ */ (0, K.jsx)("p", { children: t.formula }),
-						t.basis && /* @__PURE__ */ (0, K.jsx)("p", { children: t.basis })
+						/* @__PURE__ */ (0, K.jsx)("p", { children: n.formula }),
+						n.basis && /* @__PURE__ */ (0, K.jsx)("p", { children: n.basis })
 					]
-				}, t.name))
+				}, n.name))
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "sd-case-key",
@@ -25330,35 +25343,35 @@ function L_({ stock: e }) {
 		]
 	});
 }
-function R_({ stock: e }) {
-	let t = e.technical;
-	if (!t) return null;
-	let n = [
+function R_({ stock: e, snapshotDate: t }) {
+	let n = e.technical;
+	if (!n) return null;
+	let r = [
 		{
 			name: "近期支撑",
-			value: t.low,
-			date: t.lowDate,
+			value: n.low,
+			date: n.lowDate,
 			note: "前20日最低",
 			tone: "support"
 		},
 		{
 			name: "关键支撑",
-			value: t.low60,
-			date: t.low60Date,
+			value: n.low60,
+			date: n.low60Date,
 			note: "前60日最低",
 			tone: "support"
 		},
 		{
 			name: "近期压力",
-			value: t.high,
-			date: t.highDate,
+			value: n.high,
+			date: n.highDate,
 			note: "前5日最高",
 			tone: "pressure"
 		},
 		{
 			name: "更远压力",
-			value: t.high20,
-			date: t.high20Date,
+			value: n.high20,
+			date: n.high20Date,
 			note: "前20日最高",
 			tone: "pressure"
 		}
@@ -25382,7 +25395,7 @@ function R_({ stock: e }) {
 			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
 				className: "sd-level-grid",
-				children: n.map((t, n) => /* @__PURE__ */ (0, K.jsxs)("div", {
+				children: r.map((t, n) => /* @__PURE__ */ (0, K.jsxs)("div", {
 					className: "sd-level",
 					children: [
 						/* @__PURE__ */ (0, K.jsxs)("div", {
@@ -25410,20 +25423,24 @@ function R_({ stock: e }) {
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "sd-level-context",
-				children: [/* @__PURE__ */ (0, K.jsx)("b", { children: "当前观察" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [e.price < t.low ? "收盘已跌破近期低点，观察能否收复并连续站稳。" : "收盘在近期低点上方，观察回踩后能否止跌并收回该价。", " 反弹受阻时结合仓位复核；突破后观察能否站稳。"] })]
+				children: [/* @__PURE__ */ (0, K.jsx)("b", { children: "当前观察" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [e.price < n.low ? "收盘已跌破近期低点，观察能否收复并连续站稳。" : "收盘在近期低点上方，观察回踩后能否止跌并收回该价。", " 反弹受阻时结合仓位复核；突破后观察能否站稳。"] })]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "sd-indicators",
 				children: [
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(t.ma20) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(t.ma60) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(t.vwapClose) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [P_(t.volumeRatio), " 倍"] })] })
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(n.ma20) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(n.ma60) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(n.vwapClose) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [P_(n.volumeRatio), " 倍"] })] })
 				]
 			}),
-			/* @__PURE__ */ (0, K.jsx)("p", {
+			/* @__PURE__ */ (0, K.jsxs)("p", {
 				className: "sd-fineprint",
-				children: "数据截至 2026-11-17 收盘；高低点排除当日，均线与量价均价含当日。量加权收盘均价不是逐笔成交密集区或持仓成本；观察位并非保证支撑或自动交易信号。"
+				children: [
+					"数据截至 ",
+					t,
+					" 收盘；高低点排除当日，均线与量价均价含当日。量加权收盘均价不是逐笔成交密集区或持仓成本；观察位并非保证支撑或自动交易信号。"
+				]
 			})
 		]
 	});
@@ -25509,7 +25526,7 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "数量以记录为准" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, K.jsx)("small", { children: "证券市值占比" }),
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "所列 A 股证券占比" }),
 						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : P_(e.weight) + "%" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "仅占所列证券，不含现金" })
 					] }),
@@ -25525,7 +25542,18 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 				children: [/* @__PURE__ */ (0, K.jsx)("div", {
 					className: "sd-thesis-mark",
 					children: /* @__PURE__ */ (0, K.jsx)(ue, { size: 19 })
-				}), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("span", { children: "持有判断" }), /* @__PURE__ */ (0, K.jsx)("p", { children: e.holdingReason })] })]
+				}), /* @__PURE__ */ (0, K.jsxs)("div", { children: [
+					/* @__PURE__ */ (0, K.jsx)("span", { children: "持有判断" }),
+					/* @__PURE__ */ (0, K.jsx)("p", { children: e.holdingReason }),
+					/* @__PURE__ */ (0, K.jsxs)("p", {
+						className: "sd-thesis-meta",
+						children: [
+							"复核时点：",
+							n.snapshotDate,
+							" · 综合经营质量、盈利与现金流、成长、估值和风险；历史估值及同行比较证据有限。以下复核条件变化时重新判断。"
+						]
+					})
+				] })]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "sd-panel sd-chart-panel",
@@ -25568,8 +25596,14 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 					days: Number(i)
 				})]
 			}),
-			/* @__PURE__ */ (0, K.jsx)(L_, { stock: e }),
-			/* @__PURE__ */ (0, K.jsx)(R_, { stock: e }),
+			/* @__PURE__ */ (0, K.jsx)(L_, {
+				stock: e,
+				snapshotDate: n.snapshotDate
+			}),
+			/* @__PURE__ */ (0, K.jsx)(R_, {
+				stock: e,
+				snapshotDate: n.snapshotDate
+			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "sd-panel sd-research",
 				children: [
@@ -25669,8 +25703,8 @@ function G_(e, t = 20) {
 }
 function K_(e, t) {
 	let n = -1, r = 0, i = new ResizeObserver((e) => {
-		let i = Math.round(e[0].contentRect.width);
-		i === n || i <= 0 || (n = i, cancelAnimationFrame(r), r = requestAnimationFrame(() => t.timeScale().fitContent()));
+		let t = Math.round(e[0].contentRect.width);
+		t === n || t <= 0 || (n = t, cancelAnimationFrame(r), r = requestAnimationFrame(() => {}));
 	});
 	return i.observe(e), () => {
 		i.disconnect(), cancelAnimationFrame(r);
@@ -25702,61 +25736,83 @@ function J_({ value: e, onChange: t }) {
 		}, n))
 	});
 }
-function Y_({ selector: e, doc: t }) {
-	let [n, r] = D.useState(e.value), [i, a] = D.useState({
+function Y_({ selector: e, doc: t, series: n }) {
+	let [r, i] = D.useState(e.value), [a, o] = D.useState("");
+	D.useEffect(() => {
+		let t = () => i(e.value);
+		return e.addEventListener("industry-selected", t), () => e.removeEventListener("industry-selected", t);
+	}, [e]);
+	let [s, c] = D.useState({
 		side: "bottom",
 		height: 320
-	}), o = (e) => {
+	}), l = (e) => {
 		if (!e) return;
 		let n = t.querySelector(".ic-selector-trigger"), r = t.defaultView?.frameElement;
 		if (!n || !r) return;
-		let i = r.getBoundingClientRect(), o = n.getBoundingClientRect(), s = i.top + o.top, c = i.top + o.bottom, l = Math.max(0, s - 12), u = Math.max(0, window.innerHeight - c - 12), d = u < 240 && l > u ? "top" : "bottom";
-		a({
+		let i = r.getBoundingClientRect(), a = n.getBoundingClientRect(), o = i.top + a.top, s = i.top + a.bottom, l = Math.max(0, o - 12), u = Math.max(0, window.innerHeight - s - 12), d = u < 240 && l > u ? "top" : "bottom";
+		c({
 			side: d,
 			height: Math.max(80, Math.min(320, (d === "top" ? l : u) - 8))
 		});
-	}, s = Array.from(e.options).map((e) => ({
+	}, u = Array.from(e.options).map((e) => ({
 		value: e.value,
 		label: e.text
 	}));
-	return D.useEffect(() => (e.hidden = !0, e.setAttribute("aria-hidden", "true"), e.tabIndex = -1, () => {
+	D.useEffect(() => (e.hidden = !0, e.setAttribute("aria-hidden", "true"), e.tabIndex = -1, () => {
 		e.hidden = !1, e.removeAttribute("aria-hidden"), e.tabIndex = 0;
-	}), [e]), /* @__PURE__ */ (0, K.jsxs)(Wd, {
-		value: n,
-		items: s,
-		onOpenChange: o,
+	}), [e]);
+	let d = u.filter((e) => !a || (e.label + " " + (n.find((t) => t.name === e.value)?.group ?? "")).toLowerCase().includes(a.toLowerCase()));
+	return /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("input", {
+		className: "ic-search",
+		value: a,
+		onChange: (e) => o(e.target.value),
+		placeholder: "搜索行业或分类",
+		"aria-label": "搜索行业"
+	}), /* @__PURE__ */ (0, K.jsxs)(Wd, {
+		value: r,
+		items: u,
+		onOpenChange: l,
 		onValueChange: (t) => {
-			t && t !== e.value && (r(String(t)), e.value = String(t), e.dispatchEvent(new Event("change", { bubbles: !0 })));
+			t && t !== e.value && (i(String(t)), e.value = String(t), e.dispatchEvent(new Event("change", { bubbles: !0 })));
 		},
 		children: [/* @__PURE__ */ (0, K.jsx)(Kd, {
 			"aria-label": "选择行业查看日线明细",
 			className: "ic-selector-trigger",
 			children: /* @__PURE__ */ (0, K.jsx)(Gd, {})
-		}), /* @__PURE__ */ (0, K.jsx)(qd, {
+		}), /* @__PURE__ */ (0, K.jsxs)(qd, {
 			className: "ic-selector-menu",
 			positionerClassName: "ic-selector-positioner",
 			portalContainer: t.body,
 			align: "start",
-			side: i.side,
-			style: { maxHeight: i.height },
+			side: s.side,
+			style: { maxHeight: s.height },
 			alignItemWithTrigger: !1,
-			children: s.map((e) => /* @__PURE__ */ (0, K.jsx)(Jd, {
+			children: [d.map((e) => /* @__PURE__ */ (0, K.jsxs)(Jd, {
 				className: "ic-selector-option",
 				value: e.value,
-				children: e.label
-			}, e.value))
+				children: [
+					e.label,
+					" ",
+					/* @__PURE__ */ (0, K.jsx)("small", { children: n.find((t) => t.name === e.value)?.group })
+				]
+			}, e.value)), !d.length && /* @__PURE__ */ (0, K.jsx)("div", {
+				className: "ic-empty",
+				children: "没有匹配的行业"
+			})]
 		})]
-	});
+	})] });
 }
 function X_({ item: e, asOf: t }) {
-	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = n === "all" ? e.daily : e.daily.slice(-Number(n)), c = G_(e.daily).slice(-s.length);
+	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = D.useRef(null), c = n === "all" ? e.daily : e.daily.slice(-Number(n)), l = G_(e.daily).slice(-c.length);
 	D.useEffect(() => {
 		if (!o.current) return;
 		let e = m_(o.current, {
 			...U_,
 			autoSize: !0,
 			height: 310
-		}), t = e.addSeries(k_, {
+		});
+		s.current = e;
+		let t = e.addSeries(k_, {
 			color: B_[0],
 			lineWidth: 2,
 			lastValueVisible: !0,
@@ -25771,28 +25827,28 @@ function X_({ item: e, asOf: t }) {
 			priceLineVisible: !1,
 			crosshairMarkerVisible: !0
 		});
-		t.setData(s.map(([e, t]) => ({
+		t.setData(c.map(([e, t]) => ({
 			time: e,
 			value: t
-		}))), n.setData(c.map(([e, t]) => ({
+		}))), n.setData(l.map(([e, t]) => ({
 			time: e,
 			value: t
 		}))), e.timeScale().fitContent();
-		let r = new Map(s.map(([e, t], n) => [e, {
+		let r = new Map(c.map(([e, t], n) => [e, {
 			date: e,
 			value: t,
-			ma: c[n][1]
+			ma: l[n][1]
 		}]));
 		e.subscribeCrosshairMove((e) => a(r.get(W_(e.time)) ?? null));
 		let i = K_(o.current, e);
 		return () => {
-			i(), e.remove();
+			i(), s.current = null, e.remove();
 		};
 	}, [e, n]);
-	let l = i ?? {
+	let u = i ?? {
 		date: t,
 		value: e.current,
-		ma: c.at(-1)?.[1] ?? 0
+		ma: l.at(-1)?.[1] ?? 0
 	};
 	return /* @__PURE__ */ (0, K.jsxs)("div", {
 		className: "ic-detail",
@@ -25812,16 +25868,21 @@ function X_({ item: e, asOf: t }) {
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "ic-selected",
 						children: [
-							l.date,
+							u.date,
 							" ",
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: V_(l.value) })] }),
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: V_(l.ma) })] })
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: V_(u.value) })] }),
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: V_(u.ma) })] })
 						]
 					})
-				] }), /* @__PURE__ */ (0, K.jsx)(J_, {
+				] }), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)(J_, {
 					value: n,
 					onChange: r
-				})]
+				}), /* @__PURE__ */ (0, K.jsx)("button", {
+					className: "ic-reset",
+					type: "button",
+					onClick: () => s.current?.timeScale().fitContent(),
+					children: "恢复图表范围"
+				})] })]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "ic-summary",
@@ -25863,7 +25924,7 @@ function X_({ item: e, asOf: t }) {
 	});
 }
 function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
-	let [i, a] = D.useState([]), [o, s] = D.useState(null), c = D.useRef(null);
+	let [i, a] = D.useState([]), [o, s] = D.useState(null), c = D.useRef(null), l = D.useRef(null), u = D.useRef(null);
 	D.useEffect(() => {
 		if (!c.current) return;
 		let e = m_(c.current, {
@@ -25901,7 +25962,7 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 				value: n / t.daily[0][1] * 100
 			}))), r;
 		});
-		e.timeScale().fitContent();
+		l.current = e, u.current ? e.timeScale().setVisibleLogicalRange(u.current) : e.timeScale().fitContent();
 		let o = r.map((e) => new Map(e.daily.map(([t, n]) => [t, n / e.daily[0][1] * 100])));
 		e.subscribeCrosshairMove((e) => {
 			let t = W_(e.time);
@@ -25918,16 +25979,16 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 				values: n
 			});
 		});
-		let l = K_(c.current, e);
+		let d = K_(c.current, e);
 		return () => {
-			a.length, l(), e.remove();
+			a.length, u.current = e.timeScale().getVisibleLogicalRange(), l.current = null, d(), e.remove();
 		};
 	}, [
 		t,
 		n,
 		i
 	]);
-	let l = (e) => a((t) => t.includes(e) ? t.filter((t) => t !== e) : [...t, e]);
+	let d = (e) => a((t) => t.includes(e) ? t.filter((t) => t !== e) : [...t, e]);
 	return /* @__PURE__ */ (0, K.jsxs)("section", {
 		className: "ic-group",
 		children: [
@@ -25940,9 +26001,11 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 					}),
 					/* @__PURE__ */ (0, K.jsx)("h3", { children: e }),
 					/* @__PURE__ */ (0, K.jsx)("p", { children: "起点 = 100 · 同期比较" })
-				] }), /* @__PURE__ */ (0, K.jsx)("span", {
-					className: "ic-chip",
-					children: "一年走势"
+				] }), /* @__PURE__ */ (0, K.jsx)("button", {
+					type: "button",
+					className: "ic-reset",
+					onClick: () => l.current?.timeScale().fitContent(),
+					children: "恢复范围"
 				})]
 			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
@@ -25961,7 +26024,7 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 					type: "button",
 					className: i.includes(e.name) ? "is-muted" : "",
 					"aria-pressed": !i.includes(e.name),
-					onClick: () => l(e.name),
+					onClick: () => d(e.name),
 					children: [
 						/* @__PURE__ */ (0, K.jsx)("i", { style: { background: B_[t] } }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: e.name }),
@@ -25980,7 +26043,7 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 		]
 	});
 }
-var Q_ = "\n.ic-selector-root{width:100%;min-width:0}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
+var Q_ = "\n.ic-selector-root{width:100%;min-width:0}.ic-search{box-sizing:border-box;width:100%;height:36px;margin-bottom:6px;padding:0 11px;border:1px solid #d7e4db;border-radius:9px;color:#244b38;background:#fff;font:13px sans-serif}.ic-selector-option small{margin-left:auto;margin-right:8px;color:#90a495;font-size:10px}.ic-empty{padding:12px;color:#82988b}.ic-reset{display:block;margin:7px 0 0 auto;border:0;background:transparent;color:#56816a;font-size:11px;cursor:pointer}.ic-reset:hover{text-decoration:underline}.ic-jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.ic-jump a{padding:7px 11px;border:1px solid #dfeae0;border-radius:8px;color:#3d7354;text-decoration:none;font-size:12px}.drawdown-row[data-jump],#sector-table tbody tr[data-jump]{cursor:pointer}.drawdown-row[data-jump]:hover,#sector-table tbody tr[data-jump]:hover{background:#edf7ef}.drawdown-row[data-jump]:focus-visible,#sector-table tbody tr[data-jump]:focus-visible{outline:2px solid #398a61;outline-offset:-2px}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
 function $_(e) {
 	let t = e.contentDocument;
 	if (!t) return;
@@ -26005,13 +26068,45 @@ function $_(e) {
 		}, e.name)));
 	}
 	u(), i.addEventListener("change", (e) => {
-		e.stopImmediatePropagation(), u();
+		e.stopImmediatePropagation(), u(), i.dispatchEvent(new Event("industry-selected"));
 	}, !0);
 	let d = t.createElement("div");
 	d.className = "ic-selector-root", i.after(d), (0, fa.createRoot)(d).render(/* @__PURE__ */ (0, K.jsx)(Y_, {
 		selector: i,
-		doc: t
-	})), o.replaceChildren(), (0, fa.createRoot)(o).render(/* @__PURE__ */ (0, K.jsx)(K.Fragment, { children: [
+		doc: t,
+		series: r.series
+	}));
+	let f = (e) => {
+		i.value = e, i.dispatchEvent(new Event("change", { bubbles: !0 })), t.querySelector(".hero-panel")?.scrollIntoView({
+			behavior: "smooth",
+			block: "start"
+		});
+	};
+	t.querySelectorAll(".drawdown-row, #sector-table tbody tr").forEach((e) => {
+		let t = e.querySelector(".drawdown-name strong, .drawdown-name b")?.textContent?.trim() || e.querySelector("td")?.textContent?.trim() || Array.from(i.options).find((t) => e.textContent?.includes(t.value))?.value;
+		t && Array.from(i.options).some((e) => e.value === t) && (e.dataset.jump = t, e.setAttribute("tabindex", "0"), e.setAttribute("role", "button"), e.setAttribute("aria-label", `${t}，查看日线趋势`), e.addEventListener("click", () => f(t)), e.addEventListener("keydown", (e) => {
+			(e.key === "Enter" || e.key === " ") && (e.preventDefault(), f(t));
+		}));
+	});
+	let p = t.querySelector(".dashboard-header");
+	if (p) {
+		let e = t.createElement("nav");
+		e.className = "ic-jump", e.setAttribute("aria-label", "页面快速导航"), [
+			["日线趋势", ".hero-panel"],
+			["回撤排行", "[aria-label=回撤排序]"],
+			["行业对比", "[aria-label=行业分组走势]"],
+			["行业明细", "[aria-label=行业明细表]"]
+		].forEach(([n, r]) => {
+			let i = t.createElement("a");
+			i.href = "#", i.textContent = n, i.addEventListener("click", (e) => {
+				e.preventDefault(), t.querySelector(r)?.scrollIntoView({
+					behavior: "smooth",
+					block: "start"
+				});
+			}), e.append(i);
+		}), p.after(e);
+	}
+	o.replaceChildren(), (0, fa.createRoot)(o).render(/* @__PURE__ */ (0, K.jsx)(K.Fragment, { children: [
 		"科技",
 		"先进制造",
 		"消费医药",
@@ -26022,12 +26117,12 @@ function $_(e) {
 		benchmark: s,
 		asOf: r.asOf
 	}, e)) }));
-	let f = t.getElementById("industry-drawdown-vis");
-	if (f) {
+	let m = t.getElementById("industry-drawdown-vis");
+	if (m) {
 		let t = () => {
-			e.isConnected && (e.style.height = `${Math.ceil(f.getBoundingClientRect().height)}px`);
+			e.isConnected && (e.style.height = `${Math.ceil(m.getBoundingClientRect().height)}px`);
 		};
-		new ResizeObserver(t).observe(f), t();
+		new ResizeObserver(t).observe(m), t();
 	}
 }
 // src/main.tsx

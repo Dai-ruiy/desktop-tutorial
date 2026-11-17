@@ -132,3 +132,5 @@ iframe { background:#f4f6f2!important; }
   #map-report>nav.map-actions[aria-label="切换持仓图卡"] .map-button{padding:9px 5px!important;white-space:nowrap}
 }
 #map-report>#map-stock-detail:has(.stock-workspace-mount){padding:0!important}
+
+.map-scope{padding:11px 14px;border-left:3px solid #7db697;background:#f2f8f3;color:#466653;font-size:12px;line-height:1.7;border-radius:4px 8px 8px 4px}.sd-thesis-meta{color:#6b8b76!important;font-size:11px!important}.sd-reset{border:1px solid #dce9de;background:#f7faf7;color:#52775f;border-radius:7px;padding:5px 9px;font-size:11px;cursor:pointer}.sd-reset:hover{background:#eaf5eb}

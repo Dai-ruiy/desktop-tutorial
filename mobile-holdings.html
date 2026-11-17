@@ -93,8 +93,8 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
   #map-etfs .map-table td:first-child,
   #map-etfs .map-table td:last-child{grid-column:1/-1}
 }</style>
-<link rel="stylesheet" href="./assets-ui/ui.css?v=20261117-7">
-<script type="module" src="./assets-ui/ui.js?v=20261117-7"></script>
+<link rel="stylesheet" href="./assets-ui/ui.css?v=20261117-8">
+<script type="module" src="./assets-ui/ui.js?v=20261117-8"></script>
 </head>
 <body>
 <nav class="site-tabs" aria-label="A 股数据导航">
@@ -400,8 +400,9 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
     overview.append(html('p','',payload.overview));
     const shortcuts = html('nav','map-shortcuts'); shortcuts.setAttribute('aria-label','页面快速导航'); for (const [label,href] of [['股票排行','#map-stocks'],['个股详情','#map-stock-detail'],['基金排行','#map-etfs'],['更新记录','#map-history']]) { const a=html('a','',label); a.href=href; shortcuts.append(a); } overview.append(shortcuts);
     overview.append(html('p','map-meta',payload.coverage), html('p','map-meta',payload.snapshotNote));
+    overview.append(html('p','map-scope','数据口径：行情 ' + payload.snapshotDate + ' ' + payload.snapshotKind + '；A 股持仓数量按 11 月 16 日记录及用户确认；财报以 2026 年三季报为主。页面为静态快照，不自动刷新。'), html('p','map-scope','覆盖范围：占比仅以所列 5 只股票和 2 只 ETF 为分母；不含现金、场外基金及其他账户。账户现金、融资、BBAE 完整持仓及部分基金最新市值仍待核实，暂无法计算全资产现金比例。'));
     const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-    const freshness = today > payload.snapshotDate ? '历史快照，使用前请更新行情及持仓。' : '已收盘快照；页面不自动刷新。';
+    const freshness = today > payload.snapshotDate ? '历史快照；请结合最近交易日和账户变动核对。' : '当日快照；页面不自动刷新。';
     overview.append(html('p','map-freshness','数据状态：' + payload.snapshotDate + ' ' + payload.snapshotKind + ' · ' + freshness));
     const detail = stack(null, 'map-box map-stack map-detail');
     detail.id = 'map-stock-detail';
@@ -418,17 +419,17 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
     const holdings = stack('股票持仓比较'); holdings.id = 'map-stocks';
     const sortLabel=html('label','map-sort'); sortLabel.append(html('span','','排序方式：'));
     const select=html('select'); select.setAttribute('aria-label','股票排序方式');
-    for (const [value,label] of [['holding','最值得持有（综合）'],['weight','证券占比从高到低'],['change','当日涨跌从高到低']]) {const o=html('option','',label);o.value=value;select.append(o);}
+    for (const [value,label] of [['holding','最值得持有（综合）'],['weight','所列证券占比从高到低'],['change','当日涨跌从高到低']]) {const o=html('option','',label);o.value=value;select.append(o);}
     select.value=sortMode;select.addEventListener('change',()=>{sortMode=select.value;render(); report.querySelector('select[aria-label="股票排序方式"]').focus();});sortLabel.append(select);
-    holdings.append(sortLabel,html('p','map-meta',sortMode === 'holding' ? '依据截至2026-11-17的三季报与收盘快照，面向2–3年持有，综合经营质量、盈利与现金流、增长持续性、估值及风险作主观比较；不使用持仓数量、成本、占比或当日涨跌作为排序依据。历史估值与同行数据未取得，估值判断信心有限；不代表买卖指令。' : '证券占比以所列7项证券总市值为分母，不含现金和其他账户；当日涨跌为单日表现，不等同于持有价值。'));
+    holdings.append(sortLabel,html('p','map-meta',sortMode === 'holding' ? '依据截至' + payload.snapshotDate + '的三季报与收盘快照，面向2–3年持有，综合经营质量、盈利与现金流、增长持续性、估值及风险作主观比较；不使用持仓数量、成本、占比或当日涨跌作为排序依据。历史估值与同行数据未取得，估值判断信心有限；不代表买卖指令。' : '证券占比以所列7项证券总市值为分母，不含现金和其他账户；当日涨跌为单日表现，不等同于持有价值。'));
     const rows=payload.stocks.map((s,i)=>({s,i}));
     rows.sort((a,b)=>sortMode==='holding'?a.s.holdingRank-b.s.holdingRank:sortMode==='weight'?b.s.weight-a.s.weight:(b.s.price/b.s.prev)-(a.s.price/a.s.prev));
-    holdings.append(table(['股票','收盘价（元）','当日涨跌','证券市值占比','研究提示'],rows.map(({s,i})=>[button(s.name,()=>choose(i,true)),yuan(s.price),((s.price/s.prev-1)*100).toFixed(2)+'%',percentage(s.weight),sortMode==='holding' ? s.holdingRank + ' · ' + s.holdingReason : s.tag])));
+    holdings.append(table(['股票','收盘价（元）','当日涨跌','所列证券占比','研究提示'],rows.map(({s,i})=>[button(s.name,()=>choose(i,true)),yuan(s.price),((s.price/s.prev-1)*100).toFixed(2)+'%',percentage(s.weight),sortMode==='holding' ? s.holdingRank + ' · ' + s.holdingReason : s.tag])));
     const etfs = stack('基金持仓与持有价值排行');
     etfs.id = 'map-etfs';
     etfs.append(html('p','', '按照2–3年持有视角，综合基金定位、分散程度、风险、重复敞口和长期适配度做主观排序；不按持仓金额或近期涨跌排名。不同资产承担不同角色，排序不代表预期收益或买卖指令。'));
     etfs.append(html('p','map-meta','范围：已知场内ETF、场外基金及美股ETF。持仓金额、份额和行情来自不同日期与账户，不加总、不计算全资产比例；最新份额或金额缺失时保留历史证据。'));
-    etfs.append(html('p','map-meta','同排名表示方向相近、现有证据不足以排序；杠杆单股ETF单独按长期持有适配度评估。数据截至2026-11-17，未来应随基金季报、费率、溢价和账户变化复核。'));
+    etfs.append(html('p','map-meta','同排名表示方向相近、现有证据不足以排序；杠杆单股ETF单独按长期持有适配度评估。最近整理：' + payload.snapshotDate + '；应随基金季报、费率、溢价和账户变化复核。'));
     if (payload.fundInventory) etfs.append(table(['排名','基金','类型 / 账户','持仓记录与状态','持有理由、风险与来源'],payload.fundInventory.map(fund=>{
       const identity=html('div');identity.append(html('b','',fund.name),html('p','map-meta',fund.code));
       const position=html('div');position.append(html('p','',fund.holding),html('p','map-meta',fund.status));
