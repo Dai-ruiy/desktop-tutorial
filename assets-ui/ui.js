@@ -25204,20 +25204,20 @@ function I_({ stock: e, bars: t, days: n }) {
 function L_({ stock: e, snapshotDate: t }) {
 	let n = e.bookCases?.map((t) => ({
 		name: t.name,
-		low: e.bps * t.lo,
-		high: e.bps * t.hi,
-		formula: `每股净资产 ${P_(e.bps)} 元 × PB ${t.lo}–${t.hi} 倍`,
+		low: e.bps * (t.bpsFactor ?? 1) * t.lo,
+		high: e.bps * (t.bpsFactor ?? 1) * t.hi,
+		formula: `每股净资产 ${P_(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍`,
 		basis: t.basis
-	})) ?? e.scenarios?.map(([e, t, n], r) => ({
+	})) ?? e.scenarios?.map(([t, n, r], i) => ({
 		name: [
 			"保守",
 			"基准",
 			"乐观"
-		][r],
-		low: e * t,
-		high: e * n,
-		formula: `EPS ${P_(e)} 元 × PE ${t}–${n} 倍`,
-		basis: ""
+		][i],
+		low: t * n,
+		high: t * r,
+		formula: `EPS ${P_(t)} 元 × PE ${n}–${r} 倍`,
+		basis: e.scenarioNotes?.[i] ?? ""
 	})) ?? [], r = Math.max(e.price, ...n.map((e) => e.high)) * 1.08;
 	return /* @__PURE__ */ (0, K.jsxs)("section", {
 		className: "sd-panel sd-valuation",
@@ -25234,7 +25234,7 @@ function L_({ stock: e, snapshotDate: t }) {
 						id: "sd-valuation-title",
 						children: "估值情景"
 					}),
-					/* @__PURE__ */ (0, K.jsx)("p", { children: "三种假设下的价格区间，用于比较，不是目标价" })
+					/* @__PURE__ */ (0, K.jsx)("p", { children: "历史、同行及经营风险共同形成的压力测试；区间不是目标价" })
 				] }), /* @__PURE__ */ (0, K.jsx)("span", {
 					className: "sd-method",
 					children: e.bookCases ? "PB 压力测试" : "EPS × PE 情景"
@@ -25248,6 +25248,10 @@ function L_({ stock: e, snapshotDate: t }) {
 					P_(e.price / e.bps),
 					" 倍；每股净资产为 2026 年 9 月末数据。"
 				]
+			}),
+			e.valuationContext && /* @__PURE__ */ (0, K.jsx)("div", {
+				className: "sd-evidence-grid",
+				children: e.valuationContext.map((e) => /* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("b", { children: e.label }), /* @__PURE__ */ (0, K.jsx)("p", { children: e.text })] }, e.label))
 			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
 				className: "sd-scenario-grid",
@@ -25330,7 +25334,7 @@ function L_({ stock: e, snapshotDate: t }) {
 							P_(e.recent60[1]),
 							" 元。历史区间不是支撑或预测。"
 						] }),
-						e.bookCases && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: "以上是 2027–2028 年静态压力测试，假设每股净资产仍为 9 月末水平。倍数未经历史分位或可比公司验证，亏损、减值、分红和股本变化均会改变结果。" }), /* @__PURE__ */ (0, K.jsxs)("p", { children: [
+						e.bookCases && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: "以上是静态压力测试，每股净资产调整幅度及 PB 均为根据历史、同行和经营状况设定的情景假设，不代表合理估值或发生概率。亏损、减值、分红和股本变化均会改变结果。" }), /* @__PURE__ */ (0, K.jsxs)("p", { children: [
 							"按当前快照估算市值 ",
 							P_(e.price * e.shareCapital / 1e8),
 							" 亿元；按 20 倍市盈率反推需全年归母利润约 ",

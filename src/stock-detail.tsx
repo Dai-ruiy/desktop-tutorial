@@ -8,7 +8,7 @@ type Stock = {
   name:string; symbol:string; shares:number; weight:number|null; cost:number|null; tag:string; role:string; facts:string;
   holdingRank:number; holdingReason:string; price:number; prev:number; time:string; assumptions:string; evidenceNote:string;
   recent20:[number,number]; recent60:[number,number]; scenarios?:[number,number,number][]; bps:number; shareCapital:number;
-  bookCases?:{name:string;basis:string;lo:number;hi:number}[]; caseBasis?:string; check:string; invalidate:string;
+  bookCases?:{name:string;basis:string;lo:number;hi:number;bpsFactor?:number}[]; caseBasis?:string; scenarioNotes?:string[]; valuationContext?:{label:string;text:string}[]; check:string; invalidate:string;
   technical?:{low:number;lowDate:string;low60:number;low60Date:string;high:number;highDate:string;high20:number;high20Date:string;ma20:number;ma60:number;vwapClose:number;volumeRatio:number};
   report?:string; annual?:string; extra?:[string,string]; sources?:[string,string][];
 }
@@ -45,13 +45,14 @@ function PriceChart({stock,bars,days}:{stock:Stock;bars:Bar[];days:number}) {
 }
 
 function Valuation({stock:s,snapshotDate}:{stock:Stock;snapshotDate:string}) {
-  const cases = s.bookCases?.map(c=>({name:c.name,low:s.bps*c.lo,high:s.bps*c.hi,formula:`每股净资产 ${fmt(s.bps)} 元 × PB ${c.lo}–${c.hi} 倍`,basis:c.basis})) ?? s.scenarios?.map(([eps,lo,hi],i)=>({name:['保守','基准','乐观'][i],low:eps*lo,high:eps*hi,formula:`EPS ${fmt(eps)} 元 × PE ${lo}–${hi} 倍`,basis:''})) ?? []
+  const cases = s.bookCases?.map(c=>({name:c.name,low:s.bps*(c.bpsFactor??1)*c.lo,high:s.bps*(c.bpsFactor??1)*c.hi,formula:`每股净资产 ${fmt(s.bps)} 元 × ${((c.bpsFactor??1)*100).toFixed(0)}% × PB ${c.lo}–${c.hi} 倍`,basis:c.basis})) ?? s.scenarios?.map(([eps,lo,hi],i)=>({name:['保守','基准','乐观'][i],low:eps*lo,high:eps*hi,formula:`EPS ${fmt(eps)} 元 × PE ${lo}–${hi} 倍`,basis:s.scenarioNotes?.[i]??''})) ?? []
   const upper=Math.max(s.price,...cases.map(c=>c.high))*1.08
-  return <section className="sd-panel sd-valuation" aria-labelledby="sd-valuation-title"><div className="sd-section-heading"><div><div className="sd-overline">SCENARIO ANALYSIS</div><h3 id="sd-valuation-title">估值情景</h3><p>三种假设下的价格区间，用于比较，不是目标价</p></div><span className="sd-method">{s.bookCases?'PB 压力测试':'EPS × PE 情景'}</span></div>
+  return <section className="sd-panel sd-valuation" aria-labelledby="sd-valuation-title"><div className="sd-section-heading"><div><div className="sd-overline">SCENARIO ANALYSIS</div><h3 id="sd-valuation-title">估值情景</h3><p>历史、同行及经营风险共同形成的压力测试；区间不是目标价</p></div><span className="sd-method">{s.bookCases?'PB 压力测试':'EPS × PE 情景'}</span></div>
     {s.bookCases && <p className="sd-case-note">{s.caseBasis} 快照 PB 约 {fmt(s.price/s.bps)} 倍；每股净资产为 2026 年 9 月末数据。</p>}
+    {s.valuationContext && <div className="sd-evidence-grid">{s.valuationContext.map(item=><article key={item.label}><b>{item.label}</b><p>{item.text}</p></article>)}</div>}
     <div className="sd-scenario-grid">{cases.map((c,i)=><article className={`sd-scenario sd-scenario-${i}`} key={c.name}><div className="sd-case-title"><span className="sd-case-index">0{i+1}</span><b>{c.name}</b></div><div className="sd-case-price">{fmt(c.low)} <span>—</span> {fmt(c.high)} <small>元</small></div><div className="sd-case-relative">相对 {snapshotDate} 收盘价 {sign((c.low/s.price-1)*100)} ~ {sign((c.high/s.price-1)*100)}</div><div className="sd-case-rail"><span style={{left:`${c.low/upper*100}%`,width:`${(c.high-c.low)/upper*100}%`}}/><i style={{left:`${s.price/upper*100}%`}} title={`收盘价 ${fmt(s.price)} 元`}/></div><p>{c.formula}</p>{c.basis&&<p>{c.basis}</p>}</article>)}</div>
     <div className="sd-case-key"><span><i/> 区间</span><span><b/> 收盘价 {fmt(s.price)} 元</span><span>竖线及区间使用同一比例尺</span></div>
-    <details className="sd-disclosure"><summary><span><CircleHelp size={16}/> 查看估值依据与限制</span><ChevronDown size={16}/></summary><div className="sd-disclosure-body"><p>{s.assumptions}</p><p>{s.evidenceNote}</p><p>近 20 日收盘区间 {fmt(s.recent20[0])}–{fmt(s.recent20[1])} 元；近 60 日 {fmt(s.recent60[0])}–{fmt(s.recent60[1])} 元。历史区间不是支撑或预测。</p>{s.bookCases&&<><p>以上是 2027–2028 年静态压力测试，假设每股净资产仍为 9 月末水平。倍数未经历史分位或可比公司验证，亏损、减值、分红和股本变化均会改变结果。</p><p>按当前快照估算市值 {fmt(s.price*s.shareCapital/100000000)} 亿元；按 20 倍市盈率反推需全年归母利润约 {fmt(s.price*s.shareCapital/100000000/20)} 亿元，并非利润预测。</p></>}</div></details>
+    <details className="sd-disclosure"><summary><span><CircleHelp size={16}/> 查看估值依据与限制</span><ChevronDown size={16}/></summary><div className="sd-disclosure-body"><p>{s.assumptions}</p><p>{s.evidenceNote}</p><p>近 20 日收盘区间 {fmt(s.recent20[0])}–{fmt(s.recent20[1])} 元；近 60 日 {fmt(s.recent60[0])}–{fmt(s.recent60[1])} 元。历史区间不是支撑或预测。</p>{s.bookCases&&<><p>以上是静态压力测试，每股净资产调整幅度及 PB 均为根据历史、同行和经营状况设定的情景假设，不代表合理估值或发生概率。亏损、减值、分红和股本变化均会改变结果。</p><p>按当前快照估算市值 {fmt(s.price*s.shareCapital/100000000)} 亿元；按 20 倍市盈率反推需全年归母利润约 {fmt(s.price*s.shareCapital/100000000/20)} 亿元，并非利润预测。</p></>}</div></details>
   </section>
 }
 
