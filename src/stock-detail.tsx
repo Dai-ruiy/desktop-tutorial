@@ -33,7 +33,11 @@ function PriceChart({stock,bars,days}:{stock:Stock;bars:Bar[];days:number}) {
     chart.timeScale().fitContent()
     const byDate=new Map(visible.map(b=>[b[0],b]))
     chart.subscribeCrosshairMove(event=>{const date=typeof event.time==='string'?event.time:'';setHover(byDate.get(date)??null)})
-    return ()=>chart.remove()
+    let width=-1, pending=0
+    const resize=new ResizeObserver(entries=>{const next=Math.round(entries[0].contentRect.width);if(next===width||next<=0)return;width=next;cancelAnimationFrame(pending);pending=requestAnimationFrame(()=>chart.timeScale().fitContent())})
+    resize.observe(element)
+    return ()=>{resize.disconnect();cancelAnimationFrame(pending);chart.remove()}
+
   },[stock,bars,days])
   const last=hover??bars.at(-1)!
   return <><div className="sd-ohlc" aria-live="off"><span>{last[0]}</span><span>开 <b>{fmt(last[1])}</b></span><span>高 <b>{fmt(last[2])}</b></span><span>低 <b>{fmt(last[3])}</b></span><span>收 <b>{fmt(last[4])}</b></span></div><div className="sd-chart" ref={el} aria-label={`${stock.name}前复权日K线，可拖动和缩放`} role="img"/><div className="sd-chart-footer"><span><i className="sd-legend-support"/>近20日低 <i className="sd-legend-pressure"/>近5日高 <span className="sd-subtle">· 红涨绿跌 · 拖动或缩放查看</span></span><a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">TradingView Lightweight Charts™ · © 2025 TradingView, Inc. ↗</a></div></>

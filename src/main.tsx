@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
 import { StockDetail } from '@/stock-detail'
+import { mountIndustryCharts } from '@/industry-charts'
 import type { Root } from 'react-dom/client'
 import './styles.css'
 
@@ -86,6 +87,7 @@ const themeIndustry = () => {
   style.id = 'workspace-industry-theme'
   style.textContent = `:root{--page:#f4f6f2;--ink:#1c3933;--line:#e1e9e3;--panel:#fff} .snapshot-card,.asof-card,.hero-panel,.section-block{box-shadow:0 4px 18px #173d2b08} .trend-grid section{background:#f8fbf8} .dashboard-header h1{color:#193d33}`
   doc.head.append(style)
+  mountIndustryCharts(frame!)
 }
 frame?.addEventListener('load', themeIndustry)
 themeIndustry()
