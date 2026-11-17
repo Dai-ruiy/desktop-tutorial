@@ -64,14 +64,17 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
 .map-error{color:#9b3732}
 @media(max-width:720px){.map-details{grid-template-columns:1fr}.map-table :is(th,td){padding:7px 8px}}
 
+
+.industry-status{padding:9px max(12px,calc((100% - 1096px)/2));background:#fff7e8;color:#68491e;font:13px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
 </style>
 </head>
 <body>
 
 <nav class="site-tabs" aria-label="A 股数据导航" role="tablist">
   <a id="industry-tab" role="tab" href="#industry" aria-controls="chart-frame" aria-selected="true">行业走势</a>
-  <a id="holdings-tab" role="tab" href="./h/" aria-controls="holdings-map" aria-selected="false">11/17 · A 股价格地图</a>
+  <a id="holdings-tab" role="tab" href="./h/" aria-controls="holdings-map" aria-selected="false">A 股持仓地图</a>
 </nav>
+<div class="industry-status" role="status">行业数据：截至 2026-11-16 收盘 · 历史快照，不自动更新；使用前请核对最新行情。</div>
 <iframe id="chart-frame" sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer" title="A股20行业一年走势" srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
