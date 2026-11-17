@@ -25234,7 +25234,7 @@ function L_({ stock: e, snapshotDate: t }) {
 						id: "sd-valuation-title",
 						children: "估值情景"
 					}),
-					/* @__PURE__ */ (0, K.jsx)("p", { children: "历史、同行及经营风险共同形成的压力测试；区间不是目标价" })
+					/* @__PURE__ */ (0, K.jsx)("p", { children: "2027年末压力测试 · 假设情景，不是目标价" })
 				] }), /* @__PURE__ */ (0, K.jsx)("span", {
 					className: "sd-method",
 					children: e.bookCases ? "PB 压力测试" : "EPS × PE 情景"
