@@ -25,7 +25,7 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
 #holdings-map h1{font-size:clamp(25px,4vw,39px);line-height:1.2;letter-spacing:-.04em;margin:8px 0 12px}
 #holdings-map h2{font-size:22px;line-height:1.3}
 #holdings-map h3{font-size:17px;line-height:1.4;margin:0 0 8px}
-#holdings-map a:not(.map-button){color:#07685e;text-underline-offset:3px}
+#holdings-map a:not(.map-button):not(.map-file){color:#07685e;text-underline-offset:3px}
 #holdings-map .map-kicker{font-size:12px;font-weight:700;letter-spacing:.08em;color:#467279}
 .map-meta{color:#526970;font-size:13px}
 .map-box{background:#fff;border:1px solid #dce7e7;border-radius:12px;padding:clamp(12px,3vw,23px);margin-top:16px}
@@ -70,7 +70,7 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
 
 <nav class="site-tabs" aria-label="A 股数据导航" role="tablist">
   <a id="industry-tab" role="tab" href="#industry" aria-controls="chart-frame" aria-selected="true">行业走势</a>
-  <a id="holdings-tab" role="tab" href="#holdings-2026-11-10" aria-controls="holdings-map" aria-selected="false">11/17 · A 股价格地图</a>
+  <a id="holdings-tab" role="tab" href="./h/" aria-controls="holdings-map" aria-selected="false">11/17 · A 股价格地图</a>
 </nav>
 <iframe id="chart-frame" sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer" title="A股20行业一年走势" srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -1568,6 +1568,10 @@ html&gt;body{padding:0;background:var(--page)!important}
   }
 
   function tabState() {
+    if (location.hash === holdingsHash && !embedded) {
+      location.replace('./h/');
+      return;
+    }
     const showHoldings = location.hash === holdingsHash || (!location.hash && embedded);
     byId('chart-frame').hidden = Boolean(showHoldings);
     byId('holdings-map').hidden = !showHoldings;
