@@ -981,6 +981,38 @@ html&gt;body{padding:0;background:var(--page)!important}
 #sector-table tbody tr:hover{background:#f4fbfa}
 @media (max-width:720px){#industry-drawdown-vis{padding:20px 16px 38px}.dashboard-header,.panel-topline,.section-heading,.detail-heading{align-items:flex-start;flex-direction:column}.asof-card,.select-wrap{width:100%;box-sizing:border-box;text-align:left}.snapshot-strip{grid-template-columns:1fr;gap:8px}.snapshot-card{min-height:0}.hero-panel,.section-block{padding:16px;border-radius:14px}.trend-grid{grid-template-columns:1fr}.section-heading p{text-align:left}}
 @media (max-width:480px){.dashboard-header h1{font-size:31px}.snapshot-card b{font-size:22px}.hero-panel,.section-block{margin-top:14px}}
+
+/* A consistent research dashboard with chart labels outside the plotting area. */
+:root{--page:#f4f6f2;--ink:#1c3933;--muted:#73887b;--line:#e1e9e3;--panel:#fff;--accent:#347d56;--loss:#b25c53}
+#industry-drawdown-vis{box-sizing:border-box;width:100%;max-width:1180px;padding:36px 24px 64px}
+#industry-drawdown-vis *{box-sizing:border-box}
+.dashboard-header{padding-bottom:22px}
+.eyebrow,.section-kicker{font-size:10px;letter-spacing:.12em;color:#6b9c7d}
+.dashboard-header h1{color:#193d33;font-size:clamp(30px,3.5vw,42px)}
+.lede{font-size:14px;color:#7d8f83}
+.asof-card,.snapshot-card,.hero-panel,.section-block{border-color:#e1e9e3;box-shadow:0 4px 18px #173d2b08}
+.asof-card{border-radius:12px;background:#fff;text-align:left;min-width:150px}
+.snapshot-strip{gap:14px}.snapshot-card{min-height:112px;padding:19px 20px;border-radius:14px}.snapshot-card strong{margin-top:10px;font-size:15px}.snapshot-card b{font-size:25px}
+.hero-panel,.section-block{padding:25px;border-radius:16px;margin-top:18px;min-width:0}
+.panel-topline,.section-heading{align-items:flex-start;gap:14px;margin-bottom:22px}
+.panel-topline h2,.section-heading h2{font-size:19px;line-height:1.3}
+.section-heading .section-kicker{max-width:none;text-align:left;font-size:10px;font-weight:700;letter-spacing:.12em;color:#6b9c7d;margin:0 0 5px}
+.section-heading&gt;p{max-width:340px;text-align:right;line-height:1.6;color:#85978a;font-size:12px}
+.select-wrap select{border-color:#dce7df;border-radius:9px;color:#294c3a;outline-color:#4c9870;background:#fbfdfb}
+.detail-heading{padding-top:3px}.detail-heading h3,.trend-grid h3{font-size:15px;color:#355746}.detail-note,.trend-note{font-size:11px;color:#8a9b90}
+#detail-chart svg,.trend-grid svg{display:block;width:100%;height:auto;overflow:hidden}
+#detail-chart .viz-row,.trend-grid .viz-row{color:#71877a;line-height:1.7}
+#drawdown-chart{padding:0}.drawdown-scale,.drawdown-row{display:grid;grid-template-columns:138px minmax(0,1fr) 72px;align-items:center;gap:14px}
+.drawdown-scale{padding:0 12px 9px;color:#9baaa0;font-size:11px}.drawdown-scale&gt;span:last-child{text-align:right}.drawdown-axis{display:flex;justify-content:space-between;gap:8px;font-variant-numeric:tabular-nums}.drawdown-axis span:nth-child(2){color:#a5b2a9}
+.drawdown-list{border:1px solid #edf1ed;border-radius:12px;overflow:hidden}.drawdown-row{min-height:44px;padding:7px 12px;background:#fff;border-bottom:1px solid #eef2ee}.drawdown-row:last-child{border:0}.drawdown-row:nth-child(even){background:#fbfcfa}.drawdown-row:hover{background:#f3f8f2}
+.drawdown-name{display:flex;align-items:center;gap:10px;min-width:0;white-space:nowrap}.drawdown-rank{font-size:10px;color:#a2b2a7;font-variant-numeric:tabular-nums}.drawdown-name strong{font-size:13px;font-weight:650;color:#3e5b4a}.drawdown-rail{height:8px;border-radius:10px;background:#edf2ed;position:relative;overflow:hidden}.drawdown-bar{position:absolute;right:0;top:0;height:100%;border-radius:10px;background:#77ad8b}.drawdown-row:nth-child(-n+3) .drawdown-bar{background:#4b9470}.drawdown-value{font-size:13px;text-align:right;color:#416552;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}.drawdown-footnote{font-size:11px;color:#91a196;margin:12px 0 0}
+.trend-grid{gap:14px}.trend-grid section{background:#fafcf9;border-color:#e8eee8;border-radius:12px;padding:18px;min-width:0}.table-responsive{overflow-x:auto;border:1px solid #edf1ed;border-radius:10px}#sector-table{margin:0;font-size:13px}#sector-table th{background:#f7f9f7;font-size:11px;padding:12px 14px}#sector-table td{padding:13px 14px;border-color:#edf1ed}
+@media(max-width:720px){#industry-drawdown-vis{padding:28px 14px 50px}.dashboard-header,.panel-topline,.section-heading,.detail-heading{gap:12px}.snapshot-strip{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.snapshot-card{padding:12px;min-height:0}.snapshot-card strong{font-size:13px}.snapshot-card b{font-size:19px}.snapshot-card span{font-size:10px}.asof-card{width:auto}.hero-panel,.section-block{padding:18px;margin-top:14px}.section-heading&gt;p{text-align:left;max-width:none}.select-wrap{min-width:0}.drawdown-scale,.drawdown-row{grid-template-columns:92px minmax(0,1fr) 53px;gap:8px}.drawdown-row{min-height:42px;padding:7px 8px}.drawdown-name{gap:5px}.drawdown-name strong,.drawdown-value{font-size:12px}.drawdown-rank{font-size:9px}.drawdown-axis span:nth-child(2){display:none}.drawdown-scale{padding-inline:8px}.trend-grid{grid-template-columns:1fr}}
+@media(max-width:380px){.snapshot-strip{grid-template-columns:1fr}.snapshot-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px}.snapshot-card strong{margin:0}.snapshot-card b{grid-column:2;grid-row:1/3;margin:0}}
+
+@media(max-width:720px){#detail-chart{overflow-x:auto}#detail-chart svg{min-width:600px}#detail-chart::after{content:&quot;图表可左右滑动&quot;;display:block;color:#99aaa0;font-size:11px;margin-top:7px}.trend-grid section{overflow-x:auto}.trend-grid svg{min-width:520px}}
+
+@media(max-width:720px){.trend-grid section::after{content:&quot;图表可左右滑动&quot;;display:block;color:#99aaa0;font-size:11px;margin-top:7px}}
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -1136,10 +1168,10 @@ html&gt;body{padding:0;background:var(--page)!important}
       svg.appendChild(make(&#x27;line&#x27;, { x1: left, y1: yy, x2: width - right, y2: yy, stroke: &#x27;var(--border)&#x27;, &#x27;stroke-width&#x27;: 1 }));
       addText(svg, left - 7, yy + 4, format(value), { &#x27;text-anchor&#x27;: &#x27;end&#x27; });
     }
-    [item.start, &#x27;2025-10-01&#x27;, &#x27;2026-01-01&#x27;, &#x27;2026-04-01&#x27;, &#x27;2026-07-01&#x27;, item.end].forEach(date =&gt; {
+    [item.start, ...[&#x27;2026-01-01&#x27;, &#x27;2026-04-01&#x27;, &#x27;2026-07-01&#x27;].filter(date =&gt; date &gt; item.start &amp;&amp; date &lt; item.end), item.end].forEach((date, index, dates) =&gt; {
       const xx = x(date);
       svg.appendChild(make(&#x27;line&#x27;, { x1: xx, y1: top, x2: xx, y2: height - bottom, stroke: &#x27;var(--border)&#x27;, &#x27;stroke-width&#x27;: 1 }));
-      addText(svg, xx, height - 11, date.slice(2), { &#x27;text-anchor&#x27;: &#x27;middle&#x27; });
+      addText(svg, xx, height - 11, date.slice(2), { &#x27;text-anchor&#x27;: index === 0 ? &#x27;start&#x27; : index === dates.length - 1 ? &#x27;end&#x27; : &#x27;middle&#x27; });
     });
     svg.appendChild(make(&#x27;polyline&#x27;, { points: points(item, x, y), fill: &#x27;none&#x27;, stroke: &#x27;var(--viz-series-1)&#x27;, &#x27;stroke-width&#x27;: 2, &#x27;stroke-linejoin&#x27;: &#x27;round&#x27;, &#x27;stroke-linecap&#x27;: &#x27;round&#x27; }));
     const maPoints = averages.map(([date, value]) =&gt; `${x(date).toFixed(1)},${y(value).toFixed(1)}`).join(&#x27; &#x27;);
@@ -1148,7 +1180,7 @@ html&gt;body{padding:0;background:var(--page)!important}
     const highY = y(item.high);
     svg.appendChild(make(&#x27;line&#x27;, { x1: highX, y1: top, x2: highX, y2: height - bottom, stroke: &#x27;var(--muted-foreground)&#x27;, &#x27;stroke-width&#x27;: 1, &#x27;stroke-dasharray&#x27;: &#x27;3 3&#x27; }));
     svg.appendChild(make(&#x27;circle&#x27;, { cx: highX, cy: highY, r: 4, fill: &#x27;var(--viz-series-1)&#x27; }));
-    addText(svg, highX, Math.max(top + 11, highY - 8), `高 ${format(item.high)} · ${item.highDate.slice(5)}`, { &#x27;text-anchor&#x27;: &#x27;middle&#x27;, fill: &#x27;var(--foreground)&#x27;, &#x27;font-weight&#x27;: 500 });
+    addText(svg, Math.max(110, Math.min(width - 110, highX)), Math.max(top + 11, highY - 8), `高 ${format(item.high)} · ${item.highDate.slice(5)}`, { &#x27;text-anchor&#x27;: &#x27;middle&#x27;, fill: &#x27;var(--foreground)&#x27;, &#x27;font-weight&#x27;: 500 });
     const currentX = x(item.end);
     const currentY = y(item.current);
     svg.appendChild(make(&#x27;circle&#x27;, { cx: currentX, cy: currentY, r: 4, fill: &#x27;var(--viz-series-1)&#x27; }));
@@ -1161,34 +1193,26 @@ html&gt;body{padding:0;background:var(--page)!important}
 
   function renderDrawdown() {
     const ranked = [...rows].sort((a, b) =&gt; a.drawdown - b.drawdown);
-    const width = 700;
-    const rowHeight = 24;
-    const height = 44 + ranked.length * rowHeight + 20;
-    const left = 126;
-    const right = 54;
-    const top = 38;
-    const innerWidth = width - left - right;
-    const low = -40;
-    const x = value =&gt; left + ((value - low) / (0 - low)) * innerWidth;
-    const svg = make(&#x27;svg&#x27;, {
-      viewBox: `0 0 ${width} ${height}`, width: &#x27;100%&#x27;, role: &#x27;img&#x27;,
-      &#x27;aria-labelledby&#x27;: &#x27;drawdown-svg-title drawdown-svg-desc&#x27;
-    });
-    svg.appendChild(make(&#x27;title&#x27;, { id: &#x27;drawdown-svg-title&#x27; }, &#x27;20个核心行业距过去一年最高收盘点的回撤排序&#x27;));
-    svg.appendChild(make(&#x27;desc&#x27;, { id: &#x27;drawdown-svg-desc&#x27; }, `截止${payload.asOf}。条形越长，说明当前距离过去一年最高收盘点越远。`));
-    addText(svg, left, 16, `距过去一年最高收盘点回撤（截至 ${payload.asOf}，收盘价）`, { fill: &#x27;var(--foreground)&#x27;, &#x27;font-size&#x27;: 14, &#x27;font-weight&#x27;: 500 });
-    [-40, -30, -20, -10, 0].forEach(tick =&gt; {
-      const position = x(tick);
-      svg.appendChild(make(&#x27;line&#x27;, { x1: position, y1: top - 7, x2: position, y2: height - 8, stroke: &#x27;var(--border)&#x27;, &#x27;stroke-width&#x27;: 1 }));
-      addText(svg, position, top - 13, `${tick}%`, { &#x27;text-anchor&#x27;: &#x27;middle&#x27; });
-    });
+    const maxMagnitude = Math.max(1, Math.ceil(Math.max(...ranked.map(item =&gt; Math.abs(item.drawdown))) / 10) * 10);
+    const scale = html(&#x27;div&#x27;, { class: &#x27;drawdown-scale&#x27;, &#x27;aria-hidden&#x27;: &#x27;true&#x27; });
+    scale.appendChild(html(&#x27;span&#x27;, {}, &#x27;行业&#x27;));
+    const axis = html(&#x27;div&#x27;, { class: &#x27;drawdown-axis&#x27; });
+    axis.append(html(&#x27;span&#x27;, {}, `−${maxMagnitude}%`), html(&#x27;span&#x27;, {}, &#x27;距一年高点&#x27;), html(&#x27;span&#x27;, {}, &#x27;0%&#x27;));
+    scale.append(axis, html(&#x27;span&#x27;, {}, &#x27;回撤&#x27;));
+    const list = html(&#x27;div&#x27;, { class: &#x27;drawdown-list&#x27;, role: &#x27;list&#x27;, &#x27;aria-label&#x27;: `20 个核心行业距一年最高收盘点的回撤，截至 ${payload.asOf}` });
     ranked.forEach((item, index) =&gt; {
-      const yy = top + index * rowHeight;
-      addText(svg, left - 8, yy + 13, item.name, { &#x27;text-anchor&#x27;: &#x27;end&#x27;, fill: &#x27;var(--foreground)&#x27; });
-      svg.appendChild(make(&#x27;rect&#x27;, { x: x(item.drawdown), y: yy + 3, width: Math.max(2, x(0) - x(item.drawdown)), height: 12, fill: &#x27;var(--viz-series-1)&#x27;, opacity: 0.78, rx: 2 }));
-      addText(svg, x(0) + 7, yy + 13, `${item.drawdown.toFixed(1)}%`, { fill: &#x27;var(--foreground)&#x27;, &#x27;font-weight&#x27;: 500 });
+      const row = html(&#x27;div&#x27;, { class: &#x27;drawdown-row&#x27;, role: &#x27;listitem&#x27;, &#x27;aria-label&#x27;: `${item.name}，回撤 ${item.drawdown.toFixed(1)}%` });
+      const name = html(&#x27;div&#x27;, { class: &#x27;drawdown-name&#x27; });
+      name.append(html(&#x27;span&#x27;, { class: &#x27;drawdown-rank&#x27;, &#x27;aria-hidden&#x27;: &#x27;true&#x27; }, String(index + 1).padStart(2, &#x27;0&#x27;)), html(&#x27;strong&#x27;, {}, item.name));
+      const rail = html(&#x27;div&#x27;, { class: &#x27;drawdown-rail&#x27;, &#x27;aria-hidden&#x27;: &#x27;true&#x27; });
+      const bar = html(&#x27;span&#x27;, { class: &#x27;drawdown-bar&#x27; });
+      bar.style.width = `${Math.min(100, Math.abs(item.drawdown) / maxMagnitude * 100)}%`;
+      rail.appendChild(bar);
+      const value = html(&#x27;strong&#x27;, { class: &#x27;drawdown-value&#x27; }, `${item.drawdown.toFixed(1)}%`);
+      row.append(name, rail, value);
+      list.appendChild(row);
     });
-    drawdownHost.appendChild(svg);
+    drawdownHost.replaceChildren(scale, list, html(&#x27;p&#x27;, { class: &#x27;drawdown-footnote&#x27; }, `按距一年最高收盘点从大到小排列 · 数据截至 ${payload.asOf} 收盘`));
   }
 
   function renderTrend(groupName, groupIndex) {
@@ -1202,8 +1226,9 @@ html&gt;body{padding:0;background:var(--page)!important}
     const right = 15;
     const top = 12;
     const bottom = 32;
-    const yMin = 70;
-    const yMax = 250;
+    const normalized = [...groupRows, benchmark].flatMap(item =&gt; item.daily.map(([, value]) =&gt; value / item.daily[0][1] * 100));
+    const yMin = Math.floor((Math.min(...normalized) - 5) / 20) * 20;
+    const yMax = Math.ceil((Math.max(...normalized) + 5) / 20) * 20;
     const start = Date.parse(payload.start);
     const end = Date.parse(payload.asOf);
     const x = date =&gt; left + ((Date.parse(date) - start) / (end - start)) * (width - left - right);
@@ -1211,15 +1236,15 @@ html&gt;body{padding:0;background:var(--page)!important}
     const svg = make(&#x27;svg&#x27;, { viewBox: `0 0 ${width} ${height}`, width: &#x27;100%&#x27;, role: &#x27;img&#x27;, &#x27;aria-labelledby&#x27;: `trend-title-${groupIndex} trend-desc-${groupIndex}` });
     svg.appendChild(make(&#x27;title&#x27;, { id: `trend-title-${groupIndex}` }, `${groupName}五个行业的近一年日线标准化走势`));
     svg.appendChild(make(&#x27;desc&#x27;, { id: `trend-desc-${groupIndex}` }, `${groupRows.map(item =&gt; item.name).join(&#x27;、&#x27;)}，另以虚线显示沪深300。纵轴为起始收盘价归一后的指数。`));
-    [80, 120, 160, 200, 240].forEach(tick =&gt; {
+    Array.from({ length: 5 }, (_, i) =&gt; yMin + (yMax - yMin) * i / 4).forEach(tick =&gt; {
       const yy = y(tick);
       svg.appendChild(make(&#x27;line&#x27;, { x1: left, y1: yy, x2: width - right, y2: yy, stroke: &#x27;var(--border)&#x27;, &#x27;stroke-width&#x27;: 1 }));
       addText(svg, left - 6, yy + 4, tick, { &#x27;text-anchor&#x27;: &#x27;end&#x27; });
     });
-    [payload.start, &#x27;2026-01-01&#x27;, payload.asOf].forEach(date =&gt; {
+    [payload.start, ...[&#x27;2026-01-01&#x27;].filter(date =&gt; date &gt; payload.start &amp;&amp; date &lt; payload.asOf), payload.asOf].forEach((date, index, dates) =&gt; {
       const xx = x(date);
       svg.appendChild(make(&#x27;line&#x27;, { x1: xx, y1: top, x2: xx, y2: height - bottom, stroke: &#x27;var(--border)&#x27;, &#x27;stroke-width&#x27;: 1 }));
-      addText(svg, xx, height - 10, date.slice(2), { &#x27;text-anchor&#x27;: &#x27;middle&#x27; });
+      addText(svg, xx, height - 10, date.slice(2), { &#x27;text-anchor&#x27;: index === 0 ? &#x27;start&#x27; : index === dates.length - 1 ? &#x27;end&#x27; : &#x27;middle&#x27; });
     });
     svg.appendChild(make(&#x27;polyline&#x27;, { points: points(benchmark, x, y, true), fill: &#x27;none&#x27;, stroke: &#x27;var(--muted-foreground)&#x27;, &#x27;stroke-width&#x27;: 1.5, &#x27;stroke-dasharray&#x27;: &#x27;5 4&#x27;, opacity: 0.9 }));
     groupRows.forEach((item, index) =&gt; svg.appendChild(make(&#x27;polyline&#x27;, { points: points(item, x, y, true), fill: &#x27;none&#x27;, stroke: seriesColors[index], &#x27;stroke-width&#x27;: 2, &#x27;stroke-linejoin&#x27;: &#x27;round&#x27;, &#x27;stroke-linecap&#x27;: &#x27;round&#x27; })));
