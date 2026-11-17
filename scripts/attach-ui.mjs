@@ -7,7 +7,7 @@ for (const [file, prefix] of [['index.html', './assets-ui/'], ['h/index.html', '
   let head = text.slice(0, split), body = text.slice(split)
   if (!head.includes('assets-ui/ui.js')) {
     head = head.replace("style-src 'unsafe-inline'", "style-src 'self' 'unsafe-inline'").replace('script-src ', "script-src 'self' ")
-    head += `<link rel="stylesheet" href="${prefix}ui.css">\n<script type="module" src="${prefix}ui.js"></script>\n`
+    head += `<link rel="stylesheet" href="${prefix}ui.css?v=20261117-2">\n<script type="module" src="${prefix}ui.js?v=20261117-2"></script>\n`
     writeFileSync(file, head + body)
   }
 }

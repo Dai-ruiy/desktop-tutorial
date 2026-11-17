@@ -4,6 +4,8 @@ import { BarChart3, Layers3, LockKeyhole, ArrowUpRight } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
+import { StockDetail } from '@/stock-detail'
+import type { Root } from 'react-dom/client'
 import './styles.css'
 
 const isMobileAlias = /\/mobile-holdings\.html$/.test(location.pathname)
@@ -25,7 +27,30 @@ const nav = document.querySelector<HTMLElement>('.site-tabs')
 if (nav) {const mount = document.createElement('div'); nav.before(mount); createRoot(mount).render(<Navigation/>); nav.hidden = true}
 if (isHoldings) {
   const report = document.querySelector('#map-report')
+  let detailRoot: Root | undefined
+  let detailMount: HTMLElement | undefined
   const enhance = () => {
+    if (detailMount && !detailMount.isConnected) { detailRoot?.unmount(); detailRoot = undefined; detailMount = undefined }
+    const detail = report?.querySelector<HTMLElement>('#map-stock-detail')
+    const active = report?.querySelector<HTMLElement>('[data-stock-index][aria-pressed="true"]')
+    const data = document.querySelector<HTMLScriptElement>('#holdings-map-data')
+    if (detail && active && data && !detail.querySelector('.stock-workspace-mount')) {
+      try {
+        const payload = JSON.parse(data.textContent || '')
+        const stock = payload.stocks[Number(active.dataset.stockIndex)]
+        const bars = payload.history[stock.symbol]
+        if (stock && Array.isArray(bars) && bars.length) {
+          const originals = Array.from(detail.children) as HTMLElement[]
+          const mount = document.createElement('div')
+          mount.className = 'stock-workspace-mount'
+          detail.append(mount)
+          detailMount = mount
+          detailRoot = createRoot(mount)
+          detailRoot.render(<StockDetail stock={stock} bars={bars} payload={payload} onReady={() => {if (mount.isConnected) originals.forEach(element => {element.hidden = true})}} />)
+        }
+      } catch { /* Keep the original report visible if enhancement is unavailable. */ }
+    }
+
     const nativeSelect = report?.querySelector<HTMLSelectElement>('select[aria-label="股票排序方式"]')
     if (nativeSelect && !nativeSelect.dataset.enhanced) {
       nativeSelect.dataset.enhanced = 'true'
