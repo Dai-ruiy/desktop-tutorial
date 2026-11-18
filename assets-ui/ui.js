@@ -25463,8 +25463,8 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 	let [i, a] = D.useState("60");
 	D.useEffect(r, []);
 	let o = (e.price / e.prev - 1) * 100, s = [
-		...e.report ? [["2026 三季报", e.report]] : [],
-		...e.annual ? [["2025 财务披露", e.annual]] : [],
+		...e.report ? [["公司季报", e.report]] : [],
+		...e.annual ? [["公司年报", e.annual]] : [],
 		...e.extra ? [e.extra] : [],
 		...e.sources ?? []
 	];
