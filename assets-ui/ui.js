@@ -25201,12 +25201,12 @@ function I_({ stock: e, bars: t, days: n }) {
 		})
 	] });
 }
-function L_({ stock: e, snapshotDate: t }) {
-	let n = e.bookCases?.map((t) => ({
+function L_({ stock: e, snapshotDate: t, researchDate: n }) {
+	let r = e.bookCases?.map((t) => ({
 		name: t.name,
 		low: e.bps * (t.bpsFactor ?? 1) * t.lo,
 		high: e.bps * (t.bpsFactor ?? 1) * t.hi,
-		formula: `每股净资产 ${P_(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍`,
+		formula: `每股净资产约 ${P_(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍（计算使用未取整数据）`,
 		basis: t.basis
 	})) ?? e.scenarios?.map(([t, n, r], i) => ({
 		name: [
@@ -25216,9 +25216,9 @@ function L_({ stock: e, snapshotDate: t }) {
 		][i],
 		low: t * n,
 		high: t * r,
-		formula: `EPS ${P_(t)} 元 × PE ${n}–${r} 倍`,
+		formula: `EPS 约 ${P_(t)} 元 × PE ${n}–${r} 倍（计算使用未取整数据）`,
 		basis: e.scenarioNotes?.[i] ?? ""
-	})) ?? [], r = Math.max(e.price, ...n.map((e) => e.high)) * 1.08;
+	})) ?? [], i = Math.max(e.price, ...r.map((e) => e.high)) * 1.08;
 	return /* @__PURE__ */ (0, K.jsxs)("section", {
 		className: "sd-panel sd-valuation",
 		"aria-labelledby": "sd-valuation-title",
@@ -25240,13 +25240,23 @@ function L_({ stock: e, snapshotDate: t }) {
 					children: e.bookCases ? "PB 压力测试" : "EPS × PE 情景"
 				})]
 			}),
+			/* @__PURE__ */ (0, K.jsxs)("p", {
+				className: "sd-case-note",
+				children: [
+					"研究复核：",
+					n || "未记录",
+					"；行情：",
+					t,
+					"。收入、利润率和估值倍数是研究假设，依据仍需补充，不能视为可靠预测或买卖价格；区间未计股息、概率及资金时间价值。"
+				]
+			}),
 			e.bookCases && /* @__PURE__ */ (0, K.jsxs)("p", {
 				className: "sd-case-note",
 				children: [
 					e.caseBasis,
-					" 快照 PB 约 ",
+					" 以研究时每股净资产估算的快照 PB 约 ",
 					P_(e.price / e.bps),
-					" 倍；每股净资产为 2026 年 9 月末数据。"
+					" 倍；净资产及股本时点见估值依据。"
 				]
 			}),
 			e.valuationContext && /* @__PURE__ */ (0, K.jsx)("div", {
@@ -25255,14 +25265,14 @@ function L_({ stock: e, snapshotDate: t }) {
 			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
 				className: "sd-scenario-grid",
-				children: n.map((n, i) => /* @__PURE__ */ (0, K.jsxs)("article", {
-					className: `sd-scenario sd-scenario-${i}`,
+				children: r.map((n, r) => /* @__PURE__ */ (0, K.jsxs)("article", {
+					className: `sd-scenario sd-scenario-${r}`,
 					children: [
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-title",
 							children: [/* @__PURE__ */ (0, K.jsxs)("span", {
 								className: "sd-case-index",
-								children: ["0", i + 1]
+								children: ["0", r + 1]
 							}), /* @__PURE__ */ (0, K.jsx)("b", { children: n.name })]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
@@ -25291,10 +25301,10 @@ function L_({ stock: e, snapshotDate: t }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-rail",
 							children: [/* @__PURE__ */ (0, K.jsx)("span", { style: {
-								left: `${n.low / r * 100}%`,
-								width: `${(n.high - n.low) / r * 100}%`
+								left: `${n.low / i * 100}%`,
+								width: `${(n.high - n.low) / i * 100}%`
 							} }), /* @__PURE__ */ (0, K.jsx)("i", {
-								style: { left: `${e.price / r * 100}%` },
+								style: { left: `${e.price / i * 100}%` },
 								title: `收盘价 ${P_(e.price)} 元`
 							})]
 						}),
@@ -25602,7 +25612,8 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 			}),
 			/* @__PURE__ */ (0, K.jsx)(L_, {
 				stock: e,
-				snapshotDate: n.snapshotDate
+				snapshotDate: n.snapshotDate,
+				researchDate: n.researchDate
 			}),
 			/* @__PURE__ */ (0, K.jsx)(R_, {
 				stock: e,
