@@ -4,23 +4,27 @@ import { BarChart3, Layers3, LockKeyhole, ArrowUpRight } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
+import { USApp } from '@/us-app'
 import { StockDetail } from '@/stock-detail'
 import { mountIndustryCharts } from '@/industry-charts'
 import type { Root } from 'react-dom/client'
 import './styles.css'
 
+const isUS = /\/us(?:\/|$)/.test(location.pathname)
+const isUSHoldings = /\/us\/holdings(?:\/|$)/.test(location.pathname)
 const isMobileAlias = /\/mobile-holdings\.html$/.test(location.pathname)
 const isHoldings = /\/h\/?$|\/mobile-holdings\.html$/.test(location.pathname)
 function Navigation() {
-  const [current, setCurrent] = React.useState(isHoldings ? 'holdings' : 'industry')
+  const [current, setCurrent] = React.useState(isUS ? (isUSHoldings ? 'us-holdings' : 'us-industry') : (isHoldings ? 'holdings' : 'industry'))
   function navigate(value: string | number | null) {
-    if (value === 'holdings' && !isHoldings) location.assign('./h/')
-    if (value === 'industry' && isHoldings) location.assign(isMobileAlias ? './#industry' : '../#industry')
+    const root = isUSHoldings ? '../../' : isUS ? '../' : isHoldings && !isMobileAlias ? '../' : './'
+    const dest: Record<string,string> = {industry: root + '#industry', holdings: root + 'h/', 'us-industry': root + 'us/', 'us-holdings': root + 'us/holdings/'}
+    if (value && String(value) !== current && dest[String(value)]) location.assign(dest[String(value)])
     setCurrent(String(value))
   }
   return <div className="workspace-nav"><div className="workspace-nav-inner">
-    <a className="workspace-brand" href={isHoldings ? (isMobileAlias ? './#industry' : '../#industry') : '#industry'} aria-label="投资观察首页"><span className="workspace-logo"><BarChart3 size={18}/></span><span><b>投资观察</b><small>INVESTMENT RESEARCH</small></span></a>
-    <Tabs value={current} onValueChange={navigate} className="workspace-tabs"><TabsList aria-label="网站导航" className="workspace-tab-list"><TabsTrigger value="industry" className="workspace-tab"><Layers3 size={15}/>行业走势</TabsTrigger><TabsTrigger value="holdings" className="workspace-tab"><BarChart3 size={15}/>持仓地图</TabsTrigger></TabsList></Tabs>
+    <a className="workspace-brand" href={isUSHoldings ? '../../#industry' : isUS || (isHoldings && !isMobileAlias) ? '../#industry' : './#industry'} aria-label="投资观察首页"><span className="workspace-logo"><BarChart3 size={18}/></span><span><b>投资观察</b><small>INVESTMENT RESEARCH</small></span></a>
+    <Tabs value={current} onValueChange={navigate} className="workspace-tabs"><TabsList aria-label="网站导航" className="workspace-tab-list"><TabsTrigger value="industry" className="workspace-tab"><Layers3 size={15}/>A 股行业</TabsTrigger><TabsTrigger value="holdings" className="workspace-tab"><BarChart3 size={15}/>A 股持仓</TabsTrigger><TabsTrigger value="us-industry" className="workspace-tab"><Layers3 size={15}/>美股行业</TabsTrigger><TabsTrigger value="us-holdings" className="workspace-tab"><BarChart3 size={15}/>美股持仓</TabsTrigger></TabsList></Tabs>
     <Badge variant="secondary" className="workspace-private"><LockKeyhole size={13}/> 本地解密</Badge>
   </div></div>
 }
@@ -92,3 +96,6 @@ const themeIndustry = () => {
 frame?.addEventListener('load', themeIndustry)
 themeIndustry()
 void ArrowUpRight
+
+const usRoot = document.getElementById('us-app')
+if (usRoot) createRoot(usRoot).render(<USApp holdings={isUSHoldings} />)

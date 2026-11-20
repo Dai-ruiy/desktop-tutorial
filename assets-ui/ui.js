@@ -25056,9 +25056,645 @@ var E_ = class extends Ig {
 	bb: (e, t) => new M_(e, t)
 };
 ({ ...lf });
+// src/us-app.tsx
+var P_ = {
+	SPY: "标普 500",
+	QQQ: "纳斯达克 100",
+	XLK: "科技",
+	XLC: "通信服务",
+	XLY: "可选消费",
+	XLP: "必需消费",
+	XLF: "金融",
+	XLV: "医疗",
+	XLI: "工业",
+	XLE: "能源",
+	XLB: "原材料",
+	XLU: "公用事业",
+	XLRE: "房地产",
+	SMH: "半导体",
+	IGV: "软件"
+};
+function F_(e) {
+	return `${e >= 0 ? "+" : ""}${e.toFixed(1)}%`;
+}
+function I_({ series: e }) {
+	let t = D.useRef(null);
+	return D.useEffect(() => {
+		if (!t.current || e.length < 2) return;
+		let n = m_(t.current, {
+			autoSize: !0,
+			height: 300,
+			layout: {
+				background: {
+					type: Ym.Solid,
+					color: "#ffffff"
+				},
+				textColor: "#84958b",
+				fontSize: 11,
+				attributionLogo: !0
+			},
+			grid: {
+				vertLines: { color: "#f4f7f3" },
+				horzLines: { color: "#edf2ed" }
+			},
+			rightPriceScale: { borderVisible: !1 },
+			timeScale: { borderVisible: !1 },
+			handleScroll: {
+				mouseWheel: !1,
+				pressedMouseMove: !0,
+				horzTouchDrag: !0,
+				vertTouchDrag: !1
+			},
+			handleScale: {
+				mouseWheel: !0,
+				pinch: !0,
+				axisPressedMouseMove: !0
+			}
+		});
+		return n.addSeries(k_, {
+			color: "#348866",
+			lineWidth: 2,
+			priceLineVisible: !1,
+			title: "收盘"
+		}).setData(e.map(([e, t]) => ({
+			time: e,
+			value: t
+		}))), n.addSeries(k_, {
+			color: "#c9944a",
+			lineWidth: 1,
+			lineStyle: df.Dashed,
+			priceLineVisible: !1,
+			lastValueVisible: !1,
+			title: "20 日均线"
+		}).setData(e.map(([t], n) => ({
+			time: t,
+			value: e.slice(Math.max(0, n - 19), n + 1).reduce((e, t) => e + t[1], 0) / Math.min(20, n + 1)
+		}))), n.timeScale().fitContent(), () => n.remove();
+	}, [e]), e.length < 2 ? /* @__PURE__ */ (0, K.jsx)("p", { children: "暂无足够数据" }) : /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("div", {
+		ref: t,
+		className: "us-chart",
+		role: "img",
+		"aria-label": "收盘与 20 日均线走势图，可缩放"
+	}), /* @__PURE__ */ (0, K.jsxs)("div", {
+		className: "us-chart-legend",
+		children: ["收盘价 · 20 日均线（当前展示区间内计算） ", /* @__PURE__ */ (0, K.jsx)("a", {
+			href: "https://www.tradingview.com/",
+			target: "_blank",
+			rel: "noreferrer",
+			children: "TradingView Lightweight Charts™ ↗"
+		})]
+	})] });
+}
+function L_() {
+	let [e, t] = D.useState(), [n, r] = D.useState("XLK"), [i, a] = D.useState(250);
+	if (D.useEffect(() => {
+		fetch("./industry-data.json").then((e) => {
+			if (!e.ok) throw Error();
+			return e.json();
+		}).then((e) => t({
+			...e,
+			series: Object.fromEntries(Object.entries(e.series).map(([e, t]) => [e, t.slice(-250)]))
+		})).catch(() => {});
+	}, []), !e) return /* @__PURE__ */ (0, K.jsxs)("main", {
+		className: "us-main",
+		children: [/* @__PURE__ */ (0, K.jsx)("h1", { children: "美股行业走势" }), /* @__PURE__ */ (0, K.jsx)("p", { children: "正在加载数据；若持续无法加载，请稍后重试。" })]
+	});
+	let o = Object.entries(e.series).filter(([e]) => e !== "SPY" && e !== "QQQ").map(([e, t]) => {
+		let n = t.at(-1)[1];
+		return {
+			s: e,
+			last: n,
+			draw: (n / Math.max(...t.map((e) => e[1])) - 1) * 100,
+			ret: (n / t[0][1] - 1) * 100
+		};
+	}).sort((e, t) => e.draw - t.draw);
+	return /* @__PURE__ */ (0, K.jsxs)("main", {
+		className: "us-main",
+		children: [
+			/* @__PURE__ */ (0, K.jsx)("p", {
+				className: "us-kicker",
+				children: "美国市场 / 近一年收盘观察"
+			}),
+			/* @__PURE__ */ (0, K.jsx)("h1", { children: "美股行业走势" }),
+			/* @__PURE__ */ (0, K.jsx)("p", {
+				className: "us-muted",
+				children: "11 个主要行业及半导体、软件细分方向，以 ETF 作为行业代理。"
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "us-note",
+				children: [
+					"数据截至 ",
+					e.date,
+					" 美东收盘 · ",
+					e.source,
+					" · 历史快照，不是实时行情。ETF 包含费用和成分差异，不能等同整个行业；前复权价格走势不等于含分红总回报。"
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "us-cards",
+				children: [
+					/* @__PURE__ */ (0, K.jsxs)("article", { children: [
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "距离一年高点最远" }),
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: P_[o[0].s] }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: F_(o[0].draw) })
+					] }),
+					/* @__PURE__ */ (0, K.jsxs)("article", { children: [
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "距离一年高点最近" }),
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: P_[o.at(-1).s] }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: F_(o.at(-1).draw) })
+					] }),
+					/* @__PURE__ */ (0, K.jsxs)("article", { children: [
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "对照基准" }),
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: "标普 500（SPY）" }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: F_((e.series.SPY.at(-1)[1] / Math.max(...e.series.SPY.map((e) => e[1])) - 1) * 100) })
+					] })
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-heading",
+						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+							/* @__PURE__ */ (0, K.jsx)("p", {
+								className: "us-kicker",
+								children: "INDUSTRY TREND"
+							}),
+							/* @__PURE__ */ (0, K.jsx)("h2", { children: "行业日线趋势" }),
+							/* @__PURE__ */ (0, K.jsxs)("p", {
+								className: "us-muted",
+								children: [
+									P_[n],
+									" · ",
+									n,
+									" · 美元"
+								]
+							})
+						] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["行业 ", /* @__PURE__ */ (0, K.jsx)("select", {
+							value: n,
+							onChange: (e) => r(e.target.value),
+							children: Object.keys(e.series).map((e) => /* @__PURE__ */ (0, K.jsxs)("option", {
+								value: e,
+								children: [
+									P_[e],
+									"（",
+									e,
+									"）"
+								]
+							}, e))
+						})] })]
+					}),
+					/* @__PURE__ */ (0, K.jsx)("div", {
+						className: "us-buttons",
+						children: [
+							60,
+							120,
+							250
+						].map((e) => /* @__PURE__ */ (0, K.jsx)("button", {
+							"aria-pressed": i === e,
+							onClick: () => a(e),
+							children: e === 250 ? "一年" : `${e} 日`
+						}, e))
+					}),
+					/* @__PURE__ */ (0, K.jsx)(I_, { series: e.series[n].slice(-i) }),
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-meta",
+						children: [
+							e.series[n].slice(-i)[0][0],
+							" — ",
+							e.date,
+							"　收盘 ",
+							e.series[n].at(-1)[1].toFixed(2),
+							" 美元"
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("h2", { children: "行业与基准对比" }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "以下为同期区间涨跌，可与标普 500 对照；行业及细分主题重叠，不能直接相加。"
+					}),
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-compare",
+						children: [[...o].sort((e, t) => t.ret - e.ret).map((e) => /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsxs)("span", { children: [
+							P_[e.s],
+							"（",
+							e.s,
+							"）"
+						] }), /* @__PURE__ */ (0, K.jsx)("b", { children: F_(e.ret) })] }, e.s)), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("span", { children: "标普 500（SPY）" }), /* @__PURE__ */ (0, K.jsx)("b", { children: F_((e.series.SPY.at(-1)[1] / e.series.SPY[0][1] - 1) * 100) })] })]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("h2", { children: "距近一年收盘高点回撤" }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "按各 ETF 自身期间最高收盘价计算，并非最大回撤；行业与细分主题可能重叠。"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("div", {
+						className: "us-ranks",
+						children: o.map((e) => /* @__PURE__ */ (0, K.jsxs)("div", { children: [
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: [
+								P_[e.s],
+								" ",
+								/* @__PURE__ */ (0, K.jsx)("small", { children: e.s })
+							] }),
+							/* @__PURE__ */ (0, K.jsx)("div", {
+								className: "us-rail",
+								children: /* @__PURE__ */ (0, K.jsx)("i", { style: { width: `${Math.min(100, Math.abs(e.draw) * 2)}%` } })
+							}),
+							/* @__PURE__ */ (0, K.jsx)("b", { children: F_(e.draw) }),
+							/* @__PURE__ */ (0, K.jsxs)("small", { children: ["区间 ", F_(e.ret)] })
+						] }, e.s))
+					})
+				]
+			})
+		]
+	});
+}
+function R_() {
+	let [e, t] = D.useState(), [n, r] = D.useState(""), [i, a] = D.useState(""), [o, s] = D.useState(""), [c, l] = D.useState("rank"), u = D.useCallback(async (e) => {
+		try {
+			let n = e.trim();
+			if ((n.startsWith("https:") || n.startsWith("http:")) && (n = new URL(n).hash.slice(1)), !/^[A-Za-z0-9_-]{43}$/.test(n)) throw Error("请输入有效的访问密钥或完整解锁链接");
+			let i = Uint8Array.from(atob(n.replace(/-/g, "+").replace(/_/g, "/") + "="), (e) => e.charCodeAt(0)), o = await crypto.subtle.importKey("raw", i, "AES-GCM", !1, ["decrypt"]), s = await fetch("../portfolio.enc");
+			if (!s.ok) throw Error("加密报告加载失败");
+			let c = Uint8Array.from(atob((await s.text()).trim()), (e) => e.charCodeAt(0)), l = await crypto.subtle.decrypt({
+				name: "AES-GCM",
+				iv: c.slice(0, 12)
+			}, o, c.slice(12));
+			t(JSON.parse(new TextDecoder().decode(l))), localStorage.setItem("jybd-report-key-v1", n), r(""), a("");
+		} catch {
+			a("未能解锁，请核对访问密钥或检查报告是否可用。");
+		}
+	}, []);
+	if (D.useEffect(() => {
+		let e = location.hash.slice(1);
+		if (!/^[A-Za-z0-9_-]{43}$/.test(e)) try {
+			e = localStorage.getItem("jybd-report-key-v1") || "";
+		} catch {}
+		e && u(e);
+	}, [u]), !e) return /* @__PURE__ */ (0, K.jsxs)("main", {
+		className: "us-main",
+		children: [
+			/* @__PURE__ */ (0, K.jsx)("p", {
+				className: "us-kicker",
+				children: "PRIVATE PORTFOLIO"
+			}),
+			/* @__PURE__ */ (0, K.jsx)("h1", { children: "美股持仓地图" }),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("h2", { children: "在本机解锁报告" }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "与 A 股持仓报告使用相同的访问密钥，数据只在浏览器中解密。"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("input", {
+						type: "password",
+						value: n,
+						onChange: (e) => r(e.target.value),
+						placeholder: "访问密钥或完整解锁链接",
+						"aria-label": "访问密钥或完整解锁链接"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("button", {
+						className: "us-primary",
+						onClick: () => void u(n),
+						children: "打开持仓报告"
+					}),
+					i && /* @__PURE__ */ (0, K.jsx)("p", {
+						role: "alert",
+						children: i
+					})
+				]
+			})
+		]
+	});
+	let d = e.display || {}, f = e.research || {}, p = Object.fromEntries(e.quotes.map((e) => [e.symbol.replace(".US", ""), e])), m = [
+		...e.ibkr.positions.filter((e) => e.currency === "USD").map((e) => ({
+			symbol: e.contract_description,
+			name: d[e.contract_description] || e.contract_description,
+			quantity: Number(e.position),
+			account: "盈透"
+		})),
+		...e.longbridge.list.flatMap((e) => e.stock_info).filter((e) => e.market === "US").map((e) => ({
+			symbol: e.symbol.replace(".US", ""),
+			name: d[e.symbol.replace(".US", "")] || e.symbol_name,
+			quantity: Number(e.quantity),
+			account: "长桥"
+		})),
+		...(e.extraHoldings || []).map((e) => ({
+			...e,
+			name: d[e.symbol] || e.symbol
+		}))
+	].map((e) => ({
+		...e,
+		price: Number(p[e.symbol]?.last_done) || void 0,
+		timestamp: p[e.symbol]?.timestamp
+	})), h = Object.values(m.reduce((e, t) => {
+		let n = e[t.symbol] || {
+			...t,
+			quantity: 0,
+			account: ""
+		};
+		return n.quantity = n.quantity === null || t.quantity === null ? null : n.quantity + t.quantity, n.account += (n.account ? " / " : "") + t.account, e[t.symbol] = n, e;
+	}, {})), g = h.filter((t) => !(e.fundSymbols || []).includes(t.symbol)), _ = {
+		symbol: "CRM",
+		name: d.CRM || "CRM",
+		quantity: null,
+		account: "观察",
+		price: Number(p.CRM?.last_done) || void 0
+	};
+	g.some((e) => e.symbol === "CRM") || g.push(_), c === "rank" ? g.sort((t, n) => (e.comparison?.[t.symbol]?.rank || 999) - (e.comparison?.[n.symbol]?.rank || 999)) : c === "value" ? g.sort((e, t) => (t.price || 0) * (t.quantity || 0) - (e.price || 0) * (e.quantity || 0)) : g.sort((e, t) => e.name.localeCompare(t.name, "zh"));
+	let v = g.some((e) => e.symbol === o) || o === "CRM" ? o : g[0]?.symbol || "CRM", y = e.history[v] || [], b = p[v], x = e.valuationData?.[v], S = (e) => x?.cash?.fields.find((t) => t.field === e)?.value, C = e.financialReports?.[v], w = (e) => C?.indicators.find((t) => t.field_name === e), T = y.slice(-20), E = T.length >= 20 ? Math.min(...T.map((e) => e[3])) : null, O = T.length >= 20 ? Math.max(...T.map((e) => e[2])) : null, k = e.ibkrBalances.balances.find((e) => e.currency === "USD");
+	return /* @__PURE__ */ (0, K.jsxs)("main", {
+		className: "us-main",
+		children: [
+			/* @__PURE__ */ (0, K.jsx)("p", {
+				className: "us-kicker",
+				children: "美国市场 / 加密持仓报告"
+			}),
+			/* @__PURE__ */ (0, K.jsx)("h1", { children: "美股持仓地图" }),
+			/* @__PURE__ */ (0, K.jsx)("p", {
+				className: "us-muted",
+				children: "持仓、风险与研究线索 · 不含未确认账户"
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "us-note",
+				children: [
+					e.coverage,
+					" 账户读取日期 ",
+					e.asOf,
+					"；报价以详情列示的美东时间及阶段为准；历史日线截至 ",
+					e.historyAsOf,
+					" 收盘。数据不会自动更新。"
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("h2", { children: "组合概览" }),
+					/* @__PURE__ */ (0, K.jsxs)("p", { children: [
+						"盈透美元现金：",
+						k ? `$${Number(k.cash_balance).toFixed(2)}` : "未取得",
+						"。现金为负时需核对融资；未覆盖所有账户，不能推算全资产现金比例。"
+					] }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "持仓覆盖和确认时间以报告说明为准；观察标的不计入持仓。"
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [/* @__PURE__ */ (0, K.jsxs)("div", {
+					className: "us-heading",
+					children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("h2", { children: "股票持仓比较" }), /* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: e.rankCoverage || "综合研究尚未完成，排序待复核。"
+					})] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["排序 ", /* @__PURE__ */ (0, K.jsxs)("select", {
+						value: c,
+						onChange: (e) => l(e.target.value),
+						children: [
+							/* @__PURE__ */ (0, K.jsx)("option", {
+								value: "rank",
+								children: "最值得持有（初步综合）"
+							}),
+							/* @__PURE__ */ (0, K.jsx)("option", {
+								value: "value",
+								children: "已知持仓市值"
+							}),
+							/* @__PURE__ */ (0, K.jsx)("option", {
+								value: "name",
+								children: "名称"
+							})
+						]
+					})] })]
+				}), /* @__PURE__ */ (0, K.jsx)("div", {
+					className: "us-table-wrap",
+					children: /* @__PURE__ */ (0, K.jsxs)("table", { children: [/* @__PURE__ */ (0, K.jsx)("thead", { children: /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+						/* @__PURE__ */ (0, K.jsx)("th", { children: "排名" }),
+						/* @__PURE__ */ (0, K.jsx)("th", { children: "股票" }),
+						/* @__PURE__ */ (0, K.jsx)("th", { children: "账户" }),
+						/* @__PURE__ */ (0, K.jsx)("th", { children: "数量" }),
+						/* @__PURE__ */ (0, K.jsx)("th", { children: "参考价" }),
+						/* @__PURE__ */ (0, K.jsx)("th", { children: "市值参考" }),
+						/* @__PURE__ */ (0, K.jsx)("th", { children: "研究建议" })
+					] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: g.map((t) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+						/* @__PURE__ */ (0, K.jsx)("td", { children: e.comparison?.[t.symbol]?.rank || "—" }),
+						/* @__PURE__ */ (0, K.jsx)("td", { children: /* @__PURE__ */ (0, K.jsxs)("button", {
+							className: "us-link",
+							onClick: () => s(t.symbol),
+							children: [
+								t.name,
+								"（",
+								t.symbol,
+								"）"
+							]
+						}) }),
+						/* @__PURE__ */ (0, K.jsx)("td", { children: t.account }),
+						/* @__PURE__ */ (0, K.jsx)("td", { children: t.quantity === null ? t.account === "观察" ? "—" : "未知" : t.quantity }),
+						/* @__PURE__ */ (0, K.jsx)("td", { children: t.price ? `$${t.price.toFixed(2)}` : "待核验" }),
+						/* @__PURE__ */ (0, K.jsx)("td", { children: t.price && t.quantity !== null ? `$${(t.price * t.quantity).toFixed(2)}` : t.account === "观察" ? "—" : "待核验" }),
+						/* @__PURE__ */ (0, K.jsx)("td", { children: e.comparison?.[t.symbol]?.action || "待复核" })
+					] }, t.symbol)) })] })
+				})]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-heading",
+						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+							/* @__PURE__ */ (0, K.jsx)("p", {
+								className: "us-kicker",
+								children: "STOCK DETAIL"
+							}),
+							/* @__PURE__ */ (0, K.jsxs)("h2", { children: [
+								d[v] || v,
+								"（",
+								v,
+								"）"
+							] }),
+							/* @__PURE__ */ (0, K.jsx)("p", {
+								className: "us-muted",
+								children: v === "CRM" ? "观察标的，非持仓" : "选择上方股票查看"
+							})
+						] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["个股 ", /* @__PURE__ */ (0, K.jsx)("select", {
+							value: v,
+							onChange: (e) => s(e.target.value),
+							children: g.map((e) => e.symbol).map((e) => /* @__PURE__ */ (0, K.jsxs)("option", {
+								value: e,
+								children: [
+									d[e] || e,
+									"（",
+									e,
+									"）"
+								]
+							}, e))
+						})] })]
+					}),
+					/* @__PURE__ */ (0, K.jsxs)("p", { children: ["参考价：", b ? `$${Number(b.last_done).toFixed(2)} · ${b.timestamp}（美东，${b.session === "regular_close" ? "收盘" : "盘中"}）` : "待核验"] }),
+					/* @__PURE__ */ (0, K.jsx)(I_, { series: y.map((e) => [e[0], e[4]]) }),
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-cards",
+						children: [
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最低价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E === null ? "待核验" : `$${E.toFixed(2)}` })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最高价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: O === null ? "待核验" : `$${O.toFixed(2)}` })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "估值情景" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: "待研究" })] })
+						]
+					}),
+					/* @__PURE__ */ (0, K.jsxs)("p", {
+						className: "us-muted",
+						children: [
+							"历史高低点截至 ",
+							e.historyAsOf,
+							"，是观察参考，不保证构成支撑或压力；盘中价格可能已突破。具体加减仓需要估值、账户风险与持仓数据共同验证。"
+						]
+					}),
+					e.valuationIssues?.[v] && /* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-note",
+						children: [/* @__PURE__ */ (0, K.jsx)("b", { children: "估值数据待核验：" }), e.valuationIssues[v]]
+					}),
+					e.institution?.[v] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: "机构持仓线索" }),
+						/* @__PURE__ */ (0, K.jsx)("p", { children: e.institution[v].text }),
+						/* @__PURE__ */ (0, K.jsx)("a", {
+							href: e.institution[v].url,
+							target: "_blank",
+							rel: "noreferrer",
+							children: "查看第三方申报整理 ↗"
+						})
+					] }),
+					e.comparison?.[v] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
+						/* @__PURE__ */ (0, K.jsxs)("div", {
+							className: "us-note",
+							children: [/* @__PURE__ */ (0, K.jsxs)("b", { children: [e.comparison[v].action, "："] }), e.comparison[v].reason]
+						}),
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: "经营与估值情景" }),
+						/* @__PURE__ */ (0, K.jsx)("p", {
+							className: "us-muted",
+							children: "以下为条件性研究情景，并非目标价或收益预测。历史估值口径、增长和现金流尚须进一步复核；数值价格区间暂不发布。"
+						}),
+						/* @__PURE__ */ (0, K.jsx)("div", {
+							className: "us-cards",
+							children: [
+								["保守", e.comparison[v].bear],
+								["基准", e.comparison[v].base],
+								["乐观", e.comparison[v].bull]
+							].map(([e, t]) => /* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: e }), /* @__PURE__ */ (0, K.jsx)("p", { children: t })] }, e))
+						})
+					] }),
+					/* @__PURE__ */ (0, K.jsx)("h3", { children: "估值与现金流参考" }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "估值为长桥 2026-11-19 收盘快照，并非当前值。历史分位按最多 36 个逐月正市盈率样本计算，口径、利润变动及异常值会影响比较；不直接转成目标价。"
+					}),
+					x ? /* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-cards",
+						children: [
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "收盘市盈率参考" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: x.pe !== null && x.pe > 0 ? `${x.pe.toFixed(1)} 倍` : "亏损或不适用" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: [
+								"历史中位数 · ",
+								x.historical?.count || 0,
+								" 个有效样本"
+							] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: x.historical ? `${x.historical.median.toFixed(1)} 倍` : "样本不足或不适用" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: ["最近财年经营现金流 · ", x.cash?.fp_end || "日期未知"] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: S("cash_oper") ? `$${(Number(S("cash_oper")) / 1e9).toFixed(2)} 十亿` : "待核验" })] })
+						]
+					}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "估值数据待核验。" }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "历史估值与利润口径未全部逐项复核，部分接口存在冲突；经营现金流不等于自由现金流，未单独覆盖资本化软件或税收异常，不作为排序唯一依据。"
+					}),
+					S("stock_based_cf") && /* @__PURE__ */ (0, K.jsxs)("p", {
+						className: "us-muted",
+						children: [
+							"同财年现金流量表中的股权激励费用：$",
+							(Number(S("stock_based_cf")) / 1e9).toFixed(2),
+							" 十亿美元；它是非现金调整，不应简单视为当期现金支出，但需评估股本稀释与回购成本。"
+						]
+					}),
+					e.cashWarnings?.[v] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: e.cashWarnings[v].text }), /* @__PURE__ */ (0, K.jsx)("a", {
+						href: e.cashWarnings[v].url,
+						target: "_blank",
+						rel: "noreferrer",
+						children: "核对公司现金流披露 ↗"
+					})] }),
+					/* @__PURE__ */ (0, K.jsx)("h3", { children: "财报数据" }),
+					C ? /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsxs)("p", {
+						className: "us-muted",
+						children: [C.report_txt, " · 长桥财务摘要，部分为财年累计数据；以下为研究线索，重要指标须回查公司财报。"]
+					}), /* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-cards",
+						children: [
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("operating_revenue") ? Number(w("operating_revenue").indicator_value).toLocaleString("en-US") : "待核验" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "净利润（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("net_profit") ? Number(w("net_profit").indicator_value).toLocaleString("en-US") : "待核验" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("operating_revenue")?.yoy ? F_(Number(w("operating_revenue").yoy) * 100) : "待核验" })] })
+						]
+					})] }) : /* @__PURE__ */ (0, K.jsx)("p", { children: "财报摘要待核验。" }),
+					/* @__PURE__ */ (0, K.jsx)("h3", { children: "研究线索" }),
+					/* @__PURE__ */ (0, K.jsx)("p", { children: f[v]?.text || "当前尚未完成最新财报、历史估值及同行比较，暂不提供个股结论。" }),
+					f[v]?.url && /* @__PURE__ */ (0, K.jsx)("a", {
+						href: f[v].url,
+						target: "_blank",
+						rel: "noreferrer",
+						children: "查看公司财报 ↗"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "研究数据截至 2026-11-20；行情刷新不等同于重新研究。"
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("h2", { children: "ETF 与杠杆工具" }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: "分开列示，不与普通股票做同一套持有价值排行；杠杆 ETF 有每日重置和路径风险。"
+					}),
+					h.filter((t) => (e.fundSymbols || []).includes(t.symbol)).map((e) => /* @__PURE__ */ (0, K.jsxs)("p", { children: [
+						e.name,
+						"（",
+						e.symbol,
+						"） · ",
+						e.account,
+						" · ",
+						e.quantity,
+						" 份 · ",
+						e.price ? `$${e.price.toFixed(2)}` : "价格待核验"
+					] }, e.symbol))
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("h2", { children: "机构持仓线索" }),
+					/* @__PURE__ */ (0, K.jsx)("p", { children: "13F 为季度末快照，不能代表机构实时交易。重要持仓变动需逐项核对 SEC 原始申报，不依据网站估算成本或收益直接交易。" }),
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						href: "https://aiyuan.ai/gurus",
+						target: "_blank",
+						rel: "noreferrer",
+						children: "查看机构追踪资料 ↗"
+					})
+				]
+			})
+		]
+	});
+}
+function z_({ holdings: e }) {
+	return e ? /* @__PURE__ */ (0, K.jsx)(R_, {}) : /* @__PURE__ */ (0, K.jsx)(L_, {});
+}
 // src/stock-detail.tsx
-var P_ = (e) => e.toFixed(2), F_ = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
-function I_({ stock: e, bars: t, days: n }) {
+var B_ = (e) => e.toFixed(2), V_ = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
+function H_({ stock: e, bars: t, days: n }) {
 	let r = D.useRef(null), i = D.useRef(null), [a, o] = D.useState(null);
 	D.useEffect(() => {
 		if (!r.current) return;
@@ -25160,10 +25796,10 @@ function I_({ stock: e, bars: t, days: n }) {
 			"aria-live": "off",
 			children: [
 				/* @__PURE__ */ (0, K.jsx)("span", { children: s[0] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[1]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[2]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[3]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(s[4]) })] })
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[1]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[2]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[3]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[4]) })] })
 			]
 		}),
 		/* @__PURE__ */ (0, K.jsx)("div", {
@@ -25201,12 +25837,12 @@ function I_({ stock: e, bars: t, days: n }) {
 		})
 	] });
 }
-function L_({ stock: e, snapshotDate: t, researchDate: n }) {
+function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 	let r = e.bookCases?.map((t) => ({
 		name: t.name,
 		low: e.bps * (t.bpsFactor ?? 1) * t.lo,
 		high: e.bps * (t.bpsFactor ?? 1) * t.hi,
-		formula: `每股净资产约 ${P_(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍（计算使用未取整数据）`,
+		formula: `每股净资产约 ${B_(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍（计算使用未取整数据）`,
 		basis: t.basis
 	})) ?? e.scenarios?.map(([t, n, r], i) => ({
 		name: [
@@ -25216,7 +25852,7 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 		][i],
 		low: t * n,
 		high: t * r,
-		formula: `EPS 约 ${P_(t)} 元 × PE ${n}–${r} 倍（计算使用未取整数据）`,
+		formula: `EPS 约 ${B_(t)} 元 × PE ${n}–${r} 倍（计算使用未取整数据）`,
 		basis: e.scenarioNotes?.[i] ?? ""
 	})) ?? [], i = Math.max(e.price, ...r.map((e) => e.high)) * 1.08;
 	return /* @__PURE__ */ (0, K.jsxs)("section", {
@@ -25255,7 +25891,7 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 				children: [
 					e.caseBasis,
 					" 以研究时每股净资产估算的快照 PB 约 ",
-					P_(e.price / e.bps),
+					B_(e.price / e.bps),
 					" 倍；净资产及股本时点见估值依据。"
 				]
 			}),
@@ -25278,11 +25914,11 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-price",
 							children: [
-								P_(n.low),
+								B_(n.low),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("span", { children: "—" }),
 								" ",
-								P_(n.high),
+								B_(n.high),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: "元" })
 							]
@@ -25293,9 +25929,9 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 								"相对 ",
 								t,
 								" 收盘价 ",
-								F_((n.low / e.price - 1) * 100),
+								V_((n.low / e.price - 1) * 100),
 								" ~ ",
-								F_((n.high / e.price - 1) * 100)
+								V_((n.high / e.price - 1) * 100)
 							]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
@@ -25305,7 +25941,7 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 								width: `${(n.high - n.low) / i * 100}%`
 							} }), /* @__PURE__ */ (0, K.jsx)("i", {
 								style: { left: `${e.price / i * 100}%` },
-								title: `收盘价 ${P_(e.price)} 元`
+								title: `收盘价 ${B_(e.price)} 元`
 							})]
 						}),
 						/* @__PURE__ */ (0, K.jsx)("p", { children: n.formula }),
@@ -25320,7 +25956,7 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 					/* @__PURE__ */ (0, K.jsxs)("span", { children: [
 						/* @__PURE__ */ (0, K.jsx)("b", {}),
 						" 收盘价 ",
-						P_(e.price),
+						B_(e.price),
 						" 元"
 					] }),
 					/* @__PURE__ */ (0, K.jsx)("span", { children: "竖线及区间使用同一比例尺" })
@@ -25335,20 +25971,20 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 						/* @__PURE__ */ (0, K.jsx)("p", { children: e.evidenceNote }),
 						/* @__PURE__ */ (0, K.jsxs)("p", { children: [
 							"近 20 日收盘区间 ",
-							P_(e.recent20[0]),
+							B_(e.recent20[0]),
 							"–",
-							P_(e.recent20[1]),
+							B_(e.recent20[1]),
 							" 元；近 60 日 ",
-							P_(e.recent60[0]),
+							B_(e.recent60[0]),
 							"–",
-							P_(e.recent60[1]),
+							B_(e.recent60[1]),
 							" 元。历史区间不是支撑或预测。"
 						] }),
 						e.bookCases && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: "以上是静态压力测试，每股净资产调整幅度及 PB 均为根据历史、同行和经营状况设定的情景假设，不代表合理估值或发生概率。亏损、减值、分红和股本变化均会改变结果。" }), /* @__PURE__ */ (0, K.jsxs)("p", { children: [
 							"按当前快照估算市值 ",
-							P_(e.price * e.shareCapital / 1e8),
+							B_(e.price * e.shareCapital / 1e8),
 							" 亿元；按 20 倍市盈率反推需全年归母利润约 ",
-							P_(e.price * e.shareCapital / 1e8 / 20),
+							B_(e.price * e.shareCapital / 1e8 / 20),
 							" 亿元，并非利润预测。"
 						] })] })
 					]
@@ -25357,7 +25993,7 @@ function L_({ stock: e, snapshotDate: t, researchDate: n }) {
 		]
 	});
 }
-function R_({ stock: e, snapshotDate: t }) {
+function W_({ stock: e, snapshotDate: t }) {
 	let n = e.technical;
 	if (!n) return null;
 	let r = [
@@ -25419,7 +26055,7 @@ function R_({ stock: e, snapshotDate: t }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-level-number",
 							children: [
-								P_(t.value),
+								B_(t.value),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: "元" })
 							]
@@ -25429,7 +26065,7 @@ function R_({ stock: e, snapshotDate: t }) {
 							children: [
 								t.date,
 								" · 相对收盘 ",
-								F_((t.value / e.price - 1) * 100)
+								V_((t.value / e.price - 1) * 100)
 							]
 						})
 					]
@@ -25442,10 +26078,10 @@ function R_({ stock: e, snapshotDate: t }) {
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "sd-indicators",
 				children: [
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(n.ma20) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(n.ma60) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: P_(n.vwapClose) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [P_(n.volumeRatio), " 倍"] })] })
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(n.ma20) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(n.ma60) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(n.vwapClose) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [B_(n.volumeRatio), " 倍"] })] })
 				]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("p", {
@@ -25459,7 +26095,7 @@ function R_({ stock: e, snapshotDate: t }) {
 		]
 	});
 }
-function z_({ stock: e, bars: t, payload: n, onReady: r }) {
+function G_({ stock: e, bars: t, payload: n, onReady: r }) {
 	let [i, a] = D.useState("60");
 	D.useEffect(r, []);
 	let o = (e.price / e.prev - 1) * 100, s = [
@@ -25496,14 +26132,14 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 					children: [
 						/* @__PURE__ */ (0, K.jsxs)("small", { children: ["收盘价格 · ", n.snapshotDate] }),
 						/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-							/* @__PURE__ */ (0, K.jsx)("strong", { children: P_(e.price) }),
+							/* @__PURE__ */ (0, K.jsx)("strong", { children: B_(e.price) }),
 							/* @__PURE__ */ (0, K.jsx)("span", { children: " CNY" }),
 							/* @__PURE__ */ (0, K.jsxs)("b", {
 								className: o >= 0 ? "up" : "down",
 								children: [
 									o >= 0 ? /* @__PURE__ */ (0, K.jsx)(F, { size: 15 }) : /* @__PURE__ */ (0, K.jsx)(N, { size: 15 }),
 									" ",
-									F_(o)
+									V_(o)
 								]
 							})
 						] }),
@@ -25541,12 +26177,12 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "所列 A 股证券占比" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : P_(e.weight) + "%" }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : B_(e.weight) + "%" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "仅占所列证券，不含现金" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "持仓成本" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "分账户记录" : P_(e.cost) + " 元" }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "分账户记录" : B_(e.cost) + " 元" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "不影响持有价值排序" })
 					] })
 				]
@@ -25604,18 +26240,18 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 							}, e))
 						})
 					})]
-				}), /* @__PURE__ */ (0, K.jsx)(I_, {
+				}), /* @__PURE__ */ (0, K.jsx)(H_, {
 					stock: e,
 					bars: t,
 					days: Number(i)
 				})]
 			}),
-			/* @__PURE__ */ (0, K.jsx)(L_, {
+			/* @__PURE__ */ (0, K.jsx)(U_, {
 				stock: e,
 				snapshotDate: n.snapshotDate,
 				researchDate: n.researchDate
 			}),
-			/* @__PURE__ */ (0, K.jsx)(R_, {
+			/* @__PURE__ */ (0, K.jsx)(W_, {
 				stock: e,
 				snapshotDate: n.snapshotDate
 			}),
@@ -25659,14 +26295,14 @@ function z_({ stock: e, bars: t, payload: n, onReady: r }) {
 	});
 }
 // src/industry-charts.tsx
-var B_ = [
+var K_ = [
 	"#37886a",
 	"#c9944a",
 	"#5086b0",
 	"#aa6d8a",
 	"#8879b1",
 	"#a7b5aa"
-], V_ = (e) => e.toLocaleString("zh-CN", { maximumFractionDigits: 2 }), H_ = (e) => (e > 0 ? "+" : "") + e.toFixed(1) + "%", U_ = {
+], q_ = (e) => e.toLocaleString("zh-CN", { maximumFractionDigits: 2 }), J_ = (e) => (e > 0 ? "+" : "") + e.toFixed(1) + "%", Y_ = {
 	layout: {
 		background: {
 			type: Ym.Solid,
@@ -25704,7 +26340,7 @@ var B_ = [
 		pinch: !0,
 		axisPressedMouseMove: !0
 	}
-}, W_ = (e) => {
+}, X_ = (e) => {
 	if (typeof e == "string") return e;
 	if (typeof e == "object" && e && "year" in e) {
 		let t = e;
@@ -25712,11 +26348,11 @@ var B_ = [
 	}
 	return "";
 };
-function G_(e, t = 20) {
+function Z_(e, t = 20) {
 	let n = 0;
 	return e.map(([r, i], a) => (n += i, a >= t && (n -= e[a - t][1]), [r, n / Math.min(t, a + 1)]));
 }
-function K_(e, t) {
+function Q_(e, t) {
 	let n = -1, r = 0, i = new ResizeObserver((e) => {
 		let t = Math.round(e[0].contentRect.width);
 		t === n || t <= 0 || (n = t, cancelAnimationFrame(r), r = requestAnimationFrame(() => {}));
@@ -25725,7 +26361,7 @@ function K_(e, t) {
 		i.disconnect(), cancelAnimationFrame(r);
 	};
 }
-function q_() {
+function $_() {
 	return /* @__PURE__ */ (0, K.jsx)("a", {
 		className: "ic-credit",
 		href: "https://www.tradingview.com/",
@@ -25734,7 +26370,7 @@ function q_() {
 		children: "TradingView Lightweight Charts™ · © 2025 TradingView, Inc. ↗"
 	});
 }
-function J_({ value: e, onChange: t }) {
+function ev({ value: e, onChange: t }) {
 	return /* @__PURE__ */ (0, K.jsx)("div", {
 		className: "ic-range",
 		role: "group",
@@ -25751,7 +26387,7 @@ function J_({ value: e, onChange: t }) {
 		}, n))
 	});
 }
-function Y_({ selector: e, doc: t, series: n }) {
+function tv({ selector: e, doc: t, series: n }) {
 	let [r, i] = D.useState(e.value), [a, o] = D.useState("");
 	D.useEffect(() => {
 		let t = () => i(e.value);
@@ -25817,25 +26453,25 @@ function Y_({ selector: e, doc: t, series: n }) {
 		})]
 	})] });
 }
-function X_({ item: e, asOf: t }) {
-	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = D.useRef(null), c = n === "all" ? e.daily : e.daily.slice(-Number(n)), l = G_(e.daily).slice(-c.length);
+function nv({ item: e, asOf: t }) {
+	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = D.useRef(null), c = n === "all" ? e.daily : e.daily.slice(-Number(n)), l = Z_(e.daily).slice(-c.length);
 	D.useEffect(() => {
 		if (!o.current) return;
 		let e = m_(o.current, {
-			...U_,
+			...Y_,
 			autoSize: !0,
 			height: 310
 		});
 		s.current = e;
 		let t = e.addSeries(k_, {
-			color: B_[0],
+			color: K_[0],
 			lineWidth: 2,
 			lastValueVisible: !0,
 			priceLineVisible: !1,
 			title: "收盘",
 			crosshairMarkerVisible: !0
 		}), n = e.addSeries(k_, {
-			color: B_[1],
+			color: K_[1],
 			lineWidth: 2,
 			lineStyle: df.Dashed,
 			lastValueVisible: !1,
@@ -25854,8 +26490,8 @@ function X_({ item: e, asOf: t }) {
 			value: t,
 			ma: l[n][1]
 		}]));
-		e.subscribeCrosshairMove((e) => a(r.get(W_(e.time)) ?? null));
-		let i = K_(o.current, e);
+		e.subscribeCrosshairMove((e) => a(r.get(X_(e.time)) ?? null));
+		let i = Q_(o.current, e);
 		return () => {
 			i(), s.current = null, e.remove();
 		};
@@ -25885,11 +26521,11 @@ function X_({ item: e, asOf: t }) {
 						children: [
 							u.date,
 							" ",
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: V_(u.value) })] }),
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: V_(u.ma) })] })
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: q_(u.value) })] }),
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: q_(u.ma) })] })
 						]
 					})
-				] }), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)(J_, {
+				] }), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)(ev, {
 					value: n,
 					onChange: r
 				}), /* @__PURE__ */ (0, K.jsx)("button", {
@@ -25902,19 +26538,19 @@ function X_({ item: e, asOf: t }) {
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "ic-summary",
 				children: [
-					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "最新收盘" }), /* @__PURE__ */ (0, K.jsx)("strong", { children: V_(e.current) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "最新收盘" }), /* @__PURE__ */ (0, K.jsx)("strong", { children: q_(e.current) })] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "一年最高收盘" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: V_(e.high) }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: q_(e.high) }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: e.highDate })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "距一年高点" }), /* @__PURE__ */ (0, K.jsx)("strong", {
 						className: "ic-loss",
-						children: H_(e.drawdown)
+						children: J_(e.drawdown)
 					})] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "一年涨跌" }), /* @__PURE__ */ (0, K.jsx)("strong", {
 						className: e.return1y >= 0 ? "ic-up" : "ic-loss",
-						children: H_(e.return1y)
+						children: J_(e.return1y)
 					})] })
 				]
 			}),
@@ -25929,29 +26565,29 @@ function X_({ item: e, asOf: t }) {
 				children: [/* @__PURE__ */ (0, K.jsxs)("div", {
 					className: "ic-key",
 					children: [
-						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: B_[0] } }), "日收盘"] }),
-						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: B_[1] } }), "20日均线"] }),
+						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: K_[0] } }), "日收盘"] }),
+						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: K_[1] } }), "20日均线"] }),
 						/* @__PURE__ */ (0, K.jsxs)("span", { children: ["拖动或缩放 · 数据截至 ", t] })
 					]
-				}), /* @__PURE__ */ (0, K.jsx)(q_, {})]
+				}), /* @__PURE__ */ (0, K.jsx)($_, {})]
 			})
 		]
 	});
 }
-function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
+function rv({ group: e, items: t, benchmark: n, asOf: r }) {
 	let [i, a] = D.useState([]), [o, s] = D.useState(null), c = D.useRef(null), l = D.useRef(null), u = D.useRef(null);
 	D.useEffect(() => {
 		if (!c.current) return;
 		let e = m_(c.current, {
-			...U_,
+			...Y_,
 			autoSize: !0,
 			height: 220,
 			layout: {
-				...U_.layout,
+				...Y_.layout,
 				fontSize: 10
 			},
 			rightPriceScale: {
-				...U_.rightPriceScale,
+				...Y_.rightPriceScale,
 				scaleMargins: {
 					top: .12,
 					bottom: .1
@@ -25960,7 +26596,7 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 		}), r = [...t, n], a = r.map((t, n) => {
 			if (i.includes(t.name)) return null;
 			let r = e.addSeries(k_, {
-				color: B_[n],
+				color: K_[n],
 				lineWidth: n === 5 ? 1 : 2,
 				lineStyle: n === 5 ? df.Dashed : df.Solid,
 				lastValueVisible: !1,
@@ -25980,7 +26616,7 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 		l.current = e, u.current ? e.timeScale().setVisibleLogicalRange(u.current) : e.timeScale().fitContent();
 		let o = r.map((e) => new Map(e.daily.map(([t, n]) => [t, n / e.daily[0][1] * 100])));
 		e.subscribeCrosshairMove((e) => {
-			let t = W_(e.time);
+			let t = X_(e.time);
 			if (!t) {
 				s(null);
 				return;
@@ -25994,7 +26630,7 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 				values: n
 			});
 		});
-		let d = K_(c.current, e);
+		let d = Q_(c.current, e);
 		return () => {
 			a.length, u.current = e.timeScale().getVisibleLogicalRange(), l.current = null, d(), e.remove();
 		};
@@ -26041,9 +26677,9 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 					"aria-pressed": !i.includes(e.name),
 					onClick: () => d(e.name),
 					children: [
-						/* @__PURE__ */ (0, K.jsx)("i", { style: { background: B_[t] } }),
+						/* @__PURE__ */ (0, K.jsx)("i", { style: { background: K_[t] } }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: e.name }),
-						/* @__PURE__ */ (0, K.jsx)("b", { children: H_(e.return1y) })
+						/* @__PURE__ */ (0, K.jsx)("b", { children: J_(e.return1y) })
 					]
 				}, e.name))
 			}),
@@ -26053,13 +26689,13 @@ function Z_({ group: e, items: t, benchmark: n, asOf: r }) {
 					"图例涨跌为完整一年 · ",
 					r,
 					" 收盘"
-				] }), /* @__PURE__ */ (0, K.jsx)(q_, {})]
+				] }), /* @__PURE__ */ (0, K.jsx)($_, {})]
 			})
 		]
 	});
 }
-var Q_ = "\n.ic-selector-root{width:100%;min-width:0}.ic-search{box-sizing:border-box;width:100%;height:36px;margin-bottom:6px;padding:0 11px;border:1px solid #d7e4db;border-radius:9px;color:#244b38;background:#fff;font:13px sans-serif}.ic-selector-option small{margin-left:auto;margin-right:8px;color:#90a495;font-size:10px}.ic-empty{padding:12px;color:#82988b}.ic-reset{display:block;margin:7px 0 0 auto;border:0;background:transparent;color:#56816a;font-size:11px;cursor:pointer}.ic-reset:hover{text-decoration:underline}.ic-jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.ic-jump a{padding:7px 11px;border:1px solid #dfeae0;border-radius:8px;color:#3d7354;text-decoration:none;font-size:12px}.drawdown-row[data-jump],#sector-table tbody tr[data-jump]{cursor:pointer}.drawdown-row[data-jump]:hover,#sector-table tbody tr[data-jump]:hover{background:#edf7ef}.drawdown-row[data-jump]:focus-visible,#sector-table tbody tr[data-jump]:focus-visible{outline:2px solid #398a61;outline-offset:-2px}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
-function $_(e) {
+var iv = "\n.ic-selector-root{width:100%;min-width:0}.ic-search{box-sizing:border-box;width:100%;height:36px;margin-bottom:6px;padding:0 11px;border:1px solid #d7e4db;border-radius:9px;color:#244b38;background:#fff;font:13px sans-serif}.ic-selector-option small{margin-left:auto;margin-right:8px;color:#90a495;font-size:10px}.ic-empty{padding:12px;color:#82988b}.ic-reset{display:block;margin:7px 0 0 auto;border:0;background:transparent;color:#56816a;font-size:11px;cursor:pointer}.ic-reset:hover{text-decoration:underline}.ic-jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.ic-jump a{padding:7px 11px;border:1px solid #dfeae0;border-radius:8px;color:#3d7354;text-decoration:none;font-size:12px}.drawdown-row[data-jump],#sector-table tbody tr[data-jump]{cursor:pointer}.drawdown-row[data-jump]:hover,#sector-table tbody tr[data-jump]:hover{background:#edf7ef}.drawdown-row[data-jump]:focus-visible,#sector-table tbody tr[data-jump]:focus-visible{outline:2px solid #398a61;outline-offset:-2px}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
+function av(e) {
 	let t = e.contentDocument;
 	if (!t) return;
 	let n = Array.from(t.querySelectorAll("script")).find((e) => e.textContent?.includes("const payload = "))?.textContent?.match(/const payload = (\{[^\n]*\});/);
@@ -26073,11 +26709,11 @@ function $_(e) {
 	let i = t.querySelector("#sector-select"), a = t.querySelector("#detail-chart"), o = t.querySelector("#trend-grid"), s = r.series.find((e) => e.group === "基准");
 	if (!i || !a || !o || !s || !r.series.length) return;
 	let c = t.createElement("style");
-	c.textContent = Q_, t.head.append(c);
+	c.textContent = iv, t.head.append(c);
 	let l;
 	function u() {
 		let e = r.series.find((e) => e.name === i.value);
-		e && (l?.unmount(), a.replaceChildren(), l = (0, fa.createRoot)(a), l.render(/* @__PURE__ */ (0, K.jsx)(X_, {
+		e && (l?.unmount(), a.replaceChildren(), l = (0, fa.createRoot)(a), l.render(/* @__PURE__ */ (0, K.jsx)(nv, {
 			item: e,
 			asOf: r.asOf
 		}, e.name)));
@@ -26086,7 +26722,7 @@ function $_(e) {
 		e.stopImmediatePropagation(), u(), i.dispatchEvent(new Event("industry-selected"));
 	}, !0);
 	let d = t.createElement("div");
-	d.className = "ic-selector-root", i.after(d), (0, fa.createRoot)(d).render(/* @__PURE__ */ (0, K.jsx)(Y_, {
+	d.className = "ic-selector-root", i.after(d), (0, fa.createRoot)(d).render(/* @__PURE__ */ (0, K.jsx)(tv, {
 		selector: i,
 		doc: t,
 		series: r.series
@@ -26126,7 +26762,7 @@ function $_(e) {
 		"先进制造",
 		"消费医药",
 		"资源金融"
-	].map((e) => /* @__PURE__ */ (0, K.jsx)(Z_, {
+	].map((e) => /* @__PURE__ */ (0, K.jsx)(rv, {
 		group: e,
 		items: r.series.filter((t) => t.group === e),
 		benchmark: s,
@@ -26141,11 +26777,17 @@ function $_(e) {
 	}
 }
 // src/main.tsx
-var ev = /\/mobile-holdings\.html$/.test(location.pathname), tv = /\/h\/?$|\/mobile-holdings\.html$/.test(location.pathname);
-function nv() {
-	let [e, t] = D.useState(tv ? "holdings" : "industry");
-	function n(e) {
-		e === "holdings" && !tv && location.assign("./h/"), e === "industry" && tv && location.assign(ev ? "./#industry" : "../#industry"), t(String(e));
+var ov = /\/us(?:\/|$)/.test(location.pathname), sv = /\/us\/holdings(?:\/|$)/.test(location.pathname), cv = /\/mobile-holdings\.html$/.test(location.pathname), lv = /\/h\/?$|\/mobile-holdings\.html$/.test(location.pathname);
+function uv() {
+	let [e, t] = D.useState(ov ? sv ? "us-holdings" : "us-industry" : lv ? "holdings" : "industry");
+	function n(n) {
+		let r = sv ? "../../" : ov || lv && !cv ? "../" : "./", i = {
+			industry: r + "#industry",
+			holdings: r + "h/",
+			"us-industry": r + "us/",
+			"us-holdings": r + "us/holdings/"
+		};
+		n && String(n) !== e && i[String(n)] && location.assign(i[String(n)]), t(String(n));
 	}
 	return /* @__PURE__ */ (0, K.jsx)("div", {
 		className: "workspace-nav",
@@ -26154,7 +26796,7 @@ function nv() {
 			children: [
 				/* @__PURE__ */ (0, K.jsxs)("a", {
 					className: "workspace-brand",
-					href: tv ? ev ? "./#industry" : "../#industry" : "#industry",
+					href: sv ? "../../#industry" : ov || lv && !cv ? "../#industry" : "./#industry",
 					"aria-label": "投资观察首页",
 					children: [/* @__PURE__ */ (0, K.jsx)("span", {
 						className: "workspace-logo",
@@ -26168,15 +26810,28 @@ function nv() {
 					children: /* @__PURE__ */ (0, K.jsxs)(Ko, {
 						"aria-label": "网站导航",
 						className: "workspace-tab-list",
-						children: [/* @__PURE__ */ (0, K.jsxs)(qo, {
-							value: "industry",
-							className: "workspace-tab",
-							children: [/* @__PURE__ */ (0, K.jsx)(se, { size: 15 }), "行业走势"]
-						}), /* @__PURE__ */ (0, K.jsxs)(qo, {
-							value: "holdings",
-							className: "workspace-tab",
-							children: [/* @__PURE__ */ (0, K.jsx)(L, { size: 15 }), "持仓地图"]
-						})]
+						children: [
+							/* @__PURE__ */ (0, K.jsxs)(qo, {
+								value: "industry",
+								className: "workspace-tab",
+								children: [/* @__PURE__ */ (0, K.jsx)(se, { size: 15 }), "A 股行业"]
+							}),
+							/* @__PURE__ */ (0, K.jsxs)(qo, {
+								value: "holdings",
+								className: "workspace-tab",
+								children: [/* @__PURE__ */ (0, K.jsx)(L, { size: 15 }), "A 股持仓"]
+							}),
+							/* @__PURE__ */ (0, K.jsxs)(qo, {
+								value: "us-industry",
+								className: "workspace-tab",
+								children: [/* @__PURE__ */ (0, K.jsx)(se, { size: 15 }), "美股行业"]
+							}),
+							/* @__PURE__ */ (0, K.jsxs)(qo, {
+								value: "us-holdings",
+								className: "workspace-tab",
+								children: [/* @__PURE__ */ (0, K.jsx)(L, { size: 15 }), "美股持仓"]
+							})
+						]
 					})
 				}),
 				/* @__PURE__ */ (0, K.jsxs)(Xo, {
@@ -26188,12 +26843,12 @@ function nv() {
 		})
 	});
 }
-var rv = document.querySelector(".site-tabs");
-if (rv) {
+var dv = document.querySelector(".site-tabs");
+if (dv) {
 	let e = document.createElement("div");
-	rv.before(e), (0, fa.createRoot)(e).render(/* @__PURE__ */ (0, K.jsx)(nv, {})), rv.hidden = !0;
+	dv.before(e), (0, fa.createRoot)(e).render(/* @__PURE__ */ (0, K.jsx)(uv, {})), dv.hidden = !0;
 }
-if (tv) {
+if (lv) {
 	let e = document.querySelector("#map-report"), t, n, r = () => {
 		n && !n.isConnected && (t?.unmount(), t = void 0, n = void 0);
 		let r = e?.querySelector("#map-stock-detail"), i = e?.querySelector("[data-stock-index][aria-pressed=\"true\"]"), a = document.querySelector("#holdings-map-data");
@@ -26201,7 +26856,7 @@ if (tv) {
 			let e = JSON.parse(a.textContent || ""), o = e.stocks[Number(i.dataset.stockIndex)], s = e.history[o.symbol];
 			if (o && Array.isArray(s) && s.length) {
 				let i = Array.from(r.children), a = document.createElement("div");
-				a.className = "stock-workspace-mount", r.append(a), n = a, t = (0, fa.createRoot)(a), t.render(/* @__PURE__ */ (0, K.jsx)(z_, {
+				a.className = "stock-workspace-mount", r.append(a), n = a, t = (0, fa.createRoot)(a), t.render(/* @__PURE__ */ (0, K.jsx)(G_, {
 					stock: o,
 					bars: s,
 					payload: e,
@@ -26251,10 +26906,12 @@ if (tv) {
 		subtree: !0
 	}), r();
 }
-var iv = document.querySelector("#chart-frame"), av = () => {
-	let e = iv?.contentDocument;
+var fv = document.querySelector("#chart-frame"), pv = () => {
+	let e = fv?.contentDocument;
 	if (!e?.head || e.getElementById("workspace-industry-theme")) return;
 	let t = e.createElement("style");
-	t.id = "workspace-industry-theme", t.textContent = ":root{--page:#f4f6f2;--ink:#1c3933;--line:#e1e9e3;--panel:#fff} .snapshot-card,.asof-card,.hero-panel,.section-block{box-shadow:0 4px 18px #173d2b08} .trend-grid section{background:#f8fbf8} .dashboard-header h1{color:#193d33}", e.head.append(t), $_(iv);
+	t.id = "workspace-industry-theme", t.textContent = ":root{--page:#f4f6f2;--ink:#1c3933;--line:#e1e9e3;--panel:#fff} .snapshot-card,.asof-card,.hero-panel,.section-block{box-shadow:0 4px 18px #173d2b08} .trend-grid section{background:#f8fbf8} .dashboard-header h1{color:#193d33}", e.head.append(t), av(fv);
 };
-iv?.addEventListener("load", av), av();
+fv?.addEventListener("load", pv), pv();
+var mv = document.getElementById("us-app");
+mv && (0, fa.createRoot)(mv).render(/* @__PURE__ */ (0, K.jsx)(z_, { holdings: sv }));
