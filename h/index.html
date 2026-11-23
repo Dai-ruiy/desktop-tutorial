@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-6FulHwFqPKvJVkwyu6dvyHqaEoPNKlyRdL/yatPgQZg='">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-0umdt0BkckU5cC89gmJ/6k3QJbtCcp28xr5KPhDy0E0='">
 <title>A 股持仓地图</title>
 <style>
 :root{color-scheme:light;background:#eef3f4}
@@ -338,7 +338,7 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
     section.append(html('p', '', t.low60 === t.low ? '前60日最低与前20日低点相同，暂无更低的60日历史观察位；若收盘继续跌破，重新核查风险和持有逻辑。' : '关键支撑观察：' + yuan(t.low60) + ' 元（截至' + payload.snapshotDate + '收盘前60日最低，' + t.low60Date + '）；若收盘继续跌破，重新核查风险和持有逻辑。'));
     section.append(html('p', '', '反弹压力：' + yuan(t.high) + ' 元（前5日最高，' + t.highDate + '）；更远压力 ' + yuan(t.high20) + ' 元（前20日最高，' + t.high20Date + '）。反弹受阻时可结合仓位复核；突破后观察能否站稳。'));
     section.append(html('p', '', '20日均线 ' + yuan(t.ma20) + ' 元；60日均线 ' + yuan(t.ma60) + ' 元；20日成交量加权收盘均价 ' + yuan(t.vwapClose) + ' 元；当日成交量约为此前20日均量的 ' + t.volumeRatio.toFixed(2) + ' 倍。'));
-    section.append(html('p', 'map-meta', '数据为长桥前复权日线，截至2026-11-17收盘；高低点排除当日，均线、量价均价含当日。加权收盘均价不是逐笔成交密集区，也不是持仓成本；价位是候选观察点，并非保证支撑或自动交易信号。'));
+    section.append(html('p', 'map-meta', '数据为长桥前复权日线，截至' + payload.snapshotDate + '收盘；高低点排除当日，均线、量价均价含当日。加权收盘均价不是逐笔成交密集区，也不是持仓成本；价位是候选观察点，并非保证支撑或自动交易信号。'));
   }
 
   function sourceLink([label, url]) {
@@ -370,7 +370,7 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
     const stats = html('div','map-line');
     const change = (s.price / s.prev - 1) * 100;
     stats.append(html('strong','map-number',yuan(s.price) + ' 元'), html('span','',valuation(s)),
-      html('span','map-meta','较昨收 ' + (change >= 0 ? '+' : '') + change.toFixed(2) + '% · 11/17 收盘 ' + s.time));
+      html('span','map-meta','较昨收 ' + (change >= 0 ? '+' : '') + change.toFixed(2) + '% · ' + payload.snapshotDate + ' 收盘 ' + s.time));
     const weightLabel = payload.etfs ? '证券市值占比 ' : '11/03 截图权重 ';
     const holding = s.shares + ' 股' + (s.weight === null ? ' · 11/10 用户确认' : ' · ' + weightLabel + percentage(s.weight)) +
       (s.cost === null ? ' · 跨账户成本分别记录' : ' · 成本 ' + yuan(s.cost) + ' 元');
@@ -387,7 +387,7 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
     chartHead.append(html('h3','',s.name + '日 K 线'),range);
     chartArea.append(chartHead, html('p','map-legend','红涨、绿跌 · 蓝线：收盘价 · 青线：前20日低 · 棕线：前5日高。手机可左右滑动图表。'),chart(s));
     const from = payload.history[s.symbol].slice(-days)[0][0];
-    chartArea.append(html('p','map-meta','长桥前复权日线 · ' + from + ' 至 2026-11-17 · 收盘日线'));
+    chartArea.append(html('p','map-meta','长桥前复权日线 · ' + from + ' 至 ' + payload.history[s.symbol].at(-1)[0] + ' · 收盘日线'));
     if (s.bands.length) chartArea.append(table(['位置','价格（元）','历史依据'],s.bands.map(([kind,lo,hi,evidence]) => [kind,span(lo,hi),evidence])));
 
     const panels = html('div','map-details');
