@@ -25148,7 +25148,7 @@ function I_({ series: e }) {
 function L_() {
 	let [e, t] = D.useState(), [n, r] = D.useState("XLK"), [i, a] = D.useState(250);
 	if (D.useEffect(() => {
-		fetch("./industry-data.json").then((e) => {
+		fetch("./industry-data.json", {cache:"no-store"}).then((e) => {
 			if (!e.ok) throw Error();
 			return e.json();
 		}).then((e) => t({
@@ -25323,7 +25323,7 @@ function R_() {
 		try {
 			let n = e.trim();
 			if ((n.startsWith("https:") || n.startsWith("http:")) && (n = new URL(n).hash.slice(1)), !/^[A-Za-z0-9_-]{43}$/.test(n)) throw Error("请输入有效的访问密钥或完整解锁链接");
-			let i = Uint8Array.from(atob(n.replace(/-/g, "+").replace(/_/g, "/") + "="), (e) => e.charCodeAt(0)), o = await crypto.subtle.importKey("raw", i, "AES-GCM", !1, ["decrypt"]), s = await fetch("../portfolio.enc");
+			let i = Uint8Array.from(atob(n.replace(/-/g, "+").replace(/_/g, "/") + "="), (e) => e.charCodeAt(0)), o = await crypto.subtle.importKey("raw", i, "AES-GCM", !1, ["decrypt"]), s = await fetch("../portfolio.enc", {cache:"no-store"});
 			if (!s.ok) throw Error("加密报告加载失败");
 			let c = Uint8Array.from(atob((await s.text()).trim()), (e) => e.charCodeAt(0)), l = await crypto.subtle.decrypt({
 				name: "AES-GCM",
