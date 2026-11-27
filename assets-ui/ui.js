@@ -19750,7 +19750,11 @@ function om(e, t, n) {
 function sm(e, t, n) {
 	return t - e <= n;
 }
-var cm = class extends Nf {
+function cm(e) {
+	let t = Math.ceil(e);
+	return t % 2 == 0 ? t - 1 : t;
+}
+var lm = class extends Nf {
 	constructor() {
 		super(...arguments), this.qt = null;
 	}
@@ -19782,9 +19786,9 @@ var cm = class extends Nf {
 			}
 		});
 	}
-}, lm = class {
+}, um = class {
 	constructor(e) {
-		this.Xt = new cm(), this.xt = !0, this.yt = e;
+		this.Xt = new lm(), this.xt = !0, this.yt = e;
 	}
 	Pt() {
 		this.xt = !0;
@@ -19805,60 +19809,60 @@ var cm = class extends Nf {
 		}
 		return this.Xt;
 	}
-}, um = class {
+}, dm = class {
 	constructor(e) {
-		this.Kh = new lm(e);
+		this.Kh = new um(e);
 	}
 	Mr() {
 		return this.Kh;
 	}
-}, dm = {
+}, fm = {
 	zl: 4,
 	Ol: 1e-4
 };
-function fm(e, t) {
+function pm(e, t) {
 	let n = 100 * (e - t) / t;
 	return t < 0 ? -n : n;
 }
-function pm(e, t) {
-	return new xp(fm(e.Qe(), t), fm(e.tr(), t));
-}
 function mm(e, t) {
+	return new xp(pm(e.Qe(), t), pm(e.tr(), t));
+}
+function hm(e, t) {
 	let n = 100 * (e - t) / t + 100;
 	return t < 0 ? -n : n;
 }
-function hm(e, t) {
-	return new xp(mm(e.Qe(), t), mm(e.tr(), t));
-}
 function gm(e, t) {
+	return new xp(hm(e.Qe(), t), hm(e.tr(), t));
+}
+function _m(e, t) {
 	let n = Math.abs(e);
 	if (n < 1e-15) return 0;
 	let r = Math.log10(n + t.Ol) + t.zl;
 	return e < 0 ? -r : r;
 }
-function _m(e, t) {
+function vm(e, t) {
 	let n = Math.abs(e);
 	if (n < 1e-15) return 0;
 	let r = 10 ** (n - t.zl) - t.Ol;
 	return e < 0 ? -r : r;
 }
-function vm(e, t) {
-	return e === null ? null : new xp(gm(e.Qe(), t), gm(e.tr(), t));
-}
 function ym(e, t) {
 	return e === null ? null : new xp(_m(e.Qe(), t), _m(e.tr(), t));
 }
-function bm(e) {
-	if (e === null) return dm;
+function bm(e, t) {
+	return e === null ? null : new xp(vm(e.Qe(), t), vm(e.tr(), t));
+}
+function xm(e) {
+	if (e === null) return fm;
 	let t = Math.abs(e.tr() - e.Qe());
-	if (t >= 1 || t < 1e-15) return dm;
-	let n = Math.ceil(Math.abs(Math.log10(t))), r = dm.zl + n;
+	if (t >= 1 || t < 1e-15) return fm;
+	let n = Math.ceil(Math.abs(Math.log10(t))), r = fm.zl + n;
 	return {
 		zl: r,
 		Ol: 1 / 10 ** r
 	};
 }
-var xm = class {
+var Sm = class {
 	constructor(e, t) {
 		if (this.Nl = e, this.Fl = t, function(e) {
 			if (e < 0) return !1;
@@ -19893,21 +19897,21 @@ var xm = class {
 		var s, c, l;
 		return i;
 	}
-}, Sm = class {
+}, Cm = class {
 	constructor(e, t, n, r) {
 		this.Ul = [], this.Ki = e, this.Nl = t, this.$l = n, this.jl = r;
 	}
 	Hl(e, t) {
 		if (e < t) throw Error("high < low");
-		let n = this.Ki.$t(), r = (e - t) * this.ql() / n, i = new xm(this.Nl, [
+		let n = this.Ki.$t(), r = (e - t) * this.ql() / n, i = new Sm(this.Nl, [
 			2,
 			2.5,
 			2
-		]), a = new xm(this.Nl, [
+		]), a = new Sm(this.Nl, [
 			2,
 			2,
 			2.5
-		]), o = new xm(this.Nl, [
+		]), o = new Sm(this.Nl, [
 			2.5,
 			2,
 			2
@@ -19969,30 +19973,30 @@ var xm = class {
 	}
 	Xl(e, t, n) {
 		let r = gf(this.Ki.lr());
-		return this.Ki.ro() && (r = ym(r, this.Ki.ao())), r.Qe() - t < e && n - r.tr() < e;
+		return this.Ki.ro() && (r = bm(r, this.Ki.ao())), r.Qe() - t < e && n - r.tr() < e;
 	}
 };
-function Cm(e) {
+function wm(e) {
 	return e.slice().sort((e, t) => Q(e.ln()) - Q(t.ln()));
 }
-var wm;
+var Tm;
 (function(e) {
 	e[e.Normal = 0] = "Normal", e[e.Logarithmic = 1] = "Logarithmic", e[e.Percentage = 2] = "Percentage", e[e.IndexedTo100 = 3] = "IndexedTo100";
-})(wm ||= {});
-var Tm = new ap(), Em = new ip(100, 1);
-function Dm(e) {
+})(Tm ||= {});
+var Em = new ap(), Dm = new ip(100, 1);
+function Om(e) {
 	return {
 		visible: !0,
 		autoScale: !0,
 		...Cf(e)
 	};
 }
-var Om = class {
+var km = class {
 	constructor(e, t, n, r, i) {
 		this.lo = 0, this.oo = null, this.hr = null, this._o = null, this.uo = {
 			co: !1,
 			do: null
-		}, this.fo = !1, this.po = 0, this.vo = 0, this.mo = new _f(), this.wo = new _f(), this.Mo = [], this.bo = null, this.So = null, this.xo = null, this.Co = null, this.yo = null, this.rl = Em, this.Po = bm(null), this.ko = e, this.yn = t, this.To = n, this.Ro = r, this.Do = i, this.Io = new Sm(this, 100, this.Vo.bind(this), this.Bo.bind(this));
+		}, this.fo = !1, this.po = 0, this.vo = 0, this.mo = new _f(), this.wo = new _f(), this.Mo = [], this.bo = null, this.So = null, this.xo = null, this.Co = null, this.yo = null, this.rl = Dm, this.Po = xm(null), this.ko = e, this.yn = t, this.To = n, this.Ro = r, this.Do = i, this.Io = new Cm(this, 100, this.Vo.bind(this), this.Bo.bind(this));
 	}
 	vl() {
 		return this.ko;
@@ -20038,9 +20042,9 @@ var Om = class {
 		let t = this.ue(), n = null;
 		e.hs !== void 0 && (this.yn.autoScale = e.hs), e.ue !== void 0 && (this.yn.mode = e.ue, e.ue !== 2 && e.ue !== 3 || (this.yn.autoScale = !0), this.uo.co = !1), t.ue === 1 && e.ue !== t.ue && (function(e, t) {
 			if (e === null) return !1;
-			let n = _m(e.Qe(), t), r = _m(e.tr(), t);
+			let n = vm(e.Qe(), t), r = vm(e.tr(), t);
 			return isFinite(n) && isFinite(r);
-		}(this.hr, this.Po) ? (n = ym(this.hr, this.Po), n !== null && this.Fo(n)) : this.yn.autoScale = !0), e.ue === 1 && e.ue !== t.ue && (n = vm(this.hr, this.Po), n !== null && this.Fo(n));
+		}(this.hr, this.Po) ? (n = bm(this.hr, this.Po), n !== null && this.Fo(n)) : this.yn.autoScale = !0), e.ue === 1 && e.ue !== t.ue && (n = ym(this.hr, this.Po), n !== null && this.Fo(n));
 		let r = t.ue !== this.yn.mode;
 		r && (t.ue === 2 || this.qe()) && this.ml(), r && (t.ue === 3 || this.Oo()) && this.ml(), e.No !== void 0 && t.No !== e.No && (this.yn.invertScale = e.No, this.Wo()), this.wo.p(t, this.ue());
 	}
@@ -20078,7 +20082,7 @@ var Om = class {
 		return this.No() ? e : this.$t() - 1 - e;
 	}
 	Nt(e, t) {
-		return this.qe() ? e = fm(e, t) : this.Oo() && (e = mm(e, t)), this.Bo(e, t);
+		return this.qe() ? e = pm(e, t) : this.Oo() && (e = hm(e, t)), this.Bo(e, t);
 	}
 	Xo(e, t, n) {
 		this.Yo();
@@ -20118,7 +20122,7 @@ var Om = class {
 		return this.Mo;
 	}
 	Dt() {
-		return this.So ||= Cm(this.Mo), this.So;
+		return this.So ||= wm(this.Mo), this.So;
 	}
 	r_(e) {
 		this.Mo.indexOf(e) === -1 && (this.Mo.push(e), this.ml(), this.h_());
@@ -20182,8 +20186,8 @@ var Om = class {
 	}
 	Ji(e, t) {
 		switch (this.yn.mode) {
-			case 2: return this.v_(fm(e, t));
-			case 3: return this.el().format(mm(e, t));
+			case 2: return this.v_(pm(e, t));
+			case 3: return this.el().format(hm(e, t));
 			default: return this.dr(e);
 		}
 	}
@@ -20205,7 +20209,7 @@ var Om = class {
 		return this.dr(e, Q(this.bo).el());
 	}
 	ya(e, t) {
-		return e = fm(e, t), this.v_(e, Tm);
+		return e = pm(e, t), this.v_(e, Em);
 	}
 	M_() {
 		return this.Mo;
@@ -20231,7 +20235,7 @@ var Om = class {
 		this.bo = null;
 		for (let t of this.Mo) t.ln() < e && (e = t.ln(), this.bo = t);
 		let t = 100;
-		this.bo !== null && (t = Math.round(this.bo.Zh())), this.rl = Em, this.qe() ? (this.rl = Tm, t = 100) : this.Oo() ? (this.rl = new ip(100, 1), t = 100) : this.bo !== null && (this.rl = this.bo.el()), this.Io = new Sm(this, t, this.Vo.bind(this), this.Bo.bind(this)), this.Io.Yl();
+		this.bo !== null && (t = Math.round(this.bo.Zh())), this.rl = Dm, this.qe() ? (this.rl = Em, t = 100) : this.Oo() ? (this.rl = new ip(100, 1), t = 100) : this.bo !== null && (this.rl = this.bo.el()), this.Io = new Cm(this, t, this.Vo.bind(this), this.Bo.bind(this)), this.Io.Yl();
 	}
 	h_() {
 		this.So = null;
@@ -20259,14 +20263,14 @@ var Om = class {
 	}
 	Bo(e, t) {
 		if (this.Yo(), this.Gi()) return 0;
-		e = this.ro() && e ? gm(e, this.Po) : e;
+		e = this.ro() && e ? _m(e, this.Po) : e;
 		let n = Q(this.lr()), r = this.qo() + (this.$o() - 1) * (e - n.Qe()) / n.ir();
 		return this.Go(r);
 	}
 	Vo(e, t) {
 		if (this.Yo(), this.Gi()) return 0;
 		let n = this.Go(e), r = Q(this.lr()), i = r.Qe() + r.ir() * ((n - this.qo()) / (this.$o() - 1));
-		return this.ro() ? _m(i, this.Po) : i;
+		return this.ro() ? vm(i, this.Po) : i;
 	}
 	Wo() {
 		this.xo = null, this.Io.Yl();
@@ -20284,12 +20288,12 @@ var Om = class {
 			if (s !== null) {
 				switch (this.yn.mode) {
 					case 1:
-						s = vm(s, this.Po);
+						s = ym(s, this.Po);
 						break;
 					case 2:
-						s = pm(s, n.Wt);
+						s = mm(s, n.Wt);
 						break;
-					case 3: s = hm(s, n.Wt);
+					case 3: s = gm(s, n.Wt);
 				}
 				if (t = t === null ? s : t.Ss(Q(s)), o !== null) {
 					let e = o._r();
@@ -20299,23 +20303,23 @@ var Om = class {
 		}
 		if (this.Gl() && (r = Math.max(r, this.Jl()), i = Math.max(i, this.Jl())), r === this.po && i === this.vo || (this.po = r, this.vo = i, this.xo = null, this.Ao()), t !== null) {
 			if (t.Qe() === t.tr()) {
-				this.ro() && (t = ym(t, this.Po));
+				this.ro() && (t = bm(t, this.Po));
 				let e = this.ro() ? 1e-8 : 1e-14, n = Math.max(5 * this.b_(), Math.abs(t.Qe()) * e);
-				t = new xp(t.Qe() - n, t.tr() + n), this.ro() && (t = vm(t, this.Po));
+				t = new xp(t.Qe() - n, t.tr() + n), this.ro() && (t = ym(t, this.Po));
 			}
 			if (this.ro()) {
-				let e = ym(t, this.Po), n = bm(e);
+				let e = bm(t, this.Po), n = xm(e);
 				if (a = n, o = this.Po, a.zl !== o.zl || a.Ol !== o.Ol) {
-					let r = this._o === null ? null : ym(this._o, this.Po);
-					this.Po = n, t = vm(e, n), r !== null && (this._o = vm(r, n));
+					let r = this._o === null ? null : bm(this._o, this.Po);
+					this.Po = n, t = ym(e, n), r !== null && (this._o = ym(r, n));
 				}
 			}
 			this.Fo(t);
-		} else this.hr === null && (this.Fo(new xp(-.5, .5)), this.Po = bm(null));
+		} else this.hr === null && (this.Fo(new xp(-.5, .5)), this.Po = xm(null));
 		var a, o;
 	}
 	Jo() {
-		return this.qe() ? fm : this.Oo() ? mm : this.ro() ? (e) => gm(e, this.Po) : null;
+		return this.qe() ? pm : this.Oo() ? hm : this.ro() ? (e) => _m(e, this.Po) : null;
 	}
 	x_(e, t, n) {
 		return t == null ? (n === void 0 && (n = this.el()), n.format(e)) : t(e);
@@ -20338,12 +20342,12 @@ var Om = class {
 		return this.C_(e, this.Ro.tickmarksPercentageFormatter ?? (n ? (e) => e.map(n) : void 0), t);
 	}
 };
-function km(e) {
+function Am(e) {
 	return e instanceof nm;
 }
-var Am = class {
+var jm = class {
 	constructor(e, t) {
-		this.Mo = [], this.y_ = /* @__PURE__ */ new Map(), this.lo = 0, this.P_ = 0, this.k_ = 1, this.So = null, this.T_ = null, this.R_ = !1, this.D_ = new _f(), this.pa = [], this.na = e, this.sn = t, this.I_ = new um(this);
+		this.Mo = [], this.y_ = /* @__PURE__ */ new Map(), this.lo = 0, this.P_ = 0, this.k_ = 1, this.So = null, this.T_ = null, this.R_ = !1, this.D_ = new _f(), this.pa = [], this.na = e, this.sn = t, this.I_ = new dm(this);
 		let n = t.N();
 		this.V_ = this.B_("left", n.leftPriceScale), this.E_ = this.B_("right", n.rightPriceScale), this.V_.Ho().i(this.A_.bind(this, this.V_), this), this.E_.Ho().i(this.A_.bind(this, this.E_), this), this.L_(n);
 	}
@@ -20404,7 +20408,7 @@ var Am = class {
 		return this.R_;
 	}
 	q_() {
-		return this.Mo.filter(km);
+		return this.Mo.filter(Am);
 	}
 	Pl() {
 		return this.Mo;
@@ -20483,7 +20487,7 @@ var Am = class {
 		}), this.H_(), this.sn.wr();
 	}
 	Dt() {
-		return this.So === null && (this.So = Cm(this.Mo)), this.So;
+		return this.So === null && (this.So = wm(this.Mo)), this.So;
 	}
 	ou() {
 		let e = this.Dt(), t = this.sn.uu()?._u, n = this.sn.N().hoveredSeriesOnTop, r = this.T_;
@@ -20511,7 +20515,7 @@ var Am = class {
 		this.sn.wr();
 	}
 	Vt() {
-		return this.Dt().filter(km);
+		return this.Dt().filter(Am);
 	}
 	vu() {
 		return this.D_;
@@ -20557,23 +20561,23 @@ var Am = class {
 		t.ue !== n.ue && this.ru(e);
 	}
 	B_(e, t) {
-		let n = new Om(e, Dm(t), this.sn.N().layout, this.sn.N().localization, this.sn.Xi());
+		let n = new km(e, Om(t), this.sn.N().layout, this.sn.N().localization, this.sn.Xi());
 		return n.Uo(this.$t()), n;
 	}
 };
-function jm(e, t) {
+function Mm(e, t) {
 	return t === null || e.ee === 2 && t.ee !== 2 || (t.ee !== 2 || e.ee === 2) && e.se !== t.se && e.se < t.se;
 }
-function Mm(e) {
+function Nm(e) {
 	return {
 		ie: e.ie,
 		ne: e.ne
 	};
 }
-function Nm(e, t) {
+function Pm(e, t) {
 	return !t || e === "top" && t !== "top" || e === "normal" && t === "bottom";
 }
-function Pm(e) {
+function Fm(e) {
 	return {
 		se: e.distance ?? 0,
 		ee: e.hitTestPriority ?? (e.itemType === "marker" ? 2 : 0),
@@ -20582,15 +20586,15 @@ function Pm(e) {
 		ie: e.externalId
 	};
 }
-function Fm(e) {
+function Im(e) {
 	return {
 		_u: e._u,
-		gu: Mm(e.bu),
+		gu: Nm(e.bu),
 		Mu: e.bu.Mu,
 		re: e.bu.re ?? "primitive"
 	};
 }
-function Im(e, t, n, r) {
+function Lm(e, t, n, r) {
 	let i = null;
 	for (let a of e) {
 		let e = a.Qs?.(t, n, r) ?? null;
@@ -20603,22 +20607,22 @@ function Im(e, t, n, r) {
 				Su: a,
 				bu: e
 			};
-			(i === null || jm(t.bu, i.bu)) && (i = t);
+			(i === null || Mm(t.bu, i.bu)) && (i = t);
 		}
 	}
 	return i;
 }
-function Lm(e) {
+function Rm(e) {
 	return e.jn !== void 0;
 }
-function Rm(e, t, n) {
+function zm(e, t, n) {
 	let r = [e, ...e.Dt()].reverse(), i = function(e, t, n) {
 		let r, i, a;
 		for (let o of e) {
 			let e = o.nl?.(t, n) ?? [];
 			for (let t of e) {
-				let e = Pm(t);
-				(Nm(t.zOrder, r?.zOrder) || t.zOrder === r?.zOrder && i !== void 0 && jm(e, i) || t.zOrder === r?.zOrder && i === void 0) && (r = t, i = e, a = o);
+				let e = Fm(t);
+				(Pm(t.zOrder, r?.zOrder) || t.zOrder === r?.zOrder && i !== void 0 && Mm(e, i) || t.zOrder === r?.zOrder && i === void 0) && (r = t, i = e, a = o);
 			}
 		}
 		return r && a && i ? {
@@ -20627,28 +20631,28 @@ function Rm(e, t, n) {
 			_u: a
 		} : null;
 	}(r, t, n);
-	if (i?.xu.zOrder === "top") return Fm(i);
+	if (i?.xu.zOrder === "top") return Im(i);
 	let a = null, o = null;
 	for (let s of r) {
-		if (i && i._u === s && i.xu.zOrder !== "bottom" && !i.xu.isBackground) return a ?? Fm(i);
-		if (Lm(s)) {
-			let r = Im(s.jn(e), t, n, e);
+		if (i && i._u === s && i.xu.zOrder !== "bottom" && !i.xu.isBackground) return a ?? Im(i);
+		if (Rm(s)) {
+			let r = Lm(s.jn(e), t, n, e);
 			if (r !== null) {
 				let e = {
 					_u: s,
 					Su: r.Su,
-					gu: Mm(r.bu),
+					gu: Nm(r.bu),
 					Mu: r.bu.Mu,
 					re: r.bu.re ?? "primitive"
 				};
-				(a === null || jm(r.bu, o)) && (a = e, o = r.bu);
+				(a === null || Mm(r.bu, o)) && (a = e, o = r.bu);
 			}
 		}
-		if (i && i._u === s && i.xu.zOrder !== "bottom" && i.xu.isBackground) return a ?? Fm(i);
+		if (i && i._u === s && i.xu.zOrder !== "bottom" && i.xu.isBackground) return a ?? Im(i);
 	}
-	return a === null ? i?.xu ? Fm(i) : null : a;
+	return a === null ? i?.xu ? Im(i) : null : a;
 }
-var zm = class {
+var Bm = class {
 	constructor(e, t, n = 50) {
 		this.Vs = 0, this.Bs = 1, this.Es = 1, this.Ls = /* @__PURE__ */ new Map(), this.As = /* @__PURE__ */ new Map(), this.Cu = e, this.yu = t, this.zs = n;
 	}
@@ -20665,7 +20669,7 @@ var zm = class {
 			Ws: this.Bs
 		}), this.As.set(this.Bs, n), this.Vs++, this.Bs++, i;
 	}
-}, Bm = class {
+}, Vm = class {
 	constructor(e, t) {
 		mf(e <= t, "right should be >= left"), this.Tu = e, this.Ru = t;
 	}
@@ -20685,10 +20689,10 @@ var zm = class {
 		return this.Tu === e.Fa() && this.Ru === e.bi();
 	}
 };
-function Vm(e, t) {
+function Hm(e, t) {
 	return e === null || t === null ? e === t : e.Xe(t);
 }
-var Hm = class {
+var Um = class {
 	constructor() {
 		this.Iu = /* @__PURE__ */ new Map(), this.Ls = null, this.Vu = !1;
 	}
@@ -20748,12 +20752,12 @@ var Hm = class {
 		}
 		return r;
 	}
-}, Um = class e {
+}, Wm = class e {
 	constructor(e) {
 		this.Wu = e;
 	}
 	Hu() {
-		return this.Wu === null ? null : new Bm(Math.floor(this.Wu.Fa()), Math.ceil(this.Wu.bi()));
+		return this.Wu === null ? null : new Vm(Math.floor(this.Wu.Fa()), Math.ceil(this.Wu.bi()));
 	}
 	Uu() {
 		return this.Wu;
@@ -20762,12 +20766,12 @@ var Hm = class {
 		return new e(null);
 	}
 };
-function Wm(e, t) {
+function Gm(e, t) {
 	return e.weight > t.weight ? e : t;
 }
-var Gm = class {
+var Km = class {
 	constructor(e, t, n, r) {
-		this.P_ = 0, this.ju = null, this.qu = [], this.yo = null, this.Co = null, this.Yu = new Hm(), this.Ku = /* @__PURE__ */ new Map(), this.Zu = Um.$u(), this.Gu = !0, this.Xu = new _f(), this.Ju = new _f(), this.Qu = new _f(), this.tc = null, this.nc = 0, this.sc = null, this.ec = /* @__PURE__ */ new Map(), this.rc = -1, this.hc = [], this.ac = 1, this.yn = t, this.Ro = n, this.lc = t.rightOffset, this.oc = t.barSpacing, this.sn = e, this._c(t), this.yu = r, this.uc(), this.Yu.Bu(t.uniformDistribution), this.cc(), this.dc();
+		this.P_ = 0, this.ju = null, this.qu = [], this.yo = null, this.Co = null, this.Yu = new Um(), this.Ku = /* @__PURE__ */ new Map(), this.Zu = Wm.$u(), this.Gu = !0, this.Xu = new _f(), this.Ju = new _f(), this.Qu = new _f(), this.tc = null, this.nc = 0, this.sc = null, this.ec = /* @__PURE__ */ new Map(), this.rc = -1, this.hc = [], this.ac = 1, this.yn = t, this.Ro = n, this.lc = t.rightOffset, this.oc = t.barSpacing, this.sn = e, this._c(t), this.yu = r, this.uc(), this.Yu.Bu(t.uniformDistribution), this.cc(), this.dc();
 	}
 	N() {
 		return this.yn;
@@ -20972,10 +20976,10 @@ var Gm = class {
 		let e = this.yc(), t = this.Pc();
 		if (e === null || t === null) return;
 		let n = !this.yn.rightOffsetPixels && this.yn.rightOffset || 0;
-		this.nd(new Bm(e, t + n), !0);
+		this.nd(new Vm(e, t + n), !0);
 	}
 	ed(e) {
-		let t = new Bm(e.from, e.to);
+		let t = new Vm(e.from, e.to);
 		this.nd(t);
 	}
 	rn(e) {
@@ -21021,9 +21025,9 @@ var Gm = class {
 	}
 	bc() {
 		if (!this.Gu) return;
-		if (this.Gu = !1, this.Gi()) return void this.ld(Um.$u());
-		let e = this.Dc(), t = this.P_ / this.oc, n = this.lc + e, r = new Bm(n - t + 1, n);
-		this.ld(new Um(r));
+		if (this.Gu = !1, this.Gi()) return void this.ld(Wm.$u());
+		let e = this.Dc(), t = this.P_ / this.oc, n = this.lc + e, r = new Vm(n - t + 1, n);
+		this.ld(new Wm(r));
 	}
 	Tc() {
 		let e = om(this.oc, this.od(), this._d());
@@ -21066,14 +21070,14 @@ var Gm = class {
 	}
 	Hc(e) {
 		let t = this.Ku.get(e.weight);
-		return t === void 0 && (t = new zm((e) => this.fd(e), this.yu), this.Ku.set(e.weight, t)), t.Pu(e);
+		return t === void 0 && (t = new Bm((e) => this.fd(e), this.yu), this.Ku.set(e.weight, t)), t.Pu(e);
 	}
 	fd(e) {
 		return this.yu.formatTickmark(e, this.Ro);
 	}
 	ld(e) {
 		let t = this.Zu;
-		this.Zu = e, Vm(t.Hu(), this.Zu.Hu()) || this.Xu.p(), Vm(t.Uu(), this.Zu.Uu()) || this.Ju.p(), this.ad();
+		this.Zu = e, Hm(t.Hu(), this.Zu.Hu()) || this.Xu.p(), Hm(t.Uu(), this.Zu.Uu()) || this.Ju.p(), this.ad();
 	}
 	ad() {
 		this.sc = null;
@@ -21121,13 +21125,13 @@ var Gm = class {
 			this.sn.gs(t);
 		}
 	}
-}, Km, qm, Jm, Ym, Xm;
+}, qm, Jm, Ym, Xm, Zm;
 (function(e) {
 	e[e.OnTouchEnd = 0] = "OnTouchEnd", e[e.OnNextTap = 1] = "OnNextTap";
-})(Km ||= {});
-var Zm = class {
+})(qm ||= {});
+var Qm = class {
 	constructor(e, t, n) {
-		this.pd = null, this.vd = [], this.md = [], this.wd = null, this.P_ = 0, this.Md = null, this.gd = new _f(), this.bd = new _f(), this.Sd = null, this.xd = e, this.yn = t, this.yu = n, this.Do = new jf(this.yn.layout.colorParsers), this.Cd = new Of(this), this.na = new Gm(this, t.timeScale, this.yn.localization, n), this.Ct = new $f(this, t.crosshair), this.yd = new am(t.crosshair), t.addDefaultPane && (this.Pd(0), this.vd[0].F_(2)), this.kd = this.Td(0), this.Rd = this.Td(1);
+		this.pd = null, this.vd = [], this.md = [], this.wd = null, this.P_ = 0, this.Md = null, this.gd = new _f(), this.bd = new _f(), this.Sd = null, this.xd = e, this.yn = t, this.yu = n, this.Do = new jf(this.yn.layout.colorParsers), this.Cd = new Of(this), this.na = new Km(this, t.timeScale, this.yn.localization, n), this.Ct = new $f(this, t.crosshair), this.yd = new am(t.crosshair), t.addDefaultPane && (this.Pd(0), this.vd[0].F_(2)), this.kd = this.Td(0), this.Rd = this.Td(1);
 	}
 	Ta() {
 		this.Dd($.ys());
@@ -21283,7 +21287,7 @@ var Zm = class {
 		s !== null && (o = Math.min(Math.max(s.Fa(), o), s.bi())), o = this.Ct.Fn(o);
 		let c = r.kn(), l = c.Lt();
 		if (l !== null && (a = c.Tn(t, l)), a = this.yd.yl(a, o, r), this.Ct.An(o, a, r), this.Ka(), !i) {
-			let i = Rm(r, e, t);
+			let i = zm(r, e, t);
 			this.Vd(i && {
 				_u: i._u,
 				gu: i.gu,
@@ -21329,7 +21333,7 @@ var Zm = class {
 	}
 	Ks(e) {
 		if (function(e) {
-			return e instanceof Am;
+			return e instanceof jm;
 		}(e)) return e;
 		let t = this.vd.find((t) => t.Dt().includes(e));
 		return t === void 0 ? null : t;
@@ -21437,7 +21441,7 @@ var Zm = class {
 		return this.vf();
 	}
 	vf(e) {
-		let t = new Am(this.na, this);
+		let t = new jm(this.na, this);
 		this.vd.push(t);
 		let n = e ?? this.vd.length - 1, r = $.ys();
 		return r.es(n, {
@@ -21480,7 +21484,7 @@ var Zm = class {
 		this.pd !== null && this.pd.sr(e);
 	}
 };
-function Qm(e) {
+function $m(e) {
 	if (e >= 1) return 0;
 	let t = 0;
 	for (; t < 8; t++) {
@@ -21489,122 +21493,122 @@ function Qm(e) {
 	}
 	return t;
 }
-function $m(e) {
+function eh(e) {
 	return !yf(e) && !xf(e);
 }
-function eh(e) {
+function th(e) {
 	return yf(e);
 }
 (function(e) {
 	e[e.Disabled = 0] = "Disabled", e[e.Continuous = 1] = "Continuous", e[e.OnDataUpdate = 2] = "OnDataUpdate";
-})(qm ||= {}), function(e) {
+})(Jm ||= {}), function(e) {
 	e[e.LastBar = 0] = "LastBar", e[e.LastVisible = 1] = "LastVisible";
-}(Jm ||= {}), function(e) {
-	e.Solid = "solid", e.VerticalGradient = "gradient";
 }(Ym ||= {}), function(e) {
+	e.Solid = "solid", e.VerticalGradient = "gradient";
+}(Xm ||= {}), function(e) {
 	e[e.Year = 0] = "Year", e[e.Month = 1] = "Month", e[e.DayOfMonth = 2] = "DayOfMonth", e[e.Time = 3] = "Time", e[e.TimeWithSeconds = 4] = "TimeWithSeconds";
-}(Xm ||= {});
-var th = (e) => e.getUTCFullYear();
-function nh(e, t, n) {
-	return t.replace(/yyyy/g, ((e) => rp(th(e), 4))(e)).replace(/yy/g, ((e) => rp(th(e) % 100, 2))(e)).replace(/MMMM/g, ((e, t) => new Date(e.getUTCFullYear(), e.getUTCMonth(), 1).toLocaleString(t, { month: "long" }))(e, n)).replace(/MMM/g, ((e, t) => new Date(e.getUTCFullYear(), e.getUTCMonth(), 1).toLocaleString(t, { month: "short" }))(e, n)).replace(/MM/g, ((e) => rp(((e) => e.getUTCMonth() + 1)(e), 2))(e)).replace(/dd/g, ((e) => rp(((e) => e.getUTCDate())(e), 2))(e));
+}(Zm ||= {});
+var nh = (e) => e.getUTCFullYear();
+function rh(e, t, n) {
+	return t.replace(/yyyy/g, ((e) => rp(nh(e), 4))(e)).replace(/yy/g, ((e) => rp(nh(e) % 100, 2))(e)).replace(/MMMM/g, ((e, t) => new Date(e.getUTCFullYear(), e.getUTCMonth(), 1).toLocaleString(t, { month: "long" }))(e, n)).replace(/MMM/g, ((e, t) => new Date(e.getUTCFullYear(), e.getUTCMonth(), 1).toLocaleString(t, { month: "short" }))(e, n)).replace(/MM/g, ((e) => rp(((e) => e.getUTCMonth() + 1)(e), 2))(e)).replace(/dd/g, ((e) => rp(((e) => e.getUTCDate())(e), 2))(e));
 }
-var rh = class {
+var ih = class {
 	constructor(e = "yyyy-MM-dd", t = "default") {
 		this.mf = e, this.wf = t;
 	}
 	Pu(e) {
-		return nh(e, this.mf, this.wf);
+		return rh(e, this.mf, this.wf);
 	}
-}, ih = class {
+}, ah = class {
 	constructor(e) {
 		this.Mf = e || "%h:%m:%s";
 	}
 	Pu(e) {
 		return this.Mf.replace("%h", rp(e.getUTCHours(), 2)).replace("%m", rp(e.getUTCMinutes(), 2)).replace("%s", rp(e.getUTCSeconds(), 2));
 	}
-}, ah = {
+}, oh = {
 	gf: "yyyy-MM-dd",
 	bf: "%h:%m:%s",
 	Sf: " ",
 	xf: "default"
-}, oh = class {
+}, sh = class {
 	constructor(e = {}) {
 		let t = {
-			...ah,
+			...oh,
 			...e
 		};
-		this.Cf = new rh(t.gf, t.xf), this.yf = new ih(t.bf), this.Pf = t.Sf;
+		this.Cf = new ih(t.gf, t.xf), this.yf = new ah(t.bf), this.Pf = t.Sf;
 	}
 	Pu(e) {
 		return `${this.Cf.Pu(e)}${this.Pf}${this.yf.Pu(e)}`;
 	}
 };
-function sh(e) {
+function ch(e) {
 	return 60 * e * 60 * 1e3;
 }
-function ch(e) {
+function lh(e) {
 	return 60 * e * 1e3;
 }
-var lh = [
+var uh = [
 	{
-		kf: (uh = 1, 1e3 * uh),
+		kf: (dh = 1, 1e3 * dh),
 		Tf: 10
 	},
 	{
-		kf: ch(1),
+		kf: lh(1),
 		Tf: 20
 	},
 	{
-		kf: ch(5),
+		kf: lh(5),
 		Tf: 21
 	},
 	{
-		kf: ch(30),
+		kf: lh(30),
 		Tf: 22
 	},
 	{
-		kf: sh(1),
+		kf: ch(1),
 		Tf: 30
 	},
 	{
-		kf: sh(3),
+		kf: ch(3),
 		Tf: 31
 	},
 	{
-		kf: sh(6),
+		kf: ch(6),
 		Tf: 32
 	},
 	{
-		kf: sh(12),
+		kf: ch(12),
 		Tf: 33
 	}
-], uh;
-function dh(e, t) {
+], dh;
+function fh(e, t) {
 	if (e.getUTCFullYear() !== t.getUTCFullYear()) return 70;
 	if (e.getUTCMonth() !== t.getUTCMonth()) return 60;
 	if (e.getUTCDate() !== t.getUTCDate()) return 50;
-	for (let n = lh.length - 1; n >= 0; --n) if (Math.floor(t.getTime() / lh[n].kf) !== Math.floor(e.getTime() / lh[n].kf)) return lh[n].Tf;
+	for (let n = uh.length - 1; n >= 0; --n) if (Math.floor(t.getTime() / uh[n].kf) !== Math.floor(e.getTime() / uh[n].kf)) return uh[n].Tf;
 	return 0;
 }
-function fh(e) {
+function ph(e) {
 	return e;
 }
-function ph(e) {
+function mh(e) {
 	let t = e;
-	if (xf(e) && (t = gh(e)), !$m(t)) throw Error("time must be of type BusinessDay");
+	if (xf(e) && (t = _h(e)), !eh(t)) throw Error("time must be of type BusinessDay");
 	let n = new Date(Date.UTC(t.year, t.month - 1, t.day, 0, 0, 0, 0));
 	return {
 		Rf: Math.round(n.getTime() / 1e3),
 		Df: t
 	};
 }
-function mh(e) {
-	if (!eh(e)) throw Error("time must be of type isUTCTimestamp");
+function hh(e) {
+	if (!th(e)) throw Error("time must be of type isUTCTimestamp");
 	return { Rf: e };
 }
-var hh = /^\d\d\d\d-\d\d-\d\d$/;
-function gh(e) {
-	if (!hh.test(e)) throw Error(`Invalid date string=${e}, expected format=yyyy-mm-dd`);
+var gh = /^\d\d\d\d-\d\d-\d\d$/;
+function _h(e) {
+	if (!gh.test(e)) throw Error(`Invalid date string=${e}, expected format=yyyy-mm-dd`);
 	let t = new Date(e);
 	if (isNaN(t.getTime())) throw Error(`Invalid date string=${e}, expected format=yyyy-mm-dd`);
 	return {
@@ -21613,10 +21617,10 @@ function gh(e) {
 		year: t.getUTCFullYear()
 	};
 }
-function _h(e) {
-	xf(e.time) && (e.time = gh(e.time));
+function vh(e) {
+	xf(e.time) && (e.time = _h(e.time));
 }
-var vh = class {
+var yh = class {
 	options() {
 		return this.yn;
 	}
@@ -21625,12 +21629,12 @@ var vh = class {
 	}
 	preprocessData(e) {
 		Array.isArray(e) ? function(e) {
-			e.forEach(_h);
-		}(e) : _h(e);
+			e.forEach(vh);
+		}(e) : vh(e);
 	}
 	createConverterToInternalObj(e) {
 		return Q(function(e) {
-			return e.length === 0 ? null : $m(e[0].time) || xf(e[0].time) ? ph : mh;
+			return e.length === 0 ? null : eh(e[0].time) || xf(e[0].time) ? mh : hh;
 		}(e));
 	}
 	key(e) {
@@ -21641,18 +21645,18 @@ var vh = class {
 		return t.Df === void 0 ? (/* @__PURE__ */ new Date(1e3 * t.Rf)).getTime() : new Date(Date.UTC(t.Df.year, t.Df.month - 1, t.Df.day)).getTime();
 	}
 	convertHorzItemToInternal(e) {
-		return eh(t = e) ? mh(t) : $m(t) ? ph(t) : ph(gh(t));
+		return th(t = e) ? hh(t) : eh(t) ? mh(t) : mh(_h(t));
 		var t;
 	}
 	updateFormatter(e) {
 		if (!this.yn) return;
 		let t = e.dateFormat;
-		this.If = this.yn.timeScale.timeVisible ? new oh({
+		this.If = this.yn.timeScale.timeVisible ? new sh({
 			gf: t,
 			bf: this.yn.timeScale.secondsVisible ? "%h:%m:%s" : "%h:%m",
 			Sf: "   ",
 			xf: e.locale
-		}) : new rh(t, e.locale);
+		}) : new ih(t, e.locale);
 	}
 	formatHorzItem(e) {
 		let t = e;
@@ -21700,7 +21704,7 @@ var vh = class {
 		}(e.time, n, t.locale);
 	}
 	maxTickMarkWeight(e) {
-		let t = e.reduce(Wm, e[0]).weight;
+		let t = e.reduce(Gm, e[0]).weight;
 		return t > 30 && t < 50 && (t = 30), t;
 	}
 	fillWeightsForPoints(e, t) {
@@ -21708,26 +21712,26 @@ var vh = class {
 			if (e.length === 0) return;
 			let n = t === 0 ? null : e[t - 1].time.Rf, r = n === null ? null : /* @__PURE__ */ new Date(1e3 * n), i = 0;
 			for (let a = t; a < e.length; ++a) {
-				let t = e[a], o = /* @__PURE__ */ new Date(1e3 * fh(t.time).Rf);
-				r !== null && (t.timeWeight = dh(o, r)), i += fh(t.time).Rf - (n || fh(t.time).Rf), n = fh(t.time).Rf, r = o;
+				let t = e[a], o = /* @__PURE__ */ new Date(1e3 * ph(t.time).Rf);
+				r !== null && (t.timeWeight = fh(o, r)), i += ph(t.time).Rf - (n || ph(t.time).Rf), n = ph(t.time).Rf, r = o;
 			}
 			if (t === 0 && e.length > 1) {
 				let t = Math.ceil(i / (e.length - 1)), n = /* @__PURE__ */ new Date(1e3 * (e[0].time.Rf - t));
-				e[0].timeWeight = dh(/* @__PURE__ */ new Date(1e3 * e[0].time.Rf), n);
+				e[0].timeWeight = fh(/* @__PURE__ */ new Date(1e3 * e[0].time.Rf), n);
 			}
 		})(e, t);
 	}
 	static Vf(e) {
 		return vf({ localization: { dateFormat: "dd MMM 'yy" } }, e ?? {});
 	}
-}, yh = typeof window < "u";
-function bh() {
-	return !!yh && window.navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
-}
+}, bh = typeof window < "u";
 function xh() {
-	return !!yh && /iPhone|iPad|iPod/.test(window.navigator.platform);
+	return !!bh && window.navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
 }
-function Sh(e, t) {
+function Sh() {
+	return !!bh && /iPhone|iPad|iPod/.test(window.navigator.platform);
+}
+function Ch(e, t) {
 	switch (e) {
 		case "custom": return t === void 0 ? "series" : "custom-object";
 		case "price-line": return "custom-price-line";
@@ -21736,15 +21740,15 @@ function Sh(e, t) {
 		default: return "series";
 	}
 }
-function Ch(e) {
+function wh(e) {
 	return e + e % 2;
 }
-function wh(e) {
-	yh && window.chrome !== void 0 && e.addEventListener("mousedown", (e) => {
+function Th(e) {
+	bh && window.chrome !== void 0 && e.addEventListener("mousedown", (e) => {
 		if (e.button === 1) return e.preventDefault(), !1;
 	});
 }
-var Th = class {
+var Eh = class {
 	constructor(e, t, n) {
 		this.Bf = 0, this.Ef = null, this.Af = {
 			_t: -Infinity,
@@ -21752,19 +21756,19 @@ var Th = class {
 		}, this.Lf = 0, this.zf = null, this.Of = {
 			_t: -Infinity,
 			ut: Infinity
-		}, this.Nf = null, this.Ff = !1, this.Wf = null, this.Hf = null, this.Uf = !1, this.$f = !1, this.jf = !1, this.qf = null, this.Yf = null, this.Kf = null, this.Zf = null, this.Gf = null, this.Xf = null, this.Jf = null, this.Qf = 0, this.tp = !1, this.ip = !1, this.np = !1, this.sp = 0, this.ep = null, this.rp = !xh(), this.hp = (e) => {
+		}, this.Nf = null, this.Ff = !1, this.Wf = null, this.Hf = null, this.Uf = !1, this.$f = !1, this.jf = !1, this.qf = null, this.Yf = null, this.Kf = null, this.Zf = null, this.Gf = null, this.Xf = null, this.Jf = null, this.Qf = 0, this.tp = !1, this.ip = !1, this.np = !1, this.sp = 0, this.ep = null, this.rp = !Sh(), this.hp = (e) => {
 			this.ap(e);
 		}, this.lp = (e) => {
 			if (this.op(e)) {
 				let t = this._p(e);
 				if (++this.Lf, this.zf && this.Lf > 1) {
-					let { up: n } = this.cp(Oh(e), this.Of);
+					let { up: n } = this.cp(kh(e), this.Of);
 					n < 30 && !this.jf && this.dp(t, this.pp.fp), this.vp();
 				}
 			} else {
 				let t = this._p(e);
 				if (++this.Bf, this.Ef && this.Bf > 1) {
-					let { up: n } = this.cp(Oh(e), this.Af);
+					let { up: n } = this.cp(kh(e), this.Af);
 					n < 5 && !this.$f && this.mp(t, this.pp.wp), this.Mp();
 				}
 			}
@@ -21800,10 +21804,10 @@ var Th = class {
 		this.mp(t, this.pp.Pp), this.rp = !0;
 	}
 	kp(e) {
-		let t = Ah(e.changedTouches, Q(this.ep));
-		if (t === null || (this.sp = kh(e), this.Jf !== null) || this.ip) return;
+		let t = jh(e.changedTouches, Q(this.ep));
+		if (t === null || (this.sp = Ah(e), this.Jf !== null) || this.ip) return;
 		this.tp = !0;
-		let { Tp: n, Rp: r, up: i } = this.cp(Oh(t), Q(this.Hf));
+		let { Tp: n, Rp: r, up: i } = this.cp(kh(t), Q(this.Hf));
 		if (this.Uf || !(i < 5)) {
 			if (!this.Uf) {
 				let e = .5 * n, t = r >= e && !this.yn.Dp(), i = e > r && !this.yn.Ip();
@@ -21811,13 +21815,13 @@ var Th = class {
 			}
 			if (!this.ip) {
 				let n = this._p(e, t);
-				this.dp(n, this.pp.Vp), Dh(e);
+				this.dp(n, this.pp.Vp), Oh(e);
 			}
 		}
 	}
 	Bp(e) {
 		if (e.button !== 0) return;
-		let { up: t } = this.cp(Oh(e), Q(this.Wf));
+		let { up: t } = this.cp(kh(e), Q(this.Wf));
 		if (t >= 5 && (this.$f = !0, this.Mp()), this.$f) {
 			let t = this._p(e);
 			this.mp(t, this.pp.Ep);
@@ -21832,22 +21836,22 @@ var Th = class {
 		};
 	}
 	Ap(e) {
-		let t = Ah(e.changedTouches, Q(this.ep));
+		let t = jh(e.changedTouches, Q(this.ep));
 		if (t === null && e.touches.length === 0 && (t = e.changedTouches[0]), t === null) return;
-		this.ep = null, this.sp = kh(e), this.Sp(), this.Hf = null, this.Xf &&= (this.Xf(), null);
+		this.ep = null, this.sp = Ah(e), this.Sp(), this.Hf = null, this.Xf &&= (this.Xf(), null);
 		let n = this._p(e, t);
 		if (this.dp(n, this.pp.Lp), ++this.Lf, this.zf && this.Lf > 1) {
-			let { up: e } = this.cp(Oh(t), this.Of);
+			let { up: e } = this.cp(kh(t), this.Of);
 			e < 30 && !this.jf && this.dp(n, this.pp.fp), this.vp();
-		} else this.jf || (this.dp(n, this.pp.zp), this.pp.zp && Dh(e));
-		this.Lf === 0 && Dh(e), e.touches.length === 0 && this.Ff && (this.Ff = !1, Dh(e));
+		} else this.jf || (this.dp(n, this.pp.zp), this.pp.zp && Oh(e));
+		this.Lf === 0 && Oh(e), e.touches.length === 0 && this.Ff && (this.Ff = !1, Oh(e));
 	}
 	ap(e) {
 		if (e.button !== 0) return;
 		let t = this._p(e);
-		if (this.Wf = null, this.np = !1, this.Gf &&= (this.Gf(), null), bh() && this.gp.ownerDocument.documentElement.removeEventListener("mouseleave", this.hp), !this.op(e)) {
+		if (this.Wf = null, this.np = !1, this.Gf &&= (this.Gf(), null), xh() && this.gp.ownerDocument.documentElement.removeEventListener("mouseleave", this.hp), !this.op(e)) {
 			if (this.mp(t, this.pp.Op), ++this.Bf, this.Ef && this.Bf > 1) {
-				let { up: n } = this.cp(Oh(e), this.Af);
+				let { up: n } = this.cp(kh(e), this.Af);
 				n < 5 && !this.$f && this.mp(t, this.pp.wp), this.Mp();
 			} else this.$f || this.mp(t, this.pp.Np);
 		}
@@ -21858,9 +21862,9 @@ var Th = class {
 	Fp(e) {
 		if (this.ep !== null) return;
 		let t = e.changedTouches[0];
-		this.ep = t.identifier, this.sp = kh(e);
+		this.ep = t.identifier, this.sp = Ah(e);
 		let n = this.gp.ownerDocument.documentElement;
-		this.jf = !1, this.Uf = !1, this.ip = !1, this.Hf = Oh(t), this.Xf &&= (this.Xf(), null);
+		this.jf = !1, this.Uf = !1, this.ip = !1, this.Hf = kh(t), this.Xf &&= (this.Xf(), null);
 		{
 			let t = this.kp.bind(this), r = this.Ap.bind(this);
 			this.Xf = () => {
@@ -21868,12 +21872,12 @@ var Th = class {
 			}, n.addEventListener("touchmove", t, { passive: !1 }), n.addEventListener("touchend", r, { passive: !1 }), this.Sp(), this.Nf = setTimeout(this.Wp.bind(this, e), 240);
 		}
 		let r = this._p(e, t);
-		this.dp(r, this.pp.Hp), this.zf || (this.Lf = 0, this.zf = setTimeout(this.vp.bind(this), 500), this.Of = Oh(t));
+		this.dp(r, this.pp.Hp), this.zf || (this.Lf = 0, this.zf = setTimeout(this.vp.bind(this), 500), this.Of = kh(t));
 	}
 	Up(e) {
 		if (e.button !== 0) return;
 		let t = this.gp.ownerDocument.documentElement;
-		bh() && t.addEventListener("mouseleave", this.hp), this.$f = !1, this.Wf = Oh(e), this.Gf &&= (this.Gf(), null);
+		xh() && t.addEventListener("mouseleave", this.hp), this.$f = !1, this.Wf = kh(e), this.Gf &&= (this.Gf(), null);
 		{
 			let e = this.Bp.bind(this), n = this.ap.bind(this);
 			this.Gf = () => {
@@ -21882,7 +21886,7 @@ var Th = class {
 		}
 		if (this.np = !0, this.op(e)) return;
 		let n = this._p(e);
-		this.mp(n, this.pp.$p), this.Ef || (this.Bf = 0, this.Ef = setTimeout(this.Mp.bind(this), 500), this.Af = Oh(e));
+		this.mp(n, this.pp.$p), this.Ef || (this.Bf = 0, this.Ef = setTimeout(this.Mp.bind(this), 500), this.Af = kh(e));
 	}
 	bp() {
 		this.gp.addEventListener("mouseenter", this.xp.bind(this)), this.gp.addEventListener("touchcancel", this.Sp.bind(this));
@@ -21896,15 +21900,15 @@ var Th = class {
 				e.removeEventListener("mousedown", t);
 			}, e.addEventListener("mousedown", t), e.addEventListener("touchstart", t, { passive: !0 });
 		}
-		xh() && (this.Kf = () => {
+		Sh() && (this.Kf = () => {
 			this.gp.removeEventListener("dblclick", this.lp);
-		}, this.gp.addEventListener("dblclick", this.lp)), this.gp.addEventListener("mouseleave", this.qp.bind(this)), this.gp.addEventListener("touchstart", this.Fp.bind(this), { passive: !0 }), wh(this.gp), this.gp.addEventListener("mousedown", this.Up.bind(this)), this.Yp(), this.gp.addEventListener("touchmove", () => {}, { passive: !1 });
+		}, this.gp.addEventListener("dblclick", this.lp)), this.gp.addEventListener("mouseleave", this.qp.bind(this)), this.gp.addEventListener("touchstart", this.Fp.bind(this), { passive: !0 }), Th(this.gp), this.gp.addEventListener("mousedown", this.Up.bind(this)), this.Yp(), this.gp.addEventListener("touchmove", () => {}, { passive: !1 });
 	}
 	Yp() {
 		this.pp.Kp === void 0 && this.pp.Zp === void 0 && this.pp.Gp === void 0 || (this.gp.addEventListener("touchstart", (e) => this.Xp(e.touches), { passive: !0 }), this.gp.addEventListener("touchmove", (e) => {
 			if (e.touches.length === 2 && this.Jf !== null && this.pp.Zp !== void 0) {
-				let t = Eh(e.touches[0], e.touches[1]) / this.Qf;
-				this.pp.Zp(this.Jf, t), Dh(e);
+				let t = Dh(e.touches[0], e.touches[1]) / this.Qf;
+				this.pp.Zp(this.Jf, t), Oh(e);
 			}
 		}, { passive: !1 }), this.gp.addEventListener("touchend", (e) => {
 			this.Xp(e.touches);
@@ -21921,7 +21925,7 @@ var Th = class {
 		this.Jf = {
 			_t: (e[0].clientX - t.left + (e[1].clientX - t.left)) / 2,
 			ut: (e[0].clientY - t.top + (e[1].clientY - t.top)) / 2
-		}, this.Qf = Eh(e[0], e[1]), this.pp.Kp !== void 0 && this.pp.Kp(), this.Sp();
+		}, this.Qf = Dh(e[0], e[1]), this.pp.Kp !== void 0 && this.pp.Kp(), this.Sp();
 	}
 	Jp() {
 		this.Jf !== null && (this.Jf = null, this.pp.Gp !== void 0 && this.pp.Gp());
@@ -21929,16 +21933,16 @@ var Th = class {
 	qp(e) {
 		if (this.Zf && this.Zf(), this.op(e) || !this.rp) return;
 		let t = this._p(e);
-		this.mp(t, this.pp.tv), this.rp = !xh();
+		this.mp(t, this.pp.tv), this.rp = !Sh();
 	}
 	Wp(e) {
-		let t = Ah(e.touches, Q(this.ep));
+		let t = jh(e.touches, Q(this.ep));
 		if (t === null) return;
 		let n = this._p(e, t);
 		this.dp(n, this.pp.iv), this.jf = !0, this.Ff = !0;
 	}
 	op(e) {
-		return e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents !== void 0 ? e.sourceCapabilities.firesTouchEvents : kh(e) < this.sp + 500;
+		return e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents !== void 0 ? e.sourceCapabilities.firesTouchEvents : Ah(e) < this.sp + 500;
 	}
 	dp(e, t) {
 		t && t.call(this.pp, e);
@@ -21969,32 +21973,32 @@ var Th = class {
 			ev: n.target,
 			Su: e.view,
 			rv: () => {
-				e.type !== "touchstart" && Dh(e);
+				e.type !== "touchstart" && Oh(e);
 			}
 		};
 	}
 };
-function Eh(e, t) {
+function Dh(e, t) {
 	let n = e.clientX - t.clientX, r = e.clientY - t.clientY;
 	return Math.sqrt(n * n + r * r);
 }
-function Dh(e) {
+function Oh(e) {
 	e.cancelable && e.preventDefault();
 }
-function Oh(e) {
+function kh(e) {
 	return {
 		_t: e.pageX,
 		ut: e.pageY
 	};
 }
-function kh(e) {
+function Ah(e) {
 	return e.timeStamp || performance.now();
 }
-function Ah(e, t) {
+function jh(e, t) {
 	for (let n = 0; n < e.length; ++n) if (e[n].identifier === t) return e[n];
 	return null;
 }
-var jh = class {
+var Mh = class {
 	constructor(e, t, n) {
 		this.hv = null, this.av = null, this.lv = !0, this.ov = null, this._v = e, this.uv = e.cv()[t], this.dv = e.cv()[n], this.fv = document.createElement("tr"), this.fv.style.height = "1px", this.pv = document.createElement("td"), this.pv.style.position = "relative", this.pv.style.padding = "0", this.pv.style.margin = "0", this.pv.setAttribute("colspan", "3"), this.vv(), this.fv.appendChild(this.pv), this.lv = this._v.N().layout.panes.enableResize, this.lv ? this.mv() : (this.hv = null, this.av = null);
 	}
@@ -22038,7 +22042,7 @@ var jh = class {
 			Op: this.Tv.bind(this),
 			Lp: this.Tv.bind(this)
 		};
-		this.av = new Th(n, i, {
+		this.av = new Eh(n, i, {
 			Dp: () => !1,
 			Ip: () => !0
 		}), this.hv = {
@@ -22077,14 +22081,14 @@ var jh = class {
 		this.ov !== null && this.hv !== null && (this.ov = null, this.hv.Sv.style.display = "none");
 	}
 };
-function Mh(e, t) {
+function Nh(e, t) {
 	return e.Lv - t.Lv;
 }
-function Nh(e, t, n) {
+function Ph(e, t, n) {
 	let r = (e.Lv - t.Lv) / (e.wt - t.wt);
 	return Math.sign(r) * Math.min(Math.abs(r), n);
 }
-var Ph = class {
+var Fh = class {
 	constructor(e, t, n, r) {
 		this.zv = null, this.Ov = null, this.Nv = null, this.Fv = null, this.Wv = null, this.Hv = 0, this.Uv = 0, this.$v = e, this.jv = t, this.qv = n, this.Ps = r;
 	}
@@ -22100,15 +22104,15 @@ var Ph = class {
 	}
 	we(e, t) {
 		if (this.zv === null || this.Ov === null || t - this.zv.wt > 50) return;
-		let n = 0, r = Nh(this.zv, this.Ov, this.jv), i = Mh(this.zv, this.Ov), a = [r], o = [i];
+		let n = 0, r = Ph(this.zv, this.Ov, this.jv), i = Nh(this.zv, this.Ov), a = [r], o = [i];
 		if (n += i, this.Nv !== null) {
-			let e = Nh(this.Ov, this.Nv, this.jv);
+			let e = Ph(this.Ov, this.Nv, this.jv);
 			if (Math.sign(e) === Math.sign(r)) {
-				let t = Mh(this.Ov, this.Nv);
+				let t = Nh(this.Ov, this.Nv);
 				if (a.push(e), o.push(t), n += t, this.Fv !== null) {
-					let e = Nh(this.Nv, this.Fv, this.jv);
+					let e = Ph(this.Nv, this.Fv, this.jv);
 					if (Math.sign(e) === Math.sign(r)) {
-						let t = Mh(this.Nv, this.Fv);
+						let t = Nh(this.Nv, this.Fv);
 						a.push(e), o.push(t), n += t;
 					}
 				}
@@ -22138,7 +22142,7 @@ var Ph = class {
 		let t = Q(this.Wv), n = Math.max(0, e - t.wt);
 		return Math.min(n, this.Hv);
 	}
-}, Fh = class {
+}, Ih = class {
 	constructor(e, t) {
 		this.Zv = void 0, this.Gv = void 0, this.Xv = void 0, this.vn = !1, this.Jv = e, this.Qv = t, this.tm();
 	}
@@ -22165,7 +22169,7 @@ var Ph = class {
 		this.nm() && (this.im(), this.vn = this.sm(), this.vn && (this.Xv = this.rm(), this.Gv = document.createElement("style"), this.Gv.innerText = "a#tv-attr-logo{--fill:#131722;--stroke:#fff;position:absolute;left:10px;bottom:10px;height:19px;width:35px;margin:0;padding:0;border:0;z-index:3;}a#tv-attr-logo[data-dark]{--fill:#D1D4DC;--stroke:#131722;}", this.Zv = document.createElement("a"), this.Zv.href = `https://www.tradingview.com/?utm_medium=lwc-link&utm_campaign=lwc-chart${this.hm()}&utm_content=lwc-5.3.0`, this.Zv.title = "Charting by TradingView", this.Zv.id = "tv-attr-logo", this.Zv.target = "_blank", this.Zv.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"35\" height=\"19\" fill=\"none\"><g fill-rule=\"evenodd\" clip-path=\"url(#a)\" clip-rule=\"evenodd\"><path fill=\"var(--stroke)\" d=\"M2 0H0v10h6v9h21.4l.5-1.3 6-15 1-2.7H23.7l-.5 1.3-.2.6a5 5 0 0 0-7-.9V0H2Zm20 17h4l5.2-13 .8-2h-7l-1 2.5-.2.5-1.5 3.8-.3.7V17Zm-.8-10a3 3 0 0 0 .7-2.7A3 3 0 1 0 16.8 7h4.4ZM14 7V2H2v6h6v9h4V7h2Z\"/><path fill=\"var(--fill)\" d=\"M14 2H2v6h6v9h6V2Zm12 15h-7l6-15h7l-6 15Zm-7-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z\"/></g><defs><clipPath id=\"a\"><path fill=\"var(--stroke)\" d=\"M0 0h35v19H0z\"/></clipPath></defs></svg>", this.Zv.toggleAttribute("data-dark", this.Xv === "dark"), this.Jv.appendChild(this.Gv), this.Jv.appendChild(this.Zv)));
 	}
 };
-function Ih(e, t) {
+function Lh(e, t) {
 	let n = Q(e.ownerDocument).createElement("canvas");
 	e.appendChild(n);
 	let r = nf(n, {
@@ -22178,30 +22182,30 @@ function Ih(e, t) {
 	});
 	return r.resizeCanvasElement(t), r;
 }
-function Lh(e) {
+function Rh(e) {
 	e.width = 1, e.height = 1, e.getContext("2d")?.clearRect(0, 0, 1, 1);
 }
-function Rh(e, t, n, r) {
+function zh(e, t, n, r) {
 	e.Yh && e.Yh(t, n, r);
 }
-function zh(e, t, n, r) {
+function Bh(e, t, n, r) {
 	e.st(t, n, r);
 }
-function Bh(e, t, n, r) {
-	Vh(e(n, r), t, r);
+function Vh(e, t, n, r) {
+	Hh(e(n, r), t, r);
 }
-function Vh(e, t, n) {
+function Hh(e, t, n) {
 	for (let r of e) {
 		let e = r.Tt(n);
 		e !== null && t(e);
 	}
 }
-function Hh(e, t) {
+function Uh(e, t) {
 	return (n) => function(e) {
 		return e.Ft !== void 0;
 	}(n) && (n.Ft()?.vl() ?? "") === t ? n.tl?.(e) ?? [] : [];
 }
-function Uh(e, t, n, r) {
+function Wh(e, t, n, r) {
 	if (!e.length) return;
 	let i = 0, a = e[0].$t(r, !0), o = t === 1 ? n / 2 - (e[0].Hi() - a / 2) : e[0].Hi() - a / 2 - n / 2;
 	o = Math.max(0, o);
@@ -22219,18 +22223,18 @@ function Uh(e, t, n, r) {
 		} else i = a, o = t === 1 ? d - l - u : u - (d + l);
 	}
 }
-var Wh = class {
+var Gh = class {
 	constructor(e, t, n, r) {
 		this.Ki = null, this.am = null, this.lm = !1, this.om = new cp(200), this._m = null, this.um = 0, this.dm = !1, this.fm = () => {
 			this.dm || this.yt.pm().Qt().wr();
 		}, this.vm = () => {
 			this.dm || this.yt.pm().Qt().wr();
-		}, this.yt = e, this.yn = t, this.To = t.layout, this.Cd = n, this.wm = r === "left", this.Mm = Hh("normal", r), this.gm = Hh("top", r), this.bm = Hh("bottom", r), this.pv = document.createElement("div"), this.pv.style.height = "100%", this.pv.style.overflow = "hidden", this.pv.style.width = "25px", this.pv.style.left = "0", this.pv.style.position = "relative", this.Sm = Ih(this.pv, Zd({
+		}, this.yt = e, this.yn = t, this.To = t.layout, this.Cd = n, this.wm = r === "left", this.Mm = Uh("normal", r), this.gm = Uh("top", r), this.bm = Uh("bottom", r), this.pv = document.createElement("div"), this.pv.style.height = "100%", this.pv.style.overflow = "hidden", this.pv.style.width = "25px", this.pv.style.left = "0", this.pv.style.position = "relative", this.Sm = Lh(this.pv, Zd({
 			width: 16,
 			height: 16
 		})), this.Sm.subscribeSuggestedBitmapSizeChanged(this.fm);
 		let i = this.Sm.canvasElement;
-		i.style.position = "absolute", i.style.zIndex = "1", i.style.left = "0", i.style.top = "0", this.xm = Ih(this.pv, Zd({
+		i.style.position = "absolute", i.style.zIndex = "1", i.style.left = "0", i.style.top = "0", this.xm = Lh(this.pv, Zd({
 			width: 16,
 			height: 16
 		})), this.xm.subscribeSuggestedBitmapSizeChanged(this.vm);
@@ -22249,13 +22253,13 @@ var Wh = class {
 			yp: this.Pm.bind(this),
 			tv: this.yv.bind(this)
 		};
-		this.av = new Th(this.xm.canvasElement, o, {
+		this.av = new Eh(this.xm.canvasElement, o, {
 			Dp: () => !this.yn.handleScroll.vertTouchDrag,
 			Ip: () => !0
 		});
 	}
 	m() {
-		this.av.m(), this.xm.unsubscribeSuggestedBitmapSizeChanged(this.vm), Lh(this.xm.canvasElement), this.xm.dispose(), this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Lh(this.Sm.canvasElement), this.Sm.dispose(), this.Ki !== null && this.Ki.o_().u(this), this.Ki = null;
+		this.av.m(), this.xm.unsubscribeSuggestedBitmapSizeChanged(this.vm), Rh(this.xm.canvasElement), this.xm.dispose(), this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Rh(this.Sm.canvasElement), this.Sm.dispose(), this.Ki !== null && this.Ki.o_().u(this), this.Ki = null;
 	}
 	wv() {
 		return this.pv;
@@ -22286,7 +22290,7 @@ var Wh = class {
 		var o;
 		n.restore();
 		let s = e || 34;
-		return Ch(Math.ceil(t.S + t.C + t.V + t.B + 5 + s));
+		return wh(Math.ceil(t.S + t.C + t.V + t.B + 5 + s));
 	}
 	Im(e) {
 		this.am !== null && Qd(this.am, e) || (this.am = e, this.dm = !0, this.Sm.resizeCanvasElement(e), this.xm.resizeCanvasElement(e), this.dm = !1, this.pv.style.width = `${e.width}px`, this.pv.style.height = `${e.height}px`);
@@ -22421,7 +22425,7 @@ var Wh = class {
 			let e = Math.floor(n.$t(t) / 2), r = n.Ei();
 			r > -e && r < e && n.Ui(e), r > this.am.height - e && r < this.am.height + e && n.Ui(this.am.height - e);
 		}
-		Uh(r, 1, this.am.height, t), Uh(i, -1, this.am.height, t);
+		Wh(r, 1, this.am.height, t), Wh(i, -1, this.am.height, t);
 	}
 	Nm(e) {
 		if (this.am === null) return;
@@ -22452,19 +22456,19 @@ var Wh = class {
 		return Df(this.To.fontSize, this.To.fontFamily);
 	}
 };
-function Gh(e, t) {
+function Kh(e, t) {
 	return e.Ja?.(t) ?? [];
 }
-function Kh(e, t) {
+function qh(e, t) {
 	return e.jn?.(t) ?? [];
 }
-function qh(e, t) {
+function Jh(e, t) {
 	return e.cn?.(t) ?? [];
 }
-function Jh(e, t) {
+function Yh(e, t) {
 	return e.Ya?.(t) ?? [];
 }
-var Yh = class e {
+var Xh = class e {
 	constructor(e, t) {
 		this.am = Zd({
 			width: 0,
@@ -22475,29 +22479,29 @@ var Yh = class e {
 			this.dm || this.nw === null || this.sn().wr();
 		}, this.Qv = e, this.nw = t, this.nw.vu().i(this.sw.bind(this), this, !0), this.ew = document.createElement("td"), this.ew.style.padding = "0", this.ew.style.position = "relative";
 		let n = document.createElement("div");
-		n.style.width = "100%", n.style.height = "100%", n.style.position = "relative", n.style.overflow = "hidden", this.rw = document.createElement("td"), this.rw.style.padding = "0", this.hw = document.createElement("td"), this.hw.style.padding = "0", this.ew.appendChild(n), this.Sm = Ih(n, Zd({
+		n.style.width = "100%", n.style.height = "100%", n.style.position = "relative", n.style.overflow = "hidden", this.rw = document.createElement("td"), this.rw.style.padding = "0", this.hw = document.createElement("td"), this.hw.style.padding = "0", this.ew.appendChild(n), this.Sm = Lh(n, Zd({
 			width: 16,
 			height: 16
 		})), this.Sm.subscribeSuggestedBitmapSizeChanged(this.fm);
 		let r = this.Sm.canvasElement;
-		r.style.position = "absolute", r.style.zIndex = "1", r.style.left = "0", r.style.top = "0", this.xm = Ih(n, Zd({
+		r.style.position = "absolute", r.style.zIndex = "1", r.style.left = "0", r.style.top = "0", this.xm = Lh(n, Zd({
 			width: 16,
 			height: 16
 		})), this.xm.subscribeSuggestedBitmapSizeChanged(this.vm);
 		let i = this.xm.canvasElement;
-		i.style.position = "absolute", i.style.zIndex = "2", i.style.left = "0", i.style.top = "0", this.fv = document.createElement("tr"), this.fv.appendChild(this.rw), this.fv.appendChild(this.ew), this.fv.appendChild(this.hw), this.aw(), this.av = new Th(this.xm.canvasElement, this, {
+		i.style.position = "absolute", i.style.zIndex = "2", i.style.left = "0", i.style.top = "0", this.fv = document.createElement("tr"), this.fv.appendChild(this.rw), this.fv.appendChild(this.ew), this.fv.appendChild(this.hw), this.aw(), this.av = new Eh(this.xm.canvasElement, this, {
 			Dp: () => this.Jm === null && !this.Qv.N().handleScroll.vertTouchDrag,
 			Ip: () => this.Jm === null && !this.Qv.N().handleScroll.horzTouchDrag
 		});
 	}
 	m() {
-		this.Um !== null && this.Um.m(), this.$m !== null && this.$m.m(), this.jm = null, this.xm.unsubscribeSuggestedBitmapSizeChanged(this.vm), Lh(this.xm.canvasElement), this.xm.dispose(), this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Lh(this.Sm.canvasElement), this.Sm.dispose(), this.nw !== null && (this.nw.vu().u(this), this.nw.m()), this.av.m();
+		this.Um !== null && this.Um.m(), this.$m !== null && this.$m.m(), this.jm = null, this.xm.unsubscribeSuggestedBitmapSizeChanged(this.vm), Rh(this.xm.canvasElement), this.xm.dispose(), this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Rh(this.Sm.canvasElement), this.Sm.dispose(), this.nw !== null && (this.nw.vu().u(this), this.nw.m()), this.av.m();
 	}
 	Rv() {
 		return Q(this.nw);
 	}
 	lw(t) {
-		this.nw !== null && this.nw.vu().u(this), this.nw = t, this.nw !== null && this.nw.vu().i(e.prototype.sw.bind(this), this, !0), this.aw(), this.Qv.cv().indexOf(this) === this.Qv.cv().length - 1 ? (this.jm = this.jm ?? new Fh(this.ew, this.Qv), this.jm.Pt()) : (this.jm?.im(), this.jm = null);
+		this.nw !== null && this.nw.vu().u(this), this.nw = t, this.nw !== null && this.nw.vu().i(e.prototype.sw.bind(this), this, !0), this.aw(), this.Qv.cv().indexOf(this) === this.Qv.cv().length - 1 ? (this.jm = this.jm ?? new Ih(this.ew, this.Qv), this.jm.Pt()) : (this.jm?.im(), this.jm = null);
 	}
 	pm() {
 		return this.Qv;
@@ -22610,7 +22614,7 @@ var Yh = class e {
 	}
 	Qs(e, t) {
 		let n = this.nw;
-		return n === null ? null : Rm(n, e, t);
+		return n === null ? null : zm(n, e, t);
 	}
 	Cw(e, t) {
 		Q(t === "left" ? this.Um : this.$m).Im(Zd({
@@ -22652,13 +22656,13 @@ var Yh = class e {
 			let e = cf(this.Sm, t);
 			e !== null && (e.useBitmapCoordinateSpace((e) => {
 				this.Am(e);
-			}), this.nw && (this.Pw(e, Gh), this.kw(e), this.Pw(e, Kh), this.Pw(e, qh)));
+			}), this.nw && (this.Pw(e, Kh), this.kw(e), this.Pw(e, qh), this.Pw(e, Jh)));
 		}
 		this.xm.applySuggestedBitmapSize();
 		let n = cf(this.xm, t);
 		n !== null && (n.useBitmapCoordinateSpace(({ context: e, bitmapSize: t }) => {
 			e.clearRect(0, 0, t.width, t.height);
-		}), this.Tw(n), this.Pw(n, Jh), this.Pw(n, qh));
+		}), this.Tw(n), this.Pw(n, Yh), this.Pw(n, Jh));
 	}
 	Rw() {
 		return this.Um;
@@ -22691,17 +22695,17 @@ var Yh = class e {
 		n !== null && n.st(e, !1);
 	}
 	Tw(e) {
-		this.Iw(e, Kh, zh, this.sn().Ad());
+		this.Iw(e, qh, Bh, this.sn().Ad());
 	}
 	Pw(e, t) {
-		let n = Q(this.nw), r = t === Kh ? this.Vw() : null, i = r === null ? null : this.Bw(r, n), a = n.wu();
+		let n = Q(this.nw), r = t === qh ? this.Vw() : null, i = r === null ? null : this.Bw(r, n), a = n.wu();
 		if (i === null || r === null) {
 			let r = n.ou();
-			this.Ew(e, t, Rh, a, r), this.Ew(e, t, zh, a, r);
+			this.Ew(e, t, zh, a, r), this.Ew(e, t, Bh, a, r);
 			return;
 		}
 		let o = n.Dt(), s = (e) => e === r ? i.Xa : void 0;
-		this.Ew(e, t, Rh, a, o, s), this.Ew(e, t, zh, a, o, s), this.Iw(e, t, Rh, r, i.Ya), this.Iw(e, t, zh, r, i.Ya);
+		this.Ew(e, t, zh, a, o, s), this.Ew(e, t, Bh, a, o, s), this.Iw(e, t, zh, r, i.Ya), this.Iw(e, t, Bh, r, i.Ya);
 	}
 	Ew(e, t, n, r, i, a) {
 		for (let i of r) this.Iw(e, t, n, i);
@@ -22720,14 +22724,14 @@ var Yh = class e {
 	}
 	Iw(e, t, n, r, i) {
 		let a = Q(this.nw), o = a.Qt().uu(), s = o !== null && o._u === r, c = o !== null && s && o.gu !== void 0 ? o.gu.ne : void 0, l = (t) => n(t, e, s, c);
-		i === void 0 ? Bh(t, l, r, a) : Vh(i, l, a);
+		i === void 0 ? Vh(t, l, r, a) : Hh(i, l, a);
 	}
 	ow() {
 		if (this.nw === null) return;
 		let e = this.Qv, t = this.nw.G_().N().visible, n = this.nw.X_().N().visible;
 		t || this.Um === null || (this.rw.removeChild(this.Um.wv()), this.Um.m(), this.Um = null), n || this.$m === null || (this.hw.removeChild(this.$m.wv()), this.$m.m(), this.$m = null);
 		let r = e.Qt().nf();
-		t && this.Um === null && (this.Um = new Wh(this, e.N(), r, "left"), this.rw.appendChild(this.Um.wv())), n && this.$m === null && (this.$m = new Wh(this, e.N(), r, "right"), this.hw.appendChild(this.$m.wv()));
+		t && this.Um === null && (this.Um = new Gh(this, e.N(), r, "left"), this.rw.appendChild(this.Um.wv())), n && this.$m === null && (this.$m = new Gh(this, e.N(), r, "right"), this.hw.appendChild(this.$m.wv()));
 	}
 	Aw(e) {
 		return e.nv && this.Xm || this.Jm !== null;
@@ -22789,24 +22793,24 @@ var Yh = class e {
 		}), this.qm !== null && !this.Ym && (this.qm.x !== e.clientX || this.qm.y !== e.clientY)) {
 			if (e.nv && a.touch || !e.nv && a.mouse) {
 				let e = n.wl();
-				this.iw = new Ph(.2 / e, 7 / e, .997, 15 / e), this.iw.Yv(n.Nc(), this.qm.Rf);
+				this.iw = new Fh(.2 / e, 7 / e, .997, 15 / e), this.iw.Yv(n.Nc(), this.qm.Rf);
 			} else this.iw = null;
 			o.Gi() || t.iu(this.nw, o, e.localY), t.qd(e.localX), this.Ym = !0;
 		}
 		this.Ym && (o.Gi() || t.nu(this.nw, o, e.localY), t.Yd(e.localX), this.iw !== null && this.iw.Yv(n.Nc(), s));
 	}
-}, Xh = class {
+}, Zh = class {
 	constructor(e, t, n, r, i) {
 		this.xt = !0, this.am = Zd({
 			width: 0,
 			height: 0
-		}), this.fm = () => this.Bm(3), this.wm = e === "left", this.Cd = n.nf, this.yn = t, this.Ow = r, this.Nw = i, this.pv = document.createElement("div"), this.pv.style.width = "25px", this.pv.style.height = "100%", this.pv.style.overflow = "hidden", this.Sm = Ih(this.pv, Zd({
+		}), this.fm = () => this.Bm(3), this.wm = e === "left", this.Cd = n.nf, this.yn = t, this.Ow = r, this.Nw = i, this.pv = document.createElement("div"), this.pv.style.width = "25px", this.pv.style.height = "100%", this.pv.style.overflow = "hidden", this.Sm = Lh(this.pv, Zd({
 			width: 16,
 			height: 16
 		})), this.Sm.subscribeSuggestedBitmapSizeChanged(this.fm);
 	}
 	m() {
-		this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Lh(this.Sm.canvasElement), this.Sm.dispose();
+		this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Rh(this.Sm.canvasElement), this.Sm.dispose();
 	}
 	wv() {
 		return this.pv;
@@ -22842,10 +22846,10 @@ var Yh = class e {
 		Vf(e, 0, 0, t.width, t.height, this.Nw());
 	}
 };
-function Zh(e) {
+function Qh(e) {
 	return (t) => t.il?.(e) ?? [];
 }
-var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
+var $h = Qh("normal"), eg = Qh("top"), tg = Qh("bottom"), ng = class {
 	constructor(e, t) {
 		this.Fw = null, this.Ww = null, this.M = null, this.Hw = !1, this.am = Zd({
 			width: 0,
@@ -22854,23 +22858,23 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 			this.dm || this.Qv.Qt().wr();
 		}, this.vm = () => {
 			this.dm || this.Qv.Qt().wr();
-		}, this.Qv = e, this.yu = t, this.yn = e.N().layout, this.Zv = document.createElement("tr"), this.$w = document.createElement("td"), this.$w.style.padding = "0", this.jw = document.createElement("td"), this.jw.style.padding = "0", this.pv = document.createElement("td"), this.pv.style.height = "25px", this.pv.style.padding = "0", this.qw = document.createElement("div"), this.qw.style.width = "100%", this.qw.style.height = "100%", this.qw.style.position = "relative", this.qw.style.overflow = "hidden", this.pv.appendChild(this.qw), this.Sm = Ih(this.qw, Zd({
+		}, this.Qv = e, this.yu = t, this.yn = e.N().layout, this.Zv = document.createElement("tr"), this.$w = document.createElement("td"), this.$w.style.padding = "0", this.jw = document.createElement("td"), this.jw.style.padding = "0", this.pv = document.createElement("td"), this.pv.style.height = "25px", this.pv.style.padding = "0", this.qw = document.createElement("div"), this.qw.style.width = "100%", this.qw.style.height = "100%", this.qw.style.position = "relative", this.qw.style.overflow = "hidden", this.pv.appendChild(this.qw), this.Sm = Lh(this.qw, Zd({
 			width: 16,
 			height: 16
 		})), this.Sm.subscribeSuggestedBitmapSizeChanged(this.fm);
 		let n = this.Sm.canvasElement;
-		n.style.position = "absolute", n.style.zIndex = "1", n.style.left = "0", n.style.top = "0", this.xm = Ih(this.qw, Zd({
+		n.style.position = "absolute", n.style.zIndex = "1", n.style.left = "0", n.style.top = "0", this.xm = Lh(this.qw, Zd({
 			width: 16,
 			height: 16
 		})), this.xm.subscribeSuggestedBitmapSizeChanged(this.vm);
 		let r = this.xm.canvasElement;
-		r.style.position = "absolute", r.style.zIndex = "2", r.style.left = "0", r.style.top = "0", this.Zv.appendChild(this.$w), this.Zv.appendChild(this.pv), this.Zv.appendChild(this.jw), this.Yw(), this.Qv.Qt().O_().i(this.Yw.bind(this), this), this.av = new Th(this.xm.canvasElement, this, {
+		r.style.position = "absolute", r.style.zIndex = "2", r.style.left = "0", r.style.top = "0", this.Zv.appendChild(this.$w), this.Zv.appendChild(this.pv), this.Zv.appendChild(this.jw), this.Yw(), this.Qv.Qt().O_().i(this.Yw.bind(this), this), this.av = new Eh(this.xm.canvasElement, this, {
 			Dp: () => !0,
 			Ip: () => !this.Qv.N().handleScroll.horzTouchDrag
 		});
 	}
 	m() {
-		this.av.m(), this.Fw !== null && this.Fw.m(), this.Ww !== null && this.Ww.m(), this.xm.unsubscribeSuggestedBitmapSizeChanged(this.vm), Lh(this.xm.canvasElement), this.xm.dispose(), this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Lh(this.Sm.canvasElement), this.Sm.dispose();
+		this.av.m(), this.Fw !== null && this.Fw.m(), this.Ww !== null && this.Ww.m(), this.xm.unsubscribeSuggestedBitmapSizeChanged(this.vm), Rh(this.xm.canvasElement), this.xm.dispose(), this.Sm.unsubscribeSuggestedBitmapSizeChanged(this.fm), Rh(this.Sm.canvasElement), this.Sm.dispose();
 	}
 	wv() {
 		return this.Zv;
@@ -22960,19 +22964,19 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 			this.Sm.applySuggestedBitmapSize();
 			let n = cf(this.Sm, t);
 			n !== null && (n.useBitmapCoordinateSpace((e) => {
-				this.Am(e), this.Lm(e), this.iM(n, eg);
-			}), this.Om(n), this.iM(n, Qh)), this.Fw !== null && this.Fw.Bm(e), this.Ww !== null && this.Ww.Bm(e);
+				this.Am(e), this.Lm(e), this.iM(n, tg);
+			}), this.Om(n), this.iM(n, $h)), this.Fw !== null && this.Fw.Bm(e), this.Ww !== null && this.Ww.Bm(e);
 		}
 		this.xm.applySuggestedBitmapSize();
 		let n = cf(this.xm, t);
 		n !== null && (n.useBitmapCoordinateSpace(({ context: e, bitmapSize: t }) => {
 			e.clearRect(0, 0, t.width, t.height);
-		}), this.nM([...this.Qv.Qt().Jn(), this.Qv.Qt().Ad()], n), this.iM(n, $h));
+		}), this.nM([...this.Qv.Qt().Jn(), this.Qv.Qt().Ad()], n), this.iM(n, eg));
 	}
 	iM(e, t) {
 		let n = this.Qv.Qt().Jn();
-		for (let r of n) Bh(t, (t) => Rh(t, e, !1, void 0), r, void 0);
-		for (let r of n) Bh(t, (t) => zh(t, e, !1, void 0), r, void 0);
+		for (let r of n) Vh(t, (t) => zh(t, e, !1, void 0), r, void 0);
+		for (let r of n) Vh(t, (t) => Bh(t, e, !1, void 0), r, void 0);
 	}
 	Am({ context: e, bitmapSize: t }) {
 		Vf(e, 0, 0, t.width, t.height, this.Qv.Qt().cf());
@@ -23062,12 +23066,12 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 		let e = this.Qv.Qt(), t = e.N();
 		t.leftPriceScale.visible || this.Fw === null || (this.$w.removeChild(this.Fw.wv()), this.Fw.m(), this.Fw = null), t.rightPriceScale.visible || this.Ww === null || (this.jw.removeChild(this.Ww.wv()), this.Ww.m(), this.Ww = null);
 		let n = { nf: this.Qv.Qt().nf() }, r = () => t.leftPriceScale.borderVisible && e.Et().N().borderVisible, i = () => e.cf();
-		t.leftPriceScale.visible && this.Fw === null && (this.Fw = new Xh("left", t, n, r, i), this.$w.appendChild(this.Fw.wv())), t.rightPriceScale.visible && this.Ww === null && (this.Ww = new Xh("right", t, n, r, i), this.jw.appendChild(this.Ww.wv()));
+		t.leftPriceScale.visible && this.Fw === null && (this.Fw = new Zh("left", t, n, r, i), this.$w.appendChild(this.Fw.wv())), t.rightPriceScale.visible && this.Ww === null && (this.Ww = new Zh("right", t, n, r, i), this.jw.appendChild(this.Ww.wv()));
 	}
-}, ng = !!yh && !(!navigator.userAgentData || !Array.isArray(navigator.userAgentData.brands)) && navigator.userAgentData.brands.some((e) => e.brand.includes("Chromium")) && !!yh && (navigator?.userAgentData?.platform ? navigator.userAgentData.platform === "Windows" : navigator.userAgent.toLowerCase().indexOf("win") >= 0), rg = class {
+}, rg = !!bh && !(!navigator.userAgentData || !Array.isArray(navigator.userAgentData.brands)) && navigator.userAgentData.brands.some((e) => e.brand.includes("Chromium")) && !!bh && (navigator?.userAgentData?.platform ? navigator.userAgentData.platform === "Windows" : navigator.userAgent.toLowerCase().indexOf("win") >= 0), ig = class {
 	constructor(e, t, n) {
 		var r;
-		this.hM = [], this.aM = [], this.lM = 0, this.lo = 0, this.P_ = 0, this.oM = 0, this._M = 0, this.uM = null, this.cM = !1, this.Km = new _f(), this.Zm = new _f(), this.bd = new _f(), this.dM = null, this.fM = null, this.Jv = e, this.yn = t, this.yu = n, this.Zv = document.createElement("div"), this.Zv.classList.add("tv-lightweight-charts"), this.Zv.style.overflow = "hidden", this.Zv.style.direction = "ltr", this.Zv.style.width = "100%", this.Zv.style.height = "100%", (r = this.Zv).style.userSelect = "none", r.style.webkitUserSelect = "none", r.style.msUserSelect = "none", r.style.MozUserSelect = "none", r.style.webkitTapHighlightColor = "transparent", this.pM = document.createElement("table"), this.pM.setAttribute("cellspacing", "0"), this.Zv.appendChild(this.pM), this.vM = this.mM.bind(this), ig(this.yn) && this.wM(!0), this.sn = new Zm(this.xd.bind(this), this.yn, n), this.Qt().Ld().i(this.MM.bind(this), this), this.gM = new tg(this, this.yu), this.pM.appendChild(this.gM.wv());
+		this.hM = [], this.aM = [], this.lM = 0, this.lo = 0, this.P_ = 0, this.oM = 0, this._M = 0, this.uM = null, this.cM = !1, this.Km = new _f(), this.Zm = new _f(), this.bd = new _f(), this.dM = null, this.fM = null, this.Jv = e, this.yn = t, this.yu = n, this.Zv = document.createElement("div"), this.Zv.classList.add("tv-lightweight-charts"), this.Zv.style.overflow = "hidden", this.Zv.style.direction = "ltr", this.Zv.style.width = "100%", this.Zv.style.height = "100%", (r = this.Zv).style.userSelect = "none", r.style.webkitUserSelect = "none", r.style.msUserSelect = "none", r.style.MozUserSelect = "none", r.style.webkitTapHighlightColor = "transparent", this.pM = document.createElement("table"), this.pM.setAttribute("cellspacing", "0"), this.Zv.appendChild(this.pM), this.vM = this.mM.bind(this), ag(this.yn) && this.wM(!0), this.sn = new Qm(this.xd.bind(this), this.yn, n), this.Qt().Ld().i(this.MM.bind(this), this), this.gM = new ng(this, this.yu), this.pM.appendChild(this.gM.wv());
 		let i = t.autoSize && this.bM(), a = this.yn.width, o = this.yn.height;
 		if (i || a === 0 || o === 0) {
 			let t = e.getBoundingClientRect();
@@ -23120,9 +23124,9 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 		this.yn.timeScale.visible && this.gM.Bm(e.ls());
 	}
 	mr(e) {
-		let t = ig(this.yn);
+		let t = ag(this.yn);
 		this.sn.mr(e);
-		let n = ig(this.yn);
+		let n = ag(this.yn);
 		n !== t && this.wM(n), e.layout?.panes && this.DM(), this.CM(), this.IM(e);
 	}
 	bw() {
@@ -23206,7 +23210,7 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 	FM() {
 		let e = 0, t = 0, n = 0;
 		for (let r of this.hM) this.AM() && (t = Math.max(t, Q(r.Rw()).Tm(), this.yn.leftPriceScale.minimumWidth)), this.LM() && (n = Math.max(n, Q(r.Dw()).Tm(), this.yn.rightPriceScale.minimumWidth)), e += r.N_();
-		t = Ch(t), n = Ch(n);
+		t = wh(t), n = wh(n);
 		let r = this.P_, i = this.lo, a = Math.max(r - t - n, 0), o = 1 * this.aM.length, s = this.yn.timeScale.visible, c = s ? Math.max(this.gM.Jw(), this.yn.timeScale.minimumHeight) : 0;
 		var l;
 		c = (l = c) + l % 2;
@@ -23233,7 +23237,7 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 			case e.DOM_DELTA_PAGE: return 120;
 			case e.DOM_DELTA_LINE: return 32;
 		}
-		return ng ? 1 / window.devicePixelRatio : 1;
+		return rg ? 1 / window.devicePixelRatio : 1;
 	}
 	mM(e) {
 		if (!(e.deltaX !== 0 && this.yn.handleScroll.mouseWheel || e.deltaY !== 0 && this.yn.handleScale.mouseWheel)) return;
@@ -23305,9 +23309,9 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 			t !== void 0 && this.PM(t);
 		}
 		for (let r = n; r < t; r++) {
-			let t = new Yh(this, e[r]);
+			let t = new Xh(this, e[r]);
 			if (t.bw().i(this.jM.bind(this, t), this), t.Sw().i(this.qM.bind(this, t), this), this.hM.push(t), r > 0) {
-				let e = new jh(this, r - 1, r);
+				let e = new Mh(this, r - 1, r);
 				this.aM.push(e), this.pM.insertBefore(e.wv(), this.gM.wv());
 			}
 			this.pM.insertBefore(t.wv(), this.gM.wv());
@@ -23339,8 +23343,8 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 				GM: r,
 				XM: {
 					ds: e.re,
-					JM: (a = e._u, o = e.re, a instanceof Am ? "pane-primitive" : o === "marker" || o === "primitive" ? "series-primitive" : "series"),
-					QM: Sh(e.re, r),
+					JM: (a = e._u, o = e.re, a instanceof jm ? "pane-primitive" : o === "marker" || o === "primitive" ? "series-primitive" : "series"),
+					QM: Ch(e.re, r),
 					q_: n,
 					tg: r,
 					ig: i
@@ -23400,32 +23404,18 @@ var Qh = Zh("normal"), $h = Zh("top"), eg = Zh("bottom"), tg = class {
 		this.dM !== null && this.dM.disconnect(), this.dM = null;
 	}
 };
-function ig(e) {
+function ag(e) {
 	return !!(e.handleScroll.mouseWheel || e.handleScale.mouseWheel);
 }
-function ag(e) {
+function og(e) {
 	return e.open === void 0 && e.value === void 0;
 }
-function og(e) {
+function sg(e) {
 	return function(e) {
 		return e.open !== void 0;
 	}(e) || function(e) {
 		return e.value !== void 0;
 	}(e);
-}
-function sg(e, t, n, r) {
-	let i = n.value, a = {
-		$n: t,
-		wt: e,
-		Wt: [
-			i,
-			i,
-			i,
-			i
-		],
-		th: r
-	};
-	return n.color !== void 0 && (a.R = n.color), a;
 }
 function cg(e, t, n, r) {
 	let i = n.value, a = {
@@ -23439,7 +23429,7 @@ function cg(e, t, n, r) {
 		],
 		th: r
 	};
-	return n.lineColor !== void 0 && (a.vt = n.lineColor), n.topColor !== void 0 && (a.oh = n.topColor), n.bottomColor !== void 0 && (a._h = n.bottomColor), a;
+	return n.color !== void 0 && (a.R = n.color), a;
 }
 function lg(e, t, n, r) {
 	let i = n.value, a = {
@@ -23453,21 +23443,21 @@ function lg(e, t, n, r) {
 		],
 		th: r
 	};
-	return n.topLineColor !== void 0 && (a.uh = n.topLineColor), n.bottomLineColor !== void 0 && (a.dh = n.bottomLineColor), n.topFillColor1 !== void 0 && (a.fh = n.topFillColor1), n.topFillColor2 !== void 0 && (a.ph = n.topFillColor2), n.bottomFillColor1 !== void 0 && (a.mh = n.bottomFillColor1), n.bottomFillColor2 !== void 0 && (a.wh = n.bottomFillColor2), a;
+	return n.lineColor !== void 0 && (a.vt = n.lineColor), n.topColor !== void 0 && (a.oh = n.topColor), n.bottomColor !== void 0 && (a._h = n.bottomColor), a;
 }
 function ug(e, t, n, r) {
-	let i = {
+	let i = n.value, a = {
 		$n: t,
 		wt: e,
 		Wt: [
-			n.open,
-			n.high,
-			n.low,
-			n.close
+			i,
+			i,
+			i,
+			i
 		],
 		th: r
 	};
-	return n.color !== void 0 && (i.R = n.color), i;
+	return n.topLineColor !== void 0 && (a.uh = n.topLineColor), n.bottomLineColor !== void 0 && (a.dh = n.bottomLineColor), n.topFillColor1 !== void 0 && (a.fh = n.topFillColor1), n.topFillColor2 !== void 0 && (a.ph = n.topFillColor2), n.bottomFillColor1 !== void 0 && (a.mh = n.bottomFillColor1), n.bottomFillColor2 !== void 0 && (a.wh = n.bottomFillColor2), a;
 }
 function dg(e, t, n, r) {
 	let i = {
@@ -23481,9 +23471,23 @@ function dg(e, t, n, r) {
 		],
 		th: r
 	};
+	return n.color !== void 0 && (i.R = n.color), i;
+}
+function fg(e, t, n, r) {
+	let i = {
+		$n: t,
+		wt: e,
+		Wt: [
+			n.open,
+			n.high,
+			n.low,
+			n.close
+		],
+		th: r
+	};
 	return n.color !== void 0 && (i.R = n.color), n.borderColor !== void 0 && (i.Ht = n.borderColor), n.wickColor !== void 0 && (i.ah = n.wickColor), i;
 }
-function fg(e, t, n, r, i) {
+function pg(e, t, n, r, i) {
 	let a = hf(i)(n), o = Math.max(...a), s = Math.min(...a), c = a[a.length - 1], l = [
 		c,
 		o,
@@ -23499,52 +23503,52 @@ function fg(e, t, n, r, i) {
 		R: d
 	};
 }
-function pg(e) {
+function mg(e) {
 	return e.Wt !== void 0;
 }
-function mg(e, t) {
+function hg(e, t) {
 	return t.customValues !== void 0 && (e.rg = t.customValues), e;
 }
-function hg(e) {
+function gg(e) {
 	return (t, n, r, i, a, o) => function(e, t) {
-		return t ? t(e) : ag(e);
-	}(r, o) ? mg({
+		return t ? t(e) : og(e);
+	}(r, o) ? hg({
 		wt: t,
 		$n: n,
 		th: i
-	}, r) : mg(e(t, n, r, i, a), r);
-}
-function gg(e) {
-	return {
-		Candlestick: hg(dg),
-		Bar: hg(ug),
-		Area: hg(cg),
-		Baseline: hg(lg),
-		Histogram: hg(sg),
-		Line: hg(sg),
-		Custom: hg(fg)
-	}[e];
+	}, r) : hg(e(t, n, r, i, a), r);
 }
 function _g(e) {
+	return {
+		Candlestick: gg(fg),
+		Bar: gg(dg),
+		Area: gg(lg),
+		Baseline: gg(ug),
+		Histogram: gg(cg),
+		Line: gg(cg),
+		Custom: gg(pg)
+	}[e];
+}
+function vg(e) {
 	return {
 		$n: 0,
 		hg: /* @__PURE__ */ new Map(),
 		Na: e
 	};
 }
-function vg(e, t) {
+function yg(e, t) {
 	if (e !== void 0 && e.length !== 0) return {
 		ag: t.key(e[0].wt),
 		lg: t.key(e[e.length - 1].wt)
 	};
 }
-function yg(e) {
+function bg(e) {
 	let t;
 	return e.forEach((e) => {
 		t === void 0 && (t = e.th);
 	}), hf(t);
 }
-var bg = class {
+var xg = class {
 	constructor(e) {
 		this.og = /* @__PURE__ */ new Map(), this._g = /* @__PURE__ */ new Map(), this.ug = /* @__PURE__ */ new Map(), this.cg = [], this.yu = e;
 	}
@@ -23559,10 +23563,10 @@ var bg = class {
 		}
 		let a = [];
 		if (t.length !== 0) {
-			let n = t.map((e) => e.time), i = this.yu.createConverterToInternalObj(t), o = gg(e.Sh()), s = e.cl(), c = e.dl();
+			let n = t.map((e) => e.time), i = this.yu.createConverterToInternalObj(t), o = _g(e.Sh()), s = e.cl(), c = e.dl();
 			a = t.map((t, a) => {
 				let l = i(t.time), u = this.yu.key(l), d = this.og.get(u);
-				d === void 0 && (d = _g(l), this.og.set(u, d), r = !0);
+				d === void 0 && (d = vg(l), this.og.set(u, d), r = !0);
 				let f = o(l, d.$n, t, n[a], s, c);
 				return d.hg.set(e, f), f;
 			});
@@ -23576,12 +23580,12 @@ var bg = class {
 					timeWeight: 0,
 					time: t.Na,
 					pointData: t,
-					originalTime: yg(t.hg)
+					originalTime: bg(t.hg)
 				});
 			}), e.sort((e, t) => this.yu.key(e.time) - this.yu.key(t.time)), o = this.vg(e);
 		}
 		return this.mg(e, o, function(e, t, n) {
-			let r = vg(e, n), i = vg(t, n);
+			let r = yg(e, n), i = yg(t, n);
 			if (r !== void 0 && i !== void 0) return {
 				wg: !1,
 				Ba: r.lg >= i.lg && r.ag >= i.ag
@@ -23602,11 +23606,11 @@ var bg = class {
 		let o = this.og.get(this.yu.key(i));
 		if (n && o === void 0) throw Error("Cannot update non-existing data point when historicalUpdate is true");
 		let s = o === void 0;
-		o === void 0 && (o = _g(i), this.og.set(this.yu.key(i), o));
-		let c = gg(e.Sh()), l = e.cl(), u = e.dl(), d = c(i, o.$n, t, r.th, l, u), f = !n && !s && a !== void 0 && this.yu.key(i) === this.yu.key(a);
-		o.hg.set(e, d), n ? this.gg(e, d, o.$n) : (f && e.Wa() && pg(d) && e.Dr(d), this.bg(e, d));
+		o === void 0 && (o = vg(i), this.og.set(this.yu.key(i), o));
+		let c = _g(e.Sh()), l = e.cl(), u = e.dl(), d = c(i, o.$n, t, r.th, l, u), f = !n && !s && a !== void 0 && this.yu.key(i) === this.yu.key(a);
+		o.hg.set(e, d), n ? this.gg(e, d, o.$n) : (f && e.Wa() && mg(d) && e.Dr(d), this.bg(e, d));
 		let p = {
-			Ba: pg(d),
+			Ba: mg(d),
 			wg: n
 		};
 		if (!s) return this.mg(e, -1, p);
@@ -23614,10 +23618,10 @@ var bg = class {
 			timeWeight: 0,
 			time: o.Na,
 			pointData: o,
-			originalTime: yg(o.hg)
+			originalTime: bg(o.hg)
 		}, h = Np(this.cg, this.yu.key(m.time), (e, t) => this.yu.key(e.time) < t);
 		this.cg.splice(h, 0, m);
-		for (let e = h; e < this.cg.length; ++e) xg(this.cg[e].pointData, e);
+		for (let e = h; e < this.cg.length; ++e) Sg(this.cg[e].pointData, e);
 		return this.yu.fillWeightsForPoints(this.cg, h), this.mg(e, h, p);
 	}
 	Sg(e, t) {
@@ -23630,7 +23634,7 @@ var bg = class {
 			let n = this.og.get(this.yu.key(t.wt));
 			if (n && (n.hg.delete(e), n.hg.size === 0)) {
 				this.og.delete(this.yu.key(n.Na)), this.cg.splice(n.$n, 1);
-				for (let e = n.$n; e < this.cg.length; ++e) xg(this.cg[e].pointData, e);
+				for (let e = n.$n; e < this.cg.length; ++e) Sg(this.cg[e].pointData, e);
 			}
 		}
 		return [r, this.mg(e, this.cg.length - 1, {
@@ -23642,16 +23646,16 @@ var bg = class {
 		let n = this._g.get(e);
 		n === void 0 && (n = [], this._g.set(e, n));
 		let r = n.length === 0 ? null : n[n.length - 1];
-		r === null || this.yu.key(t.wt) > this.yu.key(r.wt) ? pg(t) && n.push(t) : pg(t) ? n[n.length - 1] = t : n.splice(-1, 1), this.ug.set(e, t.wt);
+		r === null || this.yu.key(t.wt) > this.yu.key(r.wt) ? mg(t) && n.push(t) : mg(t) ? n[n.length - 1] = t : n.splice(-1, 1), this.ug.set(e, t.wt);
 	}
 	gg(e, t, n) {
 		let r = this._g.get(e);
 		r === void 0 && (r = [], this._g.set(e, r));
 		let i = Np(r, n, (e, t) => e.$n < t), a = i < r.length && r[i].$n === n, o = this.ug.get(e);
-		(o === void 0 || this.yu.key(t.wt) > this.yu.key(o)) && this.ug.set(e, t.wt), pg(t) ? a ? r[i] = t : r.splice(i, 0, t) : a && r.splice(i, 1);
+		(o === void 0 || this.yu.key(t.wt) > this.yu.key(o)) && this.ug.set(e, t.wt), mg(t) ? a ? r[i] = t : r.splice(i, 0, t) : a && r.splice(i, 1);
 	}
 	pg(e, t) {
-		t.length === 0 ? (this._g.delete(e), this.ug.delete(e)) : (this._g.set(e, t.filter(pg)), this.ug.set(e, t[t.length - 1].wt));
+		t.length === 0 ? (this._g.delete(e), this.ug.delete(e)) : (this._g.set(e, t.filter(mg)), this.ug.set(e, t[t.length - 1].wt));
 	}
 	fg() {
 		for (let e of this.cg) e.pointData.hg.size === 0 && this.og.delete(this.yu.key(e.time));
@@ -23664,10 +23668,10 @@ var bg = class {
 				t = n;
 				break;
 			}
-			i.timeWeight = r.timeWeight, xg(i.pointData, n);
+			i.timeWeight = r.timeWeight, Sg(i.pointData, n);
 		}
 		if (t === -1 && this.cg.length !== e.length && (t = Math.min(this.cg.length, e.length)), t === -1) return this.cg = e, -1;
-		for (let n = t; n < e.length; ++n) xg(e[n].pointData, n);
+		for (let n = t; n < e.length; ++n) Sg(e[n].pointData, n);
 		return this.yu.fillWeightsForPoints(e, t), this.cg = e, t;
 	}
 	Cg() {
@@ -23704,72 +23708,72 @@ var bg = class {
 		};
 	}
 };
-function xg(e, t) {
+function Sg(e, t) {
 	e.$n = t, e.hg.forEach((e) => {
 		e.$n = t;
 	});
 }
-function Sg(e, t) {
+function Cg(e, t) {
 	return e._t < t;
 }
-function Cg(e, t) {
+function wg(e, t) {
 	return t < e._t;
 }
-function wg(e, t, n, r) {
-	return Np(e, t, Sg, n, r);
-}
 function Tg(e, t, n, r) {
-	return Pp(e, t, Cg, n, r);
+	return Np(e, t, Cg, n, r);
 }
-function Eg(e, t, n) {
+function Eg(e, t, n, r) {
+	return Pp(e, t, wg, n, r);
+}
+function Dg(e, t, n) {
 	return {
 		se: e,
 		ee: t,
 		re: n
 	};
 }
-function Dg(e, t, n, r) {
+function Og(e, t, n, r) {
 	return e >= t - r && e <= n + r;
 }
-function Og(e, t, n, r, i, a) {
+function kg(e, t, n, r, i, a) {
 	let o = i - n, s = a - r;
 	if (o === 0 && s === 0) return Math.hypot(e - n, t - r);
 	let c = ((e - n) * o + (t - r) * s) / (o * o + s * s), l = Math.max(0, Math.min(1, c)), u = n + o * l, d = r + s * l;
 	return Math.hypot(e - u, t - d);
 }
-var kg = [0, 0];
-function Ag(e, t, n) {
+var Ag = [0, 0];
+function jg(e, t, n) {
 	return t === void 0 || t.wt !== e.wt - 1 ? e._t - n / 2 : (t._t + e._t) / 2;
 }
-function jg(e, t, n) {
+function Mg(e, t, n) {
 	return t === void 0 || t.wt !== e.wt + 1 ? e._t + n / 2 : (e._t + t._t) / 2;
 }
-function Mg(e, t, n, r, i, a, o) {
+function Ng(e, t, n, r, i, a, o) {
 	if (t === null || t.from >= t.to || e.length === 0) return null;
-	let s = i / 2 + a, c = wg(e, n - s, t.from, t.to), l = Tg(e, n + s, c, t.to);
+	let s = i / 2 + a, c = Tg(e, n - s, t.from, t.to), l = Eg(e, n + s, c, t.to);
 	if (c >= l) return null;
 	let u = Infinity;
 	for (let s = c; s < l; s++) {
-		let c = e[s], l = s > t.from ? e[s - 1] : void 0, d = s < t.to - 1 ? e[s + 1] : void 0, f = Ag(c, l, i) - a, p = jg(c, d, i) + a;
+		let c = e[s], l = s > t.from ? e[s - 1] : void 0, d = s < t.to - 1 ? e[s + 1] : void 0, f = jg(c, l, i) - a, p = Mg(c, d, i) + a;
 		if (n < f || n > p) continue;
-		o(c, kg);
-		let m = kg[0], h = kg[1], g = Math.min(m, h), _ = Math.max(m, h), v = g - a, y = _ + a;
+		o(c, Ag);
+		let m = Ag[0], h = Ag[1], g = Math.min(m, h), _ = Math.max(m, h), v = g - a, y = _ + a;
 		if (r >= g && r <= _) u = Math.min(u, 0);
 		else if (r >= v && r <= y) {
 			let e = Math.min(Math.abs(r - g), Math.abs(_ - r));
 			u = Math.min(u, e);
 		}
 	}
-	return Number.isFinite(u) ? Eg(u, 0, "series-range") : null;
-}
-function Ng(e, t) {
-	return e.wt < t;
+	return Number.isFinite(u) ? Dg(u, 0, "series-range") : null;
 }
 function Pg(e, t) {
+	return e.wt < t;
+}
+function Fg(e, t) {
 	return t < e.wt;
 }
-function Fg(e, t, n) {
-	let r = t.Fa(), i = t.bi(), a = Np(e, r, Ng), o = Pp(e, i, Pg);
+function Ig(e, t, n) {
+	let r = t.Fa(), i = t.bi(), a = Np(e, r, Pg), o = Pp(e, i, Fg);
 	if (!n) return {
 		from: a,
 		to: o
@@ -23780,7 +23784,7 @@ function Fg(e, t, n) {
 		to: c
 	};
 }
-var Ig = class {
+var Lg = class {
 	constructor(e, t, n) {
 		this.Tg = !0, this.Rg = !0, this.Dg = !0, this.Ig = [], this.Vg = null, this.Bg = -1, this.le = e, this.oe = t, this.Eg = n;
 	}
@@ -23815,9 +23819,9 @@ var Ig = class {
 		let n = t.Ae();
 		if (n === null || this.le.Un().Rh() === 0) return;
 		let r = this.le.Lt();
-		r !== null && (this.Vg = Fg(this.Ig, n, this.Eg), this.Hg(e, t, r.Wt), this.Ug());
+		r !== null && (this.Vg = Ig(this.Ig, n, this.Eg), this.Hg(e, t, r.Wt), this.Ug());
 	}
-}, Lg = class {
+}, Rg = class {
 	constructor(e, t) {
 		this.$g = e, this.Ki = t;
 	}
@@ -23825,16 +23829,16 @@ var Ig = class {
 		this.$g.draw(e, this.Ki, t, n);
 	}
 };
-function Rg(e) {
+function zg(e) {
 	switch (e) {
 		case "point": return 2;
 		case "range": return 0;
 		default: return 1;
 	}
 }
-var zg = class extends Ig {
+var Bg = class extends Lg {
 	constructor(e, t, n) {
-		super(e, t, !1), this.Kh = n, this.$g = this.Kh.renderer(), this.Lg = new Lg(this.$g, (e) => this.jg(e));
+		super(e, t, !1), this.Kh = n, this.$g = this.Kh.renderer(), this.Lg = new Rg(this.$g, (e) => this.jg(e));
 	}
 	get ba() {
 		return this.Kh.conflationReducer;
@@ -23849,14 +23853,14 @@ var zg = class extends Ig {
 		let n = this.$g.hitTest?.(e, t, (e) => this.jg(e));
 		if (n != null) return {
 			se: (r = n).distance,
-			ee: Rg(r.type),
+			ee: zg(r.type),
 			re: "custom",
 			Mu: r.cursorStyle,
 			ie: r.objectId,
 			ne: r.hitTestData
 		};
 		var r;
-		let i = Mg(this.Ig, this.Vg, e, t, this.oe.Et().wl(), this.le.N().hitTestTolerance, (e, t) => {
+		let i = Ng(this.Ig, this.Vg, e, t, this.oe.Et().wl(), this.le.N().hitTestTolerance, (e, t) => {
 			let n = e.qg, r = NaN, i = NaN;
 			if (n !== void 0 && !this.Kh.isWhitespace(n)) for (let e of this.Kh.priceValueBuilder(n)) {
 				let t = this.jg(e);
@@ -23883,7 +23887,7 @@ var zg = class extends Ig {
 	}
 	Ug() {
 		this.Kh.update({
-			bars: this.Ig.map(Bg),
+			bars: this.Ig.map(Vg),
 			barSpacing: this.oe.Et().wl(),
 			visibleRange: this.Vg,
 			conflationFactor: this.oe.Et().rd()
@@ -23894,7 +23898,7 @@ var zg = class extends Ig {
 		return t === null ? null : this.le.Ft().Nt(e, t.Wt);
 	}
 };
-function Bg(e) {
+function Vg(e) {
 	return {
 		x: e._t,
 		time: e.wt,
@@ -23902,27 +23906,27 @@ function Bg(e) {
 		barColor: e.eh
 	};
 }
-var Vg = { color: "#2196f3" }, Hg = (e, t, n) => new zg(e, t, gf(n));
-function Ug(e) {
+var Hg = { color: "#2196f3" }, Ug = (e, t, n) => new Bg(e, t, gf(n));
+function Wg(e) {
 	let t = {
 		value: e.Wt[3],
 		time: e.th
 	};
 	return e.rg !== void 0 && (t.customValues = e.rg), t;
 }
-function Wg(e) {
-	let t = Ug(e);
+function Gg(e) {
+	let t = Wg(e);
 	return e.R !== void 0 && (t.color = e.R), t;
 }
-function Gg(e) {
-	let t = Ug(e);
+function Kg(e) {
+	let t = Wg(e);
 	return e.vt !== void 0 && (t.lineColor = e.vt), e.oh !== void 0 && (t.topColor = e.oh), e._h !== void 0 && (t.bottomColor = e._h), t;
 }
-function Kg(e) {
-	let t = Ug(e);
+function qg(e) {
+	let t = Wg(e);
 	return e.uh !== void 0 && (t.topLineColor = e.uh), e.dh !== void 0 && (t.bottomLineColor = e.dh), e.fh !== void 0 && (t.topFillColor1 = e.fh), e.ph !== void 0 && (t.topFillColor2 = e.ph), e.mh !== void 0 && (t.bottomFillColor1 = e.mh), e.wh !== void 0 && (t.bottomFillColor2 = e.wh), t;
 }
-function qg(e) {
+function Jg(e) {
 	let t = {
 		open: e.Wt[0],
 		high: e.Wt[1],
@@ -23932,33 +23936,33 @@ function qg(e) {
 	};
 	return e.rg !== void 0 && (t.customValues = e.rg), t;
 }
-function Jg(e) {
-	let t = qg(e);
+function Yg(e) {
+	let t = Jg(e);
 	return e.R !== void 0 && (t.color = e.R), t;
 }
-function Yg(e) {
-	let t = qg(e), { R: n, Ht: r, ah: i } = e;
+function Xg(e) {
+	let t = Jg(e), { R: n, Ht: r, ah: i } = e;
 	return n !== void 0 && (t.color = n), r !== void 0 && (t.borderColor = r), i !== void 0 && (t.wickColor = i), t;
 }
-function Xg(e) {
+function Zg(e) {
 	return {
-		Area: Gg,
-		Line: Wg,
-		Baseline: Kg,
-		Histogram: Wg,
-		Bar: Jg,
-		Candlestick: Yg,
-		Custom: Zg
+		Area: Kg,
+		Line: Gg,
+		Baseline: qg,
+		Histogram: Gg,
+		Bar: Yg,
+		Candlestick: Xg,
+		Custom: Qg
 	}[e];
 }
-function Zg(e) {
+function Qg(e) {
 	let t = e.th;
 	return {
 		...e.ce,
 		time: t
 	};
 }
-var Qg = {
+var $g = {
 	vertLine: {
 		color: "#9598A1",
 		width: 1,
@@ -23977,7 +23981,7 @@ var Qg = {
 	},
 	mode: 1,
 	doNotSnapToHiddenSeriesIndices: !1
-}, $g = {
+}, e_ = {
 	vertLines: {
 		color: "#D6DCDE",
 		style: 0,
@@ -23988,7 +23992,7 @@ var Qg = {
 		style: 0,
 		visible: !0
 	}
-}, e_ = {
+}, t_ = {
 	background: {
 		type: "solid",
 		color: "#FFFFFF"
@@ -24004,7 +24008,7 @@ var Qg = {
 	attributionLogo: !0,
 	colorSpace: "srgb",
 	colorParsers: []
-}, t_ = {
+}, n_ = {
 	autoScale: !0,
 	mode: 0,
 	invertScale: !1,
@@ -24021,7 +24025,7 @@ var Qg = {
 	minimumWidth: 0,
 	ensureEdgeTickMarksVisible: !1,
 	tickMarkDensity: 2.5
-}, n_ = {
+}, r_ = {
 	rightOffset: 0,
 	barSpacing: 6,
 	minBarSpacing: .5,
@@ -24047,29 +24051,29 @@ var Qg = {
 	precomputeConflationOnInit: !1,
 	precomputeConflationPriority: "background"
 };
-function r_() {
+function i_() {
 	return {
 		addDefaultPane: !0,
 		hoveredSeriesOnTop: !0,
 		width: 0,
 		height: 0,
 		autoSize: !1,
-		layout: e_,
-		crosshair: Qg,
-		grid: $g,
-		overlayPriceScales: { ...t_ },
+		layout: t_,
+		crosshair: $g,
+		grid: e_,
+		overlayPriceScales: { ...n_ },
 		leftPriceScale: {
-			...t_,
+			...n_,
 			visible: !1
 		},
 		rightPriceScale: {
-			...t_,
+			...n_,
 			visible: !0
 		},
 		defaultVisiblePriceScaleId: "right",
-		timeScale: n_,
+		timeScale: r_,
 		localization: {
-			locale: yh ? navigator.language : "",
+			locale: bh ? navigator.language : "",
 			dateFormat: "dd MMM 'yy"
 		},
 		handleScroll: {
@@ -24097,7 +24101,7 @@ function r_() {
 		trackingMode: { exitMode: 1 }
 	};
 }
-var i_ = class {
+var a_ = class {
 	constructor(e, t, n) {
 		this._v = e, this.Yg = t, this.Kg = n ?? 0;
 	}
@@ -24106,7 +24110,7 @@ var i_ = class {
 	}
 	options() {
 		let e = this._v.Qt(), t = e.Ed(this.Yg, this.Kg);
-		return t == null ? Dm(e.N().overlayPriceScales) : t.Ft.N();
+		return t == null ? Om(e.N().overlayPriceScales) : t.Ft.N();
 	}
 	width() {
 		return ep(this.Yg) ? this._v.EM(this.Yg) : 0;
@@ -24118,8 +24122,8 @@ var i_ = class {
 		let e, t, n = this.Ki().lr();
 		if (n === null) return null;
 		if (this.Ki().ro()) {
-			let r = this.Ki().b_(), i = Qm(r);
-			n = ym(n, this.Ki().ao()), e = Number((Math.round(n.Qe() / r) * r).toFixed(i)), t = Number((Math.round(n.tr() / r) * r).toFixed(i));
+			let r = this.Ki().b_(), i = $m(r);
+			n = bm(n, this.Ki().ao()), e = Number((Math.round(n.Qe() / r) * r).toFixed(i)), t = Number((Math.round(n.tr() / r) * r).toFixed(i));
 		} else e = n.Qe(), t = n.tr();
 		return {
 			from: e,
@@ -24132,7 +24136,7 @@ var i_ = class {
 	Ki() {
 		return Q(this._v.Qt().Ed(this.Yg, this.Kg)).Ft;
 	}
-}, a_ = class {
+}, o_ = class {
 	constructor(e, t, n, r) {
 		this._v = e, this.yt = n, this.Zg = t, this.Gg = r;
 	}
@@ -24174,7 +24178,7 @@ var i_ = class {
 	}
 	priceScale(e) {
 		if (this.yt.z_(e) === null) throw Error(`Cannot find price scale with id: ${e}`);
-		return new i_(this._v, e, this.paneIndex());
+		return new a_(this._v, e, this.paneIndex());
 	}
 	setPreserveEmptyPane(e) {
 		this.yt.U_(e);
@@ -24188,7 +24192,7 @@ var i_ = class {
 	addSeries(e, t = {}) {
 		return this.Gg.addSeries(e, t, this.paneIndex());
 	}
-}, o_ = {
+}, s_ = {
 	color: "#FF0000",
 	price: 0,
 	lineStyle: 2,
@@ -24199,7 +24203,7 @@ var i_ = class {
 	title: "",
 	axisLabelColor: "",
 	axisLabelTextColor: ""
-}, s_ = class {
+}, c_ = class {
 	constructor(e) {
 		this.ur = e;
 	}
@@ -24212,7 +24216,7 @@ var i_ = class {
 	Xg() {
 		return this.ur;
 	}
-}, c_ = class {
+}, l_ = class {
 	constructor(e, t, n, r, i, a) {
 		this.Jg = new _f(), this.le = e, this.Qg = t, this.tb = n, this.yu = i, this.Gg = r, this.ib = a;
 	}
@@ -24232,7 +24236,7 @@ var i_ = class {
 	}
 	barsInLogicalRange(e) {
 		if (e === null) return null;
-		let t = new Um(new Bm(e.from, e.to)).Hu(), n = this.le.Un();
+		let t = new Wm(new Vm(e.from, e.to)).Hu(), n = this.le.Un();
 		if (n.Gi()) return null;
 		let r = n.Hn(t.Fa(), 1), i = n.Hn(t.bi(), -1), a = Q(n.Dh()), o = Q(n.Qn());
 		if (r !== null && i !== null && r.$n > i.$n) return {
@@ -24254,15 +24258,15 @@ var i_ = class {
 	pop(e = 1) {
 		let t = this.Qg.rb(this.le, e);
 		t.length !== 0 && this.sb("update");
-		let n = Xg(this.seriesType());
+		let n = Zg(this.seriesType());
 		return t.map((e) => n(e));
 	}
 	dataByIndex(e, t) {
 		let n = this.le.Un().Hn(e, t);
-		return n === null ? null : Xg(this.seriesType())(n);
+		return n === null ? null : Zg(this.seriesType())(n);
 	}
 	data() {
-		let e = Xg(this.seriesType());
+		let e = Zg(this.seriesType());
 		return this.le.Un().Eh().map((t) => e(t));
 	}
 	subscribeDataChanged(e) {
@@ -24281,14 +24285,14 @@ var i_ = class {
 		return this.tb.priceScale(this.le.Ft().vl(), this.getPane().paneIndex());
 	}
 	createPriceLine(e) {
-		let t = vf(Cf(o_), e);
-		return new s_(this.le.Aa(t));
+		let t = vf(Cf(s_), e);
+		return new c_(this.le.Aa(t));
 	}
 	removePriceLine(e) {
 		this.le.La(e.Xg());
 	}
 	priceLines() {
-		return this.le.za().map((e) => new s_(e));
+		return this.le.za().map((e) => new c_(e));
 	}
 	seriesType() {
 		return this.le.Sh();
@@ -24330,7 +24334,7 @@ var i_ = class {
 	sb(e) {
 		this.Jg.v() && this.Jg.p(e);
 	}
-}, l_ = class {
+}, u_ = class {
 	constructor(e, t, n) {
 		this.hb = new _f(), this.Ju = new _f(), this.Uw = new _f(), this.sn = e, this.na = e.Et(), this.gM = t, this.na.Jc().i(this.ab.bind(this)), this.na.Qc().i(this.lb.bind(this)), this.gM.Gw().i(this.ob.bind(this)), this.yu = n;
 	}
@@ -24438,7 +24442,7 @@ var i_ = class {
 		this.Uw.p(e.width, e.height);
 	}
 };
-function u_(e) {
+function d_(e) {
 	return function(e) {
 		if (Sf(e.handleScale)) {
 			let t = e.handleScale;
@@ -24473,11 +24477,11 @@ function u_(e) {
 		});
 	}(e), e;
 }
-var d_ = class {
+var f_ = class {
 	constructor(e, t, n) {
-		this._b = /* @__PURE__ */ new Map(), this.ub = /* @__PURE__ */ new Map(), this.cb = new _f(), this.fb = new _f(), this.pb = new _f(), this.vd = /* @__PURE__ */ new WeakMap(), this.mb = new bg(t);
-		let r = n === void 0 ? Cf(r_()) : vf(Cf(r_()), u_(n));
-		this.wb = t, this._v = new rg(e, r, t), this._v.bw().i((e) => {
+		this._b = /* @__PURE__ */ new Map(), this.ub = /* @__PURE__ */ new Map(), this.cb = new _f(), this.fb = new _f(), this.pb = new _f(), this.vd = /* @__PURE__ */ new WeakMap(), this.mb = new xg(t);
+		let r = n === void 0 ? Cf(i_()) : vf(Cf(i_()), d_(n));
+		this.wb = t, this._v = new ig(e, r, t), this._v.bw().i((e) => {
 			this.cb.v() && this.cb.p(this.Mb(e()));
 		}, this), this._v.Sw().i((e) => {
 			this.fb.v() && this.fb.p(this.Mb(e()));
@@ -24485,7 +24489,7 @@ var d_ = class {
 			this.pb.v() && this.pb.p(this.Mb(e()));
 		}, this);
 		let i = this._v.Qt();
-		this.gb = new l_(i, this._v.yM(), this.wb);
+		this.gb = new u_(i, this._v.yM(), this.wb);
 	}
 	remove() {
 		this._v.bw().u(this), this._v.Sw().u(this), this._v.Ld().u(this), this.gb.m(), this._v.m(), this._b.clear(), this.ub.clear(), this.cb.m(), this.fb.m(), this.pb.m(), this.mb.m();
@@ -24498,10 +24502,10 @@ var d_ = class {
 			type: "Custom",
 			isBuiltIn: !1,
 			defaultOptions: {
-				...Vg,
+				...Hg,
 				...e.defaultOptions()
 			},
-			bb: Hg,
+			bb: Ug,
 			Sb: e
 		}))(gf(e));
 		return this.xb(r, t, n);
@@ -24542,13 +24546,13 @@ var d_ = class {
 		this.fb._(e);
 	}
 	priceScale(e, t = 0) {
-		return new i_(this._v, e, t);
+		return new a_(this._v, e, t);
 	}
 	timeScale() {
 		return this.gb;
 	}
 	applyOptions(e) {
-		this._v.mr(u_(e));
+		this._v.mr(d_(e));
 	}
 	options() {
 		return this._v.N();
@@ -24604,13 +24608,13 @@ var d_ = class {
 		mf(e.bb !== void 0), function(e) {
 			if (e === void 0 || e.type === "custom") return;
 			let t = e;
-			t.minMove !== void 0 && t.precision === void 0 && (t.precision = Qm(t.minMove));
+			t.minMove !== void 0 && t.precision === void 0 && (t.precision = $m(t.minMove));
 		}(t.priceFormat), e.type === "Candlestick" && function(e) {
 			e.borderColor !== void 0 && (e.borderUpColor = e.borderColor, e.borderDownColor = e.borderColor), e.wickColor !== void 0 && (e.wickUpColor = e.wickColor, e.wickDownColor = e.wickColor);
 		}(t);
 		let r = vf(Cf(lf), Cf(e.defaultOptions), t), i = e.bb, a = new nm(this._v.Qt(), e.type, r, i, e.Sb);
 		this._v.Qt().sf(a, n);
-		let o = new c_(a, this, this, this, this.wb, (e) => this.yb(e));
+		let o = new l_(a, this, this, this, this.wb, (e) => this.yb(e));
 		return this._b.set(o, a), this.ub.set(a, o), o;
 	}
 	Cb(e) {
@@ -24627,8 +24631,8 @@ var d_ = class {
 	Mb(e) {
 		let t = /* @__PURE__ */ new Map();
 		e.sg.forEach((e, n) => {
-			let r = n.Sh(), i = Xg(r)(e);
-			if (r !== "Custom") mf(og(i));
+			let r = n.Sh(), i = Zg(r)(e);
+			if (r !== "Custom") mf(sg(i));
 			else {
 				let e = n.dl();
 				mf(!e || !1 === e(i));
@@ -24657,27 +24661,27 @@ var d_ = class {
 	}
 	yb(e) {
 		let t = this.vd.get(e);
-		return t || (t = new a_(this._v, (e) => this.Pb(e), e, this), this.vd.set(e, t)), t;
+		return t || (t = new o_(this._v, (e) => this.Pb(e), e, this), this.vd.set(e, t)), t;
 	}
 };
-function f_(e) {
+function p_(e) {
 	if (xf(e)) {
 		let t = document.getElementById(e);
 		return mf(t !== null, `Cannot find element in DOM with id=${e}`), t;
 	}
 	return e;
 }
-function p_(e, t, n) {
-	let r = new d_(f_(e), t, n);
+function m_(e, t, n) {
+	let r = new f_(p_(e), t, n);
 	return t.setOptions(r.options()), r;
 }
-function m_(e, t) {
-	return p_(e, new vh(), vh.Vf(t));
+function h_(e, t) {
+	return m_(e, new yh(), yh.Vf(t));
 }
-function h_(e, t, n, r) {
+function g_(e, t, n, r) {
 	return Math.hypot(n - e, r - t);
 }
-function g_(e, t, n, r, i, a, o, s = 0) {
+function __(e, t, n, r, i, a, o, s = 0) {
 	if (t.length === 0 || r.from >= t.length || r.to <= 0) return;
 	let { context: c, horizontalPixelRatio: l, verticalPixelRatio: u } = e, d = t[r.from], f = a(e, d), p = d;
 	if (r.to - r.from < 2) {
@@ -24706,7 +24710,7 @@ function g_(e, t, n, r, i, a, o, s = 0) {
 				case 0:
 					if (c.lineTo(r, s), i) {
 						let e = t[o - 1], n = e._t * l, i = e.ut * u;
-						m += h_(n, i, r, s);
+						m += g_(n, i, r, s);
 					}
 					break;
 				case 1: {
@@ -24715,9 +24719,9 @@ function g_(e, t, n, r, i, a, o, s = 0) {
 					break;
 				}
 				case 2: {
-					let [e, n] = b_(t, o), a = e._t * l, d = e.ut * u, f = n._t * l, p = n.ut * u;
+					let [e, n] = x_(t, o), a = e._t * l, d = e.ut * u, f = n._t * l, p = n.ut * u;
 					if (c.bezierCurveTo(a, d, f, p, r, s), i) {
-						let e = t[o - 1], n = e._t * l, i = e.ut * u, c = h_(n, i, r, s), h = h_(n, i, a, d) + h_(a, d, f, p) + h_(f, p, r, s);
+						let e = t[o - 1], n = e._t * l, i = e.ut * u, c = g_(n, i, r, s), h = g_(n, i, a, d) + g_(a, d, f, p) + g_(f, p, r, s);
 						m += (c + h) / 2;
 					}
 					break;
@@ -24728,32 +24732,32 @@ function g_(e, t, n, r, i, a, o, s = 0) {
 		(p !== g || p === g && n === 1) && o(e, f, p, g), i && (c.lineDashOffset = 0);
 	}
 }
-function __(e, t) {
+function v_(e, t) {
 	let n = t._t - e._t;
 	return n === 0 ? 0 : (t.ut - e.ut) / n;
 }
-function v_(e, t, n, r) {
+function y_(e, t, n, r) {
 	return t === null ? r : function(e, t, n, r) {
 		if (e <= 0 || n <= 0) return 0;
 		let i = (t * n + r * e) / (e + n);
 		return (Math.sign(t) + Math.sign(r)) * Math.min(Math.abs(t), Math.abs(r), .5 * Math.abs(i));
-	}(Math.abs(t._t - e._t), __(e, t), n, r);
+	}(Math.abs(t._t - e._t), v_(e, t), n, r);
 }
-function y_(e, t, n) {
+function b_(e, t, n) {
 	return {
 		_t: e._t + t,
 		ut: e.ut + t * n
 	};
 }
-function b_(e, t) {
-	let n = e[t - 1], r = e[t], i = r._t - n._t, a = __(n, r), o = t > 1 ? e[t - 2] : null, s = t < e.length - 1 ? e[t + 1] : null, c = i / 3;
-	return [y_(n, c, v_(n, o, i, a)), y_(r, -c, v_(r, s, i, a))];
-}
 function x_(e, t) {
+	let n = e[t - 1], r = e[t], i = r._t - n._t, a = v_(n, r), o = t > 1 ? e[t - 2] : null, s = t < e.length - 1 ? e[t + 1] : null, c = i / 3;
+	return [b_(n, c, y_(n, o, i, a)), b_(r, -c, y_(r, s, i, a))];
+}
+function S_(e, t) {
 	let n = e.context;
 	n.strokeStyle = t, n.stroke();
 }
-var S_ = class extends Nf {
+var C_ = class extends Nf {
 	constructor() {
 		super(...arguments), this.rt = null;
 	}
@@ -24771,7 +24775,7 @@ var S_ = class extends Nf {
 		let u = this.Ib.bind(this), d = function(e) {
 			return e.reduce((e, t) => e + t, 0);
 		}(l);
-		i !== void 0 && g_(e, t, i, n, r, u, x_, d), s && function(e, t, n, r, i) {
+		i !== void 0 && __(e, t, i, n, r, u, S_, d), s && function(e, t, n, r, i) {
 			if (r.to - r.from <= 0) return;
 			let { horizontalPixelRatio: a, verticalPixelRatio: o, context: s } = e, c = null, l = Math.max(1, Math.floor(a)) % 2 / 2, u = n * o + l;
 			for (let n = r.to - 1; n >= r.from; --n) {
@@ -24786,30 +24790,30 @@ var S_ = class extends Nf {
 			s.fill();
 		}(e, t, s, n, u);
 	}
-}, C_ = class extends S_ {
+}, w_ = class extends C_ {
 	Ib(e, t) {
 		return t.vt;
 	}
 };
-function w_(e, t, n, r, i) {
+function T_(e, t, n, r, i) {
 	let a = 1 - i;
 	return a * a * a * e + 3 * a * a * i * t + 3 * a * i * i * n + i * i * i * r;
 }
-function T_(e, t, n, r, i, a, o, s) {
+function E_(e, t, n, r, i, a, o, s) {
 	switch (i) {
 		case 1: {
-			let i = Og(e, t, n._t, n.ut, r._t, n.ut), a = Og(e, t, r._t, n.ut, r._t, r.ut), o = Math.min(i, a);
+			let i = kg(e, t, n._t, n.ut, r._t, n.ut), a = kg(e, t, r._t, n.ut, r._t, r.ut), o = Math.min(i, a);
 			return o <= s ? o : null;
 		}
 		case 2: {
-			let [i, c] = b_(a, o), l = function(e, t, n) {
+			let [i, c] = x_(a, o), l = function(e, t, n) {
 				let r = Infinity, i = n[0];
 				for (let a = 1; a <= 12; a++) {
 					let o = a / 12, s = {
-						_t: w_(n[0]._t, n[1]._t, n[2]._t, n[3]._t, o),
-						ut: w_(n[0].ut, n[1].ut, n[2].ut, n[3].ut, o)
+						_t: T_(n[0]._t, n[1]._t, n[2]._t, n[3]._t, o),
+						ut: T_(n[0].ut, n[1].ut, n[2].ut, n[3].ut, o)
 					};
-					r = Math.min(r, Og(e, t, i._t, i.ut, s._t, s.ut)), i = s;
+					r = Math.min(r, kg(e, t, i._t, i.ut, s._t, s.ut)), i = s;
 				}
 				return r;
 			}(e, t, [
@@ -24821,12 +24825,12 @@ function T_(e, t, n, r, i, a, o, s) {
 			return l <= s ? l : null;
 		}
 		default: {
-			let i = Og(e, t, n._t, n.ut, r._t, r.ut);
+			let i = kg(e, t, n._t, n.ut, r._t, r.ut);
 			return i <= s ? i : null;
 		}
 	}
 }
-var E_ = class extends Ig {
+var D_ = class extends Lg {
 	constructor(e, t) {
 		super(e, t, !0);
 	}
@@ -24852,38 +24856,38 @@ var E_ = class extends Ig {
 			return this.Bb(t.$n, n, e);
 		});
 	}
-}, D_ = class extends E_ {
+}, O_ = class extends D_ {
 	zg(e, t) {
 		let n = this.le.N();
 		return function(e, t, n, r, i, a, o, s = 0, c = 0) {
 			if (t === null || t.from >= t.to || e.length === 0) return null;
 			let l = Math.max(a / 2, o ?? 0) + c, u = Infinity;
 			if (o !== void 0) {
-				let i = o + c, a = wg(e, n - i, t.from, t.to), s = Tg(e, n + i, a, t.to);
+				let i = o + c, a = Tg(e, n - i, t.from, t.to), s = Eg(e, n + i, a, t.to);
 				for (let t = a; t < s; t++) {
 					let i = e[t];
-					if (!Dg(n, i._t, i._t, o + c)) continue;
+					if (!Og(n, i._t, i._t, o + c)) continue;
 					let a = Math.hypot(n - i._t, r - i.ut);
 					a <= o + c && (u = Math.min(u, a));
 				}
 			}
 			if (t.to - t.from < 2) {
-				let i = e[t.from], a = Math.max(s / 2, l), o = Og(n, r, i._t - a, i.ut, i._t + a, i.ut);
-				return o <= l && (u = Math.min(u, o)), Number.isFinite(u) ? Eg(u, 2, "series-point") : null;
+				let i = e[t.from], a = Math.max(s / 2, l), o = kg(n, r, i._t - a, i.ut, i._t + a, i.ut);
+				return o <= l && (u = Math.min(u, o)), Number.isFinite(u) ? Dg(u, 2, "series-point") : null;
 			}
-			let d = Infinity, f = wg(e, n - l, t.from, t.to), p = Tg(e, n + l, f, t.to), m = Math.max(t.from + 1, f), h = Math.min(t.to, p + 1);
+			let d = Infinity, f = Tg(e, n - l, t.from, t.to), p = Eg(e, n + l, f, t.to), m = Math.max(t.from + 1, f), h = Math.min(t.to, p + 1);
 			for (let t = m; t < h; t++) {
 				let a = e[t - 1], o = e[t];
-				if (!Dg(n, a._t, o._t, l)) continue;
-				let s = T_(n, r, a, o, i, e, t, l);
+				if (!Og(n, a._t, o._t, l)) continue;
+				let s = E_(n, r, a, o, i, e, t, l);
 				s !== null && (d = Math.min(d, s));
 			}
-			return Number.isFinite(u) ? Eg(u, 2, "series-point") : Number.isFinite(d) ? Eg(d, 1, "series-line") : null;
+			return Number.isFinite(u) ? Dg(u, 2, "series-point") : Number.isFinite(d) ? Dg(d, 1, "series-line") : null;
 		}(this.Ig, this.Vg, e, t, n.lineType, n.lineVisible ? n.lineWidth : 1, n.pointMarkersVisible ? n.pointMarkersRadius || n.lineWidth / 2 + 2 : void 0, this.oe.Et().wl(), n.hitTestTolerance);
 	}
-}, O_ = class extends D_ {
+}, k_ = class extends O_ {
 	constructor() {
-		super(...arguments), this.Lg = new C_();
+		super(...arguments), this.Lg = new w_();
 	}
 	Bb(e, t, n) {
 		return {
@@ -24903,7 +24907,7 @@ var E_ = class extends Ig {
 		};
 		this.Lg.ht(t);
 	}
-}, k_ = {
+}, A_ = {
 	type: "Line",
 	isBuiltIn: !0,
 	defaultOptions: {
@@ -24920,13 +24924,13 @@ var E_ = class extends Ig {
 		lastPriceAnimation: 0,
 		pointMarkersVisible: !1
 	},
-	bb: (e, t) => new O_(e, t)
-}, A_ = class extends Ig {
+	bb: (e, t) => new k_(e, t)
+}, j_ = class extends Lg {
 	constructor(e, t) {
 		super(e, t, !1);
 	}
 	zg(e, t) {
-		return Mg(this.Ig, this.Vg, e, t, this.oe.Et().wl(), this.le.N().hitTestTolerance, (e, t) => {
+		return Ng(this.Ig, this.Vg, e, t, this.oe.Et().wl(), this.le.N().hitTestTolerance, (e, t) => {
 			t[0] = e.i_, t[1] = e.n_;
 		});
 	}
@@ -24951,7 +24955,7 @@ var E_ = class extends Ig {
 		let e = this.le.xa();
 		this.Ig = this.le.$a().Eh().map((t) => this.Bb(t.$n, t, e));
 	}
-}, j_ = class extends Nf {
+}, M_ = class extends Nf {
 	constructor() {
 		super(...arguments), this.qt = null, this.dS = 0;
 	}
@@ -25018,9 +25022,9 @@ var E_ = class extends Ig {
 			this.qt.gi && (u += s, c += s, d -= s, l -= s), c > l || r.fillRect(u, c, d - u + 1, l - c + 1);
 		}
 	}
-}, M_ = class extends A_ {
+}, N_ = class extends j_ {
 	constructor() {
-		super(...arguments), this.Lg = new j_();
+		super(...arguments), this.Lg = new M_();
 	}
 	Bb(e, t, n) {
 		return {
@@ -25038,7 +25042,7 @@ var E_ = class extends Ig {
 			lt: this.Vg
 		});
 	}
-}, N_ = {
+}, P_ = {
 	type: "Candlestick",
 	isBuiltIn: !0,
 	defaultOptions: {
@@ -25053,11 +25057,389 @@ var E_ = class extends Ig {
 		wickUpColor: "#26a69a",
 		wickDownColor: "#ef5350"
 	},
-	bb: (e, t) => new M_(e, t)
+	bb: (e, t) => new N_(e, t)
+}, F_ = class {
+	constructor(e, t) {
+		this.le = e, this.Qh = t, this.TS();
+	}
+	detach() {
+		this.le.detachPrimitive(this.Qh);
+	}
+	getSeries() {
+		return this.le;
+	}
+	applyOptions(e) {
+		this.Qh && this.Qh.mr && this.Qh.mr(e);
+	}
+	TS() {
+		this.le.attachPrimitive(this.Qh);
+	}
+}, I_ = {
+	autoScale: !0,
+	zOrder: "normal"
 };
+function L_(e, t) {
+	return cm(Math.min(Math.max(e, 12), 30) * t);
+}
+function R_(e, t) {
+	return cm(Math.max(t, 12) * (e === "circle" ? .8 : e === "square" ? .7 : 1));
+}
+function z_(e) {
+	return function(e) {
+		let t = Math.ceil(e);
+		return t % 2 == 0 ? t : t - 1;
+	}(L_(e, 1));
+}
+function B_(e) {
+	return Math.max(L_(e, .1), 3);
+}
+function V_(e, t, n) {
+	return t ? e : n ? Math.ceil(e / 2) : 0;
+}
+function H_(e, t, n, r) {
+	let i = (R_("arrowUp", r) - 1) / 2 * n.XS, a = (cm(r / 2) - 1) / 2 * n.XS;
+	t.beginPath(), e ? (t.moveTo(n._t - i, n.ut), t.lineTo(n._t, n.ut - i), t.lineTo(n._t + i, n.ut), t.lineTo(n._t + a, n.ut), t.lineTo(n._t + a, n.ut + i), t.lineTo(n._t - a, n.ut + i), t.lineTo(n._t - a, n.ut)) : (t.moveTo(n._t - i, n.ut), t.lineTo(n._t, n.ut + i), t.lineTo(n._t + i, n.ut), t.lineTo(n._t + a, n.ut), t.lineTo(n._t + a, n.ut - i), t.lineTo(n._t - a, n.ut - i), t.lineTo(n._t - a, n.ut)), t.fill();
+}
+function U_(e, t, n, r, i, a) {
+	let o = (R_("arrowUp", r) - 1) / 2, s = (cm(r / 2) - 1) / 2;
+	return i >= t - s - 2 && i <= t + s + 2 && a >= (e ? n : n - o) - 2 && a <= (e ? n + o : n) + 2 || (() => {
+		if (i < t - o - 3 || i > t + o + 3 || a < (e ? n - o - 3 : n) || a > (e ? n : n + o + 3)) return !1;
+		let r = Math.abs(i - t);
+		return Math.abs(a - n) + 3 >= r / 2;
+	})();
+}
+var W_ = class {
+	constructor() {
+		this.qt = null, this.$s = new cp(), this.F = -1, this.W = "", this._m = "", this.JS = "normal";
+	}
+	ht(e) {
+		this.qt = e;
+	}
+	js(e, t, n) {
+		this.F === e && this.W === t || (this.F = e, this.W = t, this._m = Df(e, t), this.$s.Os()), this.JS = n;
+	}
+	Qs(e, t) {
+		if (this.qt === null || this.qt.lt === null) return null;
+		for (let n = this.qt.lt.from; n < this.qt.lt.to; n++) {
+			let r = this.qt.ot[n];
+			if (r && K_(r, e, t)) return {
+				zOrder: "normal",
+				externalId: r.ie ?? "",
+				itemType: "marker"
+			};
+		}
+		return null;
+	}
+	draw(e) {
+		this.JS !== "aboveSeries" && e.useBitmapCoordinateSpace((e) => {
+			this.et(e);
+		});
+	}
+	drawBackground(e) {
+		this.JS === "aboveSeries" && e.useBitmapCoordinateSpace((e) => {
+			this.et(e);
+		});
+	}
+	et({ context: e, horizontalPixelRatio: t, verticalPixelRatio: n }) {
+		if (this.qt !== null && this.qt.lt !== null) {
+			e.textBaseline = "middle", e.font = this._m;
+			for (let r = this.qt.lt.from; r < this.qt.lt.to; r++) {
+				let i = this.qt.ot[r];
+				i.ri !== void 0 && (i.ri.nn = this.$s.Ii(e, i.ri.QS), i.ri.$t = this.F, i.ri._t = i._t - i.ri.nn / 2), G_(i, e, t, n);
+			}
+		}
+	}
+};
+function G_(e, t, n, r) {
+	t.fillStyle = e.R, e.ri !== void 0 && function(e, t, n, r, i, a) {
+		e.save(), e.scale(i, a), e.fillText(t, n, r), e.restore();
+	}(t, e.ri.QS, e.ri._t, e.ri.ut, n, r), function(e, t, n) {
+		if (e.Rh !== 0) {
+			switch (e.tx) {
+				case "arrowDown":
+					H_(!1, t, n, e.Rh);
+					return;
+				case "arrowUp":
+					H_(!0, t, n, e.Rh);
+					return;
+				case "circle":
+					(function(e, t, n) {
+						let r = (R_("circle", n) - 1) / 2;
+						e.beginPath(), e.arc(t._t, t.ut, r * t.XS, 0, 2 * Math.PI, !1), e.fill();
+					})(t, n, e.Rh);
+					return;
+				case "square":
+					(function(e, t, n) {
+						let r = R_("square", n), i = (r - 1) * t.XS / 2, a = t._t - i, o = t.ut - i;
+						e.fillRect(a, o, r * t.XS, r * t.XS);
+					})(t, n, e.Rh);
+					return;
+			}
+			e.tx;
+		}
+	}(e, t, function(e, t, n) {
+		let r = Math.max(1, Math.floor(t)) % 2 / 2;
+		return {
+			_t: Math.round(e._t * t) + r,
+			ut: e.ut * n,
+			XS: t
+		};
+	}(e, n, r));
+}
+function K_(e, t, n) {
+	return !(e.ri === void 0 || !function(e, t, n, r, i, a) {
+		let o = r / 2;
+		return i >= e && i <= e + n && a >= t - o && a <= t + o;
+	}(e.ri._t, e.ri.ut, e.ri.nn, e.ri.$t, t, n)) || function(e, t, n) {
+		if (e.Rh === 0) return !1;
+		switch (e.tx) {
+			case "arrowDown": return U_(!0, e._t, e.ut, e.Rh, t, n);
+			case "arrowUp": return U_(!1, e._t, e.ut, e.Rh, t, n);
+			case "circle": return function(e, t, n, r, i) {
+				let a = 2 + R_("circle", n) / 2, o = e - r, s = t - i;
+				return Math.sqrt(o * o + s * s) <= a;
+			}(e._t, e.ut, e.Rh, t, n);
+			case "square": return function(e, t, n, r, i) {
+				let a = R_("square", n), o = (a - 1) / 2, s = e - o, c = t - o;
+				return r >= s && r <= s + a && i >= c && i <= c + a;
+			}(e._t, e.ut, e.Rh, t, n);
+		}
+	}(e, t, n);
+}
+function q_(e) {
+	return e === "atPriceTop" || e === "atPriceBottom" || e === "atPriceMiddle";
+}
+function J_(e, t, n, r, i, a, o, s) {
+	let c = function(e, t, n) {
+		if (q_(t.position) && t.price !== void 0) return t.price;
+		if ("value" in (r = e) && typeof r.value == "number") return e.value;
+		var r;
+		if (function(e) {
+			return "open" in e && "high" in e && "low" in e && "close" in e;
+		}(e)) {
+			if (t.position === "inBar") return e.close;
+			if (t.position === "aboveBar") return n ? e.low : e.high;
+			if (t.position === "belowBar") return n ? e.high : e.low;
+		}
+	}(n, t, o.priceScale().options().invertScale);
+	if (c === void 0) return;
+	let l = q_(t.position), u = s.timeScale(), d = yf(t.size) ? Math.max(t.size, 0) : 1, f = z_(u.options().barSpacing) * d, p = f / 2;
+	switch (e.Rh = f, t.position) {
+		case "inBar":
+		case "atPriceMiddle":
+			e.ut = Q(o.priceToCoordinate(c)), e.ri !== void 0 && (e.ri.ut = e.ut + p + a + .6 * i);
+			return;
+		case "aboveBar":
+		case "atPriceTop": {
+			let t = l ? 0 : r.ix;
+			e.ut = Q(o.priceToCoordinate(c)) - p - t, e.ri !== void 0 && (e.ri.ut = e.ut - p - .6 * i, r.ix += 1.2 * i), l || (r.ix += f + a);
+			return;
+		}
+		case "belowBar":
+		case "atPriceBottom": {
+			let t = l ? 0 : r.nx;
+			e.ut = Q(o.priceToCoordinate(c)) + p + t, e.ri !== void 0 && (e.ri.ut = e.ut + p + a + .6 * i, r.nx += 1.2 * i), l || (r.nx += f + a);
+			return;
+		}
+	}
+}
+var Y_ = class {
+	constructor(e, t, n) {
+		this.sx = [], this.xt = !0, this.hx = !0, this.Xt = new W_(), this.Re = e, this.Qv = t, this.qt = {
+			ot: [],
+			lt: null
+		}, this.yn = n;
+	}
+	renderer() {
+		if (!this.Re.options().visible) return null;
+		this.xt && this.Ag();
+		let e = this.Qv.options().layout;
+		return this.Xt.js(e.fontSize, e.fontFamily, this.yn.zOrder), this.Xt.ht(this.qt), this.Xt;
+	}
+	lx(e) {
+		this.sx = e, this.Pt("data");
+	}
+	Pt(e) {
+		this.xt = !0, e === "data" && (this.hx = !0);
+	}
+	ox(e) {
+		this.xt = !0, this.yn = e;
+	}
+	zOrder() {
+		return this.yn.zOrder === "aboveSeries" ? "top" : this.yn.zOrder;
+	}
+	Ag() {
+		let e = this.Qv.timeScale(), t = this.sx;
+		this.hx &&= (this.qt.ot = t.map((e) => ({
+			wt: e.time,
+			_t: 0,
+			ut: 0,
+			Rh: 0,
+			tx: e.shape,
+			R: e.color,
+			ie: e.id,
+			_x: e._x,
+			ri: void 0
+		})), !1);
+		let n = this.Qv.options().layout;
+		this.qt.lt = null;
+		let r = e.getVisibleLogicalRange();
+		if (r === null) return;
+		let i = new Vm(Math.floor(r.from), Math.ceil(r.to));
+		if (this.Re.dataByIndex(0, 1) === null || this.qt.ot.length === 0) return;
+		let a = NaN, o = B_(e.options().barSpacing), s = {
+			ix: o,
+			nx: o
+		};
+		this.qt.lt = Ig(this.qt.ot, i, !0);
+		for (let r = this.qt.lt.from; r < this.qt.lt.to; r++) {
+			let i = t[r];
+			i.time !== a && (s.ix = o, s.nx = o, a = i.time);
+			let c = this.qt.ot[r];
+			c._t = Q(e.logicalToCoordinate(i.time)), i.text !== void 0 && i.text.length > 0 && (c.ri = {
+				QS: i.text,
+				_t: 0,
+				ut: 0,
+				nn: 0,
+				$t: 0
+			});
+			let l = this.Re.dataByIndex(i.time, 0);
+			l !== null && J_(c, i, l, s, n.fontSize, o, this.Re, this.Qv);
+		}
+		this.xt = !1;
+	}
+};
+function X_(e) {
+	return {
+		...I_,
+		...e
+	};
+}
+var Z_ = class {
+	constructor(e) {
+		this.Kh = null, this.sx = [], this.ux = [], this.vx = null, this.Re = null, this.Qv = null, this.mx = !0, this.wx = null, this.Mx = null, this.gx = null, this.bx = !0, this.yn = X_(e);
+	}
+	attached(e) {
+		this.Sx(), this.Qv = e.chart, this.Re = e.series, this.Kh = new Y_(this.Re, Q(this.Qv), this.yn), this.ZS = e.requestUpdate, this.Re.subscribeDataChanged((e) => this.sb(e)), this.bx = !0, this.ES();
+	}
+	ES() {
+		this.ZS && this.ZS();
+	}
+	detached() {
+		this.Re && this.vx && this.Re.unsubscribeDataChanged(this.vx), this.Qv = null, this.Re = null, this.Kh = null, this.vx = null;
+	}
+	lx(e) {
+		this.bx = !0, this.sx = e, this.Sx(), this.mx = !0, this.Mx = null, this.ES();
+	}
+	xx() {
+		return this.sx;
+	}
+	paneViews() {
+		return this.Kh ? [this.Kh] : [];
+	}
+	updateAllViews() {
+		this.Cx();
+	}
+	hitTest(e, t) {
+		return this.Kh ? this.Kh.renderer()?.Qs(e, t) ?? null : null;
+	}
+	autoscaleInfo(e, t) {
+		if (this.yn.autoScale && this.Kh) {
+			let e = this.yx();
+			if (e) return {
+				priceRange: null,
+				margins: e
+			};
+		}
+		return null;
+	}
+	mr(e) {
+		this.yn = X_({
+			...this.yn,
+			...e
+		}), this.ES && this.ES();
+	}
+	yx() {
+		let e = Q(this.Qv).timeScale().options().barSpacing;
+		if (this.mx || e !== this.gx) {
+			if (this.gx = e, this.sx.length > 0) {
+				let t = B_(e), n = 1.5 * z_(e) + 2 * t, r = this.Px();
+				this.wx = {
+					above: V_(n, r.aboveBar, r.inBar),
+					below: V_(n, r.belowBar, r.inBar)
+				};
+			} else this.wx = null;
+			this.mx = !1;
+		}
+		return this.wx;
+	}
+	Px() {
+		return this.Mx === null && (this.Mx = this.sx.reduce((e, t) => (e[t.position] || (e[t.position] = !0), e), {
+			inBar: !1,
+			aboveBar: !1,
+			belowBar: !1,
+			atPriceTop: !1,
+			atPriceBottom: !1,
+			atPriceMiddle: !1
+		})), this.Mx;
+	}
+	Sx() {
+		if (!this.bx || !this.Qv || !this.Re) return;
+		let e = this.Qv.timeScale(), t = this.Re?.data();
+		if (e.getVisibleLogicalRange() == null || !this.Re || t.length === 0) return void (this.ux = []);
+		let n = e.timeToIndex(Q(t[0].time), !0);
+		this.ux = this.sx.map((t, r) => {
+			let i = e.timeToIndex(t.time, !0), a = i < n ? 1 : -1, o = Q(this.Re).dataByIndex(i, a), s = {
+				time: e.timeToIndex(Q(o).time, !1),
+				position: t.position,
+				shape: t.shape,
+				color: t.color,
+				id: t.id,
+				_x: r,
+				text: t.text,
+				size: t.size,
+				price: t.price,
+				th: t.time
+			};
+			if (t.position === "atPriceTop" || t.position === "atPriceBottom" || t.position === "atPriceMiddle") {
+				if (t.price === void 0) throw Error(`Price is required for position ${t.position}`);
+				return {
+					...s,
+					position: t.position,
+					price: t.price
+				};
+			}
+			return {
+				...s,
+				position: t.position,
+				price: t.price
+			};
+		}), this.bx = !1;
+	}
+	Cx(e) {
+		this.Kh && (this.Sx(), this.Kh.lx(this.ux), this.Kh.ox(this.yn), this.Kh.Pt(e));
+	}
+	sb(e) {
+		this.bx = !0, this.ES();
+	}
+}, Q_ = class extends F_ {
+	constructor(e, t, n) {
+		super(e, t), n && this.setMarkers(n);
+	}
+	setMarkers(e) {
+		this.Qh.lx(e);
+	}
+	markers() {
+		return this.Qh.xx();
+	}
+};
+function $_(e, t, n) {
+	let r = new Q_(e, new Z_(n ?? {}));
+	return t && r.setMarkers(t), r;
+}
 ({ ...lf });
 // src/us-app.tsx
-var P_ = {
+var ev = {
 	SPY: "标普 500",
 	QQQ: "纳斯达克 100",
 	XLK: "科技",
@@ -25074,19 +25456,19 @@ var P_ = {
 	SMH: "半导体",
 	IGV: "软件"
 };
-function F_(e) {
+function tv(e) {
 	return `${e >= 0 ? "+" : ""}${e.toFixed(1)}%`;
 }
-function I_({ series: e }) {
+function nv({ series: e }) {
 	let t = D.useRef(null);
 	return D.useEffect(() => {
 		if (!t.current || e.length < 2) return;
-		let n = m_(t.current, {
+		let n = h_(t.current, {
 			autoSize: !0,
 			height: 300,
 			layout: {
 				background: {
-					type: Ym.Solid,
+					type: Xm.Solid,
 					color: "#ffffff"
 				},
 				textColor: "#84958b",
@@ -25111,7 +25493,7 @@ function I_({ series: e }) {
 				axisPressedMouseMove: !0
 			}
 		});
-		return n.addSeries(k_, {
+		return n.addSeries(A_, {
 			color: "#348866",
 			lineWidth: 2,
 			priceLineVisible: !1,
@@ -25119,7 +25501,7 @@ function I_({ series: e }) {
 		}).setData(e.map(([e, t]) => ({
 			time: e,
 			value: t
-		}))), n.addSeries(k_, {
+		}))), n.addSeries(A_, {
 			color: "#c9944a",
 			lineWidth: 1,
 			lineStyle: df.Dashed,
@@ -25145,7 +25527,7 @@ function I_({ series: e }) {
 		})]
 	})] });
 }
-function L_() {
+function rv() {
 	let [e, t] = D.useState(), [n, r] = D.useState("XLK"), [i, a] = D.useState(250);
 	if (D.useEffect(() => {
 		fetch("./industry-data.json", { cache: "no-store" }).then((e) => {
@@ -25195,18 +25577,18 @@ function L_() {
 				children: [
 					/* @__PURE__ */ (0, K.jsxs)("article", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "距离一年高点最远" }),
-						/* @__PURE__ */ (0, K.jsx)("h3", { children: P_[o[0].s] }),
-						/* @__PURE__ */ (0, K.jsx)("b", { children: F_(o[0].draw) })
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: ev[o[0].s] }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: tv(o[0].draw) })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("article", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "距离一年高点最近" }),
-						/* @__PURE__ */ (0, K.jsx)("h3", { children: P_[o.at(-1).s] }),
-						/* @__PURE__ */ (0, K.jsx)("b", { children: F_(o.at(-1).draw) })
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: ev[o.at(-1).s] }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: tv(o.at(-1).draw) })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("article", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "对照基准" }),
 						/* @__PURE__ */ (0, K.jsx)("h3", { children: "标普 500（SPY）" }),
-						/* @__PURE__ */ (0, K.jsx)("b", { children: F_((e.series.SPY.at(-1)[1] / Math.max(...e.series.SPY.map((e) => e[1])) - 1) * 100) })
+						/* @__PURE__ */ (0, K.jsx)("b", { children: tv((e.series.SPY.at(-1)[1] / Math.max(...e.series.SPY.map((e) => e[1])) - 1) * 100) })
 					] })
 				]
 			}),
@@ -25224,7 +25606,7 @@ function L_() {
 							/* @__PURE__ */ (0, K.jsxs)("p", {
 								className: "us-muted",
 								children: [
-									P_[n],
+									ev[n],
 									" · ",
 									n,
 									" · 美元"
@@ -25236,7 +25618,7 @@ function L_() {
 							children: Object.keys(e.series).map((e) => /* @__PURE__ */ (0, K.jsxs)("option", {
 								value: e,
 								children: [
-									P_[e],
+									ev[e],
 									"（",
 									e,
 									"）"
@@ -25256,7 +25638,7 @@ function L_() {
 							children: e === 250 ? "一年" : `${e} 日`
 						}, e))
 					}),
-					/* @__PURE__ */ (0, K.jsx)(I_, { series: e.series[n].slice(-i) }),
+					/* @__PURE__ */ (0, K.jsx)(nv, { series: e.series[n].slice(-i) }),
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-meta",
 						children: [
@@ -25281,11 +25663,11 @@ function L_() {
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-compare",
 						children: [[...o].sort((e, t) => t.ret - e.ret).map((e) => /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsxs)("span", { children: [
-							P_[e.s],
+							ev[e.s],
 							"（",
 							e.s,
 							"）"
-						] }), /* @__PURE__ */ (0, K.jsx)("b", { children: F_(e.ret) })] }, e.s)), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("span", { children: "标普 500（SPY）" }), /* @__PURE__ */ (0, K.jsx)("b", { children: F_((e.series.SPY.at(-1)[1] / e.series.SPY[0][1] - 1) * 100) })] })]
+						] }), /* @__PURE__ */ (0, K.jsx)("b", { children: tv(e.ret) })] }, e.s)), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("span", { children: "标普 500（SPY）" }), /* @__PURE__ */ (0, K.jsx)("b", { children: tv((e.series.SPY.at(-1)[1] / e.series.SPY[0][1] - 1) * 100) })] })]
 					})
 				]
 			}),
@@ -25301,7 +25683,7 @@ function L_() {
 						className: "us-ranks",
 						children: o.map((e) => /* @__PURE__ */ (0, K.jsxs)("div", { children: [
 							/* @__PURE__ */ (0, K.jsxs)("span", { children: [
-								P_[e.s],
+								ev[e.s],
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: e.s })
 							] }),
@@ -25309,8 +25691,8 @@ function L_() {
 								className: "us-rail",
 								children: /* @__PURE__ */ (0, K.jsx)("i", { style: { width: `${Math.min(100, Math.abs(e.draw) * 2)}%` } })
 							}),
-							/* @__PURE__ */ (0, K.jsx)("b", { children: F_(e.draw) }),
-							/* @__PURE__ */ (0, K.jsxs)("small", { children: ["区间 ", F_(e.ret)] })
+							/* @__PURE__ */ (0, K.jsx)("b", { children: tv(e.draw) }),
+							/* @__PURE__ */ (0, K.jsxs)("small", { children: ["区间 ", tv(e.ret)] })
 						] }, e.s))
 					})
 				]
@@ -25318,7 +25700,223 @@ function L_() {
 		]
 	});
 }
-function R_() {
+function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, checkedAt: o }) {
+	let s = D.useRef(null), [c, l] = D.useState(90), [u, d] = D.useState(!1), [f, p] = D.useState(""), m = D.useMemo(() => n.filter((t) => t.symbol === e).sort((e, t) => t.time.localeCompare(e.time)), [n, e]);
+	D.useEffect(() => {
+		d(!1), p("");
+	}, [e]), D.useEffect(() => {
+		if (!s.current || t.length < 2) return;
+		let e = t.filter((e) => e.length === 5 && e.slice(1).every(Number.isFinite));
+		if (e.length < 2) return;
+		let n = h_(s.current, {
+			autoSize: !0,
+			height: 360,
+			layout: {
+				background: {
+					type: Xm.Solid,
+					color: "#fff"
+				},
+				textColor: "#758c80",
+				fontSize: 11,
+				attributionLogo: !0
+			},
+			grid: {
+				vertLines: { color: "#f4f7f4" },
+				horzLines: { color: "#ecf2ed" }
+			},
+			rightPriceScale: {
+				borderVisible: !1,
+				scaleMargins: {
+					top: .13,
+					bottom: .12
+				}
+			},
+			timeScale: {
+				borderVisible: !1,
+				rightOffset: 4
+			},
+			crosshair: { mode: Qf.Normal },
+			handleScroll: {
+				mouseWheel: !1,
+				pressedMouseMove: !0,
+				horzTouchDrag: !0,
+				vertTouchDrag: !1
+			},
+			handleScale: {
+				mouseWheel: !0,
+				pinch: !0,
+				axisPressedMouseMove: !0
+			}
+		}), r = n.addSeries(P_, {
+			upColor: "#d8665f",
+			downColor: "#25936e",
+			borderUpColor: "#d8665f",
+			borderDownColor: "#25936e",
+			wickUpColor: "#d8665f",
+			wickDownColor: "#25936e",
+			priceLineVisible: !1,
+			title: "日K"
+		});
+		r.setData(e.map(([e, t, n, r, i]) => ({
+			time: e,
+			open: t,
+			high: n,
+			low: r,
+			close: i
+		}))), n.addSeries(A_, {
+			color: "#d09a47",
+			lineWidth: 2,
+			priceLineVisible: !1,
+			lastValueVisible: !1,
+			title: "MA20"
+		}).setData(e.flatMap(([t], n) => n < 19 ? [] : [{
+			time: t,
+			value: e.slice(n - 19, n + 1).reduce((e, t) => e + t[4], 0) / 20
+		}]));
+		let i = new Set(e.map((e) => e[0])), a = /* @__PURE__ */ new Map();
+		for (let e of m) {
+			if (!i.has(e.date)) continue;
+			let t = e.date + ":" + e.side, n = a.get(t) || {
+				date: e.date,
+				side: e.side,
+				quantity: 0,
+				amount: 0,
+				count: 0
+			};
+			n.quantity += e.quantity, n.amount += e.quantity * e.price, n.count++, a.set(t, n);
+		}
+		$_(r, [...a.values()].sort((e, t) => e.date.localeCompare(t.date) || e.side.localeCompare(t.side)).map((e) => ({
+			time: e.date,
+			position: "atPriceMiddle",
+			price: e.amount / e.quantity,
+			color: e.side === "BUY" ? "#c8574e" : "#207e66",
+			shape: e.side === "BUY" ? "arrowUp" : "arrowDown",
+			text: `${e.side === "BUY" ? "买" : "卖"}${e.count > 1 ? e.count : ""}`
+		}))), n.subscribeCrosshairMove((t) => {
+			let n = e.find((e) => e[0] === t.time);
+			p(n ? `${n[0]}  开 ${n[1].toFixed(2)}  高 ${n[2].toFixed(2)}  低 ${n[3].toFixed(2)}  收 ${n[4].toFixed(2)}` : "");
+		});
+		let o = e[Math.max(0, e.length - c)][0], l = e[e.length - 1][0];
+		return n.timeScale().setVisibleRange({
+			from: o,
+			to: l
+		}), () => n.remove();
+	}, [
+		e,
+		t,
+		m,
+		c
+	]);
+	let h = u ? m : m.slice(0, 8), g = new Set(t.map((e) => e[0])), _ = m.filter((e) => !g.has(e.date)).length;
+	return /* @__PURE__ */ (0, K.jsxs)("div", {
+		className: "trade-chart",
+		children: [
+			/* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "trade-chart-head",
+				children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("strong", { children: "日 K 与成交记录" }), /* @__PURE__ */ (0, K.jsxs)("p", { children: [
+					"未复权 · 美东交易日 · ",
+					r || "日期未知",
+					" ",
+					i || ""
+				] })] }), /* @__PURE__ */ (0, K.jsx)("div", {
+					className: "trade-ranges",
+					"aria-label": "图表时间范围",
+					children: [
+						[30, "30日"],
+						[90, "90日"],
+						[260, "一年"]
+					].map(([e, t]) => /* @__PURE__ */ (0, K.jsx)("button", {
+						type: "button",
+						"aria-pressed": c === e,
+						onClick: () => l(e),
+						children: t
+					}, e))
+				})]
+			}),
+			/* @__PURE__ */ (0, K.jsx)("div", {
+				className: "trade-ohlc",
+				children: f || "移动鼠标或触摸 K 线，查看当日开、高、低、收"
+			}),
+			t.length >= 2 ? /* @__PURE__ */ (0, K.jsx)("div", {
+				ref: s,
+				className: "trade-candles",
+				role: "img",
+				"aria-label": `${e} 日K线及成交价格标记，可缩放`
+			}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "暂无足够的 K 线数据" }),
+			/* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "trade-chart-legend",
+				children: [
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { className: "legend-buy" }), "买入"] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { className: "legend-sell" }), "卖出"] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { className: "legend-ma" }), "20 日均线"] }),
+					/* @__PURE__ */ (0, K.jsx)("span", { children: "红涨绿跌" }),
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						href: "https://www.tradingview.com/",
+						target: "_blank",
+						rel: "noreferrer",
+						children: "TradingView Lightweight Charts™ ↗"
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsx)("p", {
+				className: "trade-chart-note",
+				children: "标记位置为当日同方向成交的数量加权均价；数字表示成交笔数。图表使用未复权价格以对应成交价，拆股会造成历史价格跳变；盘前盘后成交可能超出当日日 K 高低范围。"
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "trade-history",
+				children: [
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "trade-history-head",
+						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("strong", { children: "实际成交明细" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [
+							m.length,
+							" 笔 · ",
+							e
+						] })] }), m.length > 8 && /* @__PURE__ */ (0, K.jsx)("button", {
+							type: "button",
+							onClick: () => d(!u),
+							children: u ? "收起" : "查看全部"
+						})]
+					}),
+					/* @__PURE__ */ (0, K.jsxs)("p", {
+						className: "trade-chart-note",
+						children: [
+							a || "尚未取得成交数据。",
+							" ",
+							o && `读取：${o}。`,
+							_ > 0 && ` ${_} 笔在当前图表日期范围以外，仅在明细显示。`
+						]
+					}),
+					h.length ? /* @__PURE__ */ (0, K.jsx)("div", {
+						className: "us-table-wrap",
+						children: /* @__PURE__ */ (0, K.jsxs)("table", { children: [/* @__PURE__ */ (0, K.jsx)("thead", { children: /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "美东成交时间" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "方向" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "数量" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "成交价" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "账户来源" })
+						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: h.map((e) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+							/* @__PURE__ */ (0, K.jsx)("td", { children: new Date(e.time).toLocaleString("zh-CN", {
+								timeZone: "America/New_York",
+								hour12: !1
+							}) }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: /* @__PURE__ */ (0, K.jsx)("span", {
+								className: e.side === "BUY" ? "trade-buy" : "trade-sell",
+								children: e.side === "BUY" ? "买入" : "卖出"
+							}) }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: e.quantity }),
+							/* @__PURE__ */ (0, K.jsxs)("td", { children: ["$", e.price.toFixed(2)] }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: e.source })
+						] }, e.id)) })] })
+					}) : /* @__PURE__ */ (0, K.jsx)("p", {
+						className: "trade-empty",
+						children: "已连接账户在可读取范围内没有此标的的成交记录；其他账户未覆盖。"
+					})
+				]
+			})
+		]
+	});
+}
+function av() {
 	let [e, t] = D.useState(), [n, r] = D.useState(""), [i, a] = D.useState(""), [o, s] = D.useState(""), [c, l] = D.useState("rank"), u = D.useCallback(async (e) => {
 		try {
 			let n = e.trim();
@@ -25676,7 +26274,15 @@ function R_() {
 						})] })]
 					}),
 					/* @__PURE__ */ (0, K.jsxs)("p", { children: ["参考价：", S ? `$${Number(S.last_done).toFixed(2)} · ${S.timestamp}（美东，${S.session === "regular_close" ? "收盘" : "盘中"}）` : "待核验"] }),
-					/* @__PURE__ */ (0, K.jsx)(I_, { series: x.map((e) => [e[0], e[4]]) }),
+					/* @__PURE__ */ (0, K.jsx)(iv, {
+						symbol: b,
+						bars: e.chartHistory?.[b] || x,
+						trades: e.chartTrades || [],
+						asOf: e.chartHistoryAsOf || e.historyAsOf,
+						session: e.chartHistorySession,
+						coverage: e.chartTradeCoverage,
+						checkedAt: e.chartTradeCheckedAt
+					}),
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-cards",
 						children: [
@@ -25774,7 +26380,7 @@ function R_() {
 						children: [
 							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue") ? Number(E("operating_revenue").indicator_value).toLocaleString("en-US") : "待核验" })] }),
 							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "净利润（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("net_profit") ? Number(E("net_profit").indicator_value).toLocaleString("en-US") : "待核验" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue")?.yoy ? F_(Number(E("operating_revenue").yoy) * 100) : "待核验" })] })
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue")?.yoy ? tv(Number(E("operating_revenue").yoy) * 100) : "待核验" })] })
 						]
 					})] }) : /* @__PURE__ */ (0, K.jsx)("p", { children: "财报摘要待核验。" }),
 					/* @__PURE__ */ (0, K.jsx)("h3", { children: "历史估值、同行与事件复核" }),
@@ -25851,21 +26457,21 @@ function R_() {
 		]
 	});
 }
-function z_({ holdings: e }) {
-	return e ? /* @__PURE__ */ (0, K.jsx)(R_, {}) : /* @__PURE__ */ (0, K.jsx)(L_, {});
+function ov({ holdings: e }) {
+	return e ? /* @__PURE__ */ (0, K.jsx)(av, {}) : /* @__PURE__ */ (0, K.jsx)(rv, {});
 }
 // src/stock-detail.tsx
-var B_ = (e) => e.toFixed(2), V_ = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
-function H_({ stock: e, bars: t, days: n }) {
+var sv = (e) => e.toFixed(2), cv = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
+function lv({ stock: e, bars: t, days: n }) {
 	let r = D.useRef(null), i = D.useRef(null), [a, o] = D.useState(null);
 	D.useEffect(() => {
 		if (!r.current) return;
-		let a = r.current, s = m_(a, {
+		let a = r.current, s = h_(a, {
 			height: 300,
 			autoSize: !0,
 			layout: {
 				background: {
-					type: Ym.Solid,
+					type: Xm.Solid,
 					color: "#ffffff"
 				},
 				textColor: "#7c8984",
@@ -25903,7 +26509,7 @@ function H_({ stock: e, bars: t, days: n }) {
 			}
 		});
 		i.current = s;
-		let c = s.addSeries(N_, {
+		let c = s.addSeries(P_, {
 			upColor: "#d55b54",
 			downColor: "#15936e",
 			borderUpColor: "#d55b54",
@@ -25958,10 +26564,10 @@ function H_({ stock: e, bars: t, days: n }) {
 			"aria-live": "off",
 			children: [
 				/* @__PURE__ */ (0, K.jsx)("span", { children: s[0] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[1]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[2]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[3]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(s[4]) })] })
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: sv(s[1]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: sv(s[2]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: sv(s[3]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: sv(s[4]) })] })
 			]
 		}),
 		/* @__PURE__ */ (0, K.jsx)("div", {
@@ -25999,12 +26605,12 @@ function H_({ stock: e, bars: t, days: n }) {
 		})
 	] });
 }
-function U_({ stock: e, snapshotDate: t, researchDate: n }) {
+function uv({ stock: e, snapshotDate: t, researchDate: n }) {
 	let r = e.bookCases?.map((t) => ({
 		name: t.name,
 		low: e.bps * (t.bpsFactor ?? 1) * t.lo,
 		high: e.bps * (t.bpsFactor ?? 1) * t.hi,
-		formula: `每股净资产约 ${B_(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍（计算使用未取整数据）`,
+		formula: `每股净资产约 ${sv(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍（计算使用未取整数据）`,
 		basis: t.basis
 	})) ?? e.scenarios?.map(([t, n, r], i) => ({
 		name: [
@@ -26014,7 +26620,7 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 		][i],
 		low: t * n,
 		high: t * r,
-		formula: `EPS 约 ${B_(t)} 元 × PE ${n}–${r} 倍（计算使用未取整数据）`,
+		formula: `EPS 约 ${sv(t)} 元 × PE ${n}–${r} 倍（计算使用未取整数据）`,
 		basis: e.scenarioNotes?.[i] ?? ""
 	})) ?? [], i = Math.max(e.price, ...r.map((e) => e.high)) * 1.08;
 	return /* @__PURE__ */ (0, K.jsxs)("section", {
@@ -26053,7 +26659,7 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 				children: [
 					e.caseBasis,
 					" 以研究时每股净资产估算的快照 PB 约 ",
-					B_(e.price / e.bps),
+					sv(e.price / e.bps),
 					" 倍；净资产及股本时点见估值依据。"
 				]
 			}),
@@ -26076,11 +26682,11 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-price",
 							children: [
-								B_(n.low),
+								sv(n.low),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("span", { children: "—" }),
 								" ",
-								B_(n.high),
+								sv(n.high),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: "元" })
 							]
@@ -26091,9 +26697,9 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 								"相对 ",
 								t,
 								" 收盘价 ",
-								V_((n.low / e.price - 1) * 100),
+								cv((n.low / e.price - 1) * 100),
 								" ~ ",
-								V_((n.high / e.price - 1) * 100)
+								cv((n.high / e.price - 1) * 100)
 							]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
@@ -26103,7 +26709,7 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 								width: `${(n.high - n.low) / i * 100}%`
 							} }), /* @__PURE__ */ (0, K.jsx)("i", {
 								style: { left: `${e.price / i * 100}%` },
-								title: `收盘价 ${B_(e.price)} 元`
+								title: `收盘价 ${sv(e.price)} 元`
 							})]
 						}),
 						/* @__PURE__ */ (0, K.jsx)("p", { children: n.formula }),
@@ -26118,7 +26724,7 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 					/* @__PURE__ */ (0, K.jsxs)("span", { children: [
 						/* @__PURE__ */ (0, K.jsx)("b", {}),
 						" 收盘价 ",
-						B_(e.price),
+						sv(e.price),
 						" 元"
 					] }),
 					/* @__PURE__ */ (0, K.jsx)("span", { children: "竖线及区间使用同一比例尺" })
@@ -26133,20 +26739,20 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 						/* @__PURE__ */ (0, K.jsx)("p", { children: e.evidenceNote }),
 						/* @__PURE__ */ (0, K.jsxs)("p", { children: [
 							"近 20 日收盘区间 ",
-							B_(e.recent20[0]),
+							sv(e.recent20[0]),
 							"–",
-							B_(e.recent20[1]),
+							sv(e.recent20[1]),
 							" 元；近 60 日 ",
-							B_(e.recent60[0]),
+							sv(e.recent60[0]),
 							"–",
-							B_(e.recent60[1]),
+							sv(e.recent60[1]),
 							" 元。历史区间不是支撑或预测。"
 						] }),
 						e.bookCases && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: "以上是静态压力测试，每股净资产调整幅度及 PB 均为根据历史、同行和经营状况设定的情景假设，不代表合理估值或发生概率。亏损、减值、分红和股本变化均会改变结果。" }), /* @__PURE__ */ (0, K.jsxs)("p", { children: [
 							"按当前快照估算市值 ",
-							B_(e.price * e.shareCapital / 1e8),
+							sv(e.price * e.shareCapital / 1e8),
 							" 亿元；按 20 倍市盈率反推需全年归母利润约 ",
-							B_(e.price * e.shareCapital / 1e8 / 20),
+							sv(e.price * e.shareCapital / 1e8 / 20),
 							" 亿元，并非利润预测。"
 						] })] })
 					]
@@ -26155,7 +26761,7 @@ function U_({ stock: e, snapshotDate: t, researchDate: n }) {
 		]
 	});
 }
-function W_({ stock: e, snapshotDate: t }) {
+function dv({ stock: e, snapshotDate: t }) {
 	let n = e.technical;
 	if (!n) return null;
 	let r = [
@@ -26217,7 +26823,7 @@ function W_({ stock: e, snapshotDate: t }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-level-number",
 							children: [
-								B_(t.value),
+								sv(t.value),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: "元" })
 							]
@@ -26227,7 +26833,7 @@ function W_({ stock: e, snapshotDate: t }) {
 							children: [
 								t.date,
 								" · 相对收盘 ",
-								V_((t.value / e.price - 1) * 100)
+								cv((t.value / e.price - 1) * 100)
 							]
 						})
 					]
@@ -26240,10 +26846,10 @@ function W_({ stock: e, snapshotDate: t }) {
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "sd-indicators",
 				children: [
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(n.ma20) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(n.ma60) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: B_(n.vwapClose) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [B_(n.volumeRatio), " 倍"] })] })
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: sv(n.ma20) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: sv(n.ma60) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: sv(n.vwapClose) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [sv(n.volumeRatio), " 倍"] })] })
 				]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("p", {
@@ -26257,7 +26863,7 @@ function W_({ stock: e, snapshotDate: t }) {
 		]
 	});
 }
-function G_({ stock: e, bars: t, payload: n, onReady: r }) {
+function fv({ stock: e, bars: t, payload: n, onReady: r }) {
 	let [i, a] = D.useState("60");
 	D.useEffect(r, []);
 	let o = (e.price / e.prev - 1) * 100, s = [
@@ -26294,14 +26900,14 @@ function G_({ stock: e, bars: t, payload: n, onReady: r }) {
 					children: [
 						/* @__PURE__ */ (0, K.jsxs)("small", { children: ["收盘价格 · ", n.snapshotDate] }),
 						/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-							/* @__PURE__ */ (0, K.jsx)("strong", { children: B_(e.price) }),
+							/* @__PURE__ */ (0, K.jsx)("strong", { children: sv(e.price) }),
 							/* @__PURE__ */ (0, K.jsx)("span", { children: " CNY" }),
 							/* @__PURE__ */ (0, K.jsxs)("b", {
 								className: o >= 0 ? "up" : "down",
 								children: [
 									o >= 0 ? /* @__PURE__ */ (0, K.jsx)(F, { size: 15 }) : /* @__PURE__ */ (0, K.jsx)(N, { size: 15 }),
 									" ",
-									V_(o)
+									cv(o)
 								]
 							})
 						] }),
@@ -26339,12 +26945,12 @@ function G_({ stock: e, bars: t, payload: n, onReady: r }) {
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "所列 A 股证券占比" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : B_(e.weight) + "%" }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : sv(e.weight) + "%" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "仅占所列证券，不含现金" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "持仓成本" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "分账户记录" : B_(e.cost) + " 元" }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "分账户记录" : sv(e.cost) + " 元" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "不影响持有价值排序" })
 					] })
 				]
@@ -26402,18 +27008,18 @@ function G_({ stock: e, bars: t, payload: n, onReady: r }) {
 							}, e))
 						})
 					})]
-				}), /* @__PURE__ */ (0, K.jsx)(H_, {
+				}), /* @__PURE__ */ (0, K.jsx)(lv, {
 					stock: e,
 					bars: t,
 					days: Number(i)
 				})]
 			}),
-			/* @__PURE__ */ (0, K.jsx)(U_, {
+			/* @__PURE__ */ (0, K.jsx)(uv, {
 				stock: e,
 				snapshotDate: n.snapshotDate,
 				researchDate: n.researchDate
 			}),
-			/* @__PURE__ */ (0, K.jsx)(W_, {
+			/* @__PURE__ */ (0, K.jsx)(dv, {
 				stock: e,
 				snapshotDate: n.snapshotDate
 			}),
@@ -26457,17 +27063,17 @@ function G_({ stock: e, bars: t, payload: n, onReady: r }) {
 	});
 }
 // src/industry-charts.tsx
-var K_ = [
+var pv = [
 	"#37886a",
 	"#c9944a",
 	"#5086b0",
 	"#aa6d8a",
 	"#8879b1",
 	"#a7b5aa"
-], q_ = (e) => e.toLocaleString("zh-CN", { maximumFractionDigits: 2 }), J_ = (e) => (e > 0 ? "+" : "") + e.toFixed(1) + "%", Y_ = {
+], mv = (e) => e.toLocaleString("zh-CN", { maximumFractionDigits: 2 }), hv = (e) => (e > 0 ? "+" : "") + e.toFixed(1) + "%", gv = {
 	layout: {
 		background: {
-			type: Ym.Solid,
+			type: Xm.Solid,
 			color: "#ffffff"
 		},
 		textColor: "#84958b",
@@ -26502,7 +27108,7 @@ var K_ = [
 		pinch: !0,
 		axisPressedMouseMove: !0
 	}
-}, X_ = (e) => {
+}, _v = (e) => {
 	if (typeof e == "string") return e;
 	if (typeof e == "object" && e && "year" in e) {
 		let t = e;
@@ -26510,11 +27116,11 @@ var K_ = [
 	}
 	return "";
 };
-function Z_(e, t = 20) {
+function vv(e, t = 20) {
 	let n = 0;
 	return e.map(([r, i], a) => (n += i, a >= t && (n -= e[a - t][1]), [r, n / Math.min(t, a + 1)]));
 }
-function Q_(e, t) {
+function yv(e, t) {
 	let n = -1, r = 0, i = new ResizeObserver((e) => {
 		let t = Math.round(e[0].contentRect.width);
 		t === n || t <= 0 || (n = t, cancelAnimationFrame(r), r = requestAnimationFrame(() => {}));
@@ -26523,7 +27129,7 @@ function Q_(e, t) {
 		i.disconnect(), cancelAnimationFrame(r);
 	};
 }
-function $_() {
+function bv() {
 	return /* @__PURE__ */ (0, K.jsx)("a", {
 		className: "ic-credit",
 		href: "https://www.tradingview.com/",
@@ -26532,7 +27138,7 @@ function $_() {
 		children: "TradingView Lightweight Charts™ · © 2025 TradingView, Inc. ↗"
 	});
 }
-function ev({ value: e, onChange: t }) {
+function xv({ value: e, onChange: t }) {
 	return /* @__PURE__ */ (0, K.jsx)("div", {
 		className: "ic-range",
 		role: "group",
@@ -26549,7 +27155,7 @@ function ev({ value: e, onChange: t }) {
 		}, n))
 	});
 }
-function tv({ selector: e, doc: t, series: n }) {
+function Sv({ selector: e, doc: t, series: n }) {
 	let [r, i] = D.useState(e.value), [a, o] = D.useState("");
 	D.useEffect(() => {
 		let t = () => i(e.value);
@@ -26615,25 +27221,25 @@ function tv({ selector: e, doc: t, series: n }) {
 		})]
 	})] });
 }
-function nv({ item: e, asOf: t }) {
-	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = D.useRef(null), c = n === "all" ? e.daily : e.daily.slice(-Number(n)), l = Z_(e.daily).slice(-c.length);
+function Cv({ item: e, asOf: t }) {
+	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = D.useRef(null), c = n === "all" ? e.daily : e.daily.slice(-Number(n)), l = vv(e.daily).slice(-c.length);
 	D.useEffect(() => {
 		if (!o.current) return;
-		let e = m_(o.current, {
-			...Y_,
+		let e = h_(o.current, {
+			...gv,
 			autoSize: !0,
 			height: 310
 		});
 		s.current = e;
-		let t = e.addSeries(k_, {
-			color: K_[0],
+		let t = e.addSeries(A_, {
+			color: pv[0],
 			lineWidth: 2,
 			lastValueVisible: !0,
 			priceLineVisible: !1,
 			title: "收盘",
 			crosshairMarkerVisible: !0
-		}), n = e.addSeries(k_, {
-			color: K_[1],
+		}), n = e.addSeries(A_, {
+			color: pv[1],
 			lineWidth: 2,
 			lineStyle: df.Dashed,
 			lastValueVisible: !1,
@@ -26652,8 +27258,8 @@ function nv({ item: e, asOf: t }) {
 			value: t,
 			ma: l[n][1]
 		}]));
-		e.subscribeCrosshairMove((e) => a(r.get(X_(e.time)) ?? null));
-		let i = Q_(o.current, e);
+		e.subscribeCrosshairMove((e) => a(r.get(_v(e.time)) ?? null));
+		let i = yv(o.current, e);
 		return () => {
 			i(), s.current = null, e.remove();
 		};
@@ -26683,11 +27289,11 @@ function nv({ item: e, asOf: t }) {
 						children: [
 							u.date,
 							" ",
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: q_(u.value) })] }),
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: q_(u.ma) })] })
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: mv(u.value) })] }),
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: mv(u.ma) })] })
 						]
 					})
-				] }), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)(ev, {
+				] }), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)(xv, {
 					value: n,
 					onChange: r
 				}), /* @__PURE__ */ (0, K.jsx)("button", {
@@ -26700,19 +27306,19 @@ function nv({ item: e, asOf: t }) {
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "ic-summary",
 				children: [
-					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "最新收盘" }), /* @__PURE__ */ (0, K.jsx)("strong", { children: q_(e.current) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "最新收盘" }), /* @__PURE__ */ (0, K.jsx)("strong", { children: mv(e.current) })] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "一年最高收盘" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: q_(e.high) }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: mv(e.high) }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: e.highDate })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "距一年高点" }), /* @__PURE__ */ (0, K.jsx)("strong", {
 						className: "ic-loss",
-						children: J_(e.drawdown)
+						children: hv(e.drawdown)
 					})] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "一年涨跌" }), /* @__PURE__ */ (0, K.jsx)("strong", {
 						className: e.return1y >= 0 ? "ic-up" : "ic-loss",
-						children: J_(e.return1y)
+						children: hv(e.return1y)
 					})] })
 				]
 			}),
@@ -26727,29 +27333,29 @@ function nv({ item: e, asOf: t }) {
 				children: [/* @__PURE__ */ (0, K.jsxs)("div", {
 					className: "ic-key",
 					children: [
-						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: K_[0] } }), "日收盘"] }),
-						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: K_[1] } }), "20日均线"] }),
+						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: pv[0] } }), "日收盘"] }),
+						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: pv[1] } }), "20日均线"] }),
 						/* @__PURE__ */ (0, K.jsxs)("span", { children: ["拖动或缩放 · 数据截至 ", t] })
 					]
-				}), /* @__PURE__ */ (0, K.jsx)($_, {})]
+				}), /* @__PURE__ */ (0, K.jsx)(bv, {})]
 			})
 		]
 	});
 }
-function rv({ group: e, items: t, benchmark: n, asOf: r }) {
+function wv({ group: e, items: t, benchmark: n, asOf: r }) {
 	let [i, a] = D.useState([]), [o, s] = D.useState(null), c = D.useRef(null), l = D.useRef(null), u = D.useRef(null);
 	D.useEffect(() => {
 		if (!c.current) return;
-		let e = m_(c.current, {
-			...Y_,
+		let e = h_(c.current, {
+			...gv,
 			autoSize: !0,
 			height: 220,
 			layout: {
-				...Y_.layout,
+				...gv.layout,
 				fontSize: 10
 			},
 			rightPriceScale: {
-				...Y_.rightPriceScale,
+				...gv.rightPriceScale,
 				scaleMargins: {
 					top: .12,
 					bottom: .1
@@ -26757,8 +27363,8 @@ function rv({ group: e, items: t, benchmark: n, asOf: r }) {
 			}
 		}), r = [...t, n], a = r.map((t, n) => {
 			if (i.includes(t.name)) return null;
-			let r = e.addSeries(k_, {
-				color: K_[n],
+			let r = e.addSeries(A_, {
+				color: pv[n],
 				lineWidth: n === 5 ? 1 : 2,
 				lineStyle: n === 5 ? df.Dashed : df.Solid,
 				lastValueVisible: !1,
@@ -26778,7 +27384,7 @@ function rv({ group: e, items: t, benchmark: n, asOf: r }) {
 		l.current = e, u.current ? e.timeScale().setVisibleLogicalRange(u.current) : e.timeScale().fitContent();
 		let o = r.map((e) => new Map(e.daily.map(([t, n]) => [t, n / e.daily[0][1] * 100])));
 		e.subscribeCrosshairMove((e) => {
-			let t = X_(e.time);
+			let t = _v(e.time);
 			if (!t) {
 				s(null);
 				return;
@@ -26792,7 +27398,7 @@ function rv({ group: e, items: t, benchmark: n, asOf: r }) {
 				values: n
 			});
 		});
-		let d = Q_(c.current, e);
+		let d = yv(c.current, e);
 		return () => {
 			a.length, u.current = e.timeScale().getVisibleLogicalRange(), l.current = null, d(), e.remove();
 		};
@@ -26839,9 +27445,9 @@ function rv({ group: e, items: t, benchmark: n, asOf: r }) {
 					"aria-pressed": !i.includes(e.name),
 					onClick: () => d(e.name),
 					children: [
-						/* @__PURE__ */ (0, K.jsx)("i", { style: { background: K_[t] } }),
+						/* @__PURE__ */ (0, K.jsx)("i", { style: { background: pv[t] } }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: e.name }),
-						/* @__PURE__ */ (0, K.jsx)("b", { children: J_(e.return1y) })
+						/* @__PURE__ */ (0, K.jsx)("b", { children: hv(e.return1y) })
 					]
 				}, e.name))
 			}),
@@ -26851,13 +27457,13 @@ function rv({ group: e, items: t, benchmark: n, asOf: r }) {
 					"图例涨跌为完整一年 · ",
 					r,
 					" 收盘"
-				] }), /* @__PURE__ */ (0, K.jsx)($_, {})]
+				] }), /* @__PURE__ */ (0, K.jsx)(bv, {})]
 			})
 		]
 	});
 }
-var iv = "\n.ic-selector-root{width:100%;min-width:0}.ic-search{box-sizing:border-box;width:100%;height:36px;margin-bottom:6px;padding:0 11px;border:1px solid #d7e4db;border-radius:9px;color:#244b38;background:#fff;font:13px sans-serif}.ic-selector-option small{margin-left:auto;margin-right:8px;color:#90a495;font-size:10px}.ic-empty{padding:12px;color:#82988b}.ic-reset{display:block;margin:7px 0 0 auto;border:0;background:transparent;color:#56816a;font-size:11px;cursor:pointer}.ic-reset:hover{text-decoration:underline}.ic-jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.ic-jump a{padding:7px 11px;border:1px solid #dfeae0;border-radius:8px;color:#3d7354;text-decoration:none;font-size:12px}.drawdown-row[data-jump],#sector-table tbody tr[data-jump]{cursor:pointer}.drawdown-row[data-jump]:hover,#sector-table tbody tr[data-jump]:hover{background:#edf7ef}.drawdown-row[data-jump]:focus-visible,#sector-table tbody tr[data-jump]:focus-visible{outline:2px solid #398a61;outline-offset:-2px}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
-function av(e) {
+var Tv = "\n.ic-selector-root{width:100%;min-width:0}.ic-search{box-sizing:border-box;width:100%;height:36px;margin-bottom:6px;padding:0 11px;border:1px solid #d7e4db;border-radius:9px;color:#244b38;background:#fff;font:13px sans-serif}.ic-selector-option small{margin-left:auto;margin-right:8px;color:#90a495;font-size:10px}.ic-empty{padding:12px;color:#82988b}.ic-reset{display:block;margin:7px 0 0 auto;border:0;background:transparent;color:#56816a;font-size:11px;cursor:pointer}.ic-reset:hover{text-decoration:underline}.ic-jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.ic-jump a{padding:7px 11px;border:1px solid #dfeae0;border-radius:8px;color:#3d7354;text-decoration:none;font-size:12px}.drawdown-row[data-jump],#sector-table tbody tr[data-jump]{cursor:pointer}.drawdown-row[data-jump]:hover,#sector-table tbody tr[data-jump]:hover{background:#edf7ef}.drawdown-row[data-jump]:focus-visible,#sector-table tbody tr[data-jump]:focus-visible{outline:2px solid #398a61;outline-offset:-2px}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
+function Ev(e) {
 	let t = e.contentDocument;
 	if (!t) return;
 	let n = Array.from(t.querySelectorAll("script")).find((e) => e.textContent?.includes("const payload = "))?.textContent?.match(/const payload = (\{[^\n]*\});/);
@@ -26871,11 +27477,11 @@ function av(e) {
 	let i = t.querySelector("#sector-select"), a = t.querySelector("#detail-chart"), o = t.querySelector("#trend-grid"), s = r.series.find((e) => e.group === "基准");
 	if (!i || !a || !o || !s || !r.series.length) return;
 	let c = t.createElement("style");
-	c.textContent = iv, t.head.append(c);
+	c.textContent = Tv, t.head.append(c);
 	let l;
 	function u() {
 		let e = r.series.find((e) => e.name === i.value);
-		e && (l?.unmount(), a.replaceChildren(), l = (0, fa.createRoot)(a), l.render(/* @__PURE__ */ (0, K.jsx)(nv, {
+		e && (l?.unmount(), a.replaceChildren(), l = (0, fa.createRoot)(a), l.render(/* @__PURE__ */ (0, K.jsx)(Cv, {
 			item: e,
 			asOf: r.asOf
 		}, e.name)));
@@ -26884,7 +27490,7 @@ function av(e) {
 		e.stopImmediatePropagation(), u(), i.dispatchEvent(new Event("industry-selected"));
 	}, !0);
 	let d = t.createElement("div");
-	d.className = "ic-selector-root", i.after(d), (0, fa.createRoot)(d).render(/* @__PURE__ */ (0, K.jsx)(tv, {
+	d.className = "ic-selector-root", i.after(d), (0, fa.createRoot)(d).render(/* @__PURE__ */ (0, K.jsx)(Sv, {
 		selector: i,
 		doc: t,
 		series: r.series
@@ -26924,7 +27530,7 @@ function av(e) {
 		"先进制造",
 		"消费医药",
 		"资源金融"
-	].map((e) => /* @__PURE__ */ (0, K.jsx)(rv, {
+	].map((e) => /* @__PURE__ */ (0, K.jsx)(wv, {
 		group: e,
 		items: r.series.filter((t) => t.group === e),
 		benchmark: s,
@@ -26939,11 +27545,11 @@ function av(e) {
 	}
 }
 // src/main.tsx
-var ov = /\/us(?:\/|$)/.test(location.pathname), sv = /\/us\/holdings(?:\/|$)/.test(location.pathname), cv = /\/mobile-holdings\.html$/.test(location.pathname), lv = /\/h\/?$|\/mobile-holdings\.html$/.test(location.pathname);
-function uv() {
-	let [e, t] = D.useState(ov ? sv ? "us-holdings" : "us-industry" : lv ? "holdings" : "industry");
+var Dv = /\/us(?:\/|$)/.test(location.pathname), Ov = /\/us\/holdings(?:\/|$)/.test(location.pathname), kv = /\/mobile-holdings\.html$/.test(location.pathname), Av = /\/h\/?$|\/mobile-holdings\.html$/.test(location.pathname);
+function jv() {
+	let [e, t] = D.useState(Dv ? Ov ? "us-holdings" : "us-industry" : Av ? "holdings" : "industry");
 	function n(n) {
-		let r = sv ? "../../" : ov || lv && !cv ? "../" : "./", i = {
+		let r = Ov ? "../../" : Dv || Av && !kv ? "../" : "./", i = {
 			industry: r + "#industry",
 			holdings: r + "h/",
 			"us-industry": r + "us/",
@@ -26958,7 +27564,7 @@ function uv() {
 			children: [
 				/* @__PURE__ */ (0, K.jsxs)("a", {
 					className: "workspace-brand",
-					href: sv ? "../../#industry" : ov || lv && !cv ? "../#industry" : "./#industry",
+					href: Ov ? "../../#industry" : Dv || Av && !kv ? "../#industry" : "./#industry",
 					"aria-label": "投资观察首页",
 					children: [/* @__PURE__ */ (0, K.jsx)("span", {
 						className: "workspace-logo",
@@ -27005,12 +27611,12 @@ function uv() {
 		})
 	});
 }
-var dv = document.querySelector(".site-tabs");
-if (dv) {
+var Mv = document.querySelector(".site-tabs");
+if (Mv) {
 	let e = document.createElement("div");
-	dv.before(e), (0, fa.createRoot)(e).render(/* @__PURE__ */ (0, K.jsx)(uv, {})), dv.hidden = !0;
+	Mv.before(e), (0, fa.createRoot)(e).render(/* @__PURE__ */ (0, K.jsx)(jv, {})), Mv.hidden = !0;
 }
-if (lv) {
+if (Av) {
 	let e = document.querySelector("#map-report"), t, n, r = () => {
 		n && !n.isConnected && (t?.unmount(), t = void 0, n = void 0);
 		let r = e?.querySelector("#map-stock-detail"), i = e?.querySelector("[data-stock-index][aria-pressed=\"true\"]"), a = document.querySelector("#holdings-map-data");
@@ -27018,7 +27624,7 @@ if (lv) {
 			let e = JSON.parse(a.textContent || ""), o = e.stocks[Number(i.dataset.stockIndex)], s = e.history[o.symbol];
 			if (o && Array.isArray(s) && s.length) {
 				let i = Array.from(r.children), a = document.createElement("div");
-				a.className = "stock-workspace-mount", r.append(a), n = a, t = (0, fa.createRoot)(a), t.render(/* @__PURE__ */ (0, K.jsx)(G_, {
+				a.className = "stock-workspace-mount", r.append(a), n = a, t = (0, fa.createRoot)(a), t.render(/* @__PURE__ */ (0, K.jsx)(fv, {
 					stock: o,
 					bars: s,
 					payload: e,
@@ -27068,12 +27674,12 @@ if (lv) {
 		subtree: !0
 	}), r();
 }
-var fv = document.querySelector("#chart-frame"), pv = () => {
-	let e = fv?.contentDocument;
+var Nv = document.querySelector("#chart-frame"), Pv = () => {
+	let e = Nv?.contentDocument;
 	if (!e?.head || e.getElementById("workspace-industry-theme")) return;
 	let t = e.createElement("style");
-	t.id = "workspace-industry-theme", t.textContent = ":root{--page:#f4f6f2;--ink:#1c3933;--line:#e1e9e3;--panel:#fff} .snapshot-card,.asof-card,.hero-panel,.section-block{box-shadow:0 4px 18px #173d2b08} .trend-grid section{background:#f8fbf8} .dashboard-header h1{color:#193d33}", e.head.append(t), av(fv);
+	t.id = "workspace-industry-theme", t.textContent = ":root{--page:#f4f6f2;--ink:#1c3933;--line:#e1e9e3;--panel:#fff} .snapshot-card,.asof-card,.hero-panel,.section-block{box-shadow:0 4px 18px #173d2b08} .trend-grid section{background:#f8fbf8} .dashboard-header h1{color:#193d33}", e.head.append(t), Ev(Nv);
 };
-fv?.addEventListener("load", pv), pv();
-var mv = document.getElementById("us-app");
-mv && (0, fa.createRoot)(mv).render(/* @__PURE__ */ (0, K.jsx)(z_, { holdings: sv }));
+Nv?.addEventListener("load", Pv), Pv();
+var Fv = document.getElementById("us-app");
+Fv && (0, fa.createRoot)(Fv).render(/* @__PURE__ */ (0, K.jsx)(ov, { holdings: Ov }));
