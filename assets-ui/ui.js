@@ -25601,7 +25601,7 @@ function R_() {
 					}),
 					y.includes(c) && /* @__PURE__ */ (0, K.jsx)("p", {
 						className: "us-muted",
-						children: c === "drawdown" ? "按前复权日线的过去一年盘中最高价与截至日收盘价计算，回撤越深越靠前；数据不足一年则待核验。" : c === "pnl" ? "按已知账户成本加权计算，仅覆盖已核验成本的完整持仓，不含交易费用；未覆盖账户不参与。" : c === "support" ? "按距已复核支撑价的绝对距离排序，跌破支撑也会注明；支撑不是买入指令。" : "仅展示有来源、日期和独立复核依据的排序；缺少数据列为待核验。"
+						children: c === "drawdown" ? "按前复权日线的过去一年盘中最高价与截至日收盘价计算，回撤越深越靠前；数据不足一年则待核验。" : c === "pnl" ? "按已知账户成本加权计算，仅覆盖已核验成本的完整持仓，不含交易费用；未覆盖账户不参与。" : c === "support" ? "按最近20个已收盘交易日最低价与盘中参考价的距离排序；这只是潜在支撑观察位，并非已确认支撑或买入指令。" : c === "add" ? "这是现金与账户条件满足后的相对研究顺序，不代表当前适合加仓；盈透及长桥美元现金为负，其他账户现金未核实。" : c === "risk" ? "优先级越高越需要复核，既看经营和财务，也看已知集中度；不等同于卖出建议。" : "依据最近财报、估值参考与下行风险的主观比较；数据及估值口径仍有缺口，不能等同交易指令。"
 					}),
 					/* @__PURE__ */ (0, K.jsx)("div", {
 						className: "us-table-wrap",
@@ -25631,7 +25631,12 @@ function R_() {
 							/* @__PURE__ */ (0, K.jsx)("td", { children: t.price ? `$${t.price.toFixed(2)}` : "待核验" }),
 							/* @__PURE__ */ (0, K.jsx)("td", { children: t.price && t.quantity !== null ? `$${(t.price * t.quantity).toFixed(2)}` : t.account === "观察" ? "—" : "待核验" }),
 							/* @__PURE__ */ (0, K.jsx)("td", { children: e.comparison?.[t.symbol]?.action || "待复核" }),
-							y.includes(c) && /* @__PURE__ */ (0, K.jsx)("td", { children: v(t)?.label || "待核验" })
+							y.includes(c) && /* @__PURE__ */ (0, K.jsxs)("td", { children: [v(t)?.label || "待核验", e.sortResearch?.[t.symbol]?.[c]?.url && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [" · ", /* @__PURE__ */ (0, K.jsx)("a", {
+								href: e.sortResearch[t.symbol][c].url,
+								target: "_blank",
+								rel: "noreferrer",
+								children: "资料来源 ↗"
+							})] })] })
 						] }, t.symbol)) })] })
 					})
 				]
