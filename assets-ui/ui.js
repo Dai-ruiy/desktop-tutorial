@@ -25782,6 +25782,7 @@ function R_() {
 						className: "us-note",
 						children: [
 							/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].history }),
+							e.audit[b].calc && /* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].calc }),
 							/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].peers }),
 							/* @__PURE__ */ (0, K.jsxs)("p", { children: [
 								e.audit[b].event,
