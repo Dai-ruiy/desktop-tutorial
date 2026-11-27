@@ -27690,7 +27690,7 @@ function Tv({ stock: e, bars: t, payload: n, onReady: r }) {
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "2–3 年持有视角" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, K.jsx)("small", { children: "持有股数" }),
+						/* @__PURE__ */ (0, K.jsx)("small", { children: e.quantityScope === "ordinary_partial" ? "普通账户股数" : "持有股数" }),
 						/* @__PURE__ */ (0, K.jsxs)("strong", { children: [
 							e.shares === null ? "待核验" : e.shares.toLocaleString(),
 							" ",
