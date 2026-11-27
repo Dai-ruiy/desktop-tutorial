@@ -27190,11 +27190,11 @@ function yv({ holdings: e }) {
 }
 // src/stock-detail.tsx
 var bv = (e) => e.toFixed(2), xv = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
-function Sv({ stock: e, bars: t, days: n }) {
-	let r = D.useRef(null), i = D.useRef(null), [a, o] = D.useState(null);
+function Sv({ stock: e, bars: t, days: n, trades: r, snapshotDate: i }) {
+	let a = D.useRef(null), o = D.useRef(null), [s, c] = D.useState(null), [l, u] = D.useState("");
 	D.useEffect(() => {
-		if (!r.current) return;
-		let a = r.current, s = D_(a, {
+		if (!a.current) return;
+		let s = a.current, l = D_(s, {
 			height: 300,
 			autoSize: !0,
 			layout: {
@@ -27236,8 +27236,8 @@ function Sv({ stock: e, bars: t, days: n }) {
 				vertTouchDrag: !1
 			}
 		});
-		i.current = s;
-		let c = s.addSeries(K_, {
+		o.current = l;
+		let d = l.addSeries(K_, {
 			upColor: "#d55b54",
 			downColor: "#15936e",
 			borderUpColor: "#d55b54",
@@ -27246,61 +27246,88 @@ function Sv({ stock: e, bars: t, days: n }) {
 			wickDownColor: "#15936e",
 			priceLineVisible: !0,
 			lastValueVisible: !0
-		}), l = t.slice(-n);
-		c.setData(l.map(([e, t, n, r, i]) => ({
+		}), f = t.slice(-n);
+		d.setData(f.map(([e, t, n, r, i]) => ({
 			time: e,
 			open: t,
 			high: n,
 			low: r,
 			close: i
-		}))), e.technical && (c.createPriceLine({
+		})));
+		let p = r.filter((e) => e.date === i && f.some((t) => t[0] === e.date)), m = /* @__PURE__ */ new Map();
+		for (let e of p) {
+			let t = e.date + ":" + e.side;
+			m.set(t, [...m.get(t) || [], e]);
+		}
+		dv(d, [...m.entries()].map(([e, t]) => {
+			let n = t.reduce((e, t) => e + t.quantity, 0), r = t.reduce((e, t) => e + t.price * t.quantity, 0) / n;
+			return {
+				id: e,
+				time: t[0].date,
+				position: "atPriceMiddle",
+				price: r,
+				color: t[0].side === "BUY" ? "#286dd8" : "#9b51c3",
+				shape: t[0].side === "BUY" ? "arrowUp" : "arrowDown",
+				text: t[0].side === "BUY" ? "买" : "卖"
+			};
+		})), l.subscribeCrosshairMove((e) => {
+			let t = String(e.hoveredInfo?.objectId ?? e.hoveredObjectId ?? ""), n = m.get(t);
+			u(n ? n.map((e) => `${e.time} ${e.side === "BUY" ? "买入" : "卖出"} ${e.quantity}股 @ ${bv(e.price)}元`).join("；") : "");
+		}), e.technical && (d.createPriceLine({
 			price: e.technical.low,
 			color: "#219b79",
 			lineWidth: 1,
 			lineStyle: Cf.Dashed,
 			axisLabelVisible: !0,
 			title: "20日低"
-		}), c.createPriceLine({
+		}), d.createPriceLine({
 			price: e.technical.high,
 			color: "#c2934b",
 			lineWidth: 1,
 			lineStyle: Cf.Dashed,
 			axisLabelVisible: !0,
 			title: "5日高"
-		})), s.timeScale().fitContent();
-		let u = new Map(l.map((e) => [e[0], e]));
-		s.subscribeCrosshairMove((e) => {
+		})), l.timeScale().fitContent();
+		let h = new Map(f.map((e) => [e[0], e]));
+		l.subscribeCrosshairMove((e) => {
 			let t = typeof e.time == "string" ? e.time : "";
-			o(u.get(t) ?? null);
+			c(h.get(t) ?? null);
 		});
-		let d = -1, f = 0, p = new ResizeObserver((e) => {
+		let g = -1, _ = 0, v = new ResizeObserver((e) => {
 			let t = Math.round(e[0].contentRect.width);
-			t === d || t <= 0 || (d = t, cancelAnimationFrame(f), f = requestAnimationFrame(() => {}));
+			t === g || t <= 0 || (g = t, cancelAnimationFrame(_), _ = requestAnimationFrame(() => {}));
 		});
-		return p.observe(a), () => {
-			p.disconnect(), cancelAnimationFrame(f), i.current = null, s.remove();
+		return v.observe(s), () => {
+			v.disconnect(), cancelAnimationFrame(_), o.current = null, l.remove();
 		};
 	}, [
 		e,
 		t,
-		n
+		n,
+		r,
+		i
 	]);
-	let s = a ?? t.at(-1);
+	let d = s ?? t.at(-1);
 	return /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
 		/* @__PURE__ */ (0, K.jsxs)("div", {
 			className: "sd-ohlc",
 			"aria-live": "off",
 			children: [
-				/* @__PURE__ */ (0, K.jsx)("span", { children: s[0] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(s[1]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(s[2]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(s[3]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(s[4]) })] })
+				/* @__PURE__ */ (0, K.jsx)("span", { children: d[0] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(d[1]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(d[2]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(d[3]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: bv(d[4]) })] })
 			]
+		}),
+		l && /* @__PURE__ */ (0, K.jsx)("div", {
+			className: "sd-trade-note",
+			role: "status",
+			children: l
 		}),
 		/* @__PURE__ */ (0, K.jsx)("div", {
 			className: "sd-chart",
-			ref: r,
+			ref: a,
 			"aria-label": `${e.name}前复权日K线，可拖动和缩放`,
 			role: "img"
 		}),
@@ -27310,7 +27337,7 @@ function Sv({ stock: e, bars: t, days: n }) {
 				/* @__PURE__ */ (0, K.jsx)("button", {
 					type: "button",
 					className: "sd-reset",
-					onClick: () => i.current?.timeScale().fitContent(),
+					onClick: () => o.current?.timeScale().fitContent(),
 					children: "恢复图表范围"
 				}),
 				/* @__PURE__ */ (0, K.jsxs)("span", { children: [
@@ -27391,9 +27418,12 @@ function Cv({ stock: e, snapshotDate: t, researchDate: n }) {
 					" 倍；净资产及股本时点见估值依据。"
 				]
 			}),
-			e.valuationContext && /* @__PURE__ */ (0, K.jsx)("div", {
-				className: "sd-evidence-grid",
-				children: e.valuationContext.map((e) => /* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("b", { children: e.label }), /* @__PURE__ */ (0, K.jsx)("p", { children: e.text })] }, e.label))
+			e.valuationContext && /* @__PURE__ */ (0, K.jsxs)("details", {
+				className: "sd-disclosure",
+				children: [/* @__PURE__ */ (0, K.jsx)("summary", { children: "查看历史估值、同行与经营依据" }), /* @__PURE__ */ (0, K.jsx)("div", {
+					className: "sd-evidence-grid",
+					children: e.valuationContext.map((e) => /* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("b", { children: e.label }), /* @__PURE__ */ (0, K.jsx)("p", { children: e.text })] }, e.label))
+				})]
 			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
 				className: "sd-scenario-grid",
@@ -27508,14 +27538,14 @@ function wv({ stock: e, snapshotDate: t }) {
 			tone: "support"
 		},
 		{
-			name: "近期压力",
+			name: e.price > n.high ? "已突破近期高点" : "近期压力",
 			value: n.high,
 			date: n.highDate,
 			note: "前5日最高",
 			tone: "pressure"
 		},
 		{
-			name: "更远压力",
+			name: e.price > n.high20 ? "已突破20日高点" : "更远压力",
 			value: n.high20,
 			date: n.high20Date,
 			note: "前20日最高",
@@ -27594,7 +27624,7 @@ function wv({ stock: e, snapshotDate: t }) {
 function Tv({ stock: e, bars: t, payload: n, onReady: r }) {
 	let [i, a] = D.useState("60");
 	D.useEffect(r, []);
-	let o = (e.price / e.prev - 1) * 100, s = [
+	let o = (e.price / e.prev - 1) * 100, s = D.useMemo(() => (n.trades || []).filter((t) => t.symbol === e.symbol), [n.trades, e.symbol]), c = [
 		...e.report ? [["公司季报", e.report]] : [],
 		...e.annual ? [["公司年报", e.annual]] : [],
 		...e.extra ? [e.extra] : [],
@@ -27662,23 +27692,23 @@ function Tv({ stock: e, bars: t, payload: n, onReady: r }) {
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "持有股数" }),
 						/* @__PURE__ */ (0, K.jsxs)("strong", { children: [
-							e.shares.toLocaleString(),
+							e.shares === null ? "待核验" : e.shares.toLocaleString(),
 							" ",
-							/* @__PURE__ */ (0, K.jsx)("em", {
+							e.shares !== null && /* @__PURE__ */ (0, K.jsx)("em", {
 								className: "sd-unit",
 								children: "股"
 							})
 						] }),
-						/* @__PURE__ */ (0, K.jsx)("span", { children: "数量以记录为准" })
+						/* @__PURE__ */ (0, K.jsxs)("span", { children: [e.positionNote || "数量以记录为准", e.positionDate && ` · ${e.positionDate}`] })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, K.jsx)("small", { children: "所列 A 股证券占比" }),
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "证券占比" }),
 						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : bv(e.weight) + "%" }),
-						/* @__PURE__ */ (0, K.jsx)("span", { children: "仅占所列证券，不含现金" })
+						/* @__PURE__ */ (0, K.jsx)("span", { children: "账户不完整，暂不计算" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, K.jsx)("small", { children: "持仓成本" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "分账户记录" : bv(e.cost) + " 元" }),
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "券商显示成本" }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "待核验" : e.cost.toFixed(4) + " 元" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "不影响持有价值排序" })
 					] })
 				]
@@ -27703,44 +27733,74 @@ function Tv({ stock: e, bars: t, payload: n, onReady: r }) {
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "sd-panel sd-chart-panel",
-				children: [/* @__PURE__ */ (0, K.jsxs)("div", {
-					className: "sd-section-heading sd-chart-heading",
-					children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, K.jsx)("div", {
-							className: "sd-overline",
-							children: "PRICE HISTORY"
-						}),
-						/* @__PURE__ */ (0, K.jsxs)("h3", { children: ["价格走势 ", /* @__PURE__ */ (0, K.jsx)("span", { children: "日 K 线" })] }),
-						/* @__PURE__ */ (0, K.jsxs)("p", { children: [
-							"长桥前复权 · ",
-							t.slice(-Number(i))[0][0],
-							" 至 ",
-							n.snapshotDate
-						] })
-					] }), /* @__PURE__ */ (0, K.jsx)(Wo, {
-						value: i,
-						onValueChange: (e) => {
-							e && a(String(e));
-						},
-						children: /* @__PURE__ */ (0, K.jsx)(Ko, {
-							className: "sd-range-list",
-							"aria-label": "K 线时间范围",
-							children: [
-								"30",
-								"60",
-								"120"
-							].map((e) => /* @__PURE__ */ (0, K.jsxs)(qo, {
-								value: e,
-								className: "sd-range-tab",
-								children: [e, " 日"]
-							}, e))
-						})
-					})]
-				}), /* @__PURE__ */ (0, K.jsx)(Sv, {
-					stock: e,
-					bars: t,
-					days: Number(i)
-				})]
+				children: [
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "sd-section-heading sd-chart-heading",
+						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+							/* @__PURE__ */ (0, K.jsx)("div", {
+								className: "sd-overline",
+								children: "PRICE HISTORY"
+							}),
+							/* @__PURE__ */ (0, K.jsxs)("h3", { children: ["价格走势 ", /* @__PURE__ */ (0, K.jsx)("span", { children: "日 K 线" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("p", { children: [
+								"长桥前复权 · ",
+								t.slice(-Number(i))[0][0],
+								" 至 ",
+								n.snapshotDate
+							] })
+						] }), /* @__PURE__ */ (0, K.jsx)(Wo, {
+							value: i,
+							onValueChange: (e) => {
+								e && a(String(e));
+							},
+							children: /* @__PURE__ */ (0, K.jsx)(Ko, {
+								className: "sd-range-list",
+								"aria-label": "K 线时间范围",
+								children: [
+									"30",
+									"60",
+									"120"
+								].map((e) => /* @__PURE__ */ (0, K.jsxs)(qo, {
+									value: e,
+									className: "sd-range-tab",
+									children: [e, " 日"]
+								}, e))
+							})
+						})]
+					}),
+					/* @__PURE__ */ (0, K.jsx)(Sv, {
+						stock: e,
+						bars: t,
+						days: Number(i),
+						trades: s,
+						snapshotDate: n.snapshotDate
+					}),
+					/* @__PURE__ */ (0, K.jsxs)("details", {
+						className: "sd-trades",
+						children: [
+							/* @__PURE__ */ (0, K.jsxs)("summary", { children: [
+								"截图成交记录 · ",
+								s.length,
+								" 笔"
+							] }),
+							/* @__PURE__ */ (0, K.jsx)("p", { children: n.tradeCoverage || "暂无可核对的成交记录；不代表没有交易。" }),
+							s.map((e, t) => /* @__PURE__ */ (0, K.jsxs)("p", { children: [
+								e.date,
+								" ",
+								e.time,
+								" · ",
+								e.side === "SELL" ? "卖出" : "买入",
+								" ",
+								e.quantity,
+								" 股 · ",
+								bv(e.price),
+								" 元 · ",
+								e.source
+							] }, t)),
+							/* @__PURE__ */ (0, K.jsx)("p", { children: "图中只标注与当前行情快照同日的成交；跨日可能受复权影响，明细仍保留。" })
+						]
+					})
+				]
 			}),
 			/* @__PURE__ */ (0, K.jsx)(Cv, {
 				stock: e,
@@ -27778,7 +27838,7 @@ function Tv({ stock: e, bars: t, payload: n, onReady: r }) {
 					}),
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "sd-source-row",
-						children: [/* @__PURE__ */ (0, K.jsx)("span", { children: "资料来源" }), s.filter(([, e]) => e?.startsWith("https://")).map(([e, t], n) => /* @__PURE__ */ (0, K.jsxs)("a", {
+						children: [/* @__PURE__ */ (0, K.jsx)("span", { children: "资料来源" }), c.filter(([, e]) => e?.startsWith("https://")).map(([e, t], n) => /* @__PURE__ */ (0, K.jsxs)("a", {
 							href: t,
 							target: "_blank",
 							rel: "noopener noreferrer",
