@@ -25701,9 +25701,9 @@ function rv() {
 	});
 }
 function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, checkedAt: o }) {
-	let s = D.useRef(null), [c, l] = D.useState(90), [u, d] = D.useState(!1), [f, p] = D.useState(""), m = D.useMemo(() => n.filter((t) => t.symbol === e).sort((e, t) => t.time.localeCompare(e.time)), [n, e]);
+	let s = D.useRef(null), [c, l] = D.useState(90), [u, d] = D.useState(!1), [f, p] = D.useState(""), [m, h] = D.useState(null), g = D.useMemo(() => n.filter((t) => t.symbol === e).sort((e, t) => t.time.localeCompare(e.time)), [n, e]);
 	D.useEffect(() => {
-		d(!1), p("");
+		d(!1), p(""), h(null);
 	}, [e]), D.useEffect(() => {
 		if (!s.current || t.length < 2) return;
 		let e = t.filter((e) => e.length === 5 && e.slice(1).every(Number.isFinite));
@@ -25774,7 +25774,7 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 			value: e.slice(n - 19, n + 1).reduce((e, t) => e + t[4], 0) / 20
 		}]));
 		let i = new Set(e.map((e) => e[0])), a = /* @__PURE__ */ new Map();
-		for (let e of m) {
+		for (let e of g) {
 			if (!i.has(e.date)) continue;
 			let t = e.date + ":" + e.side, n = a.get(t) || {
 				date: e.date,
@@ -25786,28 +25786,48 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 			n.quantity += e.quantity, n.amount += e.quantity * e.price, n.count++, a.set(t, n);
 		}
 		$_(r, [...a.values()].sort((e, t) => e.date.localeCompare(t.date) || e.side.localeCompare(t.side)).map((e) => ({
+			id: e.date + ":" + e.side,
 			time: e.date,
 			position: "atPriceMiddle",
 			price: e.amount / e.quantity,
-			color: e.side === "BUY" ? "#c8574e" : "#207e66",
+			color: e.side === "BUY" ? "#155be3" : "#823dc7",
 			shape: e.side === "BUY" ? "arrowUp" : "arrowDown",
 			text: `${e.side === "BUY" ? "买" : "卖"}${e.count > 1 ? e.count : ""}`
-		}))), n.subscribeCrosshairMove((t) => {
+		})));
+		let o = (e, t) => {
+			let n = typeof e == "string" ? a.get(e) : void 0;
+			if (!n || !t || !s.current) {
+				h(null);
+				return;
+			}
+			let r = s.current.clientWidth;
+			h({
+				x: Math.max(4, Math.min(t.x + 14, r - 252)),
+				y: Math.max(4, Math.min(t.y + 14, s.current.clientHeight - 165)),
+				side: n.side,
+				date: n.date,
+				quantity: n.quantity,
+				average: n.amount / n.quantity,
+				items: g.filter((e) => e.date === n.date && e.side === n.side)
+			});
+		};
+		n.subscribeCrosshairMove((t) => {
+			o(t.hoveredInfo?.objectId ?? t.hoveredObjectId, t.point);
 			let n = e.find((e) => e[0] === t.time);
 			p(n ? `${n[0]}  开 ${n[1].toFixed(2)}  高 ${n[2].toFixed(2)}  低 ${n[3].toFixed(2)}  收 ${n[4].toFixed(2)}` : "");
-		});
-		let o = e[Math.max(0, e.length - c)][0], l = e[e.length - 1][0];
+		}), n.subscribeClick((e) => o(e.hoveredInfo?.objectId ?? e.hoveredObjectId, e.point));
+		let l = e[Math.max(0, e.length - c)][0], u = e[e.length - 1][0];
 		return n.timeScale().setVisibleRange({
-			from: o,
-			to: l
+			from: l,
+			to: u
 		}), () => n.remove();
 	}, [
 		e,
 		t,
-		m,
+		g,
 		c
 	]);
-	let h = u ? m : m.slice(0, 8), g = new Set(t.map((e) => e[0])), _ = m.filter((e) => !g.has(e.date)).length;
+	let _ = u ? g : g.slice(0, 8), v = new Set(t.map((e) => e[0])), y = g.filter((e) => !v.has(e.date)).length;
 	return /* @__PURE__ */ (0, K.jsxs)("div", {
 		className: "trade-chart",
 		children: [
@@ -25835,13 +25855,66 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
 				className: "trade-ohlc",
-				children: f || "移动鼠标或触摸 K 线，查看当日开、高、低、收"
+				children: f || "移动鼠标或触摸 K 线查看行情，悬停或点击买卖标记查看成交价"
 			}),
-			t.length >= 2 ? /* @__PURE__ */ (0, K.jsx)("div", {
-				ref: s,
-				className: "trade-candles",
-				role: "img",
-				"aria-label": `${e} 日K线及成交价格标记，可缩放`
+			t.length >= 2 ? /* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "trade-candle-wrap",
+				children: [/* @__PURE__ */ (0, K.jsx)("div", {
+					ref: s,
+					className: "trade-candles",
+					role: "img",
+					"aria-label": `${e} 日K线及成交价格标记，可缩放`
+				}), m && /* @__PURE__ */ (0, K.jsxs)("div", {
+					className: "trade-tooltip",
+					style: {
+						left: m.x,
+						top: m.y
+					},
+					role: "tooltip",
+					children: [
+						/* @__PURE__ */ (0, K.jsxs)("div", {
+							className: "trade-tooltip-title",
+							children: [/* @__PURE__ */ (0, K.jsx)("b", { children: m.side === "BUY" ? "买入" : "卖出" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [m.date, " · 美东"] })]
+						}),
+						/* @__PURE__ */ (0, K.jsxs)("div", {
+							className: "trade-tooltip-price",
+							children: [
+								"$",
+								m.average.toLocaleString("en-US", {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 4
+								}),
+								" ",
+								/* @__PURE__ */ (0, K.jsx)("small", { children: m.items.length > 1 ? "成交均价" : "成交价格" })
+							]
+						}),
+						/* @__PURE__ */ (0, K.jsxs)("div", {
+							className: "trade-tooltip-meta",
+							children: [
+								m.quantity,
+								" 股 · ",
+								m.items.length,
+								" 笔"
+							]
+						}),
+						m.items.length > 1 && /* @__PURE__ */ (0, K.jsx)("div", {
+							className: "trade-tooltip-items",
+							children: m.items.map((e) => /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsxs)("span", { children: [
+								e.source,
+								" · ",
+								e.quantity,
+								" 股"
+							] }), /* @__PURE__ */ (0, K.jsxs)("b", { children: ["$", e.price.toLocaleString("en-US", {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 4
+							})] })] }, e.id))
+						}),
+						m.items.length === 1 && /* @__PURE__ */ (0, K.jsx)("div", {
+							className: "trade-tooltip-meta",
+							children: m.items[0].source
+						})
+					]
+				})]
 			}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "暂无足够的 K 线数据" }),
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "trade-chart-legend",
@@ -25868,10 +25941,10 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "trade-history-head",
 						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("strong", { children: "实际成交明细" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [
-							m.length,
+							g.length,
 							" 笔 · ",
 							e
-						] })] }), m.length > 8 && /* @__PURE__ */ (0, K.jsx)("button", {
+						] })] }), g.length > 8 && /* @__PURE__ */ (0, K.jsx)("button", {
 							type: "button",
 							onClick: () => d(!u),
 							children: u ? "收起" : "查看全部"
@@ -25883,10 +25956,10 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 							a || "尚未取得成交数据。",
 							" ",
 							o && `读取：${o}。`,
-							_ > 0 && ` ${_} 笔在当前图表日期范围以外，仅在明细显示。`
+							y > 0 && ` ${y} 笔在当前图表日期范围以外，仅在明细显示。`
 						]
 					}),
-					h.length ? /* @__PURE__ */ (0, K.jsx)("div", {
+					_.length ? /* @__PURE__ */ (0, K.jsx)("div", {
 						className: "us-table-wrap",
 						children: /* @__PURE__ */ (0, K.jsxs)("table", { children: [/* @__PURE__ */ (0, K.jsx)("thead", { children: /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "美东成交时间" }),
@@ -25894,7 +25967,7 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "数量" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "成交价" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "账户来源" })
-						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: h.map((e) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: _.map((e) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
 							/* @__PURE__ */ (0, K.jsx)("td", { children: new Date(e.time).toLocaleString("zh-CN", {
 								timeZone: "America/New_York",
 								hour12: !1
