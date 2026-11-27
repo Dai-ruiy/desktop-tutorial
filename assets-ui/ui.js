@@ -25148,7 +25148,7 @@ function I_({ series: e }) {
 function L_() {
 	let [e, t] = D.useState(), [n, r] = D.useState("XLK"), [i, a] = D.useState(250);
 	if (D.useEffect(() => {
-		fetch("./industry-data.json", {cache:"no-store"}).then((e) => {
+		fetch("./industry-data.json", { cache: "no-store" }).then((e) => {
 			if (!e.ok) throw Error();
 			return e.json();
 		}).then((e) => t({
@@ -25323,7 +25323,7 @@ function R_() {
 		try {
 			let n = e.trim();
 			if ((n.startsWith("https:") || n.startsWith("http:")) && (n = new URL(n).hash.slice(1)), !/^[A-Za-z0-9_-]{43}$/.test(n)) throw Error("请输入有效的访问密钥或完整解锁链接");
-			let i = Uint8Array.from(atob(n.replace(/-/g, "+").replace(/_/g, "/") + "="), (e) => e.charCodeAt(0)), o = await crypto.subtle.importKey("raw", i, "AES-GCM", !1, ["decrypt"]), s = await fetch("../portfolio.enc", {cache:"no-store"});
+			let i = Uint8Array.from(atob(n.replace(/-/g, "+").replace(/_/g, "/") + "="), (e) => e.charCodeAt(0)), o = await crypto.subtle.importKey("raw", i, "AES-GCM", !1, ["decrypt"]), s = await fetch("../portfolio.enc", { cache: "no-store" });
 			if (!s.ok) throw Error("加密报告加载失败");
 			let c = Uint8Array.from(atob((await s.text()).trim()), (e) => e.charCodeAt(0)), l = await crypto.subtle.decrypt({
 				name: "AES-GCM",
@@ -25453,12 +25453,48 @@ function R_() {
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "us-panel",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("h2", { children: "重大变化检查" }),
+					/* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: e.reviewStatus?.checkedAt ? `上次检查：${e.reviewStatus.checkedAt} · ${e.reviewStatus.status === "complete" ? "已完成" : e.reviewStatus.status === "partial" ? "部分完成" : "未完成"}` : "尚未完成新版事件检查，不能据此判断没有重大变化。"
+					}),
+					e.reviewStatus?.summary && /* @__PURE__ */ (0, K.jsx)("p", { children: e.reviewStatus.summary }),
+					e.reviewStatus?.events?.map((e, t) => /* @__PURE__ */ (0, K.jsxs)("p", { children: [
+						e.symbol,
+						" · ",
+						e.date,
+						" · ",
+						e.summary,
+						" ",
+						/* @__PURE__ */ (0, K.jsx)("a", {
+							href: e.url,
+							target: "_blank",
+							rel: "noreferrer",
+							children: "查看来源 ↗"
+						})
+					] }, `${e.symbol}-${t}`))
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("section", {
+				className: "us-panel",
 				children: [/* @__PURE__ */ (0, K.jsxs)("div", {
 					className: "us-heading",
-					children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("h2", { children: "股票持仓比较" }), /* @__PURE__ */ (0, K.jsx)("p", {
-						className: "us-muted",
-						children: e.rankCoverage || "综合研究尚未完成，排序待复核。"
-					})] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["排序 ", /* @__PURE__ */ (0, K.jsxs)("select", {
+					children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+						/* @__PURE__ */ (0, K.jsx)("h2", { children: "股票持仓比较" }),
+						/* @__PURE__ */ (0, K.jsx)("p", {
+							className: "us-muted",
+							children: e.rankCoverage || "综合研究尚未完成，排序待复核。"
+						}),
+						/* @__PURE__ */ (0, K.jsxs)("p", {
+							className: "us-muted",
+							children: [
+								"排行上次完整复核：",
+								e.rankAsOf || "未完成",
+								" · 每周复核；重大事件另行复核。行情与持仓更新不代表排行已复核。"
+							]
+						})
+					] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["排序 ", /* @__PURE__ */ (0, K.jsxs)("select", {
 						value: c,
 						onChange: (e) => l(e.target.value),
 						children: [
@@ -25592,9 +25628,13 @@ function R_() {
 						})
 					] }),
 					/* @__PURE__ */ (0, K.jsx)("h3", { children: "估值与现金流参考" }),
-					/* @__PURE__ */ (0, K.jsx)("p", {
+					/* @__PURE__ */ (0, K.jsxs)("p", {
 						className: "us-muted",
-						children: "估值为长桥 2026-11-19 收盘快照，并非当前值。历史分位按最多 36 个逐月正市盈率样本计算，口径、利润变动及异常值会影响比较；不直接转成目标价。"
+						children: [
+							"估值数据日期：",
+							e.valuationAsOf || "2026-11-19（历史快照）",
+							"，不一定是当前估值。历史分位按最多 36 个逐月正市盈率样本计算，口径、利润变动及异常值会影响比较；不直接转成目标价。"
+						]
 					}),
 					x ? /* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-cards",
@@ -25646,9 +25686,13 @@ function R_() {
 						rel: "noreferrer",
 						children: "查看公司财报 ↗"
 					}),
-					/* @__PURE__ */ (0, K.jsx)("p", {
+					/* @__PURE__ */ (0, K.jsxs)("p", {
 						className: "us-muted",
-						children: "研究数据截至 2026-11-20；行情刷新不等同于重新研究。"
+						children: [
+							"个股研究上次复核：",
+							e.researchAsOf?.[v] || (f[v] ? "2026-11-20（历史记录）" : "尚无研究记录"),
+							"；行情刷新不等同于重新研究。"
+						]
 					})
 				]
 			}),
