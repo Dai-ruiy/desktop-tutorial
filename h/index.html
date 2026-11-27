@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-nrs0QuQ/eOZTaerb+TfT9naBm3FnmB6xKphJ7wldn5w='">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-VY50or2B6xpi+437RE8kfDILIC7N0LbYhgirWz2bG9o='">
 <title>A 股持仓地图</title>
 <style>
 :root{color-scheme:light;background:#eef3f4}
@@ -418,12 +418,16 @@ iframe{display:block;width:100%;min-height:100vh;height:100vh;margin:0;border:0;
     const holdings = stack('股票持仓比较'); holdings.id = 'map-stocks';
     const sortLabel=html('label','map-sort'); sortLabel.append(html('span','','排序方式：'));
     const select=html('select'); select.setAttribute('aria-label','股票排序方式');
-    for (const [value,label] of [['holding','最值得持有（历史研究）'],['risk','风险复核（非减仓排序）'],['change','当日涨跌从高到低']]) {const o=html('option','',label);o.value=value;select.append(o);}
-    select.value=sortMode;select.addEventListener('change',()=>{sortMode=select.value;render(); report.querySelector('select[aria-label="股票排序方式"]').focus();});sortLabel.append(select);
-    holdings.append(sortLabel,html('p','map-meta',sortMode === 'holding' ? '依据截至' + (payload.researchDate || payload.snapshotDate) + '的三季报与收盘快照，面向2–3年持有，综合经营质量、盈利与现金流、增长持续性、估值及风险作主观比较；不使用持仓数量、成本、占比或当日涨跌作为排序依据。已参考历史估值及部分同行；业务不完全可比，情景含主观假设，不代表买卖指令。' : '风险复核先列账户信息缺口，再显示既有研究线索；不是减仓排序，账户和现金不完整，不能计算减仓数量。'));
+    const modes=[['holding','长期持有价值 · 历史研究'],['risk','账户与风险复核'],['support','距近期低点'],['drawdown','距120日高点']];
+    for(const [value,label] of modes){const o=html('option','',label);o.value=value;select.append(o)}
+    select.value=sortMode;select.addEventListener('change',()=>{sortMode=select.value;render();report.querySelector('select[aria-label="股票排序方式"]').focus()});sortLabel.append(select);
+    const descriptions={holding:'研究于 '+(payload.researchDate||'日期待核')+'：比较经营、盈利、成长、估值与风险，不以持仓占比排名。',risk:'账户信息缺口优先，经营风险沿用历史研究；不构成减仓排序。',support:'按截至 '+payload.snapshotDate+' 收盘价与前20个交易日最低价的距离排序；已跌破单独标识。',drawdown:'按截至 '+payload.snapshotDate+' 收盘价相对最近120个交易日最高价的跌幅排序，采用前复权日线。'};
+    holdings.append(sortLabel,html('p','map-meta',descriptions[sortMode]));
+    const sortDetails=html('details','a-disclosure');sortDetails.append(html('summary','','查看计算口径与限制'),html('p','map-meta','距近期低点＝（收盘价−前20日最低价）÷收盘价；距120日高点＝收盘价÷近120日最高价−1。低点、高点只是历史观察位，不是买卖指令。风险与买入判断需结合最新财报、估值和完整账户；数据不足时不生成精确加减仓建议。'));holdings.append(sortDetails);
+    function observation(s){if(sortMode==='support'){let low=s.technical?.low;if(!Number.isFinite(low)||!Number.isFinite(s.price)||s.price<=0)return null;let d=(s.price-low)/s.price*100;return {value:Math.abs(d),label:(d<0?'已跌破 ':'距低点 ')+Math.abs(d).toFixed(1)+'% · '+yuan(low)+' 元',basis:'前20日最低 '+(s.technical.lowDate||'日期待核')+'；'+payload.snapshotDate+' 收盘，前复权'}}if(sortMode==='drawdown'){let bars=(payload.history[s.symbol]||[]).slice(-120);if(bars.length<120||!Number.isFinite(s.price)||s.price<=0)return null;let high=Math.max(...bars.map(b=>b[2]));if(!Number.isFinite(high)||high<=0)return null;let d=(s.price/high-1)*100;return {value:d,label:d.toFixed(1)+'% · 高点 '+yuan(high)+' 元',basis:'120个交易日最高价，'+bars[0][0]+' 至 '+bars.at(-1)[0]+'，前复权'}}return null}
     const rows=payload.stocks.map((s,i)=>({s,i}));
-    rows.sort((a,b)=>sortMode==='change'?(b.s.price/b.s.prev)-(a.s.price/a.s.prev):sortMode==='risk'?((['unknown','ordinary_partial'].includes(b.s.quantityScope)?1:0)-(['unknown','ordinary_partial'].includes(a.s.quantityScope)?1:0)||a.s.holdingRank-b.s.holdingRank):a.s.holdingRank-b.s.holdingRank);
-    holdings.append(table(['股票','收盘价（元）','当日涨跌','持仓确认','研究提示'],rows.map(({s,i})=>[button(s.name,()=>choose(i,true)),yuan(s.price),((s.price/s.prev-1)*100).toFixed(2)+'%',s.positionNote||'待确认',sortMode==='holding' ? s.holdingRank + ' · ' + s.tag : s.holdingReason])));
+    rows.sort((a,b)=>{if(sortMode==='risk')return (['unknown','ordinary_partial'].includes(b.s.quantityScope)?1:0)-(['unknown','ordinary_partial'].includes(a.s.quantityScope)?1:0)||a.s.holdingRank-b.s.holdingRank;if(sortMode==='support'||sortMode==='drawdown'){const x=observation(a.s),y=observation(b.s);return x&&y?x.value-y.value:x?-1:y?1:0}return a.s.holdingRank-b.s.holdingRank});
+    holdings.append(table(['排名','股票','收盘价（元）','当前视角','依据'],rows.map(({s,i},index)=>{const ob=observation(s),position=html('details','a-disclosure');position.append(html('summary','',sortMode==='risk'&&['unknown','ordinary_partial'].includes(s.quantityScope)?'账户待核':'查看详情'),html('p','map-meta',s.positionNote||'账户待核'));if(ob)position.append(html('p','map-meta',ob.basis));position.append(html('p','map-meta',s.holdingReason||'研究待核验'));const rank=sortMode==='holding'?String(s.holdingRank):sortMode==='support'||sortMode==='drawdown'?(ob?String(index+1):'—'):'—';const view=sortMode==='holding'?s.tag:sortMode==='risk'?(['unknown','ordinary_partial'].includes(s.quantityScope)?'账户信息待核':s.tag):ob?.label||'待核验';return [rank,button(s.name+'（'+s.symbol.slice(0,6)+'）',()=>choose(i,true)),yuan(s.price),view,position]})));
     const etfs = stack('基金持仓与持有价值排行');
     etfs.id = 'map-etfs';
     etfs.append(html('p','', '按照2–3年持有视角，综合基金定位、分散程度、风险、重复敞口和长期适配度做主观排序；不按持仓金额或近期涨跌排名。不同资产承担不同角色，排序不代表预期收益或买卖指令。'));
