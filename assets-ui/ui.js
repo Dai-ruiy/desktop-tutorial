@@ -25569,10 +25569,6 @@ function R_() {
 									children: "已知持仓市值"
 								}),
 								/* @__PURE__ */ (0, K.jsx)("option", {
-									value: "name",
-									children: "名称"
-								}),
-								/* @__PURE__ */ (0, K.jsx)("option", {
 									value: "buy",
 									children: "当前买入性价比"
 								}),
@@ -25615,7 +25611,11 @@ function R_() {
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "研究建议" }),
 							y.includes(c) && /* @__PURE__ */ (0, K.jsx)("th", { children: "排序依据" })
 						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: g.map((t, n) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
-							/* @__PURE__ */ (0, K.jsx)("td", { children: c === "rank" ? e.comparison?.[t.symbol]?.rank || "—" : y.includes(c) ? v(t) ? n + 1 : "—" : n + 1 }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: c === "rank" ? e.comparison?.[t.symbol]?.rank || "—" : y.includes(c) ? v(t) ? [
+								"buy",
+								"add",
+								"risk"
+							].includes(c) ? e.sortResearch?.[t.symbol]?.[c]?.value : n + 1 : "—" : n + 1 }),
 							/* @__PURE__ */ (0, K.jsx)("td", { children: /* @__PURE__ */ (0, K.jsxs)("button", {
 								className: "us-link",
 								onClick: () => s(t.symbol),
@@ -25777,6 +25777,24 @@ function R_() {
 							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue")?.yoy ? F_(Number(E("operating_revenue").yoy) * 100) : "待核验" })] })
 						]
 					})] }) : /* @__PURE__ */ (0, K.jsx)("p", { children: "财报摘要待核验。" }),
+					/* @__PURE__ */ (0, K.jsx)("h3", { children: "历史估值、同行与事件复核" }),
+					e.audit?.[b] ? /* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-note",
+						children: [
+							/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].history }),
+							/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].peers }),
+							/* @__PURE__ */ (0, K.jsxs)("p", { children: [
+								e.audit[b].event,
+								" ",
+								e.audit[b].eventUrl && /* @__PURE__ */ (0, K.jsx)("a", {
+									href: e.audit[b].eventUrl,
+									target: "_blank",
+									rel: "noreferrer",
+									children: "查看披露 ↗"
+								})
+							] })
+						]
+					}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "逐项核验待完成。" }),
 					/* @__PURE__ */ (0, K.jsx)("h3", { children: "研究线索" }),
 					/* @__PURE__ */ (0, K.jsx)("p", { children: f[b]?.text || "当前尚未完成最新财报、历史估值及同行比较，暂不提供个股结论。" }),
 					f[b]?.url && /* @__PURE__ */ (0, K.jsx)("a", {
