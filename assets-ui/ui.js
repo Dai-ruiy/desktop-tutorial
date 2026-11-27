@@ -25411,8 +25411,68 @@ function R_() {
 		account: "观察",
 		price: Number(p.CRM?.last_done) || void 0
 	};
-	g.some((e) => e.symbol === "CRM") || g.push(_), c === "rank" ? g.sort((t, n) => (e.comparison?.[t.symbol]?.rank || 999) - (e.comparison?.[n.symbol]?.rank || 999)) : c === "value" ? g.sort((e, t) => (t.price || 0) * (t.quantity || 0) - (e.price || 0) * (e.quantity || 0)) : g.sort((e, t) => e.name.localeCompare(t.name, "zh"));
-	let v = g.some((e) => e.symbol === o) || o === "CRM" ? o : g[0]?.symbol || "CRM", y = e.history[v] || [], b = p[v], x = e.valuationData?.[v], S = (e) => x?.cash?.fields.find((t) => t.field === e)?.value, C = e.financialReports?.[v], w = (e) => C?.indicators.find((t) => t.field_name === e), T = y.slice(-20), E = T.length >= 20 ? Math.min(...T.map((e) => e[3])) : null, O = T.length >= 20 ? Math.max(...T.map((e) => e[2])) : null, k = e.ibkrBalances.balances.find((e) => e.currency === "USD");
+	g.some((e) => e.symbol === "CRM") || g.push(_);
+	let v = (t) => {
+		let n = e.sortResearch?.[t.symbol]?.[c];
+		if ([
+			"buy",
+			"add",
+			"risk",
+			"support"
+		].includes(c)) {
+			if (!n || !Number.isFinite(n.value) || !n.asOf || !n.basis) return null;
+			if (c === "support") {
+				if (!t.price || n.value <= 0) return null;
+				let e = (t.price - n.value) / n.value * 100;
+				return {
+					value: Math.abs(e),
+					label: `$${n.value.toFixed(2)} · ${e >= 0 ? "高于" : "低于"}支撑 ${Math.abs(e).toFixed(1)}% · ${n.asOf} · ${n.basis}`
+				};
+			}
+			return {
+				value: n.value,
+				label: `第 ${n.value} 位 · ${n.asOf} · ${n.basis}`
+			};
+		}
+		if (c === "drawdown") {
+			let n = e.oneYear?.[t.symbol];
+			if (!n || n.count < 200 || Date.parse(n.last.slice(0, 10)) - Date.parse(n.first.slice(0, 10)) < 30672e6 || n.last.slice(0, 10) !== e.historyAsOf || !Number(n.high) || !Number(n.close)) return null;
+			let r = (Number(n.close) / Number(n.high) - 1) * 100;
+			return {
+				value: r,
+				label: `${r.toFixed(1)}% · 高点 $${Number(n.high).toFixed(2)}（${n.highDate.slice(0, 10)}） · ${n.last.slice(0, 10)} 收盘`
+			};
+		}
+		if (c === "pnl") {
+			if (t.account === "观察" || t.quantity === null || !t.price) return null;
+			let n = [...e.ibkr.positions.filter((e) => e.currency === "USD" && e.contract_description === t.symbol).map((e) => ({
+				qty: Number(e.position),
+				cost: Number(e.average_price)
+			})), ...e.longbridge.list.flatMap((e) => e.stock_info).filter((e) => e.market === "US" && e.symbol.replace(".US", "") === t.symbol).map((e) => ({
+				qty: Number(e.quantity),
+				cost: Number(e.cost_price)
+			}))];
+			if ((e.extraHoldings || []).some((e) => e.symbol === t.symbol) || !n.length || n.some((e) => !Number.isFinite(e.cost) || e.cost <= 0 || !Number.isFinite(e.qty) || e.qty <= 0) || n.reduce((e, t) => e + t.qty, 0) !== t.quantity) return null;
+			let r = n.reduce((e, t) => e + t.qty * t.cost, 0) / t.quantity;
+			return {
+				value: (t.price / r - 1) * 100,
+				label: `${((t.price / r - 1) * 100).toFixed(1)}% · 加权成本 $${r.toFixed(2)} · 快照 ${e.asOf}（不含费用）`
+			};
+		}
+		return null;
+	}, y = [
+		"buy",
+		"add",
+		"risk",
+		"support",
+		"drawdown",
+		"pnl"
+	];
+	c === "rank" ? g.sort((t, n) => (e.comparison?.[t.symbol]?.rank || 999) - (e.comparison?.[n.symbol]?.rank || 999)) : c === "value" ? g.sort((e, t) => (t.price || 0) * (t.quantity || 0) - (e.price || 0) * (e.quantity || 0)) : y.includes(c) ? g.sort((e, t) => {
+		let n = v(e), r = v(t);
+		return !n && !r ? e.name.localeCompare(t.name, "zh") : n ? r ? c === "pnl" ? r.value - n.value : n.value - r.value : -1 : 1;
+	}) : g.sort((e, t) => e.name.localeCompare(t.name, "zh"));
+	let b = g.some((e) => e.symbol === o) || o === "CRM" ? o : g[0]?.symbol || "CRM", x = e.history[b] || [], S = p[b], C = e.valuationData?.[b], w = (e) => C?.cash?.fields.find((t) => t.field === e)?.value, T = e.financialReports?.[b], E = (e) => T?.indicators.find((t) => t.field_name === e), O = x.slice(-20), k = O.length >= 20 ? Math.min(...O.map((e) => e[3])) : null, A = O.length >= 20 ? Math.max(...O.map((e) => e[2])) : null, j = e.ibkrBalances.balances.find((e) => e.currency === "USD");
 	return /* @__PURE__ */ (0, K.jsxs)("main", {
 		className: "us-main",
 		children: [
@@ -25442,7 +25502,7 @@ function R_() {
 					/* @__PURE__ */ (0, K.jsx)("h2", { children: "组合概览" }),
 					/* @__PURE__ */ (0, K.jsxs)("p", { children: [
 						"盈透美元现金：",
-						k ? `$${Number(k.cash_balance).toFixed(2)}` : "未取得",
+						j ? `$${Number(j.cash_balance).toFixed(2)}` : "未取得",
 						"。现金为负时需核对融资；未覆盖所有账户，不能推算全资产现金比例。"
 					] }),
 					/* @__PURE__ */ (0, K.jsx)("p", {
@@ -25478,70 +25538,103 @@ function R_() {
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "us-panel",
-				children: [/* @__PURE__ */ (0, K.jsxs)("div", {
-					className: "us-heading",
-					children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, K.jsx)("h2", { children: "股票持仓比较" }),
-						/* @__PURE__ */ (0, K.jsx)("p", {
-							className: "us-muted",
-							children: e.rankCoverage || "综合研究尚未完成，排序待复核。"
-						}),
-						/* @__PURE__ */ (0, K.jsxs)("p", {
-							className: "us-muted",
-							children: [
-								"排行复核日期：",
-								e.rankAsOf || "未完成",
-								e.rankStatus === "partial" ? "（部分复核，存在数据缺口）" : e.rankStatus === "complete" ? "（完整覆盖）" : "（历史记录）",
-								" · 每周复核；重大事件另行复核。行情与持仓更新不代表排行已复核。"
-							]
-						})
-					] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["排序 ", /* @__PURE__ */ (0, K.jsxs)("select", {
-						value: c,
-						onChange: (e) => l(e.target.value),
-						children: [
-							/* @__PURE__ */ (0, K.jsx)("option", {
-								value: "rank",
-								children: "最值得持有（初步综合）"
+				children: [
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-heading",
+						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+							/* @__PURE__ */ (0, K.jsx)("h2", { children: "股票持仓比较" }),
+							/* @__PURE__ */ (0, K.jsx)("p", {
+								className: "us-muted",
+								children: e.rankCoverage || "综合研究尚未完成，排序待复核。"
 							}),
-							/* @__PURE__ */ (0, K.jsx)("option", {
-								value: "value",
-								children: "已知持仓市值"
-							}),
-							/* @__PURE__ */ (0, K.jsx)("option", {
-								value: "name",
-								children: "名称"
+							/* @__PURE__ */ (0, K.jsxs)("p", {
+								className: "us-muted",
+								children: [
+									"排行复核日期：",
+									e.rankAsOf || "未完成",
+									e.rankStatus === "partial" ? "（部分复核，存在数据缺口）" : e.rankStatus === "complete" ? "（完整覆盖）" : "（历史记录）",
+									" · 每周复核；重大事件另行复核。行情与持仓更新不代表排行已复核。"
+								]
 							})
-						]
-					})] })]
-				}), /* @__PURE__ */ (0, K.jsx)("div", {
-					className: "us-table-wrap",
-					children: /* @__PURE__ */ (0, K.jsxs)("table", { children: [/* @__PURE__ */ (0, K.jsx)("thead", { children: /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
-						/* @__PURE__ */ (0, K.jsx)("th", { children: "排名" }),
-						/* @__PURE__ */ (0, K.jsx)("th", { children: "股票" }),
-						/* @__PURE__ */ (0, K.jsx)("th", { children: "账户" }),
-						/* @__PURE__ */ (0, K.jsx)("th", { children: "数量" }),
-						/* @__PURE__ */ (0, K.jsx)("th", { children: "参考价" }),
-						/* @__PURE__ */ (0, K.jsx)("th", { children: "市值参考" }),
-						/* @__PURE__ */ (0, K.jsx)("th", { children: "研究建议" })
-					] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: g.map((t) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
-						/* @__PURE__ */ (0, K.jsx)("td", { children: e.comparison?.[t.symbol]?.rank || "—" }),
-						/* @__PURE__ */ (0, K.jsx)("td", { children: /* @__PURE__ */ (0, K.jsxs)("button", {
-							className: "us-link",
-							onClick: () => s(t.symbol),
+						] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["排序 ", /* @__PURE__ */ (0, K.jsxs)("select", {
+							value: c,
+							onChange: (e) => l(e.target.value),
 							children: [
-								t.name,
-								"（",
-								t.symbol,
-								"）"
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "rank",
+									children: "最值得持有（初步综合）"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "value",
+									children: "已知持仓市值"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "name",
+									children: "名称"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "buy",
+									children: "当前买入性价比"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "add",
+									children: "加仓优先级"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "risk",
+									children: "风险复核优先级"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "support",
+									children: "距离近期支撑位"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "drawdown",
+									children: "距一年高点回撤"
+								}),
+								/* @__PURE__ */ (0, K.jsx)("option", {
+									value: "pnl",
+									children: "持仓盈亏比例"
+								})
 							]
-						}) }),
-						/* @__PURE__ */ (0, K.jsx)("td", { children: t.account }),
-						/* @__PURE__ */ (0, K.jsx)("td", { children: t.quantity === null ? t.account === "观察" ? "—" : "未知" : t.quantity }),
-						/* @__PURE__ */ (0, K.jsx)("td", { children: t.price ? `$${t.price.toFixed(2)}` : "待核验" }),
-						/* @__PURE__ */ (0, K.jsx)("td", { children: t.price && t.quantity !== null ? `$${(t.price * t.quantity).toFixed(2)}` : t.account === "观察" ? "—" : "待核验" }),
-						/* @__PURE__ */ (0, K.jsx)("td", { children: e.comparison?.[t.symbol]?.action || "待复核" })
-					] }, t.symbol)) })] })
-				})]
+						})] })]
+					}),
+					y.includes(c) && /* @__PURE__ */ (0, K.jsx)("p", {
+						className: "us-muted",
+						children: c === "drawdown" ? "按前复权日线的过去一年盘中最高价与截至日收盘价计算，回撤越深越靠前；数据不足一年则待核验。" : c === "pnl" ? "按已知账户成本加权计算，仅覆盖已核验成本的完整持仓，不含交易费用；未覆盖账户不参与。" : c === "support" ? "按距已复核支撑价的绝对距离排序，跌破支撑也会注明；支撑不是买入指令。" : "仅展示有来源、日期和独立复核依据的排序；缺少数据列为待核验。"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("div", {
+						className: "us-table-wrap",
+						children: /* @__PURE__ */ (0, K.jsxs)("table", { children: [/* @__PURE__ */ (0, K.jsx)("thead", { children: /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "排名" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "股票" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "账户" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "数量" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "参考价" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "市值参考" }),
+							/* @__PURE__ */ (0, K.jsx)("th", { children: "研究建议" }),
+							y.includes(c) && /* @__PURE__ */ (0, K.jsx)("th", { children: "排序依据" })
+						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: g.map((t, n) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+							/* @__PURE__ */ (0, K.jsx)("td", { children: c === "rank" ? e.comparison?.[t.symbol]?.rank || "—" : y.includes(c) ? v(t) ? n + 1 : "—" : n + 1 }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: /* @__PURE__ */ (0, K.jsxs)("button", {
+								className: "us-link",
+								onClick: () => s(t.symbol),
+								children: [
+									t.name,
+									"（",
+									t.symbol,
+									"）"
+								]
+							}) }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: t.account }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: t.quantity === null ? t.account === "观察" ? "—" : "未知" : t.quantity }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: t.price ? `$${t.price.toFixed(2)}` : "待核验" }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: t.price && t.quantity !== null ? `$${(t.price * t.quantity).toFixed(2)}` : t.account === "观察" ? "—" : "待核验" }),
+							/* @__PURE__ */ (0, K.jsx)("td", { children: e.comparison?.[t.symbol]?.action || "待复核" }),
+							y.includes(c) && /* @__PURE__ */ (0, K.jsx)("td", { children: v(t)?.label || "待核验" })
+						] }, t.symbol)) })] })
+					})
+				]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "us-panel",
@@ -25554,17 +25647,17 @@ function R_() {
 								children: "STOCK DETAIL"
 							}),
 							/* @__PURE__ */ (0, K.jsxs)("h2", { children: [
-								d[v] || v,
+								d[b] || b,
 								"（",
-								v,
+								b,
 								"）"
 							] }),
 							/* @__PURE__ */ (0, K.jsx)("p", {
 								className: "us-muted",
-								children: v === "CRM" ? "观察标的，非持仓" : "选择上方股票查看"
+								children: b === "CRM" ? "观察标的，非持仓" : "选择上方股票查看"
 							})
 						] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["个股 ", /* @__PURE__ */ (0, K.jsx)("select", {
-							value: v,
+							value: b,
 							onChange: (e) => s(e.target.value),
 							children: g.map((e) => e.symbol).map((e) => /* @__PURE__ */ (0, K.jsxs)("option", {
 								value: e,
@@ -25577,13 +25670,13 @@ function R_() {
 							}, e))
 						})] })]
 					}),
-					/* @__PURE__ */ (0, K.jsxs)("p", { children: ["参考价：", b ? `$${Number(b.last_done).toFixed(2)} · ${b.timestamp}（美东，${b.session === "regular_close" ? "收盘" : "盘中"}）` : "待核验"] }),
-					/* @__PURE__ */ (0, K.jsx)(I_, { series: y.map((e) => [e[0], e[4]]) }),
+					/* @__PURE__ */ (0, K.jsxs)("p", { children: ["参考价：", S ? `$${Number(S.last_done).toFixed(2)} · ${S.timestamp}（美东，${S.session === "regular_close" ? "收盘" : "盘中"}）` : "待核验"] }),
+					/* @__PURE__ */ (0, K.jsx)(I_, { series: x.map((e) => [e[0], e[4]]) }),
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-cards",
 						children: [
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最低价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E === null ? "待核验" : `$${E.toFixed(2)}` })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最高价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: O === null ? "待核验" : `$${O.toFixed(2)}` })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最低价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: k === null ? "待核验" : `$${k.toFixed(2)}` })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最高价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: A === null ? "待核验" : `$${A.toFixed(2)}` })] }),
 							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "估值情景" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: "待研究" })] })
 						]
 					}),
@@ -25595,24 +25688,24 @@ function R_() {
 							"，是观察参考，不保证构成支撑或压力；盘中价格可能已突破。具体加减仓需要估值、账户风险与持仓数据共同验证。"
 						]
 					}),
-					e.valuationIssues?.[v] && /* @__PURE__ */ (0, K.jsxs)("div", {
+					e.valuationIssues?.[b] && /* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-note",
-						children: [/* @__PURE__ */ (0, K.jsx)("b", { children: "估值数据待核验：" }), e.valuationIssues[v]]
+						children: [/* @__PURE__ */ (0, K.jsx)("b", { children: "估值数据待核验：" }), e.valuationIssues[b]]
 					}),
-					e.institution?.[v] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
+					e.institution?.[b] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
 						/* @__PURE__ */ (0, K.jsx)("h3", { children: "机构持仓线索" }),
-						/* @__PURE__ */ (0, K.jsx)("p", { children: e.institution[v].text }),
+						/* @__PURE__ */ (0, K.jsx)("p", { children: e.institution[b].text }),
 						/* @__PURE__ */ (0, K.jsx)("a", {
-							href: e.institution[v].url,
+							href: e.institution[b].url,
 							target: "_blank",
 							rel: "noreferrer",
 							children: "查看第三方申报整理 ↗"
 						})
 					] }),
-					e.comparison?.[v] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
+					e.comparison?.[b] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "us-note",
-							children: [/* @__PURE__ */ (0, K.jsxs)("b", { children: [e.comparison[v].action, "："] }), e.comparison[v].reason]
+							children: [/* @__PURE__ */ (0, K.jsxs)("b", { children: [e.comparison[b].action, "："] }), e.comparison[b].reason]
 						}),
 						/* @__PURE__ */ (0, K.jsx)("h3", { children: "经营与估值情景" }),
 						/* @__PURE__ */ (0, K.jsx)("p", {
@@ -25622,9 +25715,9 @@ function R_() {
 						/* @__PURE__ */ (0, K.jsx)("div", {
 							className: "us-cards",
 							children: [
-								["保守", e.comparison[v].bear],
-								["基准", e.comparison[v].base],
-								["乐观", e.comparison[v].bull]
+								["保守", e.comparison[b].bear],
+								["基准", e.comparison[b].base],
+								["乐观", e.comparison[b].bull]
 							].map(([e, t]) => /* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: e }), /* @__PURE__ */ (0, K.jsx)("p", { children: t })] }, e))
 						})
 					] }),
@@ -25637,52 +25730,52 @@ function R_() {
 							"，不一定是当前估值。历史分位按最多 36 个逐月正市盈率样本计算，口径、利润变动及异常值会影响比较；不直接转成目标价。"
 						]
 					}),
-					x ? /* @__PURE__ */ (0, K.jsxs)("div", {
+					C ? /* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-cards",
 						children: [
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "收盘市盈率参考" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: x.pe !== null && x.pe > 0 ? `${x.pe.toFixed(1)} 倍` : "亏损或不适用" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "收盘市盈率参考" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: C.pe !== null && C.pe > 0 ? `${C.pe.toFixed(1)} 倍` : "亏损或不适用" })] }),
 							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: [
 								"历史中位数 · ",
-								x.historical?.count || 0,
+								C.historical?.count || 0,
 								" 个有效样本"
-							] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: x.historical ? `${x.historical.median.toFixed(1)} 倍` : "样本不足或不适用" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: ["最近财年经营现金流 · ", x.cash?.fp_end || "日期未知"] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: S("cash_oper") ? `$${(Number(S("cash_oper")) / 1e9).toFixed(2)} 十亿` : "待核验" })] })
+							] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: C.historical ? `${C.historical.median.toFixed(1)} 倍` : "样本不足或不适用" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: ["最近财年经营现金流 · ", C.cash?.fp_end || "日期未知"] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("cash_oper") ? `$${(Number(w("cash_oper")) / 1e9).toFixed(2)} 十亿` : "待核验" })] })
 						]
 					}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "估值数据待核验。" }),
 					/* @__PURE__ */ (0, K.jsx)("p", {
 						className: "us-muted",
 						children: "历史估值与利润口径未全部逐项复核，部分接口存在冲突；经营现金流不等于自由现金流，未单独覆盖资本化软件或税收异常，不作为排序唯一依据。"
 					}),
-					S("stock_based_cf") && /* @__PURE__ */ (0, K.jsxs)("p", {
+					w("stock_based_cf") && /* @__PURE__ */ (0, K.jsxs)("p", {
 						className: "us-muted",
 						children: [
 							"同财年现金流量表中的股权激励费用：$",
-							(Number(S("stock_based_cf")) / 1e9).toFixed(2),
+							(Number(w("stock_based_cf")) / 1e9).toFixed(2),
 							" 十亿美元；它是非现金调整，不应简单视为当期现金支出，但需评估股本稀释与回购成本。"
 						]
 					}),
-					e.cashWarnings?.[v] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: e.cashWarnings[v].text }), /* @__PURE__ */ (0, K.jsx)("a", {
-						href: e.cashWarnings[v].url,
+					e.cashWarnings?.[b] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: e.cashWarnings[b].text }), /* @__PURE__ */ (0, K.jsx)("a", {
+						href: e.cashWarnings[b].url,
 						target: "_blank",
 						rel: "noreferrer",
 						children: "核对公司现金流披露 ↗"
 					})] }),
 					/* @__PURE__ */ (0, K.jsx)("h3", { children: "财报数据" }),
-					C ? /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsxs)("p", {
+					T ? /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsxs)("p", {
 						className: "us-muted",
-						children: [C.report_txt, " · 长桥财务摘要，部分为财年累计数据；以下为研究线索，重要指标须回查公司财报。"]
+						children: [T.report_txt, " · 长桥财务摘要，部分为财年累计数据；以下为研究线索，重要指标须回查公司财报。"]
 					}), /* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-cards",
 						children: [
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("operating_revenue") ? Number(w("operating_revenue").indicator_value).toLocaleString("en-US") : "待核验" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "净利润（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("net_profit") ? Number(w("net_profit").indicator_value).toLocaleString("en-US") : "待核验" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("operating_revenue")?.yoy ? F_(Number(w("operating_revenue").yoy) * 100) : "待核验" })] })
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue") ? Number(E("operating_revenue").indicator_value).toLocaleString("en-US") : "待核验" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "净利润（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("net_profit") ? Number(E("net_profit").indicator_value).toLocaleString("en-US") : "待核验" })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue")?.yoy ? F_(Number(E("operating_revenue").yoy) * 100) : "待核验" })] })
 						]
 					})] }) : /* @__PURE__ */ (0, K.jsx)("p", { children: "财报摘要待核验。" }),
 					/* @__PURE__ */ (0, K.jsx)("h3", { children: "研究线索" }),
-					/* @__PURE__ */ (0, K.jsx)("p", { children: f[v]?.text || "当前尚未完成最新财报、历史估值及同行比较，暂不提供个股结论。" }),
-					f[v]?.url && /* @__PURE__ */ (0, K.jsx)("a", {
-						href: f[v].url,
+					/* @__PURE__ */ (0, K.jsx)("p", { children: f[b]?.text || "当前尚未完成最新财报、历史估值及同行比较，暂不提供个股结论。" }),
+					f[b]?.url && /* @__PURE__ */ (0, K.jsx)("a", {
+						href: f[b].url,
 						target: "_blank",
 						rel: "noreferrer",
 						children: "查看公司财报 ↗"
@@ -25691,7 +25784,7 @@ function R_() {
 						className: "us-muted",
 						children: [
 							"个股研究上次复核：",
-							e.researchAsOf?.[v] || (f[v] ? "2026-11-20（历史记录）" : "尚无研究记录"),
+							e.researchAsOf?.[b] || (f[b] ? "2026-11-20（历史记录）" : "尚无研究记录"),
 							"；行情刷新不等同于重新研究。"
 						]
 					})
