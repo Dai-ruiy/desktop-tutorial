@@ -12785,2510 +12785,7 @@ var ha = (e) => typeof e == "boolean" ? `${e}` : e === 0 ? "0" : e, ga = ma, _a 
 				"mr",
 				"mb",
 				"ml"
-			],
-			mx: [
-				"ms",
-				"me",
-				"mr",
-				"ml"
-			],
-			my: [
-				"mbs",
-				"mbe",
-				"mt",
-				"mb"
-			],
-			size: ["w", "h"],
-			"font-size": ["leading"],
-			"fvn-normal": [
-				"fvn-ordinal",
-				"fvn-slashed-zero",
-				"fvn-figure",
-				"fvn-spacing",
-				"fvn-fraction"
-			],
-			"fvn-ordinal": ["fvn-normal"],
-			"fvn-slashed-zero": ["fvn-normal"],
-			"fvn-figure": ["fvn-normal"],
-			"fvn-spacing": ["fvn-normal"],
-			"fvn-fraction": ["fvn-normal"],
-			"line-clamp": ["display", "overflow"],
-			rounded: [
-				"rounded-s",
-				"rounded-e",
-				"rounded-t",
-				"rounded-r",
-				"rounded-b",
-				"rounded-l",
-				"rounded-ss",
-				"rounded-se",
-				"rounded-ee",
-				"rounded-es",
-				"rounded-tl",
-				"rounded-tr",
-				"rounded-br",
-				"rounded-bl"
-			],
-			"rounded-s": ["rounded-ss", "rounded-es"],
-			"rounded-e": ["rounded-se", "rounded-ee"],
-			"rounded-t": ["rounded-tl", "rounded-tr"],
-			"rounded-r": ["rounded-tr", "rounded-br"],
-			"rounded-b": ["rounded-br", "rounded-bl"],
-			"rounded-l": ["rounded-tl", "rounded-bl"],
-			"border-spacing": ["border-spacing-x", "border-spacing-y"],
-			"border-w": [
-				"border-w-x",
-				"border-w-y",
-				"border-w-s",
-				"border-w-e",
-				"border-w-bs",
-				"border-w-be",
-				"border-w-t",
-				"border-w-r",
-				"border-w-b",
-				"border-w-l"
-			],
-			"border-w-x": [
-				"border-w-s",
-				"border-w-e",
-				"border-w-r",
-				"border-w-l"
-			],
-			"border-w-y": [
-				"border-w-bs",
-				"border-w-be",
-				"border-w-t",
-				"border-w-b"
-			],
-			"border-color": [
-				"border-color-x",
-				"border-color-y",
-				"border-color-s",
-				"border-color-e",
-				"border-color-bs",
-				"border-color-be",
-				"border-color-t",
-				"border-color-r",
-				"border-color-b",
-				"border-color-l"
-			],
-			"border-color-x": [
-				"border-color-s",
-				"border-color-e",
-				"border-color-r",
-				"border-color-l"
-			],
-			"border-color-y": [
-				"border-color-bs",
-				"border-color-be",
-				"border-color-t",
-				"border-color-b"
-			],
-			translate: [
-				"translate-x",
-				"translate-y",
-				"translate-none"
-			],
-			"translate-none": [
-				"translate",
-				"translate-x",
-				"translate-y",
-				"translate-z"
-			],
-			"scroll-m": [
-				"scroll-mx",
-				"scroll-my",
-				"scroll-ms",
-				"scroll-me",
-				"scroll-mbs",
-				"scroll-mbe",
-				"scroll-mt",
-				"scroll-mr",
-				"scroll-mb",
-				"scroll-ml"
-			],
-			"scroll-mx": [
-				"scroll-ms",
-				"scroll-me",
-				"scroll-mr",
-				"scroll-ml"
-			],
-			"scroll-my": [
-				"scroll-mbs",
-				"scroll-mbe",
-				"scroll-mt",
-				"scroll-mb"
-			],
-			"scroll-p": [
-				"scroll-px",
-				"scroll-py",
-				"scroll-ps",
-				"scroll-pe",
-				"scroll-pbs",
-				"scroll-pbe",
-				"scroll-pt",
-				"scroll-pr",
-				"scroll-pb",
-				"scroll-pl"
-			],
-			"scroll-px": [
-				"scroll-ps",
-				"scroll-pe",
-				"scroll-pr",
-				"scroll-pl"
-			],
-			"scroll-py": [
-				"scroll-pbs",
-				"scroll-pbe",
-				"scroll-pt",
-				"scroll-pb"
-			],
-			touch: [
-				"touch-x",
-				"touch-y",
-				"touch-pz"
-			],
-			"touch-x": ["touch"],
-			"touch-y": ["touch"],
-			"touch-pz": ["touch"]
-		},
-		conflictingClassGroupModifiers: { "font-size": ["leading"] },
-		postfixLookupClassGroups: ["container-type"],
-		orderSensitiveModifiers: [
-			"*",
-			"**",
-			"after",
-			"backdrop",
-			"before",
-			"details-content",
-			"file",
-			"first-letter",
-			"first-line",
-			"marker",
-			"placeholder",
-			"selection"
-		]
-	};
-});
-// src/lib/utils.ts
-function Uo(...e) {
-	return Ho(ma(e));
-}
-// src/components/ui/tabs.tsx
-function Wo({ className: e, orientation: t = "horizontal", ...n }) {
-	return /* @__PURE__ */ (0, K.jsx)(jt, {
-		"data-slot": "tabs",
-		"data-orientation": t,
-		className: Uo("group/tabs flex gap-2 data-horizontal:flex-col", e),
-		...n
-	});
-}
-var Go = _a("group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-horizontal/tabs:h-8 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none", {
-	variants: { variant: {
-		default: "bg-muted",
-		line: "gap-1 bg-transparent"
-	} },
-	defaultVariants: { variant: "default" }
-});
-function Ko({ className: e, variant: t = "default", ...n }) {
-	return /* @__PURE__ */ (0, K.jsx)(da, {
-		"data-slot": "tabs-list",
-		"data-variant": t,
-		className: Uo(Go({ variant: t }), e),
-		...n
-	});
-}
-function qo({ className: e, ...t }) {
-	return /* @__PURE__ */ (0, K.jsx)(Oi, {
-		"data-slot": "tabs-trigger",
-		className: Uo("relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent", "data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground", "after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100", e),
-		...t
-	});
-}
-// node_modules/@base-ui/react/use-render/useRender.mjs
-function Jo(e) {
-	return Je(e.defaultTagName ?? "div", e, e);
-}
-// src/components/ui/badge.tsx
-var Yo = _a("group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3!", {
-	variants: { variant: {
-		default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
-		secondary: "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
-		destructive: "bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:focus-visible:ring-destructive/40 [a]:hover:bg-destructive/20",
-		outline: "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
-		ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
-		link: "text-primary underline-offset-4 hover:underline"
-	} },
-	defaultVariants: { variant: "default" }
-});
-function Xo({ className: e, variant: t = "default", render: n, ...r }) {
-	return Jo({
-		defaultTagName: "span",
-		props: Fe({ className: Uo(Yo({ variant: t }), e) }, r),
-		render: n,
-		state: {
-			slot: "badge",
-			variant: t
-		}
-	});
-}
-// node_modules/@base-ui/utils/visuallyHidden.mjs
-var Zo = {
-	clipPath: "inset(50%)",
-	overflow: "hidden",
-	whiteSpace: "nowrap",
-	border: 0,
-	padding: 0,
-	width: 1,
-	height: 1,
-	margin: -1
-}, Qo = {
-	...Zo,
-	position: "fixed",
-	margin: 0,
-	top: 0,
-	left: 0
-}, $o = {
-	...Zo,
-	position: "absolute"
-};
-// node_modules/@base-ui/utils/useOnFirstRender.mjs
-function es(e) {
-	let t = D.useRef(!0);
-	t.current && (t.current = !1, e());
-}
-// node_modules/@base-ui/utils/usePreviousValue.mjs
-function ts(e) {
-	let [t, n] = D.useState({
-		current: e,
-		previous: null
-	});
-	return Object.is(e, t.current) || n({
-		current: e,
-		previous: t.current
-	}), t.previous;
-}
-// node_modules/@base-ui/utils/useValueAsRef.mjs
-function ns(e) {
-	let t = W(rs, e).current;
-	return t.next = e, U(t.effect), t;
-}
-function rs(e) {
-	let t = {
-		current: e,
-		next: e,
-		effect: () => {
-			t.current = t.next;
-		}
-	};
-	return t;
-}
-// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.production.js
-var is = /* @__PURE__ */ o(((e) => {
-	var t = u(), n = Ai();
-	function r(e, t) {
-		return e === t && (e !== 0 || 1 / e == 1 / t) || e !== e && t !== t;
-	}
-	var i = typeof Object.is == "function" ? Object.is : r, a = n.useSyncExternalStore, o = t.useRef, s = t.useEffect, c = t.useMemo, l = t.useDebugValue;
-	e.useSyncExternalStoreWithSelector = function(e, t, n, r, u) {
-		var d = o(null);
-		if (d.current === null) {
-			var f = {
-				hasValue: !1,
-				value: null
-			};
-			d.current = f;
-		} else f = d.current;
-		d = c(function() {
-			function e(e) {
-				if (!a) {
-					if (a = !0, o = e, e = r(e), u !== void 0 && f.hasValue) {
-						var t = f.value;
-						if (u(t, e)) return s = t;
-					}
-					return s = e;
-				}
-				if (t = s, i(o, e)) return t;
-				var n = r(e);
-				return u !== void 0 && u(t, n) ? (o = e, t) : (o = e, s = n);
-			}
-			var a = !1, o, s, c = n === void 0 ? null : n;
-			return [function() {
-				return e(t());
-			}, c === null ? void 0 : function() {
-				return e(c());
-			}];
-		}, [
-			t,
-			n,
-			r,
-			u
-		]);
-		var p = a(e, d[0], d[1]);
-		return s(function() {
-			f.hasValue = !0, f.value = p;
-		}, [p]), l(p), p;
-	};
-})), as = /* @__PURE__ */ o(((e, t) => {
-	t.exports = is();
-})), os = [], ss = void 0;
-function cs() {
-	return ss;
-}
-function ls(e) {
-	os.push(e);
-}
-// node_modules/@base-ui/utils/store/useStore.mjs
-var us = Ai(), ds = as(), fs = Te(19) ? hs : gs;
-function ps(e, t, n, r, i) {
-	return fs(e, t, n, r, i);
-}
-function ms(e, t, n, r, i) {
-	let a = D.useCallback(() => t(e.getSnapshot(), n, r, i), [
-		e,
-		t,
-		n,
-		r,
-		i
-	]);
-	return (0, us.useSyncExternalStore)(e.subscribe, a, a);
-}
-ls({
-	before(e) {
-		e.syncIndex = 0, e.didInitialize || (e.syncTick = 1, e.syncHooks = [], e.didChangeStore = !0, e.getSnapshot = () => {
-			let t = !1;
-			for (let n = 0; n < e.syncHooks.length; n += 1) {
-				let r = e.syncHooks[n], i = r.selector(r.store.state, r.a1, r.a2, r.a3);
-				Object.is(r.value, i) || (t = !0, r.value = i);
-			}
-			return t && (e.syncTick += 1), e.syncTick;
-		});
-	},
-	after(e) {
-		e.syncHooks.length > 0 && (e.didChangeStore && (e.didChangeStore = !1, e.subscribe = (t) => {
-			let n = /* @__PURE__ */ new Set();
-			for (let t of e.syncHooks) n.add(t.store);
-			let r = [];
-			for (let e of n) r.push(e.subscribe(t));
-			return () => {
-				for (let e of r) e();
-			};
-		}), (0, us.useSyncExternalStore)(e.subscribe, e.getSnapshot, e.getSnapshot));
-	}
-});
-function hs(e, t, n, r, i) {
-	let a = cs();
-	if (!a) return ms(e, t, n, r, i);
-	let o = a.syncIndex;
-	a.syncIndex += 1;
-	let s;
-	return a.didInitialize ? (s = a.syncHooks[o], s.store === e && s.selector === t && Object.is(s.a1, n) && Object.is(s.a2, r) && Object.is(s.a3, i) || (s.store !== e && (a.didChangeStore = !0), s.store = e, s.selector = t, s.a1 = n, s.a2 = r, s.a3 = i, s.value = t(e.getSnapshot(), n, r, i))) : (s = {
-		store: e,
-		selector: t,
-		a1: n,
-		a2: r,
-		a3: i,
-		value: t(e.getSnapshot(), n, r, i)
-	}, a.syncHooks.push(s)), s.value;
-}
-function gs(e, t, n, r, i) {
-	return (0, ds.useSyncExternalStoreWithSelector)(e.subscribe, e.getSnapshot, e.getSnapshot, (e) => t(e, n, r, i));
-}
-// node_modules/@base-ui/utils/store/Store.mjs
-var _s = class {
-	static create(e) {
-		return new this(e);
-	}
-	constructor(e) {
-		this.state = e, this.listeners = /* @__PURE__ */ new Set(), this.updateTick = 0;
-	}
-	subscribe = (e) => (this.listeners.add(e), () => {
-		this.listeners.delete(e);
-	});
-	getSnapshot = () => this.state;
-	setState(e) {
-		if (this.state === e) return;
-		this.state = e, this.updateTick += 1;
-		let t = this.updateTick;
-		for (let n of this.listeners) {
-			if (t !== this.updateTick) return;
-			n(e);
-		}
-	}
-	update(e) {
-		for (let t in e) if (!Object.is(this.state[t], e[t])) {
-			this.setState({
-				...this.state,
-				...e
-			});
-			return;
-		}
-	}
-	set(e, t) {
-		Object.is(this.state[e], t) || this.setState({
-			...this.state,
-			[e]: t
-		});
-	}
-	notifyAll() {
-		let e = { ...this.state };
-		this.setState(e);
-	}
-	use(e, t, n, r) {
-		return ps(this, e, t, n, r);
-	}
-}, vs = class extends _s {
-	constructor(e, t = {}, n) {
-		super(e), this.context = t, this.selectors = n;
-	}
-	useSyncedValue(e, t) {
-		D.useDebugValue(e);
-		let n = this;
-		U(() => {
-			n.state[e] !== t && n.set(e, t);
-		}, [
-			n,
-			e,
-			t
-		]);
-	}
-	useSyncedValueWithCleanup(e, t) {
-		let n = this;
-		U(() => (n.state[e] !== t && n.set(e, t), () => {
-			n.set(e, void 0);
-		}), [
-			n,
-			e,
-			t
-		]);
-	}
-	useSyncedValues(e) {
-		let t = this;
-		U(() => {
-			t.update(e);
-		}, [t, ...Object.values(e)]);
-	}
-	useControlledProp(e, t) {
-		D.useDebugValue(e);
-		let n = this, r = t !== void 0;
-		U(() => {
-			r && !Object.is(n.state[e], t) && n.setState({
-				...n.state,
-				[e]: t
-			});
-		}, [
-			n,
-			e,
-			t,
-			r
-		]);
-	}
-	select(e, t, n, r) {
-		let i = this.selectors[e];
-		return i(this.state, t, n, r);
-	}
-	useState(e, t, n, r) {
-		return D.useDebugValue(e), ps(this, this.selectors[e], t, n, r);
-	}
-	useContextCallback(e, t) {
-		D.useDebugValue(e);
-		let n = G(t ?? Oe);
-		this.context[e] = n;
-	}
-	useStateSetter(e) {
-		let t = D.useRef(void 0);
-		return t.current === void 0 && (t.current = (t) => {
-			this.set(e, t);
-		}), t.current;
-	}
-	observe(e, t) {
-		let n;
-		n = typeof e == "function" ? e : this.selectors[e];
-		let r = n(this.state);
-		return t(r, r, this), this.subscribe((e) => {
-			let i = n(e);
-			if (!Object.is(r, i)) {
-				let e = r;
-				r = i, t(i, e, this);
-			}
-		});
-	}
-};
-// node_modules/@base-ui/utils/mergeCleanups.mjs
-function ys(...e) {
-	return () => {
-		for (let t = 0; t < e.length; t += 1) {
-			let n = e[t];
-			n && n();
-		}
-	};
-}
-// node_modules/@base-ui/utils/addEventListener.mjs
-function bs(e, t, n, r) {
-	return e.addEventListener(t, n, r), () => {
-		e.removeEventListener(t, n, r);
-	};
-}
-// node_modules/@base-ui/utils/useTimeout.mjs
-var xs = 0, Ss = class e {
-	static create() {
-		return new e();
-	}
-	currentId = xs;
-	start(e, t) {
-		this.clear(), this.currentId = setTimeout(() => {
-			this.currentId = xs, t();
-		}, e);
-	}
-	isStarted() {
-		return this.currentId !== xs;
-	}
-	clear = () => {
-		this.currentId !== xs && (clearTimeout(this.currentId), this.currentId = xs);
-	};
-	disposeEffect = () => this.clear;
-};
-function Cs() {
-	let e = W(Ss.create).current;
-	return Fi(e.disposeEffect), e;
-}
-// node_modules/@base-ui/react/utils/FocusGuard.mjs
-var ws = /*#__PURE__*/ D.forwardRef(function(e, t) {
-	let [n, r] = D.useState();
-	U(() => {
-		Ln && In && r("button");
-	}, []);
-	let i = {
-		tabIndex: 0,
-		role: n
-	};
-	return /*#__PURE__*/ (0, K.jsx)("span", {
-		...e,
-		ref: t,
-		style: Qo,
-		"aria-hidden": !n || void 0,
-		...i,
-		"data-base-ui-focus-guard": ""
-	});
-});
-// node_modules/@base-ui/react/floating-ui-react/utils/createAttribute.mjs
-function Ts(e) {
-	return `data-base-ui-${e}`;
-}
-// node_modules/@base-ui/react/floating-ui-react/utils/enqueueFocus.mjs
-var Es = 0;
-function Ds(e, t = {}) {
-	let { preventScroll: n = !1, sync: r = !1, shouldFocus: i } = t;
-	cancelAnimationFrame(Es);
-	function a() {
-		(!i || i()) && e?.focus({ preventScroll: n });
-	}
-	if (r) return a(), Oe;
-	let o = requestAnimationFrame(a);
-	return Es = o, () => {
-		Es === o && (cancelAnimationFrame(o), Es = 0);
-	};
-}
-// node_modules/@base-ui/react/floating-ui-react/utils/markOthers.mjs
-var Os = "data-base-ui-inert", ks = /* @__PURE__ */ new WeakMap(), As = /* @__PURE__ */ new WeakSet(), js = /* @__PURE__ */ new WeakMap(), Ms = 0;
-function Ns(e) {
-	return e ? Vt(e) ? e.host : Ns(e.parentNode) : null;
-}
-var Ps = (e, t) => t.map((t) => {
-	if (e.contains(t)) return t;
-	let n = Ns(t);
-	return e.contains(n) ? n : null;
-}).filter((e) => e != null), Fs = (e) => {
-	let t = /* @__PURE__ */ new Set();
-	return e.forEach((e) => {
-		let n = e;
-		for (; n && !t.has(n);) t.add(n), n = n.parentNode;
-	}), t;
-}, Is = (e, t, n) => {
-	let r = [], i = (e) => {
-		e && !n.has(e) && Array.from(e.children).forEach((e) => {
-			Ft(e) !== "script" && (t.has(e) ? i(e) : r.push(e));
-		});
-	};
-	return i(e), r;
-};
-function Ls(e, t, n, { mark: r = !0 }) {
-	let i = Ps(t, e), a = r ? Is(t, Fs(i), new Set(i)) : [], o = [], s = [];
-	if (n) {
-		let e = Ps(t, Array.from(t.querySelectorAll("[aria-live]"))), n = i.concat(e);
-		Is(t, Fs(n), new Set(n)).forEach((e) => {
-			let t = e.getAttribute("aria-hidden"), n = t !== null && t !== "false", r = (ks.get(e) || 0) + 1;
-			ks.set(e, r), o.push(e), r === 1 && n && As.add(e), n || e.setAttribute("aria-hidden", "true");
-		});
-	}
-	return r && a.forEach((e) => {
-		let t = (js.get(e) || 0) + 1;
-		js.set(e, t), s.push(e), t === 1 && e.setAttribute(Os, "");
-	}), Ms += 1, () => {
-		o.forEach((e) => {
-			let t = (ks.get(e) || 0) - 1;
-			ks.set(e, t), t || (As.has(e) || e.removeAttribute("aria-hidden"), As.delete(e));
-		}), r && s.forEach((e) => {
-			let t = (js.get(e) || 0) - 1;
-			js.set(e, t), t || e.removeAttribute(Os);
-		}), --Ms, Ms || (ks = /* @__PURE__ */ new WeakMap(), As = /* @__PURE__ */ new WeakSet(), js = /* @__PURE__ */ new WeakMap());
-	};
-}
-function Rs(e, t = {}) {
-	let { ariaHidden: n = !1, mark: r = !0 } = t, i = on(e[0]).body;
-	return Ls(e, i, n, { mark: r });
-}
-// node_modules/@base-ui/react/internals/constants.mjs
-var zs = { style: { transition: "none" } }, Bs = { fallbackAxisSide: "none" }, Vs = {
-	clipPath: "inset(50%)",
-	position: "fixed",
-	top: 0,
-	left: 0
-}, Hs = /*#__PURE__*/ D.createContext(null), Us = () => D.useContext(Hs), Ws = Ts("portal");
-function Gs(e = {}) {
-	let { ref: t, container: n, componentProps: r = Ae, elementProps: i } = e, a = dn(), o = Us()?.portalNode, [s, c] = D.useState(null), [l, u] = D.useState(null), d = G((e) => {
-		e !== null && u(e);
-	}), f = D.useRef(null);
-	U(() => {
-		if (n === null) {
-			f.current && (f.current = null, u(null), c(null));
-			return;
-		}
-		let e = (n && (Rt(n) ? n : n.current)) ?? o ?? document.body;
-		e == null ? f.current && (f.current = null, u(null), c(null)) : f.current !== e && (f.current = e, u(null), c(e));
-	}, [n, o]);
-	let p = Je("div", r, {
-		ref: [t, d],
-		props: [{
-			id: a,
-			[Ws]: ""
-		}, i]
-	}), m = s && p ? /*#__PURE__*/ Hi.createPortal(p, s) : null;
-	return {
-		node: l,
-		nodeId: /*#__PURE__*/ D.isValidElement(p) ? p.props.id : void 0,
-		subtree: m
-	};
-}
-var Ks = /*#__PURE__*/ D.forwardRef(function(e, t) {
-	let { render: n, className: r, style: i, children: a, container: o, portalOwnerRole: s, ...c } = e, { node: l, nodeId: u, subtree: d } = Gs({
-		container: o,
-		ref: t,
-		componentProps: e,
-		elementProps: c
-	}), f = D.useRef(null), p = D.useRef(null), m = D.useRef(null), h = D.useRef(null), [g, _] = D.useState(null), v = D.useRef(!1), y = g?.modal, b = g?.open, x = !!g && !g.modal && g.open && !!l;
-	D.useEffect(() => {
-		if (!l || y) return;
-		function e(e) {
-			l && e.relatedTarget && Ti(e) && (e.type === "focusin" ? v.current &&= (Di(l), !1) : (Ei(l), v.current = !0));
-		}
-		return ys(bs(l, "focusin", e, !0), bs(l, "focusout", e, !0));
-	}, [l, y]), U(() => {
-		l && b === !0 && v.current && (Di(l), v.current = !1);
-	}, [b, l]);
-	let S = D.useMemo(() => ({
-		beforeOutsideRef: f,
-		afterOutsideRef: p,
-		beforeInsideRef: m,
-		afterInsideRef: h,
-		portalNode: l,
-		setFocusManagerState: _
-	}), [l]);
-	return /*#__PURE__*/ (0, K.jsxs)(D.Fragment, { children: [d, /*#__PURE__*/ (0, K.jsxs)(Hs.Provider, {
-		value: S,
-		children: [
-			x && l && /*#__PURE__*/ (0, K.jsx)(ws, {
-				"data-type": "outside",
-				ref: f,
-				onFocus: (e) => {
-					Ti(e, l) ? m.current?.focus() : wi(g ? g.domReference : null)?.focus();
-				}
-			}),
-			x && l && /*#__PURE__*/ (0, K.jsx)("span", {
-				role: s,
-				"aria-owns": u,
-				style: Vs
-			}),
-			l && /*#__PURE__*/ Hi.createPortal(a, l),
-			x && l && /*#__PURE__*/ (0, K.jsx)(ws, {
-				"data-type": "outside",
-				ref: p,
-				onFocus: (e) => {
-					Ti(e, l) ? h.current?.focus() : (Ci(g ? g.domReference : null)?.focus(), g?.closeOnFocusOut && g?.onOpenChange(!1, _t("focus-out", e.nativeEvent)));
-				}
-			})
-		]
-	})] });
-});
-// node_modules/@base-ui/react/floating-ui-react/utils/createEventEmitter.mjs
-function qs() {
-	let e = /* @__PURE__ */ new Map();
-	return {
-		emit(t, n) {
-			e.get(t)?.forEach((e) => e(n));
-		},
-		on(t, n) {
-			e.has(t) || e.set(t, /* @__PURE__ */ new Set()), e.get(t).add(n);
-		},
-		off(t, n) {
-			e.get(t)?.delete(n);
-		}
-	};
-}
-// node_modules/@base-ui/react/floating-ui-react/components/FloatingTree.mjs
-var Js = /*#__PURE__*/ D.createContext(null), Ys = /*#__PURE__*/ D.createContext(null), Xs = () => D.useContext(Js)?.id || null, Zs = (e) => {
-	let t = D.useContext(Ys);
-	return e ?? t;
-};
-// node_modules/@base-ui/react/floating-ui-react/components/FloatingFocusManager.mjs
-function Qs(e, t) {
-	let n = It(Hn(e));
-	return e instanceof n.KeyboardEvent ? "keyboard" : e instanceof n.FocusEvent ? t || "keyboard" : "pointerType" in e ? e.pointerType || (xr(e) ? "keyboard" : t || "mouse") : "touches" in e ? "touch" : e instanceof n.MouseEvent ? t || (e.detail === 0 ? "keyboard" : "mouse") : "";
-}
-var $s = 20, ec = [];
-function tc() {
-	ec = ec.filter((e) => e.deref()?.isConnected);
-}
-function nc(e) {
-	tc(), e && Ft(e) !== "body" && (ec.push(new WeakRef(e)), ec.length > $s && (ec = ec.slice(-20)));
-}
-function rc() {
-	return tc(), ec[ec.length - 1]?.deref();
-}
-function ic(e) {
-	return e ? yi(e) ? e : xi(e)[0] || e : null;
-}
-function ac(e) {
-	if (e.hasAttribute("tabindex") && !e.hasAttribute("data-tabindex") || !e.getAttribute("role")?.includes("dialog")) return;
-	let t = bi(e).filter((e) => {
-		let t = e.getAttribute("data-tabindex") || "";
-		return yi(e) || e.hasAttribute("data-tabindex") && !t.startsWith("-");
-	}), n = e.getAttribute("tabindex");
-	t.length === 0 ? n !== "0" && (e.setAttribute("tabindex", "0"), e.setAttribute("data-tabindex", "0")) : (n !== "-1" || e.hasAttribute("data-tabindex") && e.getAttribute("data-tabindex") !== "-1") && (e.setAttribute("tabindex", "-1"), e.setAttribute("data-tabindex", "-1"));
-}
-function oc(e) {
-	let { context: t, children: n, disabled: r = !1, initialFocus: i = !0, returnFocus: a = !0, explicitReturnFocus: o, restoreFocus: s = !1, modal: c = !0, closeOnFocusOut: l = !0, openInteractionType: u = "", nextFocusableElement: d, previousFocusableElement: f, beforeContentFocusGuardRef: p, externalTree: m, getInsideElements: h } = e, g = t.useState("open"), _ = t.useState("domReferenceElement"), v = t.useState("floatingElement"), { events: y, dataRef: b } = t.context, x = G(() => b.current.floatingContext?.nodeId), S = i === !1, C = hr(_) && S, w = ns(i), T = ns(a), E = ns(o), O = ns(u), k = ns(g), A = Zs(m), j = Us(), M = D.useRef(!1), N = D.useRef(!1), P = D.useRef(!1), F = D.useRef(null), I = D.useRef(""), L = D.useRef(""), ee = D.useRef(null), R = D.useRef(null), te = ve(ee, p, j?.beforeInsideRef), z = ve(R, j?.afterInsideRef), ne = Cs(), B = Cs(), re = zi(), ie = j != null, V = gr(v), ae = G((e = V) => e ? xi(e) : []), oe = G(() => h?.().filter((e) => e != null) ?? []);
-	D.useEffect(() => {
-		if (r || !c) return;
-		function e(e) {
-			e.key === "Tab" && Bn(V, zn(on(V))) && ae().length === 0 && !C && yr(e);
-		}
-		return bs(on(V), "keydown", e);
-	}, [
-		r,
-		V,
-		c,
-		C,
-		ae
-	]), D.useEffect(() => {
-		if (r || !g) return;
-		let e = on(V);
-		function t() {
-			P.current = !1;
-		}
-		function n(e) {
-			let t = Hn(e), n = oe(), r = Bn(v, t) || Bn(_, t) || Bn(j?.portalNode, t) || n.some((e) => e === t || Bn(e, t));
-			P.current = !r, L.current = e.pointerType || "keyboard", Vn(t, "[data-base-ui-click-trigger]") && (N.current = !0, B.start(0, () => {
-				N.current = !1;
-			}));
-		}
-		function i() {
-			L.current = "keyboard";
-		}
-		return ys(bs(e, "pointerdown", n, !0), bs(e, "pointerup", t, !0), bs(e, "pointercancel", t, !0), bs(e, "keydown", i, !0), t);
-	}, [
-		r,
-		v,
-		_,
-		V,
-		g,
-		j,
-		B,
-		oe
-	]), D.useEffect(() => {
-		if (r || !l) return;
-		let e = on(V);
-		function n() {
-			N.current = !0, B.start(0, () => {
-				N.current = !1;
-			});
-		}
-		function i(e) {
-			let t = Hn(e);
-			yi(t) && (F.current = t);
-		}
-		function a(n) {
-			let r = n.relatedTarget, i = n.currentTarget, a = Hn(n);
-			c && r == null && a != null && Bn(v, a) && nc(a), queueMicrotask(() => {
-				let o = x(), l = t.context.triggerElements, u = oe(), p = r?.hasAttribute(Ts("focus-guard")) && [
-					ee.current,
-					R.current,
-					j?.beforeInsideRef.current,
-					j?.afterInsideRef.current,
-					j?.beforeOutsideRef.current,
-					j?.afterOutsideRef.current,
-					Bi(f),
-					Bi(d)
-				].includes(r), m = !(Bn(_, r) || Bn(v, r) || Bn(r, v) || Bn(j?.portalNode, r) || u.some((e) => e === r || Bn(e, r)) || l.hasMatchingElement((e) => Bn(e, r)) || p || A && (_r(A.nodesRef.current, o).find((e) => Bn(e.context?.elements.floating, r) || Bn(e.context?.elements.domReference, r)) || vr(A.nodesRef.current, o).find((e) => [e.context?.elements.floating, gr(e.context?.elements.floating)].includes(r) || e.context?.elements.domReference === r)));
-				if (i === _ && V && ac(V), s && i !== _ && !ai(a) && zn(e) === e.body) {
-					if (Bt(V) && (V.focus(), s === "popup")) {
-						re.request(() => {
-							V.focus();
-						});
-						return;
-					}
-					let e = ae(), t = F.current, n = (t && e.includes(t) ? t : null) || e[e.length - 1] || V;
-					Bt(n) && n.focus();
-				}
-				b.current.insideReactTree ? b.current.insideReactTree = !1 : (C || !c) && r && m && !N.current && (C || r !== rc()) && (M.current = !0, t.setOpen(!1, _t(St, n)));
-			});
-		}
-		function o() {
-			P.current || (b.current.insideReactTree = !0, ne.start(0, () => {
-				b.current.insideReactTree = !1;
-			}));
-		}
-		let u = Bt(_) ? _ : null;
-		if (v || u) return ys(u && bs(u, "focusout", a), u && bs(u, "pointerdown", n), v && bs(v, "focusin", i), v && bs(v, "focusout", a), v && j && bs(v, "focusout", o, !0));
-	}, [
-		r,
-		_,
-		v,
-		V,
-		c,
-		A,
-		j,
-		t,
-		l,
-		s,
-		ae,
-		C,
-		x,
-		b,
-		ne,
-		B,
-		re,
-		d,
-		f,
-		oe
-	]), D.useEffect(() => {
-		if (r || !v || !g) return;
-		let e = Array.from(j?.portalNode?.querySelectorAll(`[${Ts("portal")}]`) || []), t = (A ? vr(A.nodesRef.current, x()) : []).find((e) => hr(e.context?.elements.domReference || null))?.context?.elements.domReference, n = Rs([
-			v,
-			...e,
-			ee.current,
-			R.current,
-			j?.beforeOutsideRef.current,
-			j?.afterOutsideRef.current,
-			...oe(),
-			t,
-			Bi(f),
-			Bi(d),
-			C ? _ : null
-		].filter((e) => e != null), {
-			ariaHidden: c || C,
-			mark: !1
-		}), i = Rs([v, ...e].filter((e) => e != null));
-		return () => {
-			i(), n();
-		};
-	}, [
-		g,
-		r,
-		_,
-		v,
-		c,
-		j,
-		C,
-		A,
-		x,
-		d,
-		f,
-		oe
-	]), U(() => {
-		if (!g || r || !Bt(V)) return;
-		I.current = "", L.current = "";
-		let e = on(V), t = zn(e);
-		queueMicrotask(() => {
-			let n = w.current, r = typeof n == "function" ? n(O.current || "") : n;
-			if (r === void 0 || r === !1 || Bn(V, t)) return;
-			let i = null, a = () => (i ??= ae(V), i[0] || V), o;
-			o = r === !0 || r === null ? a() : Bi(r), o ||= a();
-			let s = Bn(V, zn(e)), c = b.current.openEvent, l = c?.type === "mousedown" && xr(c);
-			Ds(o, {
-				sync: l,
-				preventScroll: o === V,
-				shouldFocus() {
-					if (!k.current) return !1;
-					if (s) return !0;
-					let t = zn(e);
-					return !(t !== o && Bn(V, t));
-				}
-			});
-		});
-	}, [
-		r,
-		g,
-		V,
-		ae,
-		w,
-		O,
-		k,
-		b
-	]);
-	let se = D.useRef(null);
-	U(() => {
-		if (r || !V) {
-			se.current = null;
-			return;
-		}
-		se.current &&= (se.current.cancelled = !0, null);
-		let e = on(V), t = zn(e), n = O.current == null;
-		nc(t);
-		function i(e) {
-			if (e.open || (I.current = Qs(e.nativeEvent, L.current)), (e.reason === "focus-out" && e.triggerElement?.hasAttribute(Ts("focus-guard")) || e.reason === "trigger-hover" && e.nativeEvent.type === "mouseleave") && (M.current = !0), e.reason === "outside-press") {
-				if (e.nested) M.current = !1;
-				else if (xr(e.nativeEvent) || Sr(e.nativeEvent)) M.current = !1;
-				else {
-					let e = !1;
-					on(V).createElement("div").focus({ get preventScroll() {
-						return e = !0, !1;
-					} }), e ? M.current = !1 : M.current = !0;
-				}
-			}
-		}
-		y.on("openchange", i);
-		function a(e) {
-			let r = T.current, i = typeof r == "function" ? r(e) : r;
-			if (i === void 0 || i === !1) return null;
-			i === null && (i = !0);
-			let a = _?.isConnected ? _ : null, o = t?.isConnected && Ft(t) !== "body" ? t : null, s = n ? o || a : a || o;
-			return s ||= rc() || null, typeof i == "boolean" ? s : Bi(i) || s || null;
-		}
-		return () => {
-			y.off("openchange", i);
-			let t = zn(e), n = oe(), r = Bn(v, t) || n.some((e) => e === t || Bn(e, t)) || A && _r(A.nodesRef.current, x(), !1).some((e) => Bn(e.context?.elements.floating, t)), o = T.current, s = I.current, c = a(s), l = { cancelled: !1 };
-			se.current = l, queueMicrotask(() => {
-				se.current === l && (se.current = null);
-				let n = ic(c), i = E.current ?? typeof o != "boolean";
-				if (!l.cancelled && o && !M.current && Bt(n) && (i || n === t || t === e.body || r)) {
-					let e = { preventScroll: !0 };
-					s === "keyboard" && (e.focusVisible = !0), n.focus(e);
-				}
-				M.current = !1;
-			});
-		};
-	}, [
-		r,
-		v,
-		V,
-		T,
-		E,
-		O,
-		y,
-		A,
-		_,
-		x,
-		oe
-	]), U(() => {
-		if (!In || g || !v) return;
-		let e = zn(on(v));
-		Bt(e) && mr(e) && Bn(v, e) && e.blur();
-	}, [g, v]), U(() => {
-		if (!r && j) return j.setFocusManagerState({
-			modal: c,
-			closeOnFocusOut: l,
-			open: g,
-			onOpenChange: t.setOpen,
-			domReference: _
-		}), () => {
-			j.setFocusManagerState(null);
-		};
-	}, [
-		r,
-		j,
-		c,
-		g,
-		t,
-		l,
-		_
-	]), U(() => {
-		if (!r && V) return ac(V), () => {
-			queueMicrotask(tc);
-		};
-	}, [r, V]);
-	let ce = !r && (!c || !C) && (ie || c);
-	return /*#__PURE__*/ (0, K.jsxs)(D.Fragment, { children: [
-		ce && /*#__PURE__*/ (0, K.jsx)(ws, {
-			"data-type": "inside",
-			ref: te,
-			onFocus: (e) => {
-				if (c) {
-					let e = ae();
-					Ds(e[e.length - 1]);
-				} else j?.portalNode && (M.current = !1, Ti(e, j.portalNode) ? Ci(_)?.focus() : Bi(f ?? j.beforeOutsideRef)?.focus());
-			}
-		}),
-		n,
-		ce && /*#__PURE__*/ (0, K.jsx)(ws, {
-			"data-type": "inside",
-			ref: z,
-			onFocus: (e) => {
-				c ? Ds(ae()[0]) : j?.portalNode && (l && (M.current = !0), Ti(e, j.portalNode) ? wi(_)?.focus() : Bi(d ?? j.afterOutsideRef)?.focus());
-			}
-		})
-	] });
-}
-// node_modules/@base-ui/react/floating-ui-react/hooks/useClick.mjs
-function sc(e, t = {}) {
-	let { enabled: n = !0, event: r = "click", toggle: i = !0, ignoreMouse: a = !1, stickIfOpen: o = !0, touchOpenDelay: s = 0, reason: c = yt } = t, l = e.context.dataRef, u = D.useRef(void 0), d = zi(), f = Cs(), p = D.useMemo(() => {
-		function t(t, n, r, i) {
-			let a = _t(c, n, r);
-			t && i === "touch" && s > 0 ? f.start(s, () => {
-				e.setOpen(!0, a);
-			}) : e.setOpen(t, a);
-		}
-		function n(t, n, r) {
-			let a = l.current.openEvent, s = e.select("domReferenceElement") !== n;
-			return t && s || !t || !i ? !0 : a && (typeof o == "function" ? o() : o) ? !r(a.type) : !1;
-		}
-		return {
-			onPointerDown(e) {
-				u.current = Cr(e.pointerType, !0) && Sr(e.nativeEvent) ? "virtual" : e.pointerType;
-			},
-			onMouseDown(i) {
-				let o = u.current, s = i.nativeEvent, c = e.select("open");
-				if (i.button !== 0 || r === "click" || Cr(o, !0) && a) return;
-				let l = n(c, i.currentTarget, (e) => e === "click" || e === "mousedown"), f = Hn(s), p = mr(f);
-				if (p || o === "virtual") {
-					t(l, s, p ? f : i.currentTarget, o);
-					return;
-				}
-				let m = i.currentTarget;
-				d.request(() => {
-					t(l, s, m, o);
-				});
-			},
-			onClick(i) {
-				if (r === "mousedown-only") return;
-				let o = u.current;
-				r === "mousedown" && o ? u.current = void 0 : Cr(o, !0) && a || t(n(e.select("open"), i.currentTarget, (e) => e === "click" || e === "mousedown" || e === "keydown" || e === "keyup"), i.nativeEvent, i.currentTarget, o);
-			},
-			onKeyDown() {
-				u.current = void 0;
-			}
-		};
-	}, [
-		l,
-		r,
-		a,
-		c,
-		e,
-		o,
-		i,
-		d,
-		f,
-		s
-	]);
-	return D.useMemo(() => n ? { reference: p } : Ae, [n, p]);
-}
-// node_modules/@base-ui/react/floating-ui-react/hooks/useDismiss.mjs
-function cc() {
-	return !1;
-}
-function lc(e) {
-	return {
-		escapeKey: typeof e == "boolean" ? e : e?.escapeKey ?? !1,
-		outsidePress: typeof e == "boolean" ? e : e?.outsidePress ?? !0
-	};
-}
-function uc(e, t = {}) {
-	let { enabled: n = !0, escapeKey: r = !0, outsidePress: i = !0, outsidePressEvent: a = "sloppy", referencePress: o = cc, bubbles: s, externalTree: c } = t, l = e.useState("open"), u = e.useState("floatingElement"), { dataRef: d, events: f } = e.context, p = Zs(c), m = G(typeof i == "function" ? i : () => !1), h = typeof i == "function" ? m : i, g = h !== !1, _ = G(() => a), { escapeKey: v, outsidePress: y } = lc(s), b = D.useRef(!1), x = D.useRef(!1), S = D.useRef(!1), C = D.useRef(!1), w = D.useRef(!1), T = D.useRef(""), E = D.useRef(null), O = Cs(), k = Cs(), A = Cs(), j = G(() => {
-		k.clear(), d.current.insideReactTree = !1;
-	}), M = G((e) => {
-		let t = d.current.floatingContext?.nodeId;
-		return (p ? _r(p.nodesRef.current, t) : []).some((t) => t.context?.open && !t.context.dataRef.current[e]);
-	}), N = G((t) => fr(t, e.select("floatingElement")) || fr(t, e.select("domReferenceElement"))), P = G((t) => {
-		o() && e.setOpen(!1, _t(yt, t.nativeEvent));
-	}), F = G((t) => {
-		if (!l || !n || !r || t.key !== "Escape") return;
-		let i = br(t) ? t.nativeEvent : t;
-		if (w.current || i.isComposing || !v && M("__escapeKeyBubbles")) return;
-		let a = _t(Ct, i);
-		e.setOpen(!1, a), a.isCanceled || t.preventDefault(), !v && !a.isPropagationAllowed && t.stopPropagation();
-	}), I = G(() => {
-		d.current.insideReactTree = !0, k.start(0, j);
-	}), L = G((t) => {
-		if (!l || !n || t.button !== 0) return;
-		let r = Hn(t.nativeEvent);
-		Bn(e.select("floatingElement"), r) && (b.current || (b.current = !0, x.current = !1));
-	}), ee = G((e) => {
-		l && n && (e.defaultPrevented || e.nativeEvent.defaultPrevented) && b.current && (x.current = !0);
-	});
-	D.useEffect(() => {
-		function e(e) {
-			e.open || (C.current = !1);
-		}
-		return f.on("openchange", e), () => {
-			f.off("openchange", e);
-		};
-	}, [f]), D.useEffect(() => j, [j]), D.useEffect(() => {
-		if (!l || !n) return l || (C.current = !1, w.current = !1, T.current = "", E.current = null), j;
-		d.current.__escapeKeyBubbles = v, d.current.__outsidePressBubbles = y;
-		let t = new Ss(), i = on(u);
-		function a() {
-			A.clear(), w.current = !0;
-		}
-		function o() {
-			w.current = !0, A.start(In ? 5 : 0, () => {
-				w.current = !1;
-			});
-		}
-		function s() {
-			S.current = !0, t.start(0, () => {
-				S.current = !1;
-			});
-		}
-		function c() {
-			b.current = !1, x.current = !1;
-		}
-		function f() {
-			let e = T.current, t = e === "pen" || !e ? "mouse" : e, n = _(), r = typeof n == "function" ? n() : n;
-			return typeof r == "string" ? r : r[t];
-		}
-		function m(e) {
-			let t = f();
-			return t === "intentional" && e.type !== "click" || t === "sloppy" && e.type === "click";
-		}
-		function D(e) {
-			let t = d.current.floatingContext?.nodeId, n = p && _r(p.nodesRef.current, t).some((t) => fr(e, t.context?.elements.floating));
-			return N(e) || n;
-		}
-		function k(n) {
-			if (m(n)) {
-				n.type !== "click" && !N(n) && (t.clear(), S.current = !1), j();
-				return;
-			}
-			if (d.current.insideReactTree) {
-				j();
-				return;
-			}
-			let r = Hn(n), i = `[${Ts("inert")}]`, a = zt(r) ? r.getRootNode() : null, o = Array.from((Vt(a) ? a : on(e.select("floatingElement"))).querySelectorAll(i)), s = e.context.triggerElements;
-			if (r && (s.hasElement(r) || s.hasMatchingElement((e) => Bn(e, r)))) return;
-			let c = zt(r) ? r : null;
-			for (; c && !Qt(c);) {
-				let e = tn(c);
-				if (Qt(e) || !zt(e)) break;
-				c = e;
-			}
-			if (!(o.length && zt(r) && !pr(r) && !Bn(r, e.select("floatingElement")) && o.every((e) => !Bn(c, e)))) {
-				if (Bt(r) && !("touches" in n)) {
-					let e = Qt(r), t = $t(r), i = /auto|scroll/, a = e || i.test(t.overflowX), o = e || i.test(t.overflowY), s = a && r.clientWidth > 0 && r.scrollWidth > r.clientWidth, c = o && r.clientHeight > 0 && r.scrollHeight > r.clientHeight, l = t.direction === "rtl", u = c && (l ? n.offsetX <= r.offsetWidth - r.clientWidth : n.offsetX > r.clientWidth), d = s && n.offsetY > r.clientHeight;
-					if (u || d) return;
-				}
-				if (!D(n)) {
-					if (f() === "intentional") {
-						if (n.detail !== 0 && !xr(n) && !C.current) return;
-						if (S.current) {
-							t.clear(), S.current = !1;
-							return;
-						}
-					}
-					typeof h == "function" && !h(n) || M("__outsidePressBubbles") || (e.setOpen(!1, _t(bt, n)), j());
-				}
-			}
-		}
-		function P(t) {
-			f() === "sloppy" && t.pointerType !== "touch" && e.select("open") && n && !N(t) && k(t);
-		}
-		function I(t) {
-			if (f() !== "sloppy" || !e.select("open") || !n || N(t)) return;
-			let r = t.touches[0];
-			r && (E.current = {
-				startTime: Date.now(),
-				startX: r.clientX,
-				startY: r.clientY,
-				dismissOnTouchEnd: !1,
-				dismissOnMouseDown: !0
-			}, O.start(1e3, () => {
-				E.current && (E.current.dismissOnTouchEnd = !1, E.current.dismissOnMouseDown = !1);
-			}));
-		}
-		function L(e, t) {
-			let n = Hn(e);
-			if (!n) return;
-			let r = bs(n, e.type, () => {
-				t(e), r();
-			});
-		}
-		function ee(e) {
-			T.current = "touch", L(e, I);
-		}
-		function R(e) {
-			O.clear(), e.type === "pointerdown" && (e.button === 0 && (C.current = !0), T.current = e.pointerType), (e.type !== "mousedown" || !E.current || E.current.dismissOnMouseDown) && L(e, (e) => {
-				e.type === "pointerdown" ? P(e) : k(e);
-			});
-		}
-		function te(e) {
-			if (e.type === "pointercancel" && (C.current = !1), !b.current) return;
-			let n = x.current;
-			c(), f() === "intentional" && (e.type === "pointercancel" ? n && s() : D(e) || (n ? s() : (typeof h != "function" || h(e)) && (t.clear(), S.current = !0, j())));
-		}
-		function z(e) {
-			if (f() !== "sloppy" || !E.current || N(e)) return;
-			let t = e.touches[0];
-			if (!t) return;
-			let n = Math.abs(t.clientX - E.current.startX), r = Math.abs(t.clientY - E.current.startY), i = Math.sqrt(n * n + r * r);
-			i > 5 && (E.current.dismissOnTouchEnd = !0), i > 10 && (k(e), O.clear(), E.current = null);
-		}
-		function ne(e) {
-			L(e, z);
-		}
-		function B(e) {
-			f() === "sloppy" && E.current && !N(e) && (E.current.dismissOnTouchEnd && k(e), O.clear(), E.current = null);
-		}
-		function re(e) {
-			L(e, B);
-		}
-		let ie = ys(r && ys(bs(i, "keydown", F), bs(i, "compositionstart", a), bs(i, "compositionend", o)), g && ys(bs(i, "click", R, !0), bs(i, "pointerdown", R, !0), bs(i, "pointerup", te, !0), bs(i, "pointercancel", te, !0), bs(i, "mousedown", R, !0), bs(i, "mouseup", te, !0), bs(i, "touchstart", ee, {
-			capture: !0,
-			passive: !0
-		}), bs(i, "touchmove", ne, {
-			capture: !0,
-			passive: !0
-		}), bs(i, "touchend", re, {
-			capture: !0,
-			passive: !0
-		})));
-		return () => {
-			ie(), t.clear(), c(), S.current = !1;
-		};
-	}, [
-		d,
-		u,
-		r,
-		g,
-		h,
-		l,
-		n,
-		v,
-		y,
-		F,
-		j,
-		_,
-		M,
-		N,
-		p,
-		e,
-		O,
-		A
-	]);
-	let R = D.useMemo(() => ({
-		onKeyDown: F,
-		onPointerDown: P,
-		onClick: P
-	}), [F, P]), te = D.useMemo(() => ({
-		onKeyDown: F,
-		onPointerDown: ee,
-		onMouseDown: ee,
-		onClickCapture: I,
-		onMouseDownCapture(e) {
-			I(), L(e);
-		},
-		onPointerDownCapture(e) {
-			I(), L(e);
-		},
-		onMouseUpCapture: I,
-		onTouchEndCapture: I,
-		onTouchMoveCapture: I
-	}), [
-		F,
-		I,
-		L,
-		ee
-	]);
-	return D.useMemo(() => n ? {
-		reference: R,
-		floating: te,
-		trigger: R
-	} : {}, [
-		n,
-		R,
-		te
-	]);
-}
-// node_modules/@base-ui/react/internals/useUnmountAfterClose.mjs
-function dc(e) {
-	let { open: t, ref: n, preventUnmountOnClose: r, setPreventUnmountOnClose: i, onUnmount: a, animateInitialOpen: o } = e, s = G(i), { mounted: c, setMounted: l, transitionStatus: u } = qi(t, !1, !1, o), d = !t && r;
-	U(() => {
-		t && s(!1);
-	}, [t, s]);
-	let f = D.useRef(c), p = D.useRef(!1), m = sn(), h = () => {
-		f.current = !1, l(!1), a();
-	};
-	U(() => {
-		f.current = c, p.current && (p.current = !1, !t && c && h());
-	});
-	let g = G(() => {
-		f.current && (t ? (p.current = !0, m()) : h());
-	});
-	return Ki({
-		enabled: c && !t && !d,
-		open: t,
-		ref: n,
-		onComplete() {
-			t || g();
-		}
-	}), {
-		mounted: c,
-		transitionStatus: u,
-		preventUnmountingOnClose: d,
-		forceUnmount: g
-	};
-}
-// node_modules/@base-ui/react/utils/popups/popupStoreUtils.mjs
-var fc = {
-	tabIndex: -1,
-	[Un]: ""
-};
-function pc(e) {
-	let t = !1;
-	return e.preventUnmountOnClose = () => {
-		t = !0;
-	}, () => t;
-}
-// node_modules/@base-ui/react/utils/popups/popupTriggerMap.mjs
-var mc = class {
-	idMap = /* @__PURE__ */ new Map();
-	add(e, t) {
-		this.idMap.set(e, t);
-	}
-	delete(e) {
-		this.idMap.delete(e);
-	}
-	hasElement(e) {
-		for (let t of this.idMap.values()) if (t === e) return !0;
-		return !1;
-	}
-	hasMatchingElement(e) {
-		for (let t of this.idMap.values()) if (e(t)) return !0;
-		return !1;
-	}
-	getById(e) {
-		return this.idMap.get(e);
-	}
-	entries() {
-		return this.idMap.entries();
-	}
-	elements() {
-		return this.idMap.values();
-	}
-	get size() {
-		return this.idMap.size;
-	}
-}, hc = {
-	open: (e) => e.open,
-	transitionStatus: (e) => e.transitionStatus,
-	domReferenceElement: (e) => e.domReferenceElement,
-	referenceElement: (e) => e.positionReference ?? e.referenceElement,
-	floatingElement: (e) => e.floatingElement,
-	floatingId: (e) => e.floatingId
-}, gc = class extends vs {
-	constructor(e) {
-		let { syncOnly: t, nested: n, onOpenChange: r, triggerElements: i, ...a } = e;
-		super({
-			...a,
-			positionReference: a.referenceElement,
-			domReferenceElement: a.referenceElement
-		}, {
-			onOpenChange: r,
-			dataRef: { current: {} },
-			events: qs(),
-			nested: n,
-			triggerElements: i
-		}, hc), this.syncOnly = t;
-	}
-	syncOpenEvent = (e, t) => {
-		(!e || !this.state.open || t != null && wr(t)) && (this.context.dataRef.current.openEvent = e ? t : void 0);
-	};
-	dispatchOpenChange = (e, t) => {
-		this.syncOpenEvent(e, t.event);
-		let n = {
-			open: e,
-			reason: t.reason,
-			nativeEvent: t.event,
-			nested: this.context.nested,
-			triggerElement: t.trigger
-		};
-		this.context.events.emit("openchange", n);
-	};
-	setOpen = (e, t) => {
-		this.syncOnly || this.dispatchOpenChange(e, t), this.context.onOpenChange?.(e, t);
-	};
-};
-// node_modules/@base-ui/react/floating-ui-react/hooks/useFloatingRootContext.mjs
-function _c(e) {
-	let { open: t = !1, onOpenChange: n, elements: r = {} } = e, i = dn(), a = Xs() != null, o = W(() => new gc({
-		open: t,
-		transitionStatus: void 0,
-		onOpenChange: n,
-		referenceElement: r.reference ?? null,
-		floatingElement: r.floating ?? null,
-		triggerElements: new mc(),
-		floatingId: i,
-		syncOnly: !1,
-		nested: a
-	})).current;
-	return U(() => {
-		let e = {
-			open: t,
-			floatingId: i
-		};
-		r.reference !== void 0 && (e.referenceElement = r.reference, e.domReferenceElement = zt(r.reference) ? r.reference : null), r.floating !== void 0 && (e.floatingElement = r.floating), o.update(e);
-	}, [
-		t,
-		i,
-		r.reference,
-		r.floating,
-		o
-	]), o.context.onOpenChange = n, o.context.nested = a, o;
-}
-// node_modules/@base-ui/react/floating-ui-react/hooks/useListNavigation.mjs
-function vc(e) {
-	return In && e.movementX === 0 && e.movementY === 0;
-}
-function yc(e, t, n) {
-	switch (e) {
-		case "vertical": return t;
-		case "horizontal": return n;
-		default: return t || n;
-	}
-}
-function bc(e, t) {
-	return yc(t, e === "ArrowUp" || e === "ArrowDown", e === "ArrowLeft" || e === "ArrowRight");
-}
-function xc(e, t, n) {
-	return yc(t, e === "ArrowDown", n ? e === "ArrowLeft" : e === "ArrowRight") || e === "Enter" || e === " " || e === "";
-}
-function Sc(e, t, n) {
-	return yc(t, n ? e === Wn : e === Gn, e === qn);
-}
-function Cc(e, t, n, r) {
-	return t === "both" || t === "horizontal" && r ? e === "Escape" : yc(t, n ? e === Gn : e === Wn, e === Kn);
-}
-function wc(e, t) {
-	let { listRef: n, activeIndex: r, onNavigate: i = () => {}, enabled: a = !0, selectedIndex: o = null, allowEscape: s = !1, loopFocus: c = !1, nested: l = !1, rtl: u = !1, virtual: d = !1, focusItemOnOpen: f = "auto", focusItemOnHover: p = !0, openOnArrowKeyDown: m = !0, disabledIndices: h = void 0, orientation: g = "vertical", triggerOrientation: _ = g, parentOrientation: v, id: y, resetOnPointerLeave: b = !0, externalTree: x, nestedReturnFocusRef: S, grid: C } = t, w = C != null, T = e.useState("open"), E = e.useState("floatingElement"), O = e.useState("domReferenceElement"), k = e.context.dataRef, A = gr(E), j = hr(O), M = ns(A), N = Xs(), P = Zs(x), F = D.useRef(f), I = D.useRef(o ?? -1), L = D.useRef(null), ee = D.useRef(!0), R = G((e) => {
-		i(I.current === -1 ? null : I.current, e);
-	}), te = D.useRef(!!E), z = D.useRef(T), ne = D.useRef(!1), B = D.useRef(!1), re = D.useRef(null), ie = ns(h), V = ns(T), ae = ns(o), oe = ns(b), se = zi(), ce = zi(), H = G(() => {
-		se.cancel();
-		function e(e) {
-			d || (re.current = Ds(e, {
-				sync: ne.current,
-				preventScroll: !0
-			}));
-		}
-		let t = n.current[I.current], r = B.current;
-		t && e(t), (ne.current ? (e) => e() : (e) => se.request(e))(() => {
-			let i = n.current[I.current] || t;
-			i && (t || e(i), W && (r || !ee.current) && i.scrollIntoView?.({
-				block: "nearest",
-				inline: "nearest"
-			}));
-		});
-	});
-	U(() => {
-		k.current.orientation = g;
-	}, [k, g]), U(() => {
-		T || (L.current = null), T && f === "auto" || (F.current = f);
-	}, [T, f]), U(() => {
-		a && (T && E ? (I.current = o ?? -1, F.current && o != null && (B.current = !0, R())) : te.current && (I.current = -1, R()));
-	}, [
-		a,
-		T,
-		E,
-		o,
-		R
-	]), U(() => {
-		if (a) {
-			if (!T) ne.current = !1;
-			else if (E) {
-				if (r == null) {
-					if (ne.current = !1, ae.current != null) return;
-					if (te.current && (I.current = -1, H()), (!z.current || !te.current) && F.current && (L.current != null || F.current === !0 && L.current == null)) {
-						let e = 0, t = () => {
-							n.current[0] == null ? (e < 2 && (e ? (e) => ce.request(e) : queueMicrotask)(t), e += 1) : (I.current = L.current == null || xc(L.current, _, u) || l ? $r(n) : ei(n), L.current = null, R());
-						};
-						t();
-					}
-				} else Qr(n.current, r) || (I.current = r, H(), B.current = !1);
-			}
-		}
-	}, [
-		a,
-		T,
-		E,
-		r,
-		ae,
-		l,
-		n,
-		_,
-		u,
-		R,
-		H,
-		ce
-	]), U(() => {
-		if (!a || E || !P || d || !te.current) return;
-		let e = P.nodesRef.current, t = e.find((e) => e.id === N)?.context?.elements.floating, n = zn(on(O ?? t ?? null)), r = e.some((e) => e.context && Bn(e.context.elements.floating, n));
-		t && !r && ee.current && t.focus({ preventScroll: !0 });
-	}, [
-		a,
-		E,
-		O,
-		P,
-		N,
-		d
-	]), U(() => {
-		z.current = T, te.current = !!E;
-	});
-	let le = r != null, ue = G((e) => {
-		if (!V.current) return;
-		let t = n.current.indexOf(e.currentTarget);
-		t !== -1 && (I.current !== t || r !== t) && (I.current = t, R(e));
-	}), de = G(() => v ?? P?.nodesRef.current.find((e) => e.id === N)?.context?.dataRef?.current.orientation), fe = G(() => $r(n, ie.current)), pe = G((t) => {
-		if (ee.current = !1, ne.current = !0, t.which === 229 || !V.current && t.currentTarget === M.current) return;
-		if (l && Cc(t.key, g, u, w)) {
-			bc(t.key, de()) || yr(t), e.setOpen(!1, _t(wt, t.nativeEvent));
-			let n = S?.current ?? O;
-			Bt(n) && n.focus();
-			return;
-		}
-		r != null && r !== I.current && !Qr(n.current, r) && (I.current = r);
-		let i = I.current, a = $r(n, h), o = ei(n, h);
-		if (j || (t.key === "Home" && (yr(t), I.current = a, R(t)), t.key === "End" && (yr(t), I.current = o, R(t))), C != null) {
-			let e = C(t, I.current, n, g, c, u, h, a, o);
-			if (e != null && e !== I.current && (I.current = e, R(t)), g === "both") return;
-		}
-		if (bc(t.key, g)) {
-			yr(t);
-			let e = zn(t.currentTarget.ownerDocument);
-			if (T && !d && Bn(t.currentTarget, e) && !n.current.some((t) => t != null && Bn(t, e))) {
-				I.current = xc(t.key, g, u) ? a : o, R(t), r === I.current && H();
-				return;
-			}
-			let { index: l, wrapped: f } = ti(n.current, i, {
-				decrement: !xc(t.key, g, u),
-				loopFocus: c,
-				allowEscape: s,
-				disabledIndices: h,
-				minIndex: a,
-				maxIndex: o
-			});
-			f && (ne.current = !1), I.current = l, R(t);
-		}
-	}), W = D.useMemo(() => ({
-		onFocus(e) {
-			ne.current = !0, ue(e);
-		},
-		onClick({ currentTarget: e }) {
-			d || e.focus({ preventScroll: !0 });
-		},
-		onMouseMove(e) {
-			vc(e) || (ne.current = !0, B.current = !1, p && ue(e));
-		},
-		onPointerLeave(e) {
-			if (!V.current || !ee.current || e.pointerType === "touch") return;
-			ne.current = !0;
-			let t = e.relatedTarget;
-			if (p && !n.current.includes(t) && oe.current && (re.current?.(), re.current = null, I.current = -1, R(e), !d)) {
-				let e = M.current, t = zn(on(e));
-				e && Bn(e, t) && e.focus({ preventScroll: !0 });
-			}
-		}
-	}), [
-		ue,
-		V,
-		M,
-		p,
-		n,
-		R,
-		oe,
-		d
-	]), me = D.useMemo(() => d && T && le && { "aria-activedescendant": `${y}-${r}` }, [
-		d,
-		T,
-		le,
-		y,
-		r
-	]), he = D.useMemo(() => ({
-		...j ? {} : me,
-		onKeyDown(t) {
-			if (t.key === "Tab" && t.shiftKey && T && !d) {
-				let n = Hn(t.nativeEvent);
-				if (n && !Bn(M.current, n)) return;
-				yr(t);
-				let r = _t(St, t.nativeEvent);
-				e.setOpen(!1, r);
-				let i = S?.current ?? O;
-				!r.isCanceled && Bt(i) && i.focus();
-			} else pe(t);
-		},
-		onPointerMove(e) {
-			vc(e) || (ee.current = !0);
-		}
-	}), [
-		me,
-		pe,
-		M,
-		j,
-		e,
-		T,
-		d,
-		O,
-		S
-	]), ge = D.useMemo(() => {
-		function t(t) {
-			e.setOpen(!0, _t(wt, t.nativeEvent, t.currentTarget));
-		}
-		function n(e) {
-			f === "auto" && xr(e.nativeEvent) && (F.current = !d);
-		}
-		function r(e) {
-			F.current = f, f === "auto" && Sr(e.nativeEvent) && (F.current = !0);
-		}
-		return {
-			onKeyDown(n) {
-				let r = e.select("open");
-				ee.current = !1;
-				let i = n.key.startsWith("Arrow"), a = Sc(n.key, de(), u), o = bc(n.key, r ? g : _), s = (l ? a : o) || n.key === "Enter" || n.key.trim() === "";
-				if (d && r && (!l || mr(n.currentTarget))) return pe(n);
-				if (r || m || !i) {
-					if (s) {
-						let e = bc(n.key, de());
-						L.current = l && e ? null : n.key;
-					}
-					l ? a && (yr(n), r ? (I.current = fe(), R(n), d && M.current?.focus()) : t(n)) : o && (ae.current != null && (I.current = ae.current), yr(n), !r && m ? t(n) : pe(n), r && R(n));
-				}
-			},
-			onFocus(t) {
-				t.target === t.currentTarget && e.select("open") && !d && (I.current = -1, R(t));
-			},
-			onPointerDown: r,
-			onPointerEnter: r,
-			onMouseDown: n,
-			onClick: n
-		};
-	}, [
-		pe,
-		f,
-		fe,
-		l,
-		R,
-		e,
-		m,
-		g,
-		_,
-		de,
-		u,
-		ae,
-		d,
-		M
-	]), _e = D.useMemo(() => ({
-		...me,
-		...ge
-	}), [me, ge]);
-	return D.useMemo(() => a ? {
-		reference: _e,
-		floating: he,
-		item: W,
-		trigger: ge
-	} : {}, [
-		a,
-		_e,
-		he,
-		ge,
-		W
-	]);
-}
-// node_modules/@base-ui/react/floating-ui-react/hooks/useTypeahead.mjs
-function Tc(e, t) {
-	let { listRef: n, elementsRef: r, activeIndex: i, onMatch: a, disabledIndices: o, onTyping: s, enabled: c = !0, resetMs: l = 750, selectedIndex: u = null } = t, d = G(s), f = e.useState("open"), p = Cs(), m = D.useRef(""), h = D.useRef(u ?? i ?? -1), g = D.useRef(null), _ = G((e) => {
-		function t(e) {
-			return r?.current[e];
-		}
-		function s(e) {
-			let n = t(e);
-			return n && !ai(n) || n?.matches(":disabled") ? !1 : o == null || !ri(ke, e, o);
-		}
-		function c(e, t, n = 0) {
-			if (e.length === 0) return -1;
-			let r = (n % e.length + e.length) % e.length, i = t.toLowerCase();
-			for (let t = 0; t < e.length; t += 1) {
-				let n = (r + t) % e.length;
-				if (e[n]?.toLowerCase().startsWith(i) && s(n)) return n;
-			}
-			return -1;
-		}
-		let _ = n.current;
-		if (m.current.length > 0 && e.key === " " && (yr(e), d?.(!0)), m.current.length > 0 && m.current[0] !== " " && c(_, m.current) === -1 && e.key !== " " && d?.(!1), _ == null || e.key.length !== 1 || e.ctrlKey || e.metaKey || e.altKey) return;
-		f && e.key !== " " && (yr(e), d?.(!0));
-		let v = m.current === "";
-		v && (h.current = u ?? i ?? -1), _.every((e, t) => e && s(t) ? e[0]?.toLowerCase() !== e[1]?.toLowerCase() : !0) && m.current === e.key && (m.current = "", h.current = g.current), m.current += e.key, p.start(l, () => {
-			m.current = "", h.current = g.current, d?.(!1);
-		});
-		let y = ((v ? u ?? i ?? -1 : h.current) ?? 0) + 1, b = c(_, m.current, y);
-		b === -1 ? e.key !== " " && (m.current = "", d?.(!1)) : (a?.(b, e), g.current = b);
-	}), v = G((t) => {
-		let n = t.relatedTarget, r = e.select("domReferenceElement"), i = e.select("floatingElement");
-		Bn(r, n) || Bn(i, n) || (p.clear(), m.current = "", h.current = g.current, d?.(!1));
-	});
-	U(() => {
-		(f || u === null) && (p.clear(), g.current = null, m.current !== "" && (m.current = "", d?.(!1)));
-	}, [
-		f,
-		u,
-		p,
-		d
-	]);
-	let y = D.useMemo(() => ({
-		onKeyDown: _,
-		onBlur: v
-	}), [_, v]);
-	return D.useMemo(() => c ? {
-		reference: y,
-		floating: y
-	} : {}, [c, y]);
-}
-// node_modules/@floating-ui/core/dist/floating-ui.core.mjs
-function Ec(e, t, n) {
-	let { reference: r, floating: i } = e, a = Lr(t), o = Rr(t), s = Ir(o), c = Nr(t), l = a === "y", u = r.x + r.width / 2 - i.width / 2, d = r.y + r.height / 2 - i.height / 2, f = r[s] / 2 - i[s] / 2, p;
-	switch (c) {
-		case "top":
-			p = {
-				x: u,
-				y: r.y - i.height
-			};
-			break;
-		case "bottom":
-			p = {
-				x: u,
-				y: r.y + r.height
-			};
-			break;
-		case "right":
-			p = {
-				x: r.x + r.width,
-				y: d
-			};
-			break;
-		case "left":
-			p = {
-				x: r.x - i.width,
-				y: d
-			};
-			break;
-		default: p = {
-			x: r.x,
-			y: r.y
-		};
-	}
-	let m = Pr(t);
-	return m && (p[o] += f * (m === "end" ? 1 : -1) * (n && l ? -1 : 1)), p;
-}
-async function Dc(e, t) {
-	t === void 0 && (t = {});
-	let { x: n, y: r, platform: i, rects: a, elements: o, strategy: s } = e, { boundary: c = "clippingAncestors", rootBoundary: l = "viewport", elementContext: u = "floating", altBoundary: d = !1, padding: f = 0 } = Mr(t, e), p = Xr(f), m = o[d ? u === "floating" ? "reference" : "floating" : u], h = Zr(await i.getClippingRect({
-		element: await (i.isElement == null ? void 0 : i.isElement(m)) ?? !0 ? m : m.contextElement || await (i.getDocumentElement == null ? void 0 : i.getDocumentElement(o.floating)),
-		boundary: c,
-		rootBoundary: l,
-		strategy: s
-	})), g = u === "floating" ? {
-		x: n,
-		y: r,
-		width: a.floating.width,
-		height: a.floating.height
-	} : a.reference, _ = await (i.getOffsetParent == null ? void 0 : i.getOffsetParent(o.floating)), v = await (i.isElement == null ? void 0 : i.isElement(_)) && await (i.getScale == null ? void 0 : i.getScale(_)) || {
-		x: 1,
-		y: 1
-	}, y = Zr(i.convertOffsetParentRelativeRectToViewportRelativeRect ? await i.convertOffsetParentRelativeRectToViewportRelativeRect({
-		elements: o,
-		rect: g,
-		offsetParent: _,
-		strategy: s
-	}) : g);
-	return {
-		top: (h.top - y.top + p.top) / v.y,
-		bottom: (y.bottom - h.bottom + p.bottom) / v.y,
-		left: (h.left - y.left + p.left) / v.x,
-		right: (y.right - h.right + p.right) / v.x
-	};
-}
-var Oc = 50, kc = async (e, t, n) => {
-	let { placement: r = "bottom", strategy: i = "absolute", middleware: a = [], platform: o } = n, s = o.detectOverflow ? o : {
-		...o,
-		detectOverflow: Dc
-	}, c = await (o.isRTL == null ? void 0 : o.isRTL(t)), l = await o.getElementRects({
-		reference: e,
-		floating: t,
-		strategy: i
-	}), { x: u, y: d } = Ec(l, r, c), f = r, p = 0, m = {};
-	for (let n = 0; n < a.length; n++) {
-		let h = a[n];
-		if (!h) continue;
-		let { name: g, fn: _ } = h, { x: v, y, data: b, reset: x } = await _({
-			x: u,
-			y: d,
-			initialPlacement: r,
-			placement: f,
-			strategy: i,
-			middlewareData: m,
-			rects: l,
-			platform: s,
-			elements: {
-				reference: e,
-				floating: t
-			}
-		});
-		u = v ?? u, d = y ?? d, m[g] = {
-			...m[g],
-			...b
-		}, x && p < Oc && (p++, typeof x == "object" && (x.placement && (f = x.placement), x.rects && (l = x.rects === !0 ? await o.getElementRects({
-			reference: e,
-			floating: t,
-			strategy: i
-		}) : x.rects), {x: u, y: d} = Ec(l, f, c)), n = -1);
-	}
-	return {
-		x: u,
-		y: d,
-		placement: f,
-		strategy: i,
-		middlewareData: m
-	};
-}, Ac = function(e) {
-	return e === void 0 && (e = {}), {
-		name: "flip",
-		options: e,
-		async fn(t) {
-			var n;
-			let { placement: r, middlewareData: i, rects: a, initialPlacement: o, platform: s, elements: c } = t, { mainAxis: l = !0, crossAxis: u = !0, fallbackPlacements: d, fallbackStrategy: f = "bestFit", fallbackAxisSideDirection: p = "none", flipAlignment: m = !0, ...h } = Mr(e, t);
-			if ((n = i.arrow) != null && n.alignmentOffset) return {};
-			let g = Nr(r), _ = Lr(o), v = Nr(o) === o, y = await (s.isRTL == null ? void 0 : s.isRTL(c.floating)), b = d || (v || !m ? [Jr(o)] : Br(o)), x = p !== "none";
-			!d && x && b.push(...qr(o, m, p, y));
-			let S = [o, ...b], C = await s.detectOverflow(t, h), w = [], T = i.flip?.overflows || [];
-			if (l && w.push(C[g]), u) {
-				let e = zr(r, a, y);
-				w.push(C[e[0]], C[e[1]]);
-			}
-			if (T = [...T, {
-				placement: r,
-				overflows: w
-			}], !w.every((e) => e <= 0)) {
-				let e = (i.flip?.index || 0) + 1, t = S[e];
-				if (t && (u !== "alignment" || _ === Lr(t) || T.every((e) => Lr(e.placement) !== _ || e.overflows[0] > 0))) return {
-					data: {
-						index: e,
-						overflows: T
-					},
-					reset: { placement: t }
-				};
-				let n = T.filter((e) => e.overflows[0] <= 0).sort((e, t) => e.overflows[1] - t.overflows[1])[0]?.placement;
-				if (!n) switch (f) {
-					case "bestFit": {
-						let e = T.filter((e) => {
-							if (x) {
-								let t = Lr(e.placement);
-								return t === _ || t === "y";
-							}
-							return !0;
-						}).map((e) => [e.placement, e.overflows.filter((e) => e > 0).reduce((e, t) => e + t, 0)]).sort((e, t) => e[1] - t[1])[0]?.[0];
-						e && (n = e);
-						break;
-					}
-					case "initialPlacement": n = o;
-				}
-				if (r !== n) return { reset: { placement: n } };
-			}
-			return {};
-		}
-	};
-}, jc = /*#__PURE__*/ new Set(["left", "top"]);
-async function Mc(e, t) {
-	let { placement: n, platform: r, elements: i } = e, a = await (r.isRTL == null ? void 0 : r.isRTL(i.floating)), o = Nr(n), s = Pr(n), c = Lr(n) === "y", l = jc.has(o) ? -1 : 1, u = a && c ? -1 : 1, d = Mr(t, e), { mainAxis: f, crossAxis: p, alignmentAxis: m } = typeof d == "number" ? {
-		mainAxis: d,
-		crossAxis: 0,
-		alignmentAxis: null
-	} : {
-		mainAxis: d.mainAxis || 0,
-		crossAxis: d.crossAxis || 0,
-		alignmentAxis: d.alignmentAxis
-	};
-	return s && typeof m == "number" && (p = s === "end" ? m * -1 : m), c ? {
-		x: p * u,
-		y: f * l
-	} : {
-		x: f * l,
-		y: p * u
-	};
-}
-var Nc = function(e) {
-	return e === void 0 && (e = 0), {
-		name: "offset",
-		options: e,
-		async fn(t) {
-			var n;
-			let { x: r, y: i, placement: a, middlewareData: o } = t, s = await Mc(t, e);
-			return a === o.offset?.placement && (n = o.arrow) != null && n.alignmentOffset ? {} : {
-				x: r + s.x,
-				y: i + s.y,
-				data: {
-					...s,
-					placement: a
-				}
-			};
-		}
-	};
-}, Pc = function(e) {
-	return e === void 0 && (e = {}), {
-		name: "shift",
-		options: e,
-		async fn(t) {
-			let { x: n, y: r, placement: i, platform: a } = t, { mainAxis: o = !0, crossAxis: s = !1, limiter: c = { fn: (e) => {
-				let { x: t, y: n } = e;
-				return {
-					x: t,
-					y: n
-				};
-			} }, ...l } = Mr(e, t), u = {
-				x: n,
-				y: r
-			}, d = await a.detectOverflow(t, l), f = Lr(i), p = Fr(f), m = u[p], h = u[f], g = (e, t) => jr(t + d[e === "y" ? "top" : "left"], t, t - d[e === "y" ? "bottom" : "right"]);
-			o && (m = g(p, m)), s && (h = g(f, h));
-			let _ = c.fn({
-				...t,
-				[p]: m,
-				[f]: h
-			});
-			return {
-				..._,
-				data: {
-					x: _.x - n,
-					y: _.y - r,
-					enabled: {
-						[p]: o,
-						[f]: s
-					}
-				}
-			};
-		}
-	};
-}, Fc = function(e) {
-	return e === void 0 && (e = {}), {
-		options: e,
-		fn(t) {
-			let { x: n, y: r, placement: i, rects: a, middlewareData: o } = t, { offset: s = 0, mainAxis: c = !0, crossAxis: l = !0 } = Mr(e, t), u = {
-				x: n,
-				y: r
-			}, d = Lr(i), f = Fr(d), p = u[f], m = u[d], h = Mr(s, t), g = typeof h == "number" ? {
-				mainAxis: h,
-				crossAxis: 0
-			} : {
-				mainAxis: h.mainAxis ?? 0,
-				crossAxis: h.crossAxis ?? 0
-			};
-			if (c) {
-				let e = f === "y" ? "height" : "width", t = a.reference[f] - a.floating[e] + g.mainAxis, n = a.reference[f] + a.reference[e] - g.mainAxis;
-				p < t ? p = t : p > n && (p = n);
-			}
-			if (l) {
-				let e = f === "y" ? "width" : "height", t = jc.has(Nr(i)), n = a.reference[d] - a.floating[e] + (t && o.offset?.[d] || 0) + (t ? 0 : g.crossAxis), r = a.reference[d] + a.reference[e] + (t ? 0 : o.offset?.[d] || 0) - (t ? g.crossAxis : 0);
-				m < n ? m = n : m > r && (m = r);
-			}
-			return {
-				[f]: p,
-				[d]: m
-			};
-		}
-	};
-}, Ic = function(e) {
-	return e === void 0 && (e = {}), {
-		name: "size",
-		options: e,
-		async fn(t) {
-			let { placement: n, rects: r, platform: i, elements: a } = t, { apply: o = () => {}, ...s } = Mr(e, t), c = await i.detectOverflow(t, s), l = Nr(n), u = Pr(n), d = Lr(n) === "y", { width: f, height: p } = r.floating, m, h;
-			l === "top" || l === "bottom" ? (m = l, h = u === (await (i.isRTL == null ? void 0 : i.isRTL(a.floating)) ? "start" : "end") ? "left" : "right") : (h = l, m = u === "end" ? "top" : "bottom");
-			let g = p - c.top - c.bottom, _ = f - c.left - c.right, v = Tr(p - c[m], g), y = Tr(f - c[h], _), b = t.middlewareData.shift, x = !b, S = v, C = y;
-			b != null && b.enabled.x && (C = _), b != null && b.enabled.y && (S = g), x && !u && (d ? C = f - 2 * Er(c.left, c.right) : S = p - 2 * Er(c.top, c.bottom)), await o({
-				...t,
-				availableWidth: C,
-				availableHeight: S
-			});
-			let w = await i.getDimensions(a.floating);
-			return f !== w.width || p !== w.height ? { reset: { rects: !0 } } : {};
-		}
-	};
-};
-// node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs
-function Lc(e) {
-	let t = $t(e), n = parseFloat(t.width) || 0, r = parseFloat(t.height) || 0, i = Bt(e), a = i ? e.offsetWidth : n, o = i ? e.offsetHeight : r, s = Dr(n) !== a || Dr(r) !== o;
-	return s && (n = a, r = o), {
-		width: n,
-		height: r,
-		$: s
-	};
-}
-function Rc(e) {
-	return zt(e) ? e : e.contextElement;
-}
-function zc(e) {
-	let t = Rc(e);
-	if (!Bt(t)) return kr(1);
-	let n = t.getBoundingClientRect(), { width: r, height: i, $: a } = Lc(t), o = (a ? Dr(n.width) : n.width) / r, s = (a ? Dr(n.height) : n.height) / i;
-	return o && Number.isFinite(o) || (o = 1), s && Number.isFinite(s) || (s = 1), {
-		x: o,
-		y: s
-	};
-}
-var Bc = /*#__PURE__*/ kr(0);
-function Vc(e) {
-	let t = It(e);
-	return !Zt() || !t.visualViewport ? Bc : {
-		x: t.visualViewport.offsetLeft,
-		y: t.visualViewport.offsetTop
-	};
-}
-function Hc(e, t, n) {
-	return t === void 0 && (t = !1), !!n && t && n === It(e);
-}
-function Uc(e, t, n, r) {
-	t === void 0 && (t = !1), n === void 0 && (n = !1);
-	let i = e.getBoundingClientRect(), a = Rc(e), o = kr(1);
-	t && (r ? zt(r) && (o = zc(r)) : o = zc(e));
-	let s = Hc(a, n, r) ? Vc(a) : kr(0), c = (i.left + s.x) / o.x, l = (i.top + s.y) / o.y, u = i.width / o.x, d = i.height / o.y;
-	if (a && r) {
-		let e = It(a), t = zt(r) ? It(r) : r, n = e, i = an(n);
-		for (; i && t !== n;) {
-			let e = zc(i), t = i.getBoundingClientRect(), r = $t(i), a = t.left + (i.clientLeft + parseFloat(r.paddingLeft)) * e.x, o = t.top + (i.clientTop + parseFloat(r.paddingTop)) * e.y;
-			c *= e.x, l *= e.y, u *= e.x, d *= e.y, c += a, l += o, n = It(i), i = an(n);
-		}
-	}
-	return Zr({
-		width: u,
-		height: d,
-		x: c,
-		y: l
-	});
-}
-function Wc(e, t) {
-	let n = en(e).scrollLeft;
-	return t ? t.left + n : Uc(Lt(e)).left + n;
-}
-function Gc(e, t) {
-	let n = e.getBoundingClientRect();
-	return {
-		x: n.left + t.scrollLeft - Wc(e, n),
-		y: n.top + t.scrollTop
-	};
-}
-function Kc(e) {
-	let { elements: t, rect: n, offsetParent: r, strategy: i } = e, a = i === "fixed", o = Lt(r), s = t ? Wt(t.floating) : !1;
-	if (r === o || s && a) return n;
-	let c = {
-		scrollLeft: 0,
-		scrollTop: 0
-	}, l = kr(1), u = kr(0), d = Bt(r);
-	if ((d || !a) && ((Ft(r) !== "body" || Ht(o)) && (c = en(r)), d)) {
-		let e = Uc(r);
-		l = zc(r), u.x = e.x + r.clientLeft, u.y = e.y + r.clientTop;
-	}
-	let f = o && !d && !a ? Gc(o, c) : kr(0);
-	return {
-		width: n.width * l.x,
-		height: n.height * l.y,
-		x: n.x * l.x - c.scrollLeft * l.x + u.x + f.x,
-		y: n.y * l.y - c.scrollTop * l.y + u.y + f.y
-	};
-}
-function qc(e) {
-	return e.getClientRects ? Array.from(e.getClientRects()) : [];
-}
-function Jc(e) {
-	let t = en(e), n = e.ownerDocument.body, r = Er(e.scrollWidth, e.clientWidth, n.scrollWidth, n.clientWidth), i = Er(e.scrollHeight, e.clientHeight, n.scrollHeight, n.clientHeight), a = -t.scrollLeft + Wc(e), o = -t.scrollTop;
-	return $t(n).direction === "rtl" && (a += Er(e.clientWidth, n.clientWidth) - r), {
-		width: r,
-		height: i,
-		x: a,
-		y: o
-	};
-}
-var Yc = 25;
-function Xc(e, t, n) {
-	n === void 0 && (n = "viewport");
-	let r = n === "layoutViewport", i = It(e), a = Lt(e), o = i.visualViewport, s = a.clientWidth, c = a.clientHeight, l = 0, u = 0;
-	if (o) {
-		let e = !Zt() || t === "fixed";
-		r ? e || (l = -o.offsetLeft, u = -o.offsetTop) : (s = o.width, c = o.height, e && (l = o.offsetLeft, u = o.offsetTop));
-	}
-	if (Wc(a) <= 0) {
-		let e = a.ownerDocument, t = e.body, n = getComputedStyle(t), r = e.compatMode === "CSS1Compat" && parseFloat(n.marginLeft) + parseFloat(n.marginRight) || 0, i = Math.abs(a.clientWidth - t.clientWidth - r), o = getComputedStyle(a).scrollbarGutter === "stable both-edges" ? i / 2 : i;
-		o <= Yc && (s -= o);
-	}
-	return {
-		width: s,
-		height: c,
-		x: l,
-		y: u
-	};
-}
-function Zc(e, t) {
-	let n = Uc(e, !0, t === "fixed"), r = n.top + e.clientTop, i = n.left + e.clientLeft, a = zc(e);
-	return {
-		width: e.clientWidth * a.x,
-		height: e.clientHeight * a.y,
-		x: i * a.x,
-		y: r * a.y
-	};
-}
-function Qc(e, t, n) {
-	let r;
-	if (t === "viewport" || t === "layoutViewport") r = Xc(e, n, t);
-	else if (t === "document") r = Jc(Lt(e));
-	else if (zt(t)) r = Zc(t, n);
-	else {
-		let n = Vc(e);
-		r = {
-			x: t.x - n.x,
-			y: t.y - n.y,
-			width: t.width,
-			height: t.height
-		};
-	}
-	return Zr(r);
-}
-function $c(e, t) {
-	let n = t.get(e);
-	if (n) return n;
-	let r = rn(e, [], !1).filter((e) => zt(e) && Ft(e) !== "body"), i = null, a = $t(e).position === "fixed", o = a ? tn(e) : e;
-	for (; zt(o) && !Qt(o);) {
-		let e = $t(o), t = Yt(o), n = i ? i.position : a ? "fixed" : "";
-		!t && (n === "fixed" || n === "absolute" && e.position === "static") ? r = r.filter((e) => e !== o) : i = e, o = tn(o);
-	}
-	return t.set(e, r), r;
-}
-function el(e) {
-	let { element: t, boundary: n, rootBoundary: r, strategy: i } = e, a = [...n === "clippingAncestors" ? Wt(t) ? [] : $c(t, this._c) : [].concat(n), r], o = Qc(t, a[0], i), s = o.top, c = o.right, l = o.bottom, u = o.left;
-	for (let e = 1; e < a.length; e++) {
-		let n = Qc(t, a[e], i);
-		s = Er(n.top, s), c = Tr(n.right, c), l = Tr(n.bottom, l), u = Er(n.left, u);
-	}
-	return {
-		width: c - u,
-		height: l - s,
-		x: u,
-		y: s
-	};
-}
-function tl(e) {
-	let { width: t, height: n } = Lc(e);
-	return {
-		width: t,
-		height: n
-	};
-}
-function nl(e, t, n) {
-	let r = Bt(t), i = Lt(t), a = n === "fixed", o = Uc(e, !0, a, t), s = {
-		scrollLeft: 0,
-		scrollTop: 0
-	}, c = kr(0);
-	if ((r || !a) && ((Ft(t) !== "body" || Ht(i)) && (s = en(t)), r)) {
-		let e = Uc(t, !0, a, t);
-		c.x = e.x + t.clientLeft, c.y = e.y + t.clientTop;
-	}
-	!r && i && (c.x = Wc(i));
-	let l = i && !r && !a ? Gc(i, s) : kr(0);
-	return {
-		x: o.left + s.scrollLeft - c.x - l.x,
-		y: o.top + s.scrollTop - c.y - l.y,
-		width: o.width,
-		height: o.height
-	};
-}
-function rl(e) {
-	return $t(e).position === "static";
-}
-function il(e, t) {
-	if (!Bt(e) || $t(e).position === "fixed") return null;
-	if (t) return t(e);
-	let n = e.offsetParent;
-	return Lt(e) === n && (n = n.ownerDocument.body), n;
-}
-function al(e, t) {
-	let n = It(e);
-	if (Wt(e)) return n;
-	if (!Bt(e)) {
-		let t = tn(e);
-		for (; t && !Qt(t);) {
-			if (zt(t) && !rl(t)) return t;
-			t = tn(t);
-		}
-		return n;
-	}
-	let r = il(e, t);
-	for (; r && Ut(r) && rl(r);) r = il(r, t);
-	return r && Qt(r) && rl(r) && !Yt(r) ? n : r || Xt(e) || n;
-}
-var ol = async function(e) {
-	let t = this.getOffsetParent || al, n = this.getDimensions, r = await n(e.floating);
-	return {
-		reference: nl(e.reference, await t(e.floating), e.strategy),
-		floating: {
-			x: 0,
-			y: 0,
-			width: r.width,
-			height: r.height
-		}
-	};
-};
-function sl(e) {
-	return $t(e).direction === "rtl";
-}
-var cl = {
-	convertOffsetParentRelativeRectToViewportRelativeRect: Kc,
-	getDocumentElement: Lt,
-	getClippingRect: el,
-	getOffsetParent: al,
-	getElementRects: ol,
-	getClientRects: qc,
-	getDimensions: tl,
-	getScale: zc,
-	isElement: zt,
-	isRTL: sl
-};
-function ll(e, t) {
-	return e.x === t.x && e.y === t.y && e.width === t.width && e.height === t.height;
-}
-function ul(e, t, n) {
-	let r = null, i, a = Lt(e);
-	function o() {
-		var e;
-		clearTimeout(i), (e = r) == null || e.disconnect(), r = null;
-	}
-	function s(n, c) {
-		n === void 0 && (n = !1), c === void 0 && (c = 1), o();
-		let l = e.getBoundingClientRect(), { left: u, top: d, width: f, height: p } = l;
-		if (n || t(), !f || !p) return;
-		let m = Or(d), h = Or(a.clientWidth - (u + f)), g = Or(a.clientHeight - (d + p)), _ = Or(u), v = {
-			rootMargin: -m + "px " + -h + "px " + -g + "px " + -_ + "px",
-			threshold: Er(0, Tr(1, c)) || 1
-		}, y = !0;
-		function b(t) {
-			let n = t[0].intersectionRatio;
-			if (!ll(l, e.getBoundingClientRect())) return s();
-			if (n !== c) {
-				if (!y) return s();
-				n ? s(!1, n) : i = setTimeout(() => {
-					s(!1, 1e-7);
-				}, 1e3);
-			}
-			y = !1;
-		}
-		try {
-			r = new IntersectionObserver(b, {
-				...v,
-				root: a.ownerDocument
-			});
-		} catch {
-			r = new IntersectionObserver(b, v);
-		}
-		r.observe(e);
-	}
-	let c = It(e), l = () => s(n);
-	return c.addEventListener("resize", l), s(!0), () => {
-		c.removeEventListener("resize", l), o();
-	};
-}
-function dl(e, t, n, r) {
-	r === void 0 && (r = {});
-	let { ancestorScroll: i = !0, ancestorResize: a = !0, elementResize: o = typeof ResizeObserver == "function", layoutShift: s = typeof IntersectionObserver == "function", animationFrame: c = !1 } = r, l = Rc(e), u = i || a ? [...l ? rn(l) : [], ...t ? rn(t) : []] : [];
-	u.forEach((e) => {
-		i && e.addEventListener("scroll", n), a && e.addEventListener("resize", n);
-	});
-	let d = l && s ? ul(l, n, a) : null, f = -1, p = null;
-	o && (p = new ResizeObserver((e) => {
-		let [r] = e;
-		r && r.target === l && p && t && (p.unobserve(t), cancelAnimationFrame(f), f = requestAnimationFrame(() => {
-			var e;
-			(e = p) == null || e.observe(t);
-		})), n();
-	}), l && !c && p.observe(l), t && p.observe(t));
-	let m, h = c ? Uc(e) : null;
-	c && g();
-	function g() {
-		let t = Uc(e);
-		h && !ll(h, t) && n(), h = t, m = requestAnimationFrame(g);
-	}
-	return n(), () => {
-		var e;
-		u.forEach((e) => {
-			i && e.removeEventListener("scroll", n), a && e.removeEventListener("resize", n);
-		}), d?.(), (e = p) == null || e.disconnect(), p = null, c && cancelAnimationFrame(m);
-	};
-}
-var fl = Nc, pl = Pc, ml = Ac, hl = Ic, gl = Fc, _l = (e, t, n) => {
-	let r = /* @__PURE__ */ new Map(), i = n ?? {}, a = {
-		...cl,
-		...i.platform,
-		_c: r
-	};
-	return kc(e, t, {
-		...i,
-		platform: a
-	});
-}, vl = typeof document < "u" ? D.useLayoutEffect : function() {};
-function yl(e, t) {
-	if (e === t) return !0;
-	if (typeof e != typeof t) return !1;
-	if (typeof e == "function" && e.toString() === t.toString()) return !0;
-	let n, r, i;
-	if (e && t && typeof e == "object") {
-		if (Array.isArray(e)) {
-			if (n = e.length, n !== t.length) return !1;
-			for (r = n; r-- !== 0;) if (!yl(e[r], t[r])) return !1;
-			return !0;
-		}
-		if (i = Object.keys(e), n = i.length, n !== Object.keys(t).length) return !1;
-		for (r = n; r-- !== 0;) if (!{}.hasOwnProperty.call(t, i[r])) return !1;
-		for (r = n; r-- !== 0;) {
-			let n = i[r];
-			if (!(n === "_owner" && e.$$typeof) && !yl(e[n], t[n])) return !1;
-		}
-		return !0;
-	}
-	return e !== e && t !== t;
-}
-function bl(e) {
-	return typeof window > "u" ? 1 : (e.ownerDocument.defaultView || window).devicePixelRatio || 1;
-}
-function xl(e, t) {
-	let n = bl(e);
-	return Math.round(t * n) / n;
-}
-function Sl(e) {
-	let t = D.useRef(e);
-	return vl(() => {
-		t.current = e;
-	}), t;
-}
-function Cl(e) {
-	e === void 0 && (e = {});
-	let { placement: t = "bottom", strategy: n = "absolute", middleware: r = [], platform: i, elements: { reference: a, floating: o } = {}, transform: s = !0, whileElementsMounted: c, open: l } = e, [u, d] = D.useState({
-		x: 0,
-		y: 0,
-		strategy: n,
-		placement: t,
-		middlewareData: {},
-		isPositioned: !1
-	}), [f, p] = D.useState(r);
-	yl(f, r) || p(r);
-	let [m, h] = D.useState(null), [g, _] = D.useState(null), v = D.useCallback((e) => {
-		e !== S.current && (S.current = e, h(e));
-	}, []), y = D.useCallback((e) => {
-		e !== C.current && (C.current = e, _(e));
-	}, []), b = a || m, x = o || g, S = D.useRef(null), C = D.useRef(null), w = D.useRef(u), T = c != null, E = Sl(c), O = Sl(i), k = Sl(l), A = D.useCallback(() => {
-		if (!S.current || !C.current) return;
-		let e = {
-			placement: t,
-			strategy: n,
-			middleware: f
-		};
-		O.current && (e.platform = O.current), _l(S.current, C.current, e).then((e) => {
-			let t = {
-				...e,
-				isPositioned: k.current !== !1
-			};
-			j.current && !yl(w.current, t) && (w.current = t, Hi.flushSync(() => {
-				d(t);
-			}));
-		});
-	}, [
-		f,
-		t,
-		n,
-		O,
-		k
-	]);
-	vl(() => {
-		l === !1 && w.current.isPositioned && (w.current.isPositioned = !1, d((e) => ({
-			...e,
-			isPositioned: !1
-		})));
-	}, [l]);
-	let j = D.useRef(!1);
-	vl(() => (j.current = !0, () => {
-		j.current = !1;
-	}), []), vl(() => {
-		if (b && (S.current = b), x && (C.current = x), b && x) {
-			if (E.current) return E.current(b, x, A);
-			A();
-		}
-	}, [
-		b,
-		x,
-		A,
-		E,
-		T
-	]);
-	let M = D.useMemo(() => ({
-		reference: S,
-		floating: C,
-		setReference: v,
-		setFloating: y
-	}), [v, y]), N = D.useMemo(() => ({
-		reference: b,
-		floating: x
-	}), [b, x]), P = D.useMemo(() => {
-		let e = {
-			position: n,
-			left: 0,
-			top: 0
-		};
-		if (!N.floating) return e;
-		let t = xl(N.floating, u.x), r = xl(N.floating, u.y);
-		return s ? {
-			...e,
-			transform: "translate(" + t + "px, " + r + "px)",
-			...bl(N.floating) >= 1.5 && { willChange: "transform" }
-		} : {
-			position: n,
-			left: t,
-			top: r
-		};
-	}, [
-		n,
-		s,
-		N.floating,
-		u.x,
-		u.y
-	]);
-	return D.useMemo(() => ({
-		...u,
-		update: A,
-		refs: M,
-		elements: N,
-		floatingStyles: P
-	}), [
-		u,
-		A,
-		M,
-		N,
-		P
-	]);
-}
-var wl = (e, t) => {
-	let n = fl(e);
-	return {
-		name: n.name,
-		fn: n.fn,
-		options: [e, t]
+			��zռ�z�&��^vs: [e, t]
 	};
 }, Tl = (e, t) => {
 	let n = pl(e);
@@ -25508,10 +23005,10 @@ function nv({ series: e }) {
 			priceLineVisible: !1,
 			lastValueVisible: !1,
 			title: "20 日均线"
-		}).setData(e.map(([t], n) => ({
+		}).setData(e.flatMap(([t], n) => n < 19 ? [] : [{
 			time: t,
-			value: e.slice(Math.max(0, n - 19), n + 1).reduce((e, t) => e + t[1], 0) / Math.min(20, n + 1)
-		}))), n.timeScale().fitContent(), () => n.remove();
+			value: e.slice(n - 19, n + 1).reduce((e, t) => e + t[1], 0) / 20
+		}])), n.timeScale().fitContent(), () => n.remove();
 	}, [e]), e.length < 2 ? /* @__PURE__ */ (0, K.jsx)("p", { children: "暂无足够数据" }) : /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("div", {
 		ref: t,
 		className: "us-chart",
@@ -25701,9 +23198,14 @@ function rv() {
 	});
 }
 function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, checkedAt: o }) {
-	let s = D.useRef(null), [c, l] = D.useState(90), [u, d] = D.useState(!1), [f, p] = D.useState(""), [m, h] = D.useState(null), g = D.useMemo(() => n.filter((t) => t.symbol === e).sort((e, t) => t.time.localeCompare(e.time)), [n, e]);
+	let s = D.useRef(null), [c, l] = D.useState(90), [u, d] = D.useState(!1), [f, p] = D.useState("all"), [m, h] = D.useState("all"), [g, _] = D.useState(""), [v, y] = D.useState(null), b = D.useMemo(() => n.filter((t) => t.symbol === e && (f === "all" || t.source === f) && (m === "all" || t.side === m)).sort((e, t) => t.time.localeCompare(e.time)), [
+		n,
+		e,
+		f,
+		m
+	]);
 	D.useEffect(() => {
-		d(!1), p(""), h(null);
+		d(!1), _(""), y(null);
 	}, [e]), D.useEffect(() => {
 		if (!s.current || t.length < 2) return;
 		let e = t.filter((e) => e.length === 5 && e.slice(1).every(Number.isFinite));
@@ -25774,7 +23276,7 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 			value: e.slice(n - 19, n + 1).reduce((e, t) => e + t[4], 0) / 20
 		}]));
 		let i = new Set(e.map((e) => e[0])), a = /* @__PURE__ */ new Map();
-		for (let e of g) {
+		for (let e of b) {
 			if (!i.has(e.date)) continue;
 			let t = e.date + ":" + e.side, n = a.get(t) || {
 				date: e.date,
@@ -25797,24 +23299,24 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 		let o = (e, t) => {
 			let n = typeof e == "string" ? a.get(e) : void 0;
 			if (!n || !t || !s.current) {
-				h(null);
+				y(null);
 				return;
 			}
 			let r = s.current.clientWidth;
-			h({
+			y({
 				x: Math.max(4, Math.min(t.x + 14, r - 252)),
 				y: Math.max(4, Math.min(t.y + 14, s.current.clientHeight - 165)),
 				side: n.side,
 				date: n.date,
 				quantity: n.quantity,
 				average: n.amount / n.quantity,
-				items: g.filter((e) => e.date === n.date && e.side === n.side)
+				items: b.filter((e) => e.date === n.date && e.side === n.side)
 			});
 		};
 		n.subscribeCrosshairMove((t) => {
 			o(t.hoveredInfo?.objectId ?? t.hoveredObjectId, t.point);
 			let n = e.find((e) => e[0] === t.time);
-			p(n ? `${n[0]}  开 ${n[1].toFixed(2)}  高 ${n[2].toFixed(2)}  低 ${n[3].toFixed(2)}  收 ${n[4].toFixed(2)}` : "");
+			_(n ? `${n[0]}  开 ${n[1].toFixed(2)}  高 ${n[2].toFixed(2)}  低 ${n[3].toFixed(2)}  收 ${n[4].toFixed(2)}` : "");
 		}), n.subscribeClick((e) => o(e.hoveredInfo?.objectId ?? e.hoveredObjectId, e.point));
 		let l = e[Math.max(0, e.length - c)][0], u = e[e.length - 1][0];
 		return n.timeScale().setVisibleRange({
@@ -25824,10 +23326,10 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 	}, [
 		e,
 		t,
-		g,
+		b,
 		c
 	]);
-	let _ = u ? g : g.slice(0, 8), v = new Set(t.map((e) => e[0])), y = g.filter((e) => !v.has(e.date)).length;
+	let x = u ? b : b.slice(0, 8), S = new Set(t.map((e) => e[0])), C = b.filter((e) => !S.has(e.date)).length;
 	return /* @__PURE__ */ (0, K.jsxs)("div", {
 		className: "trade-chart",
 		children: [
@@ -25842,8 +23344,8 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 					className: "trade-ranges",
 					"aria-label": "图表时间范围",
 					children: [
-						[30, "30日"],
-						[90, "90日"],
+						[30, "30个交易日"],
+						[90, "90个交易日"],
 						[260, "一年"]
 					].map(([e, t]) => /* @__PURE__ */ (0, K.jsx)("button", {
 						type: "button",
@@ -25853,9 +23355,40 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 					}, e))
 				})]
 			}),
+			/* @__PURE__ */ (0, K.jsxs)("div", {
+				className: "trade-filters",
+				children: [/* @__PURE__ */ (0, K.jsxs)("label", { children: ["账户 ", /* @__PURE__ */ (0, K.jsxs)("select", {
+					value: f,
+					onChange: (e) => p(e.target.value),
+					children: [/* @__PURE__ */ (0, K.jsx)("option", {
+						value: "all",
+						children: "全部来源"
+					}), Array.from(new Set(n.filter((t) => t.symbol === e).map((e) => e.source))).map((e) => /* @__PURE__ */ (0, K.jsx)("option", {
+						value: e,
+						children: e
+					}, e))]
+				})] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["方向 ", /* @__PURE__ */ (0, K.jsxs)("select", {
+					value: m,
+					onChange: (e) => h(e.target.value),
+					children: [
+						/* @__PURE__ */ (0, K.jsx)("option", {
+							value: "all",
+							children: "全部"
+						}),
+						/* @__PURE__ */ (0, K.jsx)("option", {
+							value: "BUY",
+							children: "买入"
+						}),
+						/* @__PURE__ */ (0, K.jsx)("option", {
+							value: "SELL",
+							children: "卖出"
+						})
+					]
+				})] })]
+			}),
 			/* @__PURE__ */ (0, K.jsx)("div", {
 				className: "trade-ohlc",
-				children: f || "移动鼠标或触摸 K 线查看行情，悬停或点击买卖标记查看成交价"
+				children: g || "移动鼠标或触摸 K 线查看行情，悬停或点击买卖标记查看成交价"
 			}),
 			t.length >= 2 ? /* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "trade-candle-wrap",
@@ -25864,42 +23397,42 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 					className: "trade-candles",
 					role: "img",
 					"aria-label": `${e} 日K线及成交价格标记，可缩放`
-				}), m && /* @__PURE__ */ (0, K.jsxs)("div", {
+				}), v && /* @__PURE__ */ (0, K.jsxs)("div", {
 					className: "trade-tooltip",
 					style: {
-						left: m.x,
-						top: m.y
+						left: v.x,
+						top: v.y
 					},
 					role: "tooltip",
 					children: [
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "trade-tooltip-title",
-							children: [/* @__PURE__ */ (0, K.jsx)("b", { children: m.side === "BUY" ? "买入" : "卖出" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [m.date, " · 美东"] })]
+							children: [/* @__PURE__ */ (0, K.jsx)("b", { children: v.side === "BUY" ? "买入" : "卖出" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [v.date, " · 美东"] })]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "trade-tooltip-price",
 							children: [
 								"$",
-								m.average.toLocaleString("en-US", {
+								v.average.toLocaleString("en-US", {
 									minimumFractionDigits: 2,
 									maximumFractionDigits: 4
 								}),
 								" ",
-								/* @__PURE__ */ (0, K.jsx)("small", { children: m.items.length > 1 ? "成交均价" : "成交价格" })
+								/* @__PURE__ */ (0, K.jsx)("small", { children: v.items.length > 1 ? "成交均价" : "成交价格" })
 							]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "trade-tooltip-meta",
 							children: [
-								m.quantity,
+								v.quantity,
 								" 股 · ",
-								m.items.length,
+								v.items.length,
 								" 笔"
 							]
 						}),
-						m.items.length > 1 && /* @__PURE__ */ (0, K.jsx)("div", {
+						v.items.length > 1 && /* @__PURE__ */ (0, K.jsx)("div", {
 							className: "trade-tooltip-items",
-							children: m.items.map((e) => /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsxs)("span", { children: [
+							children: v.items.map((e) => /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsxs)("span", { children: [
 								e.source,
 								" · ",
 								e.quantity,
@@ -25909,9 +23442,9 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 								maximumFractionDigits: 4
 							})] })] }, e.id))
 						}),
-						m.items.length === 1 && /* @__PURE__ */ (0, K.jsx)("div", {
+						v.items.length === 1 && /* @__PURE__ */ (0, K.jsx)("div", {
 							className: "trade-tooltip-meta",
-							children: m.items[0].source
+							children: v.items[0].source
 						})
 					]
 				})]
@@ -25941,10 +23474,10 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "trade-history-head",
 						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("strong", { children: "实际成交明细" }), /* @__PURE__ */ (0, K.jsxs)("span", { children: [
-							g.length,
+							b.length,
 							" 笔 · ",
 							e
-						] })] }), g.length > 8 && /* @__PURE__ */ (0, K.jsx)("button", {
+						] })] }), b.length > 8 && /* @__PURE__ */ (0, K.jsx)("button", {
 							type: "button",
 							onClick: () => d(!u),
 							children: u ? "收起" : "查看全部"
@@ -25956,10 +23489,10 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 							a || "尚未取得成交数据。",
 							" ",
 							o && `读取：${o}。`,
-							y > 0 && ` ${y} 笔在当前图表日期范围以外，仅在明细显示。`
+							C > 0 && ` ${C} 笔在当前图表日期范围以外，仅在明细显示。`
 						]
 					}),
-					_.length ? /* @__PURE__ */ (0, K.jsx)("div", {
+					x.length ? /* @__PURE__ */ (0, K.jsx)("div", {
 						className: "us-table-wrap",
 						children: /* @__PURE__ */ (0, K.jsxs)("table", { children: [/* @__PURE__ */ (0, K.jsx)("thead", { children: /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "美东成交时间" }),
@@ -25967,7 +23500,7 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "数量" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "成交价" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "账户来源" })
-						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: _.map((e) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: x.map((e) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
 							/* @__PURE__ */ (0, K.jsx)("td", { children: new Date(e.time).toLocaleString("zh-CN", {
 								timeZone: "America/New_York",
 								hour12: !1
@@ -25982,7 +23515,7 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 						] }, e.id)) })] })
 					}) : /* @__PURE__ */ (0, K.jsx)("p", {
 						className: "trade-empty",
-						children: "已连接账户在可读取范围内没有此标的的成交记录；其他账户未覆盖。"
+						children: "当前筛选范围内暂无成交记录；其他账户或更早记录可能未覆盖。"
 					})
 				]
 			})
@@ -25990,7 +23523,7 @@ function iv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 	});
 }
 function av() {
-	let [e, t] = D.useState(), [n, r] = D.useState(""), [i, a] = D.useState(""), [o, s] = D.useState(""), [c, l] = D.useState("rank"), u = D.useCallback(async (e) => {
+	let [e, t] = D.useState(), [n, r] = D.useState(""), [i, a] = D.useState(""), [o, s] = D.useState(""), [c, l] = D.useState("rank"), [u, d] = D.useState("holdings"), f = D.useCallback(async (e) => {
 		try {
 			let n = e.trim();
 			if ((n.startsWith("https:") || n.startsWith("http:")) && (n = new URL(n).hash.slice(1)), !/^[A-Za-z0-9_-]{43}$/.test(n)) throw Error("请输入有效的访问密钥或完整解锁链接");
@@ -26010,8 +23543,8 @@ function av() {
 		if (!/^[A-Za-z0-9_-]{43}$/.test(e)) try {
 			e = localStorage.getItem("jybd-report-key-v1") || "";
 		} catch {}
-		e && u(e);
-	}, [u]), !e) return /* @__PURE__ */ (0, K.jsxs)("main", {
+		e && f(e);
+	}, [f]), !e) return /* @__PURE__ */ (0, K.jsxs)("main", {
 		className: "us-main",
 		children: [
 			/* @__PURE__ */ (0, K.jsx)("p", {
@@ -26036,7 +23569,7 @@ function av() {
 					}),
 					/* @__PURE__ */ (0, K.jsx)("button", {
 						className: "us-primary",
-						onClick: () => void u(n),
+						onClick: () => void f(n),
 						children: "打开持仓报告"
 					}),
 					i && /* @__PURE__ */ (0, K.jsx)("p", {
@@ -26047,43 +23580,43 @@ function av() {
 			})
 		]
 	});
-	let d = e.display || {}, f = e.research || {}, p = Object.fromEntries(e.quotes.map((e) => [e.symbol.replace(".US", ""), e])), m = [
+	let p = e.display || {}, m = e.research || {}, h = Object.fromEntries(e.quotes.map((e) => [e.symbol.replace(".US", ""), e])), g = [
 		...e.ibkr.positions.filter((e) => e.currency === "USD").map((e) => ({
 			symbol: e.contract_description,
-			name: d[e.contract_description] || e.contract_description,
+			name: p[e.contract_description] || e.contract_description,
 			quantity: Number(e.position),
 			account: "盈透"
 		})),
 		...e.longbridge.list.flatMap((e) => e.stock_info).filter((e) => e.market === "US").map((e) => ({
 			symbol: e.symbol.replace(".US", ""),
-			name: d[e.symbol.replace(".US", "")] || e.symbol_name,
+			name: p[e.symbol.replace(".US", "")] || e.symbol_name,
 			quantity: Number(e.quantity),
 			account: "长桥"
 		})),
 		...(e.extraHoldings || []).map((e) => ({
 			...e,
-			name: d[e.symbol] || e.symbol
+			name: p[e.symbol] || e.symbol
 		}))
 	].map((e) => ({
 		...e,
-		price: Number(p[e.symbol]?.last_done) || void 0,
-		timestamp: p[e.symbol]?.timestamp
-	})), h = Object.values(m.reduce((e, t) => {
+		price: Number(h[e.symbol]?.last_done) || void 0,
+		timestamp: h[e.symbol]?.timestamp
+	})), _ = Object.values(g.reduce((e, t) => {
 		let n = e[t.symbol] || {
 			...t,
 			quantity: 0,
 			account: ""
 		};
 		return n.quantity = n.quantity === null || t.quantity === null ? null : n.quantity + t.quantity, n.account += (n.account ? " / " : "") + t.account, e[t.symbol] = n, e;
-	}, {})), g = h.filter((t) => !(e.fundSymbols || []).includes(t.symbol)), _ = {
+	}, {})), v = _.filter((t) => !(e.fundSymbols || []).includes(t.symbol)), y = {
 		symbol: "CRM",
-		name: d.CRM || "CRM",
+		name: p.CRM || "CRM",
 		quantity: null,
 		account: "观察",
-		price: Number(p.CRM?.last_done) || void 0
+		price: Number(h.CRM?.last_done) || void 0
 	};
-	g.some((e) => e.symbol === "CRM") || g.push(_);
-	let v = (t) => {
+	v.some((e) => e.symbol === "CRM") || v.push(y);
+	let b = (t) => {
 		let n = e.sortResearch?.[t.symbol]?.[c];
 		if ([
 			"buy",
@@ -26094,10 +23627,10 @@ function av() {
 			if (!n || !Number.isFinite(n.value) || !n.asOf || !n.basis) return null;
 			if (c === "support") {
 				if (!t.price || n.value <= 0) return null;
-				let e = (t.price - n.value) / n.value * 100;
+				let e = (t.price - n.value) / t.price * 100;
 				return {
 					value: Math.abs(e),
-					label: `$${n.value.toFixed(2)} · ${e >= 0 ? "高于" : "低于"}支撑 ${Math.abs(e).toFixed(1)}% · ${n.asOf} · ${n.basis}`
+					label: `$${n.value.toFixed(2)} · ${e >= 0 ? "距观察位" : "已跌破观察位"} ${Math.abs(e).toFixed(1)}% · ${n.asOf} · ${n.basis}`
 				};
 			}
 			return {
@@ -26131,7 +23664,7 @@ function av() {
 			};
 		}
 		return null;
-	}, y = [
+	}, x = [
 		"buy",
 		"add",
 		"risk",
@@ -26139,11 +23672,14 @@ function av() {
 		"drawdown",
 		"pnl"
 	];
-	c === "rank" ? g.sort((t, n) => (e.comparison?.[t.symbol]?.rank || 999) - (e.comparison?.[n.symbol]?.rank || 999)) : c === "value" ? g.sort((e, t) => (t.price || 0) * (t.quantity || 0) - (e.price || 0) * (e.quantity || 0)) : y.includes(c) ? g.sort((e, t) => {
-		let n = v(e), r = v(t);
+	c === "rank" ? v.sort((t, n) => (e.comparison?.[t.symbol]?.rank || 999) - (e.comparison?.[n.symbol]?.rank || 999)) : c === "value" ? v.sort((e, t) => {
+		let n = e.price && e.quantity !== null ? e.price * e.quantity : null, r = t.price && t.quantity !== null ? t.price * t.quantity : null;
+		return n === null ? r === null ? 0 : 1 : r === null ? -1 : r - n;
+	}) : x.includes(c) ? v.sort((e, t) => {
+		let n = b(e), r = b(t);
 		return !n && !r ? e.name.localeCompare(t.name, "zh") : n ? r ? c === "pnl" ? r.value - n.value : n.value - r.value : -1 : 1;
-	}) : g.sort((e, t) => e.name.localeCompare(t.name, "zh"));
-	let b = g.some((e) => e.symbol === o) || o === "CRM" ? o : g[0]?.symbol || "CRM", x = e.history[b] || [], S = p[b], C = e.valuationData?.[b], w = (e) => C?.cash?.fields.find((t) => t.field === e)?.value, T = e.financialReports?.[b], E = (e) => T?.indicators.find((t) => t.field_name === e), O = x.slice(-20), k = O.length >= 20 ? Math.min(...O.map((e) => e[3])) : null, A = O.length >= 20 ? Math.max(...O.map((e) => e[2])) : null, j = e.ibkrBalances.balances.find((e) => e.currency === "USD");
+	}) : v.sort((e, t) => e.name.localeCompare(t.name, "zh"));
+	let S = v.some((e) => e.symbol === o) || o === "CRM" ? o : v[0]?.symbol || "CRM", C = e.history[S] || [], w = h[S], T = e.valuationData?.[S], E = (e) => T?.cash?.fields.find((t) => t.field === e)?.value, O = e.financialReports?.[S], k = (e) => O?.indicators.find((t) => t.field_name === e), A = C.slice(-20), j = A.length >= 20 ? Math.min(...A.map((e) => e[3])) : null, M = A.length >= 20 ? Math.max(...A.map((e) => e[2])) : null, N = e.ibkrBalances.balances.find((e) => e.currency === "USD");
 	return /* @__PURE__ */ (0, K.jsxs)("main", {
 		className: "us-main",
 		children: [
@@ -26157,35 +23693,123 @@ function av() {
 				children: "持仓、风险与研究线索 · 不含未确认账户"
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("div", {
-				className: "us-note",
+				className: "data-status",
+				"aria-label": "数据状态",
 				children: [
-					e.coverage,
-					" 账户读取日期 ",
-					e.asOf,
-					"；报价以详情列示的美东时间及阶段为准；历史日线截至 ",
-					e.historyAsOf,
-					" 收盘。数据按收盘后计划更新，非实时行情。"
+					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "行情" }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: "逐只标注" }),
+						/* @__PURE__ */ (0, K.jsx)("span", { children: "非实时 · 详情见个股" })
+					] }),
+					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "持仓" }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: e.asOf || "待核验" }),
+						/* @__PURE__ */ (0, K.jsx)("span", { children: "部分账户待确认" })
+					] }),
+					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "K 线 / 成交" }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: e.chartHistoryAsOf || e.historyAsOf || "待核验" }),
+						/* @__PURE__ */ (0, K.jsx)("span", { children: "成交覆盖不完整" })
+					] }),
+					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "研究排行" }),
+						/* @__PURE__ */ (0, K.jsx)("b", { children: e.rankAsOf || "待核验" }),
+						/* @__PURE__ */ (0, K.jsx)("span", { children: e.rankStatus === "complete" ? "已复核" : "部分复核" })
+					] })
 				]
 			}),
-			/* @__PURE__ */ (0, K.jsxs)("section", {
-				className: "us-panel",
+			/* @__PURE__ */ (0, K.jsxs)("details", {
+				className: "compact-details",
 				children: [
-					/* @__PURE__ */ (0, K.jsx)("h2", { children: "组合概览" }),
-					/* @__PURE__ */ (0, K.jsxs)("p", { children: [
-						"盈透美元现金：",
-						j ? `$${Number(j.cash_balance).toFixed(2)}` : "未取得",
-						"。现金为负时需核对融资；未覆盖所有账户，不能推算全资产现金比例。"
-					] }),
-					/* @__PURE__ */ (0, K.jsx)("p", {
-						className: "us-muted",
-						children: "持仓覆盖和确认时间以报告说明为准；观察标的不计入持仓。"
+					/* @__PURE__ */ (0, K.jsx)("summary", { children: "数据来源与更新状态" }),
+					/* @__PURE__ */ (0, K.jsx)("p", { children: e.coverage }),
+					/* @__PURE__ */ (0, K.jsx)("p", { children: "行情、持仓、成交和研究独立更新；上次自动运行状态未在页面提供，不能据此判断更新成功。" })
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsxs)("nav", {
+				className: "us-quick",
+				"aria-label": "页面导航",
+				children: [
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						href: "#portfolio",
+						children: "组合"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						href: "#stock-ranking",
+						children: "排行"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						href: "#stock-detail",
+						children: "个股"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						href: "#funds",
+						children: "基金"
+					}),
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						href: "#events",
+						children: "事件"
 					})
 				]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "us-panel",
+				id: "portfolio",
 				children: [
-					/* @__PURE__ */ (0, K.jsx)("h2", { children: "重大变化检查" }),
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "us-heading",
+						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("h2", { children: "组合概览" }), /* @__PURE__ */ (0, K.jsx)("p", {
+							className: "us-muted",
+							children: "账户信息未完整覆盖，全资产现金比例待核验。"
+						})] }), /* @__PURE__ */ (0, K.jsx)("span", {
+							className: "status-pill",
+							children: "部分覆盖"
+						})]
+					}),
+					/* @__PURE__ */ (0, K.jsxs)("div", {
+						className: "summary-grid",
+						children: [
+							/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+								/* @__PURE__ */ (0, K.jsxs)("small", { children: ["盈透美元现金 · ", e.asOf] }),
+								/* @__PURE__ */ (0, K.jsx)("strong", { children: N ? `$${Number(N.cash_balance).toFixed(2)}` : "待核验" }),
+								/* @__PURE__ */ (0, K.jsx)("span", { children: N && Number(N.cash_balance) < 0 ? "现金为负，需核对融资" : "以账户实际状态为准" })
+							] }),
+							/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+								/* @__PURE__ */ (0, K.jsx)("small", { children: "账户覆盖" }),
+								/* @__PURE__ */ (0, K.jsx)("strong", { children: "见账户说明" }),
+								/* @__PURE__ */ (0, K.jsx)("span", { children: "富途、BBAE 沿用历史确认" })
+							] }),
+							/* @__PURE__ */ (0, K.jsxs)("div", { children: [
+								/* @__PURE__ */ (0, K.jsx)("small", { children: "现金目标" }),
+								/* @__PURE__ */ (0, K.jsx)("strong", { children: "待核验" }),
+								/* @__PURE__ */ (0, K.jsx)("span", { children: "无法确认是否达到 20%" })
+							] })
+						]
+					}),
+					/* @__PURE__ */ (0, K.jsxs)("details", {
+						className: "compact-details",
+						children: [
+							/* @__PURE__ */ (0, K.jsx)("summary", { children: "查看账户覆盖" }),
+							/* @__PURE__ */ (0, K.jsxs)("p", { children: [
+								"盈透、长桥：报告所载连接账户的只读快照，日期 ",
+								e.asOf,
+								"；完整账户覆盖未核实。"
+							] }),
+							/* @__PURE__ */ (0, K.jsx)("p", { children: "富途、BBAE：沿用历史确认，现金与融资未完整读取；PATH 数量未知。未确认项目不计为零。" })
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, K.jsx)("section", {
+				className: "us-panel event-panel",
+				id: "events",
+				children: /* @__PURE__ */ (0, K.jsxs)("details", { children: [
+					/* @__PURE__ */ (0, K.jsxs)("summary", { children: [/* @__PURE__ */ (0, K.jsx)("span", { children: "重大变化检查" }), /* @__PURE__ */ (0, K.jsxs)("small", { children: [
+						e.reviewStatus?.status === "complete" ? "已检查" : "部分复核",
+						" · ",
+						e.reviewStatus?.events?.length || 0,
+						" 条线索"
+					] })] }),
 					/* @__PURE__ */ (0, K.jsx)("p", {
 						className: "us-muted",
 						children: e.reviewStatus?.checkedAt ? `上次检查：${e.reviewStatus.checkedAt} · ${e.reviewStatus.status === "complete" ? "已完成" : e.reviewStatus.status === "partial" ? "部分完成" : "未完成"}` : "尚未完成新版事件检查，不能据此判断没有重大变化。"
@@ -26205,18 +23829,27 @@ function av() {
 							children: "查看来源 ↗"
 						})
 					] }, `${e.symbol}-${t}`))
-				]
+				] })
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "us-panel",
+				id: "stock-ranking",
 				children: [
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-heading",
 						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 							/* @__PURE__ */ (0, K.jsx)("h2", { children: "股票持仓比较" }),
-							/* @__PURE__ */ (0, K.jsx)("p", {
+							/* @__PURE__ */ (0, K.jsxs)("p", {
 								className: "us-muted",
-								children: e.rankCoverage || "综合研究尚未完成，排序待复核。"
+								children: [
+									"研究排行：",
+									e.rankStatus === "complete" ? "已复核" : "部分复核",
+									" · 点击股票查看详情"
+								]
+							}),
+							/* @__PURE__ */ (0, K.jsxs)("details", {
+								className: "compact-details",
+								children: [/* @__PURE__ */ (0, K.jsx)("summary", { children: "查看排序依据与数据缺口" }), /* @__PURE__ */ (0, K.jsx)("p", { children: e.rankCoverage || "综合研究尚未完成，排序待复核。" })]
 							}),
 							/* @__PURE__ */ (0, K.jsxs)("p", {
 								className: "us-muted",
@@ -26266,12 +23899,26 @@ function av() {
 							]
 						})] })]
 					}),
-					y.includes(c) && /* @__PURE__ */ (0, K.jsx)("p", {
+					x.includes(c) && /* @__PURE__ */ (0, K.jsx)("p", {
 						className: "us-muted",
-						children: c === "drawdown" ? "按前复权日线的过去一年盘中最高价与截至日收盘价计算，回撤越深越靠前；数据不足一年则待核验。" : c === "pnl" ? "按已知账户成本加权计算，仅覆盖已核验成本的完整持仓，不含交易费用；未覆盖账户不参与。" : c === "support" ? "按最近20个已收盘交易日最低价与盘中参考价的距离排序；这只是潜在支撑观察位，并非已确认支撑或买入指令。" : c === "add" ? "这是现金与账户条件满足后的相对研究顺序，不代表当前适合加仓；盈透及长桥美元现金为负，其他账户现金未核实。" : c === "risk" ? "优先级越高越需要复核，既看经营和财务，也看已知集中度；不等同于卖出建议。" : "依据最近财报、估值参考与下行风险的主观比较；数据及估值口径仍有缺口，不能等同交易指令。"
+						children: c === "drawdown" ? "按前复权日线的过去一年盘中最高价与截至日收盘价计算，回撤越深越靠前；数据不足一年则待核验。" : c === "pnl" ? "按已知账户成本加权计算，仅覆盖已核验成本的完整持仓，费用及税务口径待核验；未覆盖账户不参与。" : c === "support" ? "前20个交易日最低价观察位；距离＝（参考价−观察位）÷参考价，跌破不等于卖出信号。" : c === "add" ? "这是现金与账户条件满足后的相对研究顺序，不代表当前适合加仓；盈透及长桥美元现金为负，其他账户现金未核实。" : c === "risk" ? "优先级越高越需要复核，既看经营和财务，也看已知集中度；不等同于卖出建议。" : "依据最近财报、估值参考与下行风险的主观比较；数据及估值口径仍有缺口，不能等同交易指令。"
 					}),
 					/* @__PURE__ */ (0, K.jsx)("div", {
-						className: "us-table-wrap",
+						className: "scope-tabs",
+						"aria-label": "持仓范围",
+						children: [
+							["holdings", "持仓"],
+							["watch", "观察"],
+							["all", "全部"]
+						].map(([e, t]) => /* @__PURE__ */ (0, K.jsx)("button", {
+							type: "button",
+							"aria-pressed": u === e,
+							onClick: () => d(e),
+							children: t
+						}, e))
+					}),
+					/* @__PURE__ */ (0, K.jsx)("div", {
+						className: "us-table-wrap ranking-table",
 						children: /* @__PURE__ */ (0, K.jsxs)("table", { children: [/* @__PURE__ */ (0, K.jsx)("thead", { children: /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "排名" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "股票" }),
@@ -26280,16 +23927,21 @@ function av() {
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "参考价" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "市值参考" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "研究建议" }),
-							y.includes(c) && /* @__PURE__ */ (0, K.jsx)("th", { children: "排序依据" })
-						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: g.map((t, n) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
-							/* @__PURE__ */ (0, K.jsx)("td", { children: c === "rank" ? e.comparison?.[t.symbol]?.rank || "—" : y.includes(c) ? v(t) ? [
+							x.includes(c) && /* @__PURE__ */ (0, K.jsx)("th", { children: "排序依据" })
+						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: v.filter((e) => u === "all" || (u === "watch" ? e.account === "观察" : e.account !== "观察")).map((t, n) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
+							/* @__PURE__ */ (0, K.jsx)("td", { children: c === "rank" ? e.comparison?.[t.symbol]?.rank || "—" : x.includes(c) ? b(t) ? [
 								"buy",
 								"add",
 								"risk"
 							].includes(c) ? e.sortResearch?.[t.symbol]?.[c]?.value : n + 1 : "—" : n + 1 }),
 							/* @__PURE__ */ (0, K.jsx)("td", { children: /* @__PURE__ */ (0, K.jsxs)("button", {
 								className: "us-link",
-								onClick: () => s(t.symbol),
+								onClick: () => {
+									s(t.symbol), document.getElementById("stock-detail")?.scrollIntoView({
+										behavior: "smooth",
+										block: "start"
+									});
+								},
 								children: [
 									t.name,
 									"（",
@@ -26302,19 +23954,32 @@ function av() {
 							/* @__PURE__ */ (0, K.jsx)("td", { children: t.price ? `$${t.price.toFixed(2)}` : "待核验" }),
 							/* @__PURE__ */ (0, K.jsx)("td", { children: t.price && t.quantity !== null ? `$${(t.price * t.quantity).toFixed(2)}` : t.account === "观察" ? "—" : "待核验" }),
 							/* @__PURE__ */ (0, K.jsx)("td", { children: e.comparison?.[t.symbol]?.action || "待复核" }),
-							y.includes(c) && /* @__PURE__ */ (0, K.jsxs)("td", { children: [v(t)?.label || "待核验", e.sortResearch?.[t.symbol]?.[c]?.url && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [" · ", /* @__PURE__ */ (0, K.jsx)("a", {
-								href: e.sortResearch[t.symbol][c].url,
-								target: "_blank",
-								rel: "noreferrer",
-								children: "资料来源 ↗"
-							})] })] })
+							x.includes(c) && /* @__PURE__ */ (0, K.jsx)("td", { children: b(t) ? /* @__PURE__ */ (0, K.jsxs)("details", {
+								className: "row-evidence",
+								children: [
+									/* @__PURE__ */ (0, K.jsx)("summary", { children: "查看依据" }),
+									/* @__PURE__ */ (0, K.jsx)("p", { children: b(t)?.label }),
+									e.sortResearch?.[t.symbol]?.[c]?.url && /* @__PURE__ */ (0, K.jsx)("a", {
+										href: e.sortResearch[t.symbol][c].url,
+										target: "_blank",
+										rel: "noreferrer",
+										children: "资料来源 ↗"
+									})
+								]
+							}) : "待核验" })
 						] }, t.symbol)) })] })
 					})
 				]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "us-panel",
+				id: "stock-detail",
 				children: [
+					/* @__PURE__ */ (0, K.jsx)("a", {
+						className: "us-back",
+						href: "#stock-ranking",
+						children: "← 返回排行"
+					}),
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-heading",
 						children: [/* @__PURE__ */ (0, K.jsxs)("div", { children: [
@@ -26323,22 +23988,22 @@ function av() {
 								children: "STOCK DETAIL"
 							}),
 							/* @__PURE__ */ (0, K.jsxs)("h2", { children: [
-								d[b] || b,
+								p[S] || S,
 								"（",
-								b,
+								S,
 								"）"
 							] }),
 							/* @__PURE__ */ (0, K.jsx)("p", {
 								className: "us-muted",
-								children: b === "CRM" ? "观察标的，非持仓" : "选择上方股票查看"
+								children: S === "CRM" ? "观察标的，非持仓" : "选择上方股票查看"
 							})
 						] }), /* @__PURE__ */ (0, K.jsxs)("label", { children: ["个股 ", /* @__PURE__ */ (0, K.jsx)("select", {
-							value: b,
+							value: S,
 							onChange: (e) => s(e.target.value),
-							children: g.map((e) => e.symbol).map((e) => /* @__PURE__ */ (0, K.jsxs)("option", {
+							children: v.map((e) => e.symbol).map((e) => /* @__PURE__ */ (0, K.jsxs)("option", {
 								value: e,
 								children: [
-									d[e] || e,
+									p[e] || e,
 									"（",
 									e,
 									"）"
@@ -26346,10 +24011,10 @@ function av() {
 							}, e))
 						})] })]
 					}),
-					/* @__PURE__ */ (0, K.jsxs)("p", { children: ["参考价：", S ? `$${Number(S.last_done).toFixed(2)} · ${S.timestamp}（美东，${S.session === "regular_close" ? "收盘" : "盘中"}）` : "待核验"] }),
+					/* @__PURE__ */ (0, K.jsxs)("p", { children: ["参考价：", w ? `$${Number(w.last_done).toFixed(2)} · ${w.timestamp}（美东，${w.session === "regular_close" ? "收盘" : "盘中"}）` : "待核验"] }),
 					/* @__PURE__ */ (0, K.jsx)(iv, {
-						symbol: b,
-						bars: e.chartHistory?.[b] || x,
+						symbol: S,
+						bars: e.chartHistory?.[S] || C,
 						trades: e.chartTrades || [],
 						asOf: e.chartHistoryAsOf || e.historyAsOf,
 						session: e.chartHistorySession,
@@ -26359,8 +24024,8 @@ function av() {
 					/* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-cards",
 						children: [
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最低价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: k === null ? "待核验" : `$${k.toFixed(2)}` })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最高价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: A === null ? "待核验" : `$${A.toFixed(2)}` })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最低价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: j === null ? "待核验" : `$${j.toFixed(2)}` })] }),
+							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "过去 20 个交易日最高价" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: M === null ? "待核验" : `$${M.toFixed(2)}` })] }),
 							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "估值情景" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: "待研究" })] })
 						]
 					}),
@@ -26372,24 +24037,24 @@ function av() {
 							"，是观察参考，不保证构成支撑或压力；盘中价格可能已突破。具体加减仓需要估值、账户风险与持仓数据共同验证。"
 						]
 					}),
-					e.valuationIssues?.[b] && /* @__PURE__ */ (0, K.jsxs)("div", {
+					e.valuationIssues?.[S] && /* @__PURE__ */ (0, K.jsxs)("div", {
 						className: "us-note",
-						children: [/* @__PURE__ */ (0, K.jsx)("b", { children: "估值数据待核验：" }), e.valuationIssues[b]]
+						children: [/* @__PURE__ */ (0, K.jsx)("b", { children: "估值数据待核验：" }), e.valuationIssues[S]]
 					}),
-					e.institution?.[b] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
+					e.institution?.[S] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
 						/* @__PURE__ */ (0, K.jsx)("h3", { children: "机构持仓线索" }),
-						/* @__PURE__ */ (0, K.jsx)("p", { children: e.institution[b].text }),
+						/* @__PURE__ */ (0, K.jsx)("p", { children: e.institution[S].text }),
 						/* @__PURE__ */ (0, K.jsx)("a", {
-							href: e.institution[b].url,
+							href: e.institution[S].url,
 							target: "_blank",
 							rel: "noreferrer",
 							children: "查看第三方申报整理 ↗"
 						})
 					] }),
-					e.comparison?.[b] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
+					e.comparison?.[S] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "us-note",
-							children: [/* @__PURE__ */ (0, K.jsxs)("b", { children: [e.comparison[b].action, "："] }), e.comparison[b].reason]
+							children: [/* @__PURE__ */ (0, K.jsxs)("b", { children: [e.comparison[S].action, "："] }), e.comparison[S].reason]
 						}),
 						/* @__PURE__ */ (0, K.jsx)("h3", { children: "经营与估值情景" }),
 						/* @__PURE__ */ (0, K.jsx)("p", {
@@ -26399,109 +24064,116 @@ function av() {
 						/* @__PURE__ */ (0, K.jsx)("div", {
 							className: "us-cards",
 							children: [
-								["保守", e.comparison[b].bear],
-								["基准", e.comparison[b].base],
-								["乐观", e.comparison[b].bull]
+								["保守", e.comparison[S].bear],
+								["基准", e.comparison[S].base],
+								["乐观", e.comparison[S].bull]
 							].map(([e, t]) => /* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: e }), /* @__PURE__ */ (0, K.jsx)("p", { children: t })] }, e))
 						})
 					] }),
-					/* @__PURE__ */ (0, K.jsx)("h3", { children: "估值与现金流参考" }),
-					/* @__PURE__ */ (0, K.jsxs)("p", {
-						className: "us-muted",
+					/* @__PURE__ */ (0, K.jsxs)("details", {
+						className: "research-details",
 						children: [
-							"估值数据日期：",
-							e.valuationAsOf || "2026-11-19（历史快照）",
-							"，不一定是当前估值。历史分位按最多 36 个逐月正市盈率样本计算，口径、利润变动及异常值会影响比较；不直接转成目标价。"
-						]
-					}),
-					C ? /* @__PURE__ */ (0, K.jsxs)("div", {
-						className: "us-cards",
-						children: [
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "收盘市盈率参考" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: C.pe !== null && C.pe > 0 ? `${C.pe.toFixed(1)} 倍` : "亏损或不适用" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: [
-								"历史中位数 · ",
-								C.historical?.count || 0,
-								" 个有效样本"
-							] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: C.historical ? `${C.historical.median.toFixed(1)} 倍` : "样本不足或不适用" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: ["最近财年经营现金流 · ", C.cash?.fp_end || "日期未知"] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: w("cash_oper") ? `$${(Number(w("cash_oper")) / 1e9).toFixed(2)} 十亿` : "待核验" })] })
-						]
-					}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "估值数据待核验。" }),
-					/* @__PURE__ */ (0, K.jsx)("p", {
-						className: "us-muted",
-						children: "历史估值与利润口径未全部逐项复核，部分接口存在冲突；经营现金流不等于自由现金流，未单独覆盖资本化软件或税收异常，不作为排序唯一依据。"
-					}),
-					w("stock_based_cf") && /* @__PURE__ */ (0, K.jsxs)("p", {
-						className: "us-muted",
-						children: [
-							"同财年现金流量表中的股权激励费用：$",
-							(Number(w("stock_based_cf")) / 1e9).toFixed(2),
-							" 十亿美元；它是非现金调整，不应简单视为当期现金支出，但需评估股本稀释与回购成本。"
-						]
-					}),
-					e.cashWarnings?.[b] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: e.cashWarnings[b].text }), /* @__PURE__ */ (0, K.jsx)("a", {
-						href: e.cashWarnings[b].url,
-						target: "_blank",
-						rel: "noreferrer",
-						children: "核对公司现金流披露 ↗"
-					})] }),
-					/* @__PURE__ */ (0, K.jsx)("h3", { children: "财报数据" }),
-					T ? /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsxs)("p", {
-						className: "us-muted",
-						children: [T.report_txt, " · 长桥财务摘要，部分为财年累计数据；以下为研究线索，重要指标须回查公司财报。"]
-					}), /* @__PURE__ */ (0, K.jsxs)("div", {
-						className: "us-cards",
-						children: [
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue") ? Number(E("operating_revenue").indicator_value).toLocaleString("en-US") : "待核验" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "净利润（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("net_profit") ? Number(E("net_profit").indicator_value).toLocaleString("en-US") : "待核验" })] }),
-							/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("operating_revenue")?.yoy ? tv(Number(E("operating_revenue").yoy) * 100) : "待核验" })] })
-						]
-					})] }) : /* @__PURE__ */ (0, K.jsx)("p", { children: "财报摘要待核验。" }),
-					/* @__PURE__ */ (0, K.jsx)("h3", { children: "历史估值、同行与事件复核" }),
-					e.audit?.[b] ? /* @__PURE__ */ (0, K.jsxs)("div", {
-						className: "us-note",
-						children: [
-							/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].history }),
-							e.audit[b].calc && /* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].calc }),
-							/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[b].peers }),
-							/* @__PURE__ */ (0, K.jsxs)("p", { children: [
-								e.audit[b].event,
-								" ",
-								e.audit[b].eventUrl && /* @__PURE__ */ (0, K.jsx)("a", {
-									href: e.audit[b].eventUrl,
-									target: "_blank",
-									rel: "noreferrer",
-									children: "查看披露 ↗"
-								})
-							] })
-						]
-					}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "逐项核验待完成。" }),
-					/* @__PURE__ */ (0, K.jsx)("h3", { children: "研究线索" }),
-					/* @__PURE__ */ (0, K.jsx)("p", { children: f[b]?.text || "当前尚未完成最新财报、历史估值及同行比较，暂不提供个股结论。" }),
-					f[b]?.url && /* @__PURE__ */ (0, K.jsx)("a", {
-						href: f[b].url,
-						target: "_blank",
-						rel: "noreferrer",
-						children: "查看公司财报 ↗"
-					}),
-					/* @__PURE__ */ (0, K.jsxs)("p", {
-						className: "us-muted",
-						children: [
-							"个股研究上次复核：",
-							e.researchAsOf?.[b] || (f[b] ? "2026-11-20（历史记录）" : "尚无研究记录"),
-							"；行情刷新不等同于重新研究。"
+							/* @__PURE__ */ (0, K.jsx)("summary", { children: "估值、财报与研究依据" }),
+							/* @__PURE__ */ (0, K.jsx)("h3", { children: "估值与现金流参考" }),
+							/* @__PURE__ */ (0, K.jsxs)("p", {
+								className: "us-muted",
+								children: [
+									"估值数据日期：",
+									e.valuationAsOf || "2026-11-19（历史快照）",
+									"，不一定是当前估值。历史分位按最多 36 个逐月正市盈率样本计算，口径、利润变动及异常值会影响比较；不直接转成目标价。"
+								]
+							}),
+							T ? /* @__PURE__ */ (0, K.jsxs)("div", {
+								className: "us-cards",
+								children: [
+									/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "收盘市盈率参考" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: T.pe !== null && T.pe > 0 ? `${T.pe.toFixed(1)} 倍` : "亏损或不适用" })] }),
+									/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: [
+										"历史中位数 · ",
+										T.historical?.count || 0,
+										" 个有效样本"
+									] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: T.historical ? `${T.historical.median.toFixed(1)} 倍` : "样本不足或不适用" })] }),
+									/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsxs)("small", { children: ["最近财年经营现金流 · ", T.cash?.fp_end || "日期未知"] }), /* @__PURE__ */ (0, K.jsx)("h3", { children: E("cash_oper") ? `$${(Number(E("cash_oper")) / 1e9).toFixed(2)} 十亿` : "待核验" })] })
+								]
+							}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "估值数据待核验。" }),
+							/* @__PURE__ */ (0, K.jsx)("p", {
+								className: "us-muted",
+								children: "历史估值与利润口径未全部逐项复核，部分接口存在冲突；经营现金流不等于自由现金流，未单独覆盖资本化软件或税收异常，不作为排序唯一依据。"
+							}),
+							E("stock_based_cf") && /* @__PURE__ */ (0, K.jsxs)("p", {
+								className: "us-muted",
+								children: [
+									"同财年现金流量表中的股权激励费用：$",
+									(Number(E("stock_based_cf")) / 1e9).toFixed(2),
+									" 十亿美元；它是非现金调整，不应简单视为当期现金支出，但需评估股本稀释与回购成本。"
+								]
+							}),
+							e.cashWarnings?.[S] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: e.cashWarnings[S].text }), /* @__PURE__ */ (0, K.jsx)("a", {
+								href: e.cashWarnings[S].url,
+								target: "_blank",
+								rel: "noreferrer",
+								children: "核对公司现金流披露 ↗"
+							})] }),
+							/* @__PURE__ */ (0, K.jsx)("h3", { children: "财报数据" }),
+							O ? /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsxs)("p", {
+								className: "us-muted",
+								children: [O.report_txt, " · 长桥财务摘要，部分为财年累计数据；以下为研究线索，重要指标须回查公司财报。"]
+							}), /* @__PURE__ */ (0, K.jsxs)("div", {
+								className: "us-cards",
+								children: [
+									/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: k("operating_revenue") ? Number(k("operating_revenue").indicator_value).toLocaleString("en-US") : "待核验" })] }),
+									/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "净利润（美元）" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: k("net_profit") ? Number(k("net_profit").indicator_value).toLocaleString("en-US") : "待核验" })] }),
+									/* @__PURE__ */ (0, K.jsxs)("article", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "营业收入同比" }), /* @__PURE__ */ (0, K.jsx)("h3", { children: k("operating_revenue")?.yoy ? tv(Number(k("operating_revenue").yoy) * 100) : "待核验" })] })
+								]
+							})] }) : /* @__PURE__ */ (0, K.jsx)("p", { children: "财报摘要待核验。" }),
+							/* @__PURE__ */ (0, K.jsx)("h3", { children: "历史估值、同行与事件复核" }),
+							e.audit?.[S] ? /* @__PURE__ */ (0, K.jsxs)("div", {
+								className: "us-note",
+								children: [
+									/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[S].history }),
+									e.audit[S].calc && /* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[S].calc }),
+									/* @__PURE__ */ (0, K.jsx)("p", { children: e.audit[S].peers }),
+									/* @__PURE__ */ (0, K.jsxs)("p", { children: [
+										e.audit[S].event,
+										" ",
+										e.audit[S].eventUrl && /* @__PURE__ */ (0, K.jsx)("a", {
+											href: e.audit[S].eventUrl,
+											target: "_blank",
+											rel: "noreferrer",
+											children: "查看披露 ↗"
+										})
+									] })
+								]
+							}) : /* @__PURE__ */ (0, K.jsx)("p", { children: "逐项核验待完成。" }),
+							/* @__PURE__ */ (0, K.jsx)("h3", { children: "研究线索" }),
+							/* @__PURE__ */ (0, K.jsx)("p", { children: m[S]?.text || "当前尚未完成最新财报、历史估值及同行比较，暂不提供个股结论。" }),
+							m[S]?.url && /* @__PURE__ */ (0, K.jsx)("a", {
+								href: m[S].url,
+								target: "_blank",
+								rel: "noreferrer",
+								children: "查看公司财报 ↗"
+							}),
+							/* @__PURE__ */ (0, K.jsxs)("p", {
+								className: "us-muted",
+								children: [
+									"个股研究上次复核：",
+									e.researchAsOf?.[S] || (m[S] ? "2026-11-20（历史记录）" : "尚无研究记录"),
+									"；行情刷新不等同于重新研究。"
+								]
+							})
 						]
 					})
 				]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("section", {
 				className: "us-panel",
+				id: "funds",
 				children: [
 					/* @__PURE__ */ (0, K.jsx)("h2", { children: "ETF 与杠杆工具" }),
 					/* @__PURE__ */ (0, K.jsx)("p", {
 						className: "us-muted",
 						children: "分开列示，不与普通股票做同一套持有价值排行；杠杆 ETF 有每日重置和路径风险。"
 					}),
-					h.filter((t) => (e.fundSymbols || []).includes(t.symbol)).map((e) => /* @__PURE__ */ (0, K.jsxs)("p", { children: [
+					_.filter((t) => (e.fundSymbols || []).includes(t.symbol)).map((e) => /* @__PURE__ */ (0, K.jsxs)("p", { children: [
 						e.name,
 						"（",
 						e.symbol,
@@ -26514,18 +24186,21 @@ function av() {
 					] }, e.symbol))
 				]
 			}),
-			/* @__PURE__ */ (0, K.jsxs)("section", {
+			/* @__PURE__ */ (0, K.jsx)("section", {
 				className: "us-panel",
-				children: [
-					/* @__PURE__ */ (0, K.jsx)("h2", { children: "机构持仓线索" }),
-					/* @__PURE__ */ (0, K.jsx)("p", { children: "13F 为季度末快照，不能代表机构实时交易。重要持仓变动需逐项核对 SEC 原始申报，不依据网站估算成本或收益直接交易。" }),
-					/* @__PURE__ */ (0, K.jsx)("a", {
-						href: "https://aiyuan.ai/gurus",
-						target: "_blank",
-						rel: "noreferrer",
-						children: "查看机构追踪资料 ↗"
-					})
-				]
+				children: /* @__PURE__ */ (0, K.jsxs)("details", {
+					className: "research-details",
+					children: [
+						/* @__PURE__ */ (0, K.jsx)("summary", { children: "机构持仓线索" }),
+						/* @__PURE__ */ (0, K.jsx)("p", { children: "13F 为季度末快照，不能代表机构实时交易。重要持仓变动需逐项核对 SEC 原始申报，不依据网站估算成本或收益直接交易。" }),
+						/* @__PURE__ */ (0, K.jsx)("a", {
+							href: "https://aiyuan.ai/gurus",
+							target: "_blank",
+							rel: "noreferrer",
+							children: "查看机构追踪资料 ↗"
+						})
+					]
+				})
 			})
 		]
 	});
