@@ -17468,7 +17468,7 @@ function sf({ brokerTrades: e, onChange: t }) {
 			] })] }),
 			/* @__PURE__ */ (0, K.jsx)("p", { children: "选择券商导出的 UTF-8 CSV，确认列对应关系后预览。记录只在此浏览器加密保存，不上传、不同步到其他设备；清除浏览器数据会丢失。" }),
 			/* @__PURE__ */ (0, K.jsxs)("p", { children: [
-				"仅导入已成交的美股记录。时间需包含时区，例如 ",
+				"仅导入已成交的美股记录；只有网站已有个股可在其图表中显示。时间需包含时区，例如 ",
 				/* @__PURE__ */ (0, K.jsx)("code", { children: "2026-11-27T10:30:00-05:00" }),
 				"；导出文件若不含时区，请先核对并补上。支持中英文列名，也可手动对应。原始券商格式和编码可能不同。"
 			] }),
@@ -26036,7 +26036,16 @@ function mv() {
 		]
 	});
 }
-function hv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, checkedAt: o }) {
+function hv(e) {
+	let t = new Intl.DateTimeFormat("en-US", {
+		timeZone: "America/New_York",
+		hour: "2-digit",
+		minute: "2-digit",
+		hourCycle: "h23"
+	}).formatToParts(new Date(e)), n = Number(t.find((e) => e.type === "hour")?.value), r = Number(t.find((e) => e.type === "minute")?.value), i = n * 60 + r;
+	return i < 570 ? "常规日盘前" : i >= 960 ? "常规日盘后" : i >= 780 ? "需核对提前收盘" : "常规时段参考";
+}
+function gv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, checkedAt: o }) {
 	let s = D.useRef(null), [c, l] = D.useState(90), [u, d] = D.useState(!1), [f, p] = D.useState("all"), [m, h] = D.useState("all"), [g, _] = D.useState(""), [v, y] = D.useState(null), b = D.useMemo(() => n.filter((t) => t.symbol === e && (f === "all" || t.source === f) && (m === "all" || t.side === m)).sort((e, t) => t.time.localeCompare(e.time)), [
 		n,
 		e,
@@ -26340,10 +26349,17 @@ function hv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "成交价" }),
 							/* @__PURE__ */ (0, K.jsx)("th", { children: "账户来源" })
 						] }) }), /* @__PURE__ */ (0, K.jsx)("tbody", { children: x.map((e) => /* @__PURE__ */ (0, K.jsxs)("tr", { children: [
-							/* @__PURE__ */ (0, K.jsx)("td", { children: new Date(e.time).toLocaleString("zh-CN", {
-								timeZone: "America/New_York",
-								hour12: !1
-							}) }),
+							/* @__PURE__ */ (0, K.jsxs)("td", { children: [
+								new Date(e.time).toLocaleString("zh-CN", {
+									timeZone: "America/New_York",
+									hour12: !1
+								}),
+								" ",
+								/* @__PURE__ */ (0, K.jsx)("small", {
+									className: "trade-time-hint",
+									children: hv(e.time)
+								})
+							] }),
 							/* @__PURE__ */ (0, K.jsx)("td", { children: /* @__PURE__ */ (0, K.jsx)("span", {
 								className: e.side === "BUY" ? "trade-buy" : "trade-sell",
 								children: e.side === "BUY" ? "买入" : "卖出"
@@ -26361,7 +26377,7 @@ function hv({ symbol: e, bars: t, trades: n, asOf: r, session: i, coverage: a, c
 		]
 	});
 }
-function gv() {
+function _v() {
 	let [e, t] = D.useState(), [n, r] = D.useState(""), [i, a] = D.useState(""), [o, s] = D.useState(""), [c, l] = D.useState("rank"), [u, d] = D.useState("holdings"), [f, p] = D.useState([]), m = D.useCallback(async (e) => {
 		try {
 			let n = e.trim();
@@ -26910,7 +26926,7 @@ function gv() {
 					}),
 					/* @__PURE__ */ (0, K.jsxs)("p", { children: ["参考价：", E ? `$${Number(E.last_done).toFixed(2)} · ${E.timestamp}（美东，${E.session === "regular_close" ? "收盘" : "盘中"}）` : "待核验"] }),
 					/* @__PURE__ */ (0, K.jsx)("div", { id: "trade-detail" }),
-					/* @__PURE__ */ (0, K.jsx)(hv, {
+					/* @__PURE__ */ (0, K.jsx)(gv, {
 						symbol: w,
 						bars: e.chartHistory?.[w] || T,
 						trades: [...e.chartTrades || [], ...f],
@@ -26949,15 +26965,13 @@ function gv() {
 							children: "查看第三方申报整理 ↗"
 						})
 					] }),
+					/* @__PURE__ */ (0, K.jsx)("div", { id: "valuation-detail" }),
 					e.comparison?.[w] && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "us-note",
 							children: [/* @__PURE__ */ (0, K.jsxs)("b", { children: [e.comparison[w].action, "："] }), e.comparison[w].reason]
 						}),
-						/* @__PURE__ */ (0, K.jsx)("h3", {
-							id: "valuation-detail",
-							children: "经营与估值情景"
-						}),
+						/* @__PURE__ */ (0, K.jsx)("h3", { children: "经营与估值情景" }),
 						/* @__PURE__ */ (0, K.jsx)("p", {
 							className: "us-muted",
 							children: "以下为条件性研究情景，并非目标价或收益预测。历史估值口径、增长和现金流尚须进一步复核；数值价格区间暂不发布。"
@@ -27155,12 +27169,12 @@ function gv() {
 		]
 	});
 }
-function _v({ holdings: e }) {
-	return e ? /* @__PURE__ */ (0, K.jsx)(gv, {}) : /* @__PURE__ */ (0, K.jsx)(mv, {});
+function vv({ holdings: e }) {
+	return e ? /* @__PURE__ */ (0, K.jsx)(_v, {}) : /* @__PURE__ */ (0, K.jsx)(mv, {});
 }
 // src/stock-detail.tsx
-var vv = (e) => e.toFixed(2), yv = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
-function bv({ stock: e, bars: t, days: n }) {
+var yv = (e) => e.toFixed(2), bv = (e) => (e >= 0 ? "+" : "") + e.toFixed(2) + "%";
+function xv({ stock: e, bars: t, days: n }) {
 	let r = D.useRef(null), i = D.useRef(null), [a, o] = D.useState(null);
 	D.useEffect(() => {
 		if (!r.current) return;
@@ -27262,10 +27276,10 @@ function bv({ stock: e, bars: t, days: n }) {
 			"aria-live": "off",
 			children: [
 				/* @__PURE__ */ (0, K.jsx)("span", { children: s[0] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: vv(s[1]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: vv(s[2]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: vv(s[3]) })] }),
-				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: vv(s[4]) })] })
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["开 ", /* @__PURE__ */ (0, K.jsx)("b", { children: yv(s[1]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["高 ", /* @__PURE__ */ (0, K.jsx)("b", { children: yv(s[2]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["低 ", /* @__PURE__ */ (0, K.jsx)("b", { children: yv(s[3]) })] }),
+				/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收 ", /* @__PURE__ */ (0, K.jsx)("b", { children: yv(s[4]) })] })
 			]
 		}),
 		/* @__PURE__ */ (0, K.jsx)("div", {
@@ -27303,12 +27317,12 @@ function bv({ stock: e, bars: t, days: n }) {
 		})
 	] });
 }
-function xv({ stock: e, snapshotDate: t, researchDate: n }) {
+function Sv({ stock: e, snapshotDate: t, researchDate: n }) {
 	let r = e.bookCases?.map((t) => ({
 		name: t.name,
 		low: e.bps * (t.bpsFactor ?? 1) * t.lo,
 		high: e.bps * (t.bpsFactor ?? 1) * t.hi,
-		formula: `每股净资产约 ${vv(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍（计算使用未取整数据）`,
+		formula: `每股净资产约 ${yv(e.bps)} 元 × ${((t.bpsFactor ?? 1) * 100).toFixed(0)}% × PB ${t.lo}–${t.hi} 倍（计算使用未取整数据）`,
 		basis: t.basis
 	})) ?? e.scenarios?.map(([t, n, r], i) => ({
 		name: [
@@ -27318,7 +27332,7 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 		][i],
 		low: t * n,
 		high: t * r,
-		formula: `EPS 约 ${vv(t)} 元 × PE ${n}–${r} 倍（计算使用未取整数据）`,
+		formula: `EPS 约 ${yv(t)} 元 × PE ${n}–${r} 倍（计算使用未取整数据）`,
 		basis: e.scenarioNotes?.[i] ?? ""
 	})) ?? [], i = Math.max(e.price, ...r.map((e) => e.high)) * 1.08;
 	return /* @__PURE__ */ (0, K.jsxs)("section", {
@@ -27357,7 +27371,7 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 				children: [
 					e.caseBasis,
 					" 以研究时每股净资产估算的快照 PB 约 ",
-					vv(e.price / e.bps),
+					yv(e.price / e.bps),
 					" 倍；净资产及股本时点见估值依据。"
 				]
 			}),
@@ -27380,11 +27394,11 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-case-price",
 							children: [
-								vv(n.low),
+								yv(n.low),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("span", { children: "—" }),
 								" ",
-								vv(n.high),
+								yv(n.high),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: "元" })
 							]
@@ -27395,9 +27409,9 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 								"相对 ",
 								t,
 								" 收盘价 ",
-								yv((n.low / e.price - 1) * 100),
+								bv((n.low / e.price - 1) * 100),
 								" ~ ",
-								yv((n.high / e.price - 1) * 100)
+								bv((n.high / e.price - 1) * 100)
 							]
 						}),
 						/* @__PURE__ */ (0, K.jsxs)("div", {
@@ -27407,7 +27421,7 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 								width: `${(n.high - n.low) / i * 100}%`
 							} }), /* @__PURE__ */ (0, K.jsx)("i", {
 								style: { left: `${e.price / i * 100}%` },
-								title: `收盘价 ${vv(e.price)} 元`
+								title: `收盘价 ${yv(e.price)} 元`
 							})]
 						}),
 						/* @__PURE__ */ (0, K.jsx)("p", { children: n.formula }),
@@ -27422,7 +27436,7 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 					/* @__PURE__ */ (0, K.jsxs)("span", { children: [
 						/* @__PURE__ */ (0, K.jsx)("b", {}),
 						" 收盘价 ",
-						vv(e.price),
+						yv(e.price),
 						" 元"
 					] }),
 					/* @__PURE__ */ (0, K.jsx)("span", { children: "竖线及区间使用同一比例尺" })
@@ -27437,20 +27451,20 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 						/* @__PURE__ */ (0, K.jsx)("p", { children: e.evidenceNote }),
 						/* @__PURE__ */ (0, K.jsxs)("p", { children: [
 							"近 20 日收盘区间 ",
-							vv(e.recent20[0]),
+							yv(e.recent20[0]),
 							"–",
-							vv(e.recent20[1]),
+							yv(e.recent20[1]),
 							" 元；近 60 日 ",
-							vv(e.recent60[0]),
+							yv(e.recent60[0]),
 							"–",
-							vv(e.recent60[1]),
+							yv(e.recent60[1]),
 							" 元。历史区间不是支撑或预测。"
 						] }),
 						e.bookCases && /* @__PURE__ */ (0, K.jsxs)(K.Fragment, { children: [/* @__PURE__ */ (0, K.jsx)("p", { children: "以上是静态压力测试，每股净资产调整幅度及 PB 均为根据历史、同行和经营状况设定的情景假设，不代表合理估值或发生概率。亏损、减值、分红和股本变化均会改变结果。" }), /* @__PURE__ */ (0, K.jsxs)("p", { children: [
 							"按当前快照估算市值 ",
-							vv(e.price * e.shareCapital / 1e8),
+							yv(e.price * e.shareCapital / 1e8),
 							" 亿元；按 20 倍市盈率反推需全年归母利润约 ",
-							vv(e.price * e.shareCapital / 1e8 / 20),
+							yv(e.price * e.shareCapital / 1e8 / 20),
 							" 亿元，并非利润预测。"
 						] })] })
 					]
@@ -27459,7 +27473,7 @@ function xv({ stock: e, snapshotDate: t, researchDate: n }) {
 		]
 	});
 }
-function Sv({ stock: e, snapshotDate: t }) {
+function Cv({ stock: e, snapshotDate: t }) {
 	let n = e.technical;
 	if (!n) return null;
 	let r = [
@@ -27521,7 +27535,7 @@ function Sv({ stock: e, snapshotDate: t }) {
 						/* @__PURE__ */ (0, K.jsxs)("div", {
 							className: "sd-level-number",
 							children: [
-								vv(t.value),
+								yv(t.value),
 								" ",
 								/* @__PURE__ */ (0, K.jsx)("small", { children: "元" })
 							]
@@ -27531,7 +27545,7 @@ function Sv({ stock: e, snapshotDate: t }) {
 							children: [
 								t.date,
 								" · 相对收盘 ",
-								yv((t.value / e.price - 1) * 100)
+								bv((t.value / e.price - 1) * 100)
 							]
 						})
 					]
@@ -27544,10 +27558,10 @@ function Sv({ stock: e, snapshotDate: t }) {
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "sd-indicators",
 				children: [
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: vv(n.ma20) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: vv(n.ma60) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: vv(n.vwapClose) })] }),
-					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [vv(n.volumeRatio), " 倍"] })] })
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: yv(n.ma20) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["60 日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: yv(n.ma60) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20 日量加权收盘均价 ", /* @__PURE__ */ (0, K.jsx)("b", { children: yv(n.vwapClose) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("span", { children: ["当日量 / 前20日均量 ", /* @__PURE__ */ (0, K.jsxs)("b", { children: [yv(n.volumeRatio), " 倍"] })] })
 				]
 			}),
 			/* @__PURE__ */ (0, K.jsxs)("p", {
@@ -27561,7 +27575,7 @@ function Sv({ stock: e, snapshotDate: t }) {
 		]
 	});
 }
-function Cv({ stock: e, bars: t, payload: n, onReady: r }) {
+function wv({ stock: e, bars: t, payload: n, onReady: r }) {
 	let [i, a] = D.useState("60");
 	D.useEffect(r, []);
 	let o = (e.price / e.prev - 1) * 100, s = [
@@ -27598,14 +27612,14 @@ function Cv({ stock: e, bars: t, payload: n, onReady: r }) {
 					children: [
 						/* @__PURE__ */ (0, K.jsxs)("small", { children: ["收盘价格 · ", n.snapshotDate] }),
 						/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-							/* @__PURE__ */ (0, K.jsx)("strong", { children: vv(e.price) }),
+							/* @__PURE__ */ (0, K.jsx)("strong", { children: yv(e.price) }),
 							/* @__PURE__ */ (0, K.jsx)("span", { children: " CNY" }),
 							/* @__PURE__ */ (0, K.jsxs)("b", {
 								className: o >= 0 ? "up" : "down",
 								children: [
 									o >= 0 ? /* @__PURE__ */ (0, K.jsx)(F, { size: 15 }) : /* @__PURE__ */ (0, K.jsx)(N, { size: 15 }),
 									" ",
-									yv(o)
+									bv(o)
 								]
 							})
 						] }),
@@ -27643,12 +27657,12 @@ function Cv({ stock: e, bars: t, payload: n, onReady: r }) {
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "所列 A 股证券占比" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : vv(e.weight) + "%" }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.weight === null ? "待核" : yv(e.weight) + "%" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "仅占所列证券，不含现金" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "持仓成本" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "分账户记录" : vv(e.cost) + " 元" }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: e.cost === null ? "分账户记录" : yv(e.cost) + " 元" }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "不影响持有价值排序" })
 					] })
 				]
@@ -27706,18 +27720,18 @@ function Cv({ stock: e, bars: t, payload: n, onReady: r }) {
 							}, e))
 						})
 					})]
-				}), /* @__PURE__ */ (0, K.jsx)(bv, {
+				}), /* @__PURE__ */ (0, K.jsx)(xv, {
 					stock: e,
 					bars: t,
 					days: Number(i)
 				})]
 			}),
-			/* @__PURE__ */ (0, K.jsx)(xv, {
+			/* @__PURE__ */ (0, K.jsx)(Sv, {
 				stock: e,
 				snapshotDate: n.snapshotDate,
 				researchDate: n.researchDate
 			}),
-			/* @__PURE__ */ (0, K.jsx)(Sv, {
+			/* @__PURE__ */ (0, K.jsx)(Cv, {
 				stock: e,
 				snapshotDate: n.snapshotDate
 			}),
@@ -27761,14 +27775,14 @@ function Cv({ stock: e, bars: t, payload: n, onReady: r }) {
 	});
 }
 // src/industry-charts.tsx
-var wv = [
+var Tv = [
 	"#37886a",
 	"#c9944a",
 	"#5086b0",
 	"#aa6d8a",
 	"#8879b1",
 	"#a7b5aa"
-], Tv = (e) => e.toLocaleString("zh-CN", { maximumFractionDigits: 2 }), Ev = (e) => (e > 0 ? "+" : "") + e.toFixed(1) + "%", Dv = {
+], Ev = (e) => e.toLocaleString("zh-CN", { maximumFractionDigits: 2 }), Dv = (e) => (e > 0 ? "+" : "") + e.toFixed(1) + "%", Ov = {
 	layout: {
 		background: {
 			type: sh.Solid,
@@ -27806,7 +27820,7 @@ var wv = [
 		pinch: !0,
 		axisPressedMouseMove: !0
 	}
-}, Ov = (e) => {
+}, kv = (e) => {
 	if (typeof e == "string") return e;
 	if (typeof e == "object" && e && "year" in e) {
 		let t = e;
@@ -27814,11 +27828,11 @@ var wv = [
 	}
 	return "";
 };
-function kv(e, t = 20) {
+function Av(e, t = 20) {
 	let n = 0;
 	return e.map(([r, i], a) => (n += i, a >= t && (n -= e[a - t][1]), [r, n / Math.min(t, a + 1)]));
 }
-function Av(e, t) {
+function jv(e, t) {
 	let n = -1, r = 0, i = new ResizeObserver((e) => {
 		let t = Math.round(e[0].contentRect.width);
 		t === n || t <= 0 || (n = t, cancelAnimationFrame(r), r = requestAnimationFrame(() => {}));
@@ -27827,7 +27841,7 @@ function Av(e, t) {
 		i.disconnect(), cancelAnimationFrame(r);
 	};
 }
-function jv() {
+function Mv() {
 	return /* @__PURE__ */ (0, K.jsx)("a", {
 		className: "ic-credit",
 		href: "https://www.tradingview.com/",
@@ -27836,7 +27850,7 @@ function jv() {
 		children: "TradingView Lightweight Charts™ · © 2025 TradingView, Inc. ↗"
 	});
 }
-function Mv({ value: e, onChange: t }) {
+function Nv({ value: e, onChange: t }) {
 	return /* @__PURE__ */ (0, K.jsx)("div", {
 		className: "ic-range",
 		role: "group",
@@ -27853,7 +27867,7 @@ function Mv({ value: e, onChange: t }) {
 		}, n))
 	});
 }
-function Nv({ selector: e, doc: t, series: n }) {
+function Pv({ selector: e, doc: t, series: n }) {
 	let [r, i] = D.useState(e.value), [a, o] = D.useState("");
 	D.useEffect(() => {
 		let t = () => i(e.value);
@@ -27919,25 +27933,25 @@ function Nv({ selector: e, doc: t, series: n }) {
 		})]
 	})] });
 }
-function Pv({ item: e, asOf: t }) {
-	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = D.useRef(null), c = n === "all" ? e.daily : e.daily.slice(-Number(n)), l = kv(e.daily).slice(-c.length);
+function Fv({ item: e, asOf: t }) {
+	let [n, r] = D.useState("all"), [i, a] = D.useState(null), o = D.useRef(null), s = D.useRef(null), c = n === "all" ? e.daily : e.daily.slice(-Number(n)), l = Av(e.daily).slice(-c.length);
 	D.useEffect(() => {
 		if (!o.current) return;
 		let e = E_(o.current, {
-			...Dv,
+			...Ov,
 			autoSize: !0,
 			height: 310
 		});
 		s.current = e;
 		let t = e.addSeries(V_, {
-			color: wv[0],
+			color: Tv[0],
 			lineWidth: 2,
 			lastValueVisible: !0,
 			priceLineVisible: !1,
 			title: "收盘",
 			crosshairMarkerVisible: !0
 		}), n = e.addSeries(V_, {
-			color: wv[1],
+			color: Tv[1],
 			lineWidth: 2,
 			lineStyle: xf.Dashed,
 			lastValueVisible: !1,
@@ -27956,8 +27970,8 @@ function Pv({ item: e, asOf: t }) {
 			value: t,
 			ma: l[n][1]
 		}]));
-		e.subscribeCrosshairMove((e) => a(r.get(Ov(e.time)) ?? null));
-		let i = Av(o.current, e);
+		e.subscribeCrosshairMove((e) => a(r.get(kv(e.time)) ?? null));
+		let i = jv(o.current, e);
 		return () => {
 			i(), s.current = null, e.remove();
 		};
@@ -27987,11 +28001,11 @@ function Pv({ item: e, asOf: t }) {
 						children: [
 							u.date,
 							" ",
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: Tv(u.value) })] }),
-							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: Tv(u.ma) })] })
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["收盘 ", /* @__PURE__ */ (0, K.jsx)("b", { children: Ev(u.value) })] }),
+							/* @__PURE__ */ (0, K.jsxs)("span", { children: ["20日均线 ", /* @__PURE__ */ (0, K.jsx)("b", { children: Ev(u.ma) })] })
 						]
 					})
-				] }), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)(Mv, {
+				] }), /* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)(Nv, {
 					value: n,
 					onChange: r
 				}), /* @__PURE__ */ (0, K.jsx)("button", {
@@ -28004,19 +28018,19 @@ function Pv({ item: e, asOf: t }) {
 			/* @__PURE__ */ (0, K.jsxs)("div", {
 				className: "ic-summary",
 				children: [
-					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "最新收盘" }), /* @__PURE__ */ (0, K.jsx)("strong", { children: Tv(e.current) })] }),
+					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "最新收盘" }), /* @__PURE__ */ (0, K.jsx)("strong", { children: Ev(e.current) })] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "一年最高收盘" }),
-						/* @__PURE__ */ (0, K.jsx)("strong", { children: Tv(e.high) }),
+						/* @__PURE__ */ (0, K.jsx)("strong", { children: Ev(e.high) }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: e.highDate })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "距一年高点" }), /* @__PURE__ */ (0, K.jsx)("strong", {
 						className: "ic-loss",
-						children: Ev(e.drawdown)
+						children: Dv(e.drawdown)
 					})] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [/* @__PURE__ */ (0, K.jsx)("small", { children: "一年涨跌" }), /* @__PURE__ */ (0, K.jsx)("strong", {
 						className: e.return1y >= 0 ? "ic-up" : "ic-loss",
-						children: Ev(e.return1y)
+						children: Dv(e.return1y)
 					})] })
 				]
 			}),
@@ -28031,29 +28045,29 @@ function Pv({ item: e, asOf: t }) {
 				children: [/* @__PURE__ */ (0, K.jsxs)("div", {
 					className: "ic-key",
 					children: [
-						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: wv[0] } }), "日收盘"] }),
-						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: wv[1] } }), "20日均线"] }),
+						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: Tv[0] } }), "日收盘"] }),
+						/* @__PURE__ */ (0, K.jsxs)("span", { children: [/* @__PURE__ */ (0, K.jsx)("i", { style: { background: Tv[1] } }), "20日均线"] }),
 						/* @__PURE__ */ (0, K.jsxs)("span", { children: ["拖动或缩放 · 数据截至 ", t] })
 					]
-				}), /* @__PURE__ */ (0, K.jsx)(jv, {})]
+				}), /* @__PURE__ */ (0, K.jsx)(Mv, {})]
 			})
 		]
 	});
 }
-function Fv({ group: e, items: t, benchmark: n, asOf: r }) {
+function Iv({ group: e, items: t, benchmark: n, asOf: r }) {
 	let [i, a] = D.useState([]), [o, s] = D.useState(null), c = D.useRef(null), l = D.useRef(null), u = D.useRef(null);
 	D.useEffect(() => {
 		if (!c.current) return;
 		let e = E_(c.current, {
-			...Dv,
+			...Ov,
 			autoSize: !0,
 			height: 220,
 			layout: {
-				...Dv.layout,
+				...Ov.layout,
 				fontSize: 10
 			},
 			rightPriceScale: {
-				...Dv.rightPriceScale,
+				...Ov.rightPriceScale,
 				scaleMargins: {
 					top: .12,
 					bottom: .1
@@ -28062,7 +28076,7 @@ function Fv({ group: e, items: t, benchmark: n, asOf: r }) {
 		}), r = [...t, n], a = r.map((t, n) => {
 			if (i.includes(t.name)) return null;
 			let r = e.addSeries(V_, {
-				color: wv[n],
+				color: Tv[n],
 				lineWidth: n === 5 ? 1 : 2,
 				lineStyle: n === 5 ? xf.Dashed : xf.Solid,
 				lastValueVisible: !1,
@@ -28082,7 +28096,7 @@ function Fv({ group: e, items: t, benchmark: n, asOf: r }) {
 		l.current = e, u.current ? e.timeScale().setVisibleLogicalRange(u.current) : e.timeScale().fitContent();
 		let o = r.map((e) => new Map(e.daily.map(([t, n]) => [t, n / e.daily[0][1] * 100])));
 		e.subscribeCrosshairMove((e) => {
-			let t = Ov(e.time);
+			let t = kv(e.time);
 			if (!t) {
 				s(null);
 				return;
@@ -28096,7 +28110,7 @@ function Fv({ group: e, items: t, benchmark: n, asOf: r }) {
 				values: n
 			});
 		});
-		let d = Av(c.current, e);
+		let d = jv(c.current, e);
 		return () => {
 			a.length, u.current = e.timeScale().getVisibleLogicalRange(), l.current = null, d(), e.remove();
 		};
@@ -28143,9 +28157,9 @@ function Fv({ group: e, items: t, benchmark: n, asOf: r }) {
 					"aria-pressed": !i.includes(e.name),
 					onClick: () => d(e.name),
 					children: [
-						/* @__PURE__ */ (0, K.jsx)("i", { style: { background: wv[t] } }),
+						/* @__PURE__ */ (0, K.jsx)("i", { style: { background: Tv[t] } }),
 						/* @__PURE__ */ (0, K.jsx)("span", { children: e.name }),
-						/* @__PURE__ */ (0, K.jsx)("b", { children: Ev(e.return1y) })
+						/* @__PURE__ */ (0, K.jsx)("b", { children: Dv(e.return1y) })
 					]
 				}, e.name))
 			}),
@@ -28155,13 +28169,13 @@ function Fv({ group: e, items: t, benchmark: n, asOf: r }) {
 					"图例涨跌为完整一年 · ",
 					r,
 					" 收盘"
-				] }), /* @__PURE__ */ (0, K.jsx)(jv, {})]
+				] }), /* @__PURE__ */ (0, K.jsx)(Mv, {})]
 			})
 		]
 	});
 }
-var Iv = "\n.ic-selector-root{width:100%;min-width:0}.ic-search{box-sizing:border-box;width:100%;height:36px;margin-bottom:6px;padding:0 11px;border:1px solid #d7e4db;border-radius:9px;color:#244b38;background:#fff;font:13px sans-serif}.ic-selector-option small{margin-left:auto;margin-right:8px;color:#90a495;font-size:10px}.ic-empty{padding:12px;color:#82988b}.ic-reset{display:block;margin:7px 0 0 auto;border:0;background:transparent;color:#56816a;font-size:11px;cursor:pointer}.ic-reset:hover{text-decoration:underline}.ic-jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.ic-jump a{padding:7px 11px;border:1px solid #dfeae0;border-radius:8px;color:#3d7354;text-decoration:none;font-size:12px}.drawdown-row[data-jump],#sector-table tbody tr[data-jump]{cursor:pointer}.drawdown-row[data-jump]:hover,#sector-table tbody tr[data-jump]:hover{background:#edf7ef}.drawdown-row[data-jump]:focus-visible,#sector-table tbody tr[data-jump]:focus-visible{outline:2px solid #398a61;outline-offset:-2px}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
-function Lv(e) {
+var Lv = "\n.ic-selector-root{width:100%;min-width:0}.ic-search{box-sizing:border-box;width:100%;height:36px;margin-bottom:6px;padding:0 11px;border:1px solid #d7e4db;border-radius:9px;color:#244b38;background:#fff;font:13px sans-serif}.ic-selector-option small{margin-left:auto;margin-right:8px;color:#90a495;font-size:10px}.ic-empty{padding:12px;color:#82988b}.ic-reset{display:block;margin:7px 0 0 auto;border:0;background:transparent;color:#56816a;font-size:11px;cursor:pointer}.ic-reset:hover{text-decoration:underline}.ic-jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.ic-jump a{padding:7px 11px;border:1px solid #dfeae0;border-radius:8px;color:#3d7354;text-decoration:none;font-size:12px}.drawdown-row[data-jump],#sector-table tbody tr[data-jump]{cursor:pointer}.drawdown-row[data-jump]:hover,#sector-table tbody tr[data-jump]:hover{background:#edf7ef}.drawdown-row[data-jump]:focus-visible,#sector-table tbody tr[data-jump]:focus-visible{outline:2px solid #398a61;outline-offset:-2px}.ic-selector-trigger{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid #d7e4db;border-radius:10px;background:#fff;color:#244b38;padding:0 12px;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;cursor:pointer;box-shadow:0 1px 2px #173c3008;transition:border-color .15s,box-shadow .15s,background .15s}.ic-selector-trigger:hover{border-color:#a9cfb6;background:#fbfdfb}.ic-selector-trigger:focus-visible,.ic-selector-trigger[data-popup-open]{outline:0;border-color:#54a979;box-shadow:0 0 0 3px #a7d9ba5c}.ic-selector-trigger svg{width:16px;height:16px;color:#6d8f7a;flex:none}.ic-selector-trigger [data-slot=select-value]{flex:1;text-align:left}.ic-selector-positioner{z-index:1000;isolation:isolate}.ic-selector-menu{box-sizing:border-box;z-index:1000;min-width:210px;width:var(--anchor-width);max-height:min(320px,calc(100vh - 32px));overflow-y:auto;padding:5px;background:#fff;color:#244235;border:1px solid #dce9df;border-radius:11px;box-shadow:0 14px 36px #193e2926;font:13px/1.4 -apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif;overscroll-behavior:contain}.ic-selector-option{position:relative;display:flex;align-items:center;min-height:36px;padding:7px 30px 7px 11px;border-radius:7px;outline:none;cursor:pointer;color:#466053;user-select:none}.ic-selector-option[data-highlighted],.ic-selector-option:focus{background:#eef7ef;color:#235d3d}.ic-selector-option[data-selected]{background:#edf7ef;color:#236440;font-weight:650}.ic-selector-option svg{position:absolute;right:10px;width:14px;height:14px;color:#39885c}.ic-selector-menu [data-slot=select-scroll-up-button],.ic-selector-menu [data-slot=select-scroll-down-button]{display:none}\n.ic-detail,.ic-group{color:#244235;font-family:-apple-system,BlinkMacSystemFont,\"PingFang SC\",sans-serif}.ic-detail *,.ic-group *{box-sizing:border-box}.ic-detail-head,.ic-group-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.ic-caption{font-size:10px;letter-spacing:.12em;font-weight:700;color:#91a99a}.ic-detail h3,.ic-group h3{margin:5px 0!important;font-size:19px!important;color:#244534}.ic-detail h3 span{font-size:12px;font-weight:500;color:#95a59b}.ic-selected{display:flex;flex-wrap:wrap;gap:6px 14px;color:#899d90;font-size:11px}.ic-selected b{font-variant-numeric:tabular-nums;color:#4c6959}.ic-range{display:flex;gap:2px;border-radius:9px;background:#eff4ef;padding:3px;white-space:nowrap}.ic-range button{border:0;background:transparent;border-radius:7px;color:#819388;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:600;line-height:1.2;cursor:pointer}.ic-range button[aria-pressed=true]{background:#fff;color:#28664a;box-shadow:0 1px 4px #163f221a}.ic-range button:focus-visible,.ic-legend button:focus-visible{outline:2px solid #398a61;outline-offset:2px}\n.ic-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:19px 0 8px;padding:14px 0;border-top:1px solid #eef2ee;border-bottom:1px solid #eef2ee}.ic-summary>div{padding:0 16px;border-right:1px solid #edf2ed;min-width:0}.ic-summary>div:first-child{padding-left:0}.ic-summary>div:last-child{border:0}.ic-summary small,.ic-summary span{display:block;color:#9aaba0;font-size:10px}.ic-summary strong{display:block;color:#294b39;font-size:18px;line-height:1.5;font-variant-numeric:tabular-nums}.ic-summary .ic-loss{color:#b16156}.ic-summary .ic-up{color:#387f5a}\n.ic-plot{height:310px;width:100%;min-width:0}.ic-footer,.ic-group-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#98a99d}.ic-key{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px}.ic-key span{white-space:nowrap}.ic-key i,.ic-legend i{display:inline-block;width:14px;height:3px;border-radius:3px;margin:0 6px 3px 0}.ic-credit{color:#91a69a!important;text-decoration:none;font-size:10px}.ic-credit:hover{text-decoration:underline}\n.trend-grid .ic-group{padding:18px!important;background:#fff!important;border:1px solid #e7eee7;border-radius:12px;min-width:0;overflow:hidden}.ic-group h3{font-size:16px!important}.ic-group-head p{margin:0;color:#92a497;font-size:11px}.ic-chip{border-radius:20px;padding:4px 9px;background:#f1f7f1;color:#71937c;font-size:10px;white-space:nowrap}.ic-group-readout{min-height:30px;display:flex;align-items:center;margin-top:9px;color:#92a397;font-size:10px;line-height:1.5}.ic-group-plot{height:220px;min-width:0;width:100%}.ic-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ic-legend button{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1px solid #e5eee6;background:#f8fbf8;border-radius:7px;padding:5px 7px;color:#587163;font-family:inherit;font-size:11px;font-weight:500;line-height:1.3;cursor:pointer}.ic-legend i{width:10px;height:3px;margin:0;flex:none}.ic-legend b{color:#617e6d;font-size:10px;font-variant-numeric:tabular-nums}.ic-legend button.is-muted{opacity:.43;background:#fff}.ic-group-foot{padding-top:10px;border-top:1px solid #f0f3f0}.trend-grid .ic-group::after,#detail-chart::after{content:none!important}#detail-chart{overflow:visible!important}#detail-chart .ic-detail svg,.trend-grid .ic-group svg{min-width:0!important;max-width:100%!important}\n@media(max-width:720px){.ic-detail-head{flex-wrap:wrap}.ic-range{width:100%;justify-content:space-between}.ic-range button{flex:1}.ic-summary{grid-template-columns:1fr 1fr;row-gap:12px}.ic-summary>div:nth-child(2){border-right:0}.ic-summary>div:nth-child(3){padding-left:0}.ic-summary strong{font-size:16px}.ic-plot{height:310px}.ic-group-plot{height:220px}.ic-group-readout{min-height:40px}.ic-legend button{padding:6px 7px}.trend-grid .ic-group{overflow:hidden!important}}\n";
+function Rv(e) {
 	let t = e.contentDocument;
 	if (!t) return;
 	let n = Array.from(t.querySelectorAll("script")).find((e) => e.textContent?.includes("const payload = "))?.textContent?.match(/const payload = (\{[^\n]*\});/);
@@ -28175,11 +28189,11 @@ function Lv(e) {
 	let i = t.querySelector("#sector-select"), a = t.querySelector("#detail-chart"), o = t.querySelector("#trend-grid"), s = r.series.find((e) => e.group === "基准");
 	if (!i || !a || !o || !s || !r.series.length) return;
 	let c = t.createElement("style");
-	c.textContent = Iv, t.head.append(c);
+	c.textContent = Lv, t.head.append(c);
 	let l;
 	function u() {
 		let e = r.series.find((e) => e.name === i.value);
-		e && (l?.unmount(), a.replaceChildren(), l = (0, fa.createRoot)(a), l.render(/* @__PURE__ */ (0, K.jsx)(Pv, {
+		e && (l?.unmount(), a.replaceChildren(), l = (0, fa.createRoot)(a), l.render(/* @__PURE__ */ (0, K.jsx)(Fv, {
 			item: e,
 			asOf: r.asOf
 		}, e.name)));
@@ -28188,7 +28202,7 @@ function Lv(e) {
 		e.stopImmediatePropagation(), u(), i.dispatchEvent(new Event("industry-selected"));
 	}, !0);
 	let d = t.createElement("div");
-	d.className = "ic-selector-root", i.after(d), (0, fa.createRoot)(d).render(/* @__PURE__ */ (0, K.jsx)(Nv, {
+	d.className = "ic-selector-root", i.after(d), (0, fa.createRoot)(d).render(/* @__PURE__ */ (0, K.jsx)(Pv, {
 		selector: i,
 		doc: t,
 		series: r.series
@@ -28228,7 +28242,7 @@ function Lv(e) {
 		"先进制造",
 		"消费医药",
 		"资源金融"
-	].map((e) => /* @__PURE__ */ (0, K.jsx)(Fv, {
+	].map((e) => /* @__PURE__ */ (0, K.jsx)(Iv, {
 		group: e,
 		items: r.series.filter((t) => t.group === e),
 		benchmark: s,
@@ -28243,11 +28257,11 @@ function Lv(e) {
 	}
 }
 // src/main.tsx
-var Rv = /\/us(?:\/|$)/.test(location.pathname), zv = /\/us\/holdings(?:\/|$)/.test(location.pathname), Bv = /\/mobile-holdings\.html$/.test(location.pathname), Vv = /\/h\/?$|\/mobile-holdings\.html$/.test(location.pathname);
-function Hv() {
-	let [e, t] = D.useState(Rv ? zv ? "us-holdings" : "us-industry" : Vv ? "holdings" : "industry");
+var zv = /\/us(?:\/|$)/.test(location.pathname), Bv = /\/us\/holdings(?:\/|$)/.test(location.pathname), Vv = /\/mobile-holdings\.html$/.test(location.pathname), Hv = /\/h\/?$|\/mobile-holdings\.html$/.test(location.pathname);
+function Uv() {
+	let [e, t] = D.useState(zv ? Bv ? "us-holdings" : "us-industry" : Hv ? "holdings" : "industry");
 	function n(n) {
-		let r = zv ? "../../" : Rv || Vv && !Bv ? "../" : "./", i = {
+		let r = Bv ? "../../" : zv || Hv && !Vv ? "../" : "./", i = {
 			industry: r + "#industry",
 			holdings: r + "h/",
 			"us-industry": r + "us/",
@@ -28262,7 +28276,7 @@ function Hv() {
 			children: [
 				/* @__PURE__ */ (0, K.jsxs)("a", {
 					className: "workspace-brand",
-					href: zv ? "../../#industry" : Rv || Vv && !Bv ? "../#industry" : "./#industry",
+					href: Bv ? "../../#industry" : zv || Hv && !Vv ? "../#industry" : "./#industry",
 					"aria-label": "投资观察首页",
 					children: [/* @__PURE__ */ (0, K.jsx)("span", {
 						className: "workspace-logo",
@@ -28309,12 +28323,12 @@ function Hv() {
 		})
 	});
 }
-var Uv = document.querySelector(".site-tabs");
-if (Uv) {
+var Wv = document.querySelector(".site-tabs");
+if (Wv) {
 	let e = document.createElement("div");
-	Uv.before(e), (0, fa.createRoot)(e).render(/* @__PURE__ */ (0, K.jsx)(Hv, {})), Uv.hidden = !0;
+	Wv.before(e), (0, fa.createRoot)(e).render(/* @__PURE__ */ (0, K.jsx)(Uv, {})), Wv.hidden = !0;
 }
-if (Vv) {
+if (Hv) {
 	let e = document.querySelector("#map-report"), t, n, r = () => {
 		n && !n.isConnected && (t?.unmount(), t = void 0, n = void 0);
 		let r = e?.querySelector("#map-stock-detail"), i = e?.querySelector("[data-stock-index][aria-pressed=\"true\"]"), a = document.querySelector("#holdings-map-data");
@@ -28322,7 +28336,7 @@ if (Vv) {
 			let e = JSON.parse(a.textContent || ""), o = e.stocks[Number(i.dataset.stockIndex)], s = e.history[o.symbol];
 			if (o && Array.isArray(s) && s.length) {
 				let i = Array.from(r.children), a = document.createElement("div");
-				a.className = "stock-workspace-mount", r.append(a), n = a, t = (0, fa.createRoot)(a), t.render(/* @__PURE__ */ (0, K.jsx)(Cv, {
+				a.className = "stock-workspace-mount", r.append(a), n = a, t = (0, fa.createRoot)(a), t.render(/* @__PURE__ */ (0, K.jsx)(wv, {
 					stock: o,
 					bars: s,
 					payload: e,
@@ -28372,12 +28386,12 @@ if (Vv) {
 		subtree: !0
 	}), r();
 }
-var Wv = document.querySelector("#chart-frame"), Gv = () => {
-	let e = Wv?.contentDocument;
+var Gv = document.querySelector("#chart-frame"), Kv = () => {
+	let e = Gv?.contentDocument;
 	if (!e?.head || e.getElementById("workspace-industry-theme")) return;
 	let t = e.createElement("style");
-	t.id = "workspace-industry-theme", t.textContent = ":root{--page:#f4f6f2;--ink:#1c3933;--line:#e1e9e3;--panel:#fff} .snapshot-card,.asof-card,.hero-panel,.section-block{box-shadow:0 4px 18px #173d2b08} .trend-grid section{background:#f8fbf8} .dashboard-header h1{color:#193d33}", e.head.append(t), Lv(Wv);
+	t.id = "workspace-industry-theme", t.textContent = ":root{--page:#f4f6f2;--ink:#1c3933;--line:#e1e9e3;--panel:#fff} .snapshot-card,.asof-card,.hero-panel,.section-block{box-shadow:0 4px 18px #173d2b08} .trend-grid section{background:#f8fbf8} .dashboard-header h1{color:#193d33}", e.head.append(t), Rv(Gv);
 };
-Wv?.addEventListener("load", Gv), Gv();
-var Kv = document.getElementById("us-app");
-Kv && (0, fa.createRoot)(Kv).render(/* @__PURE__ */ (0, K.jsx)(_v, { holdings: zv }));
+Gv?.addEventListener("load", Kv), Kv();
+var qv = document.getElementById("us-app");
+qv && (0, fa.createRoot)(qv).render(/* @__PURE__ */ (0, K.jsx)(vv, { holdings: Bv }));
