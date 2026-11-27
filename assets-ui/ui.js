@@ -25489,8 +25489,9 @@ function R_() {
 						/* @__PURE__ */ (0, K.jsxs)("p", {
 							className: "us-muted",
 							children: [
-								"排行上次完整复核：",
+								"排行复核日期：",
 								e.rankAsOf || "未完成",
+								e.rankStatus === "partial" ? "（部分复核，存在数据缺口）" : e.rankStatus === "complete" ? "（完整覆盖）" : "（历史记录）",
 								" · 每周复核；重大事件另行复核。行情与持仓更新不代表排行已复核。"
 							]
 						})
