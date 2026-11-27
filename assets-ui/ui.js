@@ -26210,9 +26210,9 @@ function av() {
 						/* @__PURE__ */ (0, K.jsx)("span", { children: "部分账户待确认" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, K.jsx)("small", { children: "K 线 / 成交" }),
+						/* @__PURE__ */ (0, K.jsx)("small", { children: "K 线" }),
 						/* @__PURE__ */ (0, K.jsx)("b", { children: e.chartHistoryAsOf || e.historyAsOf || "待核验" }),
-						/* @__PURE__ */ (0, K.jsx)("span", { children: "成交覆盖不完整" })
+						/* @__PURE__ */ (0, K.jsx)("span", { children: "成交覆盖见明细" })
 					] }),
 					/* @__PURE__ */ (0, K.jsxs)("div", { children: [
 						/* @__PURE__ */ (0, K.jsx)("small", { children: "研究排行" }),
@@ -26347,7 +26347,7 @@ function av() {
 								children: [
 									"研究排行：",
 									e.rankStatus === "complete" ? "已复核" : "部分复核",
-									" · 点击股票查看详情"
+									" · 研究名次含观察标的，筛选后可能不连续"
 								]
 							}),
 							/* @__PURE__ */ (0, K.jsxs)("details", {
